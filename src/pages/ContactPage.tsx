@@ -7,6 +7,7 @@ import { Mail, Phone, MapPin, Clock, MessageSquare, ShieldCheck } from 'lucide-r
 import { SEO } from '../components/common/SEO'
 import { Breadcrumbs } from '../components/common/Breadcrumbs'
 import { ContactForm } from '../components/forms/ContactForm'
+import { ScrollReveal } from '../components/common/ScrollReveal'
 import { siteConfig } from '../config/siteConfig'
 
 export function ContactPage() {
@@ -20,10 +21,10 @@ export function ContactPage() {
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <Breadcrumbs items={[{ label: 'Contact Us' }]} className="justify-center mb-6" />
 
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-800 mb-6">
             <span>Direct Channels</span>
           </span>
 
@@ -34,7 +35,7 @@ export function ContactPage() {
           <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed">
             Reach out for enterprise pricing, technical architecture inquiries, custom MCP tool integrations, or partnership opportunities.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Contact Content */}
@@ -42,7 +43,7 @@ export function ContactPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left Info Column */}
-            <div className="lg:col-span-5 space-y-8">
+            <ScrollReveal direction="left" className="lg:col-span-5 space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-slate-900">Communication Desks</h3>
                 <p className="mt-2 text-sm text-slate-600 leading-relaxed">
@@ -124,12 +125,12 @@ export function ContactPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Right Form Column */}
-            <div className="lg:col-span-7">
+            <ScrollReveal direction="right" delay={0.15} className="lg:col-span-7">
               <ContactForm />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>

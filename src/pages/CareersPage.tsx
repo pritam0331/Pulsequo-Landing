@@ -14,6 +14,7 @@ import {
 import { SEO } from '../components/common/SEO'
 import { Breadcrumbs } from '../components/common/Breadcrumbs'
 import { SectionHeading } from '../components/common/SectionHeading'
+import { ScrollReveal, StaggerItem } from '../components/common/ScrollReveal'
 
 export function CareersPage() {
   const openings = [
@@ -68,15 +69,15 @@ export function CareersPage() {
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <Breadcrumbs items={[{ label: 'Careers' }]} className="justify-center mb-6" />
 
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
             <Briefcase className="size-3.5 text-blue-600" />
             <span>Join Our Team</span>
           </span>
 
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-[-0.03em] leading-tight">
             Build the Future of Business Communications
           </h1>
 
@@ -84,7 +85,7 @@ export function CareersPage() {
             At PulseQuo, we are solving the complex engineering and design challenges of unifying multi-channel
             messaging, AI agents, and enterprise CRM into a seamless platform.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Culture & Values */}
@@ -97,35 +98,35 @@ export function CareersPage() {
           />
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="rounded-3xl border border-slate-200 p-8 shadow-xs">
-              <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-4">
+            <StaggerItem index={0} className="rounded-xl border border-slate-200/80 p-8 shadow-xs hover:border-blue-300 hover:shadow-md transition-all">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-blue-50 text-blue-600 mb-4">
                 <Sparkles className="size-6" />
               </div>
               <h3 className="text-lg font-bold text-slate-900">Craftsmanship First</h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                 We believe software should be fast, reliable, and beautifully designed down to the smallest detail.
               </p>
-            </div>
+            </StaggerItem>
 
-            <div className="rounded-3xl border border-slate-200 p-8 shadow-xs">
-              <div className="flex size-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-4">
+            <StaggerItem index={1} className="rounded-xl border border-slate-200/80 p-8 shadow-xs hover:border-indigo-300 hover:shadow-md transition-all">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 mb-4">
                 <Briefcase className="size-6" />
               </div>
               <h3 className="text-lg font-bold text-slate-900">High Autonomy & Ownership</h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                 Every team member has direct influence over architectural choices and customer-facing product outcomes.
               </p>
-            </div>
+            </StaggerItem>
 
-            <div className="rounded-3xl border border-slate-200 p-8 shadow-xs">
-              <div className="flex size-12 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 mb-4">
+            <StaggerItem index={2} className="rounded-xl border border-slate-200/80 p-8 shadow-xs hover:border-purple-300 hover:shadow-md transition-all">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-purple-50 text-purple-600 mb-4">
                 <GraduationCap className="size-6" />
               </div>
               <h3 className="text-lg font-bold text-slate-900">Mentorship & Acceleration</h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                 Whether joining as an engineer or an intern, you will work directly with experienced product builders.
               </p>
-            </div>
+            </StaggerItem>
           </div>
         </div>
       </section>
@@ -140,15 +141,16 @@ export function CareersPage() {
           />
 
           <div className="mt-12 space-y-8">
-            {openings.map((job) => (
-              <div
+            {openings.map((job, idx) => (
+              <StaggerItem
                 key={job.id}
-                className="rounded-3xl border border-slate-200/90 bg-white p-8 shadow-xs hover:border-blue-300 transition-all"
+                index={idx}
+                className="rounded-xl border border-slate-200/80 bg-white p-8 shadow-xs hover:border-blue-300 hover:shadow-md transition-all"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="rounded-full bg-blue-50 text-blue-700 px-3 py-0.5 text-xs font-semibold">
+                      <span className="rounded-md bg-blue-50 text-blue-700 px-3 py-0.5 text-xs font-semibold">
                         {job.department}
                       </span>
                       <span className="text-xs text-slate-400">· {job.type}</span>
@@ -162,7 +164,7 @@ export function CareersPage() {
 
                   <a
                     href={`mailto:careers@pulsequo.com?subject=Application for ${encodeURIComponent(job.title)}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-6 py-3 text-sm font-semibold shadow-xs transition-all shrink-0"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-6 py-3 text-sm font-semibold shadow-xs transition-colors shrink-0"
                   >
                     <span>Apply for Role</span>
                     <ArrowRight className="size-4" />
@@ -196,12 +198,12 @@ export function CareersPage() {
                     </ul>
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
           </div>
 
           {/* General Application Banner */}
-          <div className="mt-12 rounded-2xl bg-blue-50/80 border border-blue-200/80 p-8 text-center max-w-2xl mx-auto">
+          <div className="mt-12 rounded-xl bg-blue-50/80 border border-blue-200/80 p-8 text-center max-w-2xl mx-auto">
             <h4 className="text-lg font-bold text-slate-900">Don't See the Right Fit?</h4>
             <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
               We are always excited to meet talented engineers, product designers, and technical writers. Send an open

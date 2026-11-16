@@ -30,10 +30,17 @@ import { ApiDocsPage } from '@/pages/developers/ApiDocsPage'
 import { WebhooksDocsPage } from '@/pages/developers/WebhooksDocsPage'
 import { BookDemoPage } from '@/pages/BookDemoPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
+import { RouteErrorBoundary } from '@/components/common/ErrorBoundary'
+import { TermsPage } from '@/pages/legal/TermsPage'
+import { PrivacyPage } from '@/pages/legal/PrivacyPage'
+import { TraiDltPolicyPage } from '@/pages/legal/TraiDltPolicyPage'
+import { TraiGuidelinesPage } from '@/pages/legal/TraiGuidelinesPage'
+import { SecurityGdprPage } from '@/pages/legal/SecurityGdprPage'
 
 const router = createBrowserRouter([
   {
     element: <MarketingLayout />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       { path: '/', element: <MarketingHomePage /> },
       // Product Detail Pages
@@ -65,6 +72,17 @@ const router = createBrowserRouter([
       { path: '/developers/webhooks', element: <WebhooksDocsPage /> },
       // Demo Conversion
       { path: '/book-demo', element: <BookDemoPage /> },
+      // Legal & Compliance Pages
+      { path: '/terms', element: <TermsPage /> },
+      { path: '/terms-of-service', element: <TermsPage /> },
+      { path: '/privacy', element: <PrivacyPage /> },
+      { path: '/privacy-policy', element: <PrivacyPage /> },
+      { path: '/trai-dlt-policy', element: <TraiDltPolicyPage /> },
+      { path: '/dlt-policy', element: <TraiDltPolicyPage /> },
+      { path: '/trai-guidelines', element: <TraiGuidelinesPage /> },
+      { path: '/guidelines/trai', element: <TraiGuidelinesPage /> },
+      { path: '/security-gdpr', element: <SecurityGdprPage /> },
+      { path: '/security', element: <SecurityGdprPage /> },
       // 404 Catch-All
       { path: '*', element: <NotFoundPage /> },
     ],

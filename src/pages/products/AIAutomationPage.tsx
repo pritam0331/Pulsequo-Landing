@@ -18,6 +18,7 @@ import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { SectionHeading } from '../../components/common/SectionHeading'
 import { CTASection } from '../../components/common/CTASection'
 import { FAQAccordion } from '../../components/common/FAQAccordion'
+import { ScrollReveal, StaggerItem } from '../../components/common/ScrollReveal'
 import { productsData } from '../../data/products'
 import { siteConfig } from '../../config/siteConfig'
 
@@ -44,17 +45,14 @@ export function AIAutomationPage() {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100/80 border border-purple-200 px-3.5 py-1 text-xs font-semibold text-purple-800 mb-6">
+            <ScrollReveal direction="up" className="lg:col-span-7">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-purple-100/80 border border-purple-200 px-3 py-1 text-xs font-semibold text-purple-800 mb-6">
                 <Sparkles className="size-3.5 text-purple-600" />
                 <span>Visual Flow Builder & Autonomous MCP Agents</span>
               </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
-                Make Your Business{' '}
-                <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 bg-clip-text text-transparent">
-                  Smarter with AI.
-                </span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.03em] leading-[1.08]">
+                Autonomous AI and visual flows engineered for scale.
               </h1>
 
               <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
@@ -63,20 +61,20 @@ export function AIAutomationPage() {
                 in verified enterprise documents with zero hallucination.
               </p>
 
-              <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+              <div className="mt-8 flex flex-col sm:flex-row items-center gap-3.5">
                 <Link
                   to="/book-demo?product=AI+%26+Automation"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 active:bg-purple-800 rounded-xl transition-all shadow-md shadow-purple-500/20"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 active:bg-purple-800 rounded-lg transition-colors shadow-sm"
                 >
                   <CalendarCheck className="size-4" />
-                  <span>Request AI Automation Demo</span>
+                  <span>Request AI automation demo</span>
                 </Link>
 
                 <a
                   href={siteConfig.appUrl}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors shadow-2xs"
                 >
-                  <span>Explore App</span>
+                  <span>Explore app</span>
                   <ArrowRight className="size-4" />
                 </a>
               </div>
@@ -95,11 +93,11 @@ export function AIAutomationPage() {
                   <span>RAG Document Grounding</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Visual Canvas Representation Card */}
-            <div className="lg:col-span-5">
-              <div className="rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-2xl">
+            <ScrollReveal direction="left" delay={0.2} className="lg:col-span-5">
+              <div className="rounded-3xl border border-slate-800/80 bg-[#020618] p-6 text-white shadow-2xl">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                   <div className="flex items-center gap-2">
                     <GitBranch className="size-4 text-purple-400" />
@@ -145,7 +143,7 @@ export function AIAutomationPage() {
                   <span className="text-purple-400 font-mono">Zero Code Needed</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -161,7 +159,7 @@ export function AIAutomationPage() {
 
           <div className="mt-16 space-y-16">
             {/* A. Visual Flow Builder */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 mb-4">
                   <Workflow className="size-6" />
@@ -199,10 +197,10 @@ export function AIAutomationPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* B. Autonomous AI Agents & MCP */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-4">
                   <Cpu className="size-6" />
@@ -241,10 +239,10 @@ export function AIAutomationPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* C. Lead Qualification & Event Automation */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-4">
                   <Sparkles className="size-6" />
@@ -282,7 +280,7 @@ export function AIAutomationPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -298,11 +296,15 @@ export function AIAutomationPage() {
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {product.benefits.map((benefit, i) => (
-              <div key={i} className="rounded-2xl bg-white border border-slate-200 p-6 shadow-xs">
+              <StaggerItem
+                key={i}
+                index={i}
+                className="rounded-2xl bg-white border border-slate-200/90 p-6 shadow-xs hover:border-purple-300 hover:shadow-md transition-all"
+              >
                 <CheckCircle2 className="size-6 text-purple-600 mb-4" />
                 <h4 className="text-base font-bold text-slate-900">{benefit.title}</h4>
                 <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">{benefit.description}</p>
-              </div>
+              </StaggerItem>
             ))}
           </div>
         </div>

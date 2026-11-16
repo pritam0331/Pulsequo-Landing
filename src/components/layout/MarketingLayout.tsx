@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router'
+import { motion, useScroll, useSpring } from 'motion/react'
 import { ArrowUp } from 'lucide-react'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
@@ -12,6 +13,14 @@ import { Footer } from './Footer'
 export function MarketingLayout() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const location = useLocation()
+
+  // Global smooth scroll progress bar across all routes
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  })
 
   // Scroll to top whenever route changes or hash changes
   useEffect(() => {
@@ -41,6 +50,12 @@ export function MarketingLayout() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 relative">
+      {/* Top Scroll Depth Progress Bar across all routes */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 origin-left z-50 pointer-events-none"
+        style={{ scaleX }}
+      />
+
       {/* Accessible skip link */}
       <a
         href="#main-content"

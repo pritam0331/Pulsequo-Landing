@@ -12,6 +12,7 @@ import { SEO } from '../components/common/SEO'
 import { Breadcrumbs } from '../components/common/Breadcrumbs'
 import { DemoRequestForm } from '../components/forms/DemoRequestForm'
 import type { DemoFormData } from '../services/demoService'
+import { ScrollReveal } from '../components/common/ScrollReveal'
 
 export function BookDemoPage() {
   const [searchParams] = useSearchParams()
@@ -28,9 +29,10 @@ export function BookDemoPage() {
       {/* Hero */}
       <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <Breadcrumbs items={[{ label: 'Book a Demo' }]} className="justify-center mb-6" />
+          <ScrollReveal direction="down" duration={0.4}>
+            <Breadcrumbs items={[{ label: 'Book a Demo' }]} className="justify-center mb-6" />
 
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-800 mb-6">
             <CalendarCheck className="size-3.5 text-blue-600" />
             <span>Interactive 30-Minute Walkthrough</span>
           </span>
@@ -43,6 +45,7 @@ export function BookDemoPage() {
             Discover how PulseQuo brings omnichannel messaging, deal pipelines, customer support ticketing, and AI
             automation together for your specific organization.
           </p>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -51,9 +54,11 @@ export function BookDemoPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left Column: What to Expect & Value Props */}
-            <div className="lg:col-span-5 space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold text-slate-900">What to Expect on Your Call</h3>
+            <div className="lg:col-span-5">
+              <ScrollReveal direction="left" delay={0.1}>
+                <div className="space-y-8">
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900">What to Expect on Your Call</h3>
                 <p className="mt-2 text-sm text-slate-600 leading-relaxed">
                   A personalized, technical session with an enterprise solutions architect. No generic slide decks.
                 </p>
@@ -117,11 +122,15 @@ export function BookDemoPage() {
                 </div>
               </div>
             </div>
+          </ScrollReveal>
+        </div>
 
-            {/* Right Column: Interactive Form */}
-            <div className="lg:col-span-7">
+          {/* Right Column: Interactive Form */}
+          <div className="lg:col-span-7">
+            <ScrollReveal direction="right" delay={0.15}>
               <DemoRequestForm initialProductInterest={productParam || 'Complete PulseQuo Platform'} />
-            </div>
+            </ScrollReveal>
+          </div>
           </div>
         </div>
       </section>

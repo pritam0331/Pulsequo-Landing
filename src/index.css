@@ -4,22 +4,49 @@
   --font-sans: "Plus Jakarta Sans", "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* PulseQuo Brand Palette */
+  /* Core 3-Color Palette Hierarchy */
+  --color-pq-primary: #ffffff;
+  --color-pq-secondary: #155dfc;
+  --color-pq-midnight: #020618;
+  --color-pq-dark: #020618;
+
+  /* Core 3-Color Palette Hierarchy */
+  --color-pq-primary: #ffffff;
+  --color-pq-secondary: #155dfc;
+  --color-pq-midnight: #020618;
+  --color-pq-dark: #020618;
+
+  /* Layer 1: Primitive Color Tokens */
   --color-pq-navy: #070d1e;
   --color-pq-navy-light: #0f1a36;
   --color-pq-navy-card: #142247;
-  --color-pq-blue: #2563eb;
-  --color-pq-blue-electric: #0066ff;
+  --color-pq-blue: #155dfc;
+  --color-pq-blue-electric: #155dfc;
+  --color-pq-blue-hover: #0d47d1;
   --color-pq-purple: #7c3aed;
   --color-pq-violet: #8b5cf6;
   --color-pq-cyan: #06b6d4;
+  --color-pq-emerald: #10b981;
+  --color-pq-amber: #f59e0b;
   --color-pq-slate: #f8fafc;
   --color-pq-charcoal: #0f172a;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  /* Layer 2: Semantic Radius Tokens */
+  --radius-2xs: 2px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+
+  /* Layer 3: Component Token Aliases */
+  --radius-badge: var(--radius-sm);
+  --radius-button: var(--radius-md);
+  --radius-card: var(--radius-lg);
+  --radius-modal: var(--radius-xl);
+  --radius-container: var(--radius-2xl);
 }
 
 @layer base {
@@ -46,7 +73,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid #2563eb;
+    outline: 2px solid #155dfc;
     outline-offset: 2px;
   }
 

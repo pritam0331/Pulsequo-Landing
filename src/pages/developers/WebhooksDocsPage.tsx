@@ -8,6 +8,7 @@ import { SEO } from '../../components/common/SEO'
 import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { SectionHeading } from '../../components/common/SectionHeading'
 import { CTASection } from '../../components/common/CTASection'
+import { ScrollReveal, StaggerItem } from '../../components/common/ScrollReveal'
 
 export function WebhooksDocsPage() {
 
@@ -82,51 +83,55 @@ export function WebhooksDocsPage() {
       {/* Hero */}
       <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <Breadcrumbs
-            items={[
-              { label: 'Developers', href: '/developers' },
-              { label: 'Webhooks' },
-            ]}
-            className="justify-center mb-6"
-          />
+          <ScrollReveal direction="down" duration={0.4}>
+            <Breadcrumbs
+              items={[
+                { label: 'Developers', href: '/developers' },
+                { label: 'Webhooks' },
+              ]}
+              className="justify-center mb-6"
+            />
 
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100/80 border border-emerald-200 px-3.5 py-1 text-xs font-semibold text-emerald-800 mb-6">
-            <Webhook className="size-3.5 text-emerald-600" />
-            <span>Event-Driven Architecture</span>
-          </span>
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-emerald-100/80 border border-emerald-200 px-3.5 py-1 text-xs font-semibold text-emerald-800 mb-6">
+              <Webhook className="size-3.5 text-emerald-600" />
+              <span>Event-Driven Architecture</span>
+            </span>
 
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Real-Time Event Webhooks
-          </h1>
+            <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-[-0.03em] leading-tight">
+              Real-Time Event Webhooks
+            </h1>
 
-          <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Subscribe your external backend, CRM, or data warehouse to live customer interaction events with automatic
-            retry mechanisms and HMAC validation.
-          </p>
+            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed">
+              Subscribe your external backend, CRM, or data warehouse to live customer interaction events with automatic
+              retry mechanisms and HMAC validation.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Security & Verification */}
       <section className="py-16 bg-white border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8">
-            <div className="flex items-center gap-3">
-              <ShieldCheck className="size-6 text-emerald-600 shrink-0" />
-              <h3 className="text-lg font-bold text-slate-900">HMAC SHA-256 Signature Verification</h3>
-            </div>
-            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-              Every webhook dispatch includes the <code className="font-mono text-xs bg-slate-200 px-1.5 py-0.5 rounded">X-PulseQuo-Signature</code> HTTP header. To verify the payload was not intercepted or altered, compute the HMAC SHA-256 digest of the raw request body using your configured Webhook Secret.
-            </p>
-            <div className="mt-4 rounded-xl bg-slate-900 p-4 font-mono text-xs text-slate-200 overflow-x-auto">
-              <pre>{`// Node.js Express Verification Example
+          <ScrollReveal direction="up" delay={0.1}>
+            <div className="rounded-xl border border-slate-200/80 bg-slate-50 p-8 shadow-xs">
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="size-6 text-emerald-600 shrink-0" />
+                <h3 className="text-lg font-bold text-slate-900">HMAC SHA-256 Signature Verification</h3>
+              </div>
+              <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                Every webhook dispatch includes the <code className="font-mono text-xs bg-slate-200 px-1.5 py-0.5 rounded">X-PulseQuo-Signature</code> HTTP header. To verify the payload was not intercepted or altered, compute the HMAC SHA-256 digest of the raw request body using your configured Webhook Secret.
+              </p>
+              <div className="mt-4 rounded-lg bg-[#020618] border border-slate-800 p-4 font-mono text-xs text-slate-200 overflow-x-auto shadow-inner">
+                <pre>{`// Node.js Express Verification Example
 const crypto = require('crypto');
 const signature = req.headers['x-pulsequo-signature'];
 const expected = crypto.createHmac('sha256', process.env.PULSEQUO_WEBHOOK_SECRET)
                        .update(JSON.stringify(req.body))
                        .digest('hex');
 const isAuthentic = crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));`}</pre>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -140,24 +145,26 @@ const isAuthentic = crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(e
           />
 
           <div className="space-y-8 mt-12">
-            {events.map((evt) => (
-              <div key={evt.event} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xs">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                  <span className="font-mono text-base font-bold text-blue-600">{evt.event}</span>
-                  <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs text-slate-600 font-mono">
-                    JSON POST
-                  </span>
-                </div>
+            {events.map((evt, idx) => (
+              <StaggerItem key={evt.event} index={idx} hoverElevation>
+                <div className="rounded-xl border border-slate-200/80 bg-white p-8 shadow-xs hover:border-blue-200 transition-colors">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <span className="font-mono text-base font-bold text-blue-600">{evt.event}</span>
+                    <span className="rounded-md bg-slate-100 px-2.5 py-0.5 text-xs text-slate-600 font-mono">
+                      JSON POST
+                    </span>
+                  </div>
 
-                <p className="mt-3 text-sm text-slate-600">{evt.description}</p>
+                  <p className="mt-3 text-sm text-slate-600">{evt.description}</p>
 
-                <div className="mt-4">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Example Payload</h4>
-                  <div className="rounded-2xl bg-slate-950 p-4 font-mono text-xs text-slate-200 overflow-x-auto">
-                    <pre>{JSON.stringify(evt.payload, null, 2)}</pre>
+                  <div className="mt-4">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Example Payload</h4>
+                    <div className="rounded-lg bg-[#020618] border border-slate-800 p-4 font-mono text-xs text-slate-200 overflow-x-auto">
+                      <pre>{JSON.stringify(evt.payload, null, 2)}</pre>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
           </div>
         </div>

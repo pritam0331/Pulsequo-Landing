@@ -21,13 +21,11 @@ import {
   BookOpen,
   Code2,
   Webhook,
-  LogIn,
   CalendarCheck,
   Zap,
   Globe2,
 } from 'lucide-react'
 import { Logo } from './Logo'
-import { siteConfig } from '../../config/siteConfig'
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -84,27 +82,6 @@ export function Navbar() {
 
   return (
     <>
-      {/* Top Announcement Bar */}
-      <div className="relative z-50 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 text-white text-xs font-medium py-2 px-4 shadow-xs">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 mx-auto sm:mx-0 overflow-hidden text-ellipsis whitespace-nowrap">
-            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase">
-              <Zap className="size-3 text-amber-300" /> New Release
-            </span>
-            <span className="truncate">
-              Meta WhatsApp Cloud API v20 & Model Context Protocol (MCP) Live in PulseQuo
-            </span>
-          </div>
-          <Link
-            to="/products/ai-automation"
-            className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-blue-100 hover:text-white transition-colors group shrink-0"
-          >
-            <span>Explore Release</span>
-            <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-      </div>
-
       <header
         ref={navRef}
         className={`sticky top-0 z-40 w-full transition-all duration-300 ${
@@ -166,9 +143,6 @@ export function Navbar() {
                             <span className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                               Communication Cloud
                             </span>
-                            <span className="rounded-full bg-blue-100 text-blue-700 px-2 py-0.5 text-[10px] font-bold">
-                              CPaaS
-                            </span>
                           </div>
                           <p className="mt-0.5 text-xs text-slate-500 leading-relaxed">
                             Official WhatsApp Business API, SMS gateway, voice, and team inbox.
@@ -187,9 +161,6 @@ export function Navbar() {
                           <div className="flex items-center gap-2">
                             <span className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
                               Sales CRM
-                            </span>
-                            <span className="rounded-full bg-indigo-100 text-indigo-700 px-2 py-0.5 text-[10px] font-bold">
-                              Pipelines
                             </span>
                           </div>
                           <p className="mt-0.5 text-xs text-slate-500 leading-relaxed">
@@ -210,9 +181,6 @@ export function Navbar() {
                             <span className="text-sm font-bold text-slate-900 group-hover:text-violet-600 transition-colors">
                               Support CRM
                             </span>
-                            <span className="rounded-full bg-violet-100 text-violet-700 px-2 py-0.5 text-[10px] font-bold">
-                              SLA Desk
-                            </span>
                           </div>
                           <p className="mt-0.5 text-xs text-slate-500 leading-relaxed">
                             Omnichannel ticketing, SLA resolution countdowns, and automated routing.
@@ -231,9 +199,6 @@ export function Navbar() {
                           <div className="flex items-center gap-2">
                             <span className="text-sm font-bold text-slate-900 group-hover:text-purple-600 transition-colors">
                               AI & Automation
-                            </span>
-                            <span className="rounded-full bg-purple-100 text-purple-700 px-2 py-0.5 text-[10px] font-bold">
-                              MCP Tools
                             </span>
                           </div>
                           <p className="mt-0.5 text-xs text-slate-500 leading-relaxed">
@@ -474,29 +439,13 @@ export function Navbar() {
 
             {/* Desktop Action CTAs */}
             <div className="hidden lg:flex items-center gap-3">
-              <a
-                href={siteConfig.appUrl.startsWith('http') ? `${siteConfig.appUrl}/login` : '/login'}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
-              >
-                <LogIn className="size-4" />
-                <span>Login</span>
-              </a>
-
               <Link
                 to="/book-demo"
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-blue-700 bg-blue-50/80 hover:bg-blue-100 border border-blue-200/80 rounded-xl transition-all shadow-xs hover:shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-xs"
               >
-                <CalendarCheck className="size-4 text-blue-600" />
+                <CalendarCheck className="size-4" />
                 <span>Book a Demo</span>
               </Link>
-
-              <a
-                href={siteConfig.appUrl}
-                className="group inline-flex items-center gap-1.5 px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 rounded-xl transition-all shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5"
-              >
-                <span>Get Started Free</span>
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
             </div>
 
             {/* Mobile Actions: Demo Quick Button & Hamburger */}
@@ -533,7 +482,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
-                className="size-9 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200"
+                className="size-9 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition-colors"
               >
                 <X className="size-5" />
               </button>
@@ -723,31 +672,14 @@ export function Navbar() {
             </div>
 
             {/* Mobile Actions Footer */}
-            <div className="p-4 bg-slate-50 border-t border-slate-200/80 space-y-2.5">
-              <div className="grid grid-cols-2 gap-2">
-                <a
-                  href={siteConfig.appUrl.startsWith('http') ? `${siteConfig.appUrl}/login` : '/login'}
-                  className="flex items-center justify-center gap-1.5 py-3 rounded-xl border border-slate-300 font-semibold text-slate-700 bg-white shadow-xs text-xs"
-                >
-                  <LogIn className="size-4" />
-                  <span>Login</span>
-                </a>
-                <Link
-                  to="/book-demo"
-                  className="flex items-center justify-center gap-1.5 py-3 rounded-xl border border-blue-200 font-bold text-blue-700 bg-blue-50 text-xs"
-                >
-                  <CalendarCheck className="size-4" />
-                  <span>Book Demo</span>
-                </Link>
-              </div>
-
-              <a
-                href={siteConfig.appUrl}
-                className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 font-bold text-white text-sm shadow-md shadow-blue-500/25"
+            <div className="p-4 bg-slate-50 border-t border-slate-200/80">
+              <Link
+                to="/book-demo"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 font-bold text-white text-sm shadow-xs transition-colors"
               >
-                <span>Get Started Now</span>
-                <ArrowRight className="size-4" />
-              </a>
+                <CalendarCheck className="size-4" />
+                <span>Book a Demo</span>
+              </Link>
             </div>
           </div>
         </div>

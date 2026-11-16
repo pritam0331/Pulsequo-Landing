@@ -16,6 +16,7 @@ import {
 import { SEO } from '../../components/common/SEO'
 import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { CTASection } from '../../components/common/CTASection'
+import { ScrollReveal, StaggerItem } from '../../components/common/ScrollReveal'
 import { solutionsData } from '../../data/solutions'
 
 export function SolutionsPage() {
@@ -39,10 +40,10 @@ export function SolutionsPage() {
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-20 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <Breadcrumbs items={[{ label: 'Solutions' }]} className="justify-center mb-6" />
 
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-800 mb-6">
             <span>Tailored Enterprise Solutions</span>
           </span>
 
@@ -54,22 +55,23 @@ export function SolutionsPage() {
             Whether accelerating sales pipeline velocity, resolving support tickets faster, or broadcasting compliant
             WhatsApp campaigns, PulseQuo adapts to your exact operational requirements.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Solutions Cards */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {list.map((solution) => {
+            {list.map((solution, idx) => {
               const Icon = icons[solution.id as keyof typeof icons] || TrendingUp
               return (
-                <div
+                <StaggerItem
                   key={solution.id}
-                  className="rounded-3xl border border-slate-200/90 bg-white p-8 flex flex-col justify-between hover:border-blue-400/80 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group"
+                  index={idx}
+                  className="rounded-3xl border border-slate-200/90 bg-white p-8 flex flex-col justify-between hover:border-blue-400/80 hover:shadow-2xl transition-all duration-300 group"
                 >
                   <div>
-                    <div className="flex size-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-6">
+                    <div className="flex size-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-6 group-hover:scale-105 transition-transform">
                       <Icon className="size-7" />
                     </div>
 
@@ -77,7 +79,7 @@ export function SolutionsPage() {
                       {solution.targetAudience}
                     </span>
 
-                    <h3 className="mt-2 text-xl font-bold text-slate-900">{solution.title}</h3>
+                    <h3 className="mt-2 text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{solution.title}</h3>
 
                     <p className="mt-3 text-sm text-slate-600 leading-relaxed">{solution.heroDescription}</p>
 
@@ -97,13 +99,13 @@ export function SolutionsPage() {
                   <div className="mt-8 pt-4">
                     <Link
                       to={`/solutions/${solution.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:underline"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
                     >
                       <span>Explore {solution.title}</span>
                       <ArrowRight className="size-4" />
                     </Link>
                   </div>
-                </div>
+                </StaggerItem>
               )
             })}
           </div>

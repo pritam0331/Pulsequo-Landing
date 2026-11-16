@@ -15,6 +15,7 @@ import { SEO } from '../components/common/SEO'
 import { Breadcrumbs } from '../components/common/Breadcrumbs'
 import { SectionHeading } from '../components/common/SectionHeading'
 import { CTASection } from '../components/common/CTASection'
+import { ScrollReveal, StaggerItem } from '../components/common/ScrollReveal'
 
 export function AboutPage() {
   return (
@@ -27,10 +28,10 @@ export function AboutPage() {
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-20 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <Breadcrumbs items={[{ label: 'About PulseQuo' }]} className="justify-center mb-6" />
 
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-800 mb-6">
             <Sparkles className="size-3.5 text-blue-600" />
             <span>Our Company & Product Philosophy</span>
           </span>
@@ -43,14 +44,14 @@ export function AboutPage() {
             PulseQuo was created to solve one of modern business’s biggest frictions: fragmented customer communication
             tools that separate conversation from operational context.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Mission & Vision */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="rounded-3xl border border-slate-200 p-8 sm:p-10 bg-slate-50/50">
+            <StaggerItem index={0} className="rounded-3xl border border-slate-200 p-8 sm:p-10 bg-slate-50/50 hover:border-blue-300 hover:shadow-xl transition-all">
               <div className="flex size-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 mb-6">
                 <Target className="size-7" />
               </div>
@@ -60,9 +61,9 @@ export function AboutPage() {
                 channels, automate repetitive operational overhead, and deliver extraordinary customer experiences from
                 a single unified interface.
               </p>
-            </div>
+            </StaggerItem>
 
-            <div className="rounded-3xl border border-slate-200 p-8 sm:p-10 bg-slate-50/50">
+            <StaggerItem index={1} className="rounded-3xl border border-slate-200 p-8 sm:p-10 bg-slate-50/50 hover:border-purple-300 hover:shadow-xl transition-all">
               <div className="flex size-14 items-center justify-center rounded-2xl bg-purple-100 text-purple-700 mb-6">
                 <Compass className="size-7" />
               </div>
@@ -71,7 +72,7 @@ export function AboutPage() {
                 A business world where no lead falls through the cracks, no customer repeats their problem across support
                 channels, and intelligent AI agents seamlessly co-pilot with human teams to drive scalable growth.
               </p>
-            </div>
+            </StaggerItem>
           </div>
         </div>
       </section>
@@ -86,7 +87,7 @@ export function AboutPage() {
           />
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+            <StaggerItem index={0} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xs hover:border-blue-300 hover:shadow-xl transition-all duration-300">
               <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-6">
                 <Layers className="size-6" />
               </div>
@@ -95,9 +96,9 @@ export function AboutPage() {
                 Point solutions create data silos, multiple logins, and lost context. By uniting CPaaS messaging, Sales
                 CRM, and Support Helpdesk, customer history remains permanent and accessible.
               </p>
-            </div>
+            </StaggerItem>
 
-            <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+            <StaggerItem index={1} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xs hover:border-purple-300 hover:shadow-xl transition-all duration-300">
               <div className="flex size-12 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 mb-6">
                 <ShieldCheck className="size-6" />
               </div>
@@ -106,9 +107,9 @@ export function AboutPage() {
                 AI should be dependable in enterprise settings. We ground models using open Model Context Protocol (MCP)
                 and verified company knowledge bases, backing every conversation with deterministic human handoff.
               </p>
-            </div>
+            </StaggerItem>
 
-            <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+            <StaggerItem index={2} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xs hover:border-emerald-300 hover:shadow-xl transition-all duration-300">
               <div className="flex size-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 mb-6">
                 <Building2 className="size-6" />
               </div>
@@ -117,7 +118,7 @@ export function AboutPage() {
                 Critical transactional OTPs, order updates, and support chats cannot tolerate downtime. We adhere to
                 rigorous telecom standards, DLT compliance, and official Meta Cloud APIs.
               </p>
-            </div>
+            </StaggerItem>
           </div>
         </div>
       </section>

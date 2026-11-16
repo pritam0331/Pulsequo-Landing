@@ -19,6 +19,7 @@ import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { SectionHeading } from '../../components/common/SectionHeading'
 import { CTASection } from '../../components/common/CTASection'
 import { FAQAccordion } from '../../components/common/FAQAccordion'
+import { ScrollReveal, StaggerItem } from '../../components/common/ScrollReveal'
 import { productsData } from '../../data/products'
 import { siteConfig } from '../../config/siteConfig'
 
@@ -45,17 +46,14 @@ export function CommunicationCloudPage() {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
+            <ScrollReveal direction="up" className="lg:col-span-7">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-800 mb-6">
                 <Radio className="size-3.5 text-blue-600" />
                 <span>Enterprise CPaaS & Omnichannel Messaging</span>
               </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
-                Every Conversation.{' '}
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
-                  One Powerful Platform.
-                </span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.03em] leading-[1.08]">
+                Every conversation on one carrier-grade platform.
               </h1>
 
               <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
@@ -64,20 +62,20 @@ export function CommunicationCloudPage() {
                 channel routing.
               </p>
 
-              <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+              <div className="mt-8 flex flex-col sm:flex-row items-center gap-3.5">
                 <Link
                   to="/book-demo?product=Communication+Cloud"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all shadow-md shadow-blue-500/20"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg transition-colors shadow-sm"
                 >
                   <CalendarCheck className="size-4" />
-                  <span>Book Communication Demo</span>
+                  <span>Book communication demo</span>
                 </Link>
 
                 <a
                   href={siteConfig.appUrl}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors shadow-2xs"
                 >
-                  <span>Get Started</span>
+                  <span>Get started free</span>
                   <ArrowRight className="size-4" />
                 </a>
               </div>
@@ -96,14 +94,14 @@ export function CommunicationCloudPage() {
                   <span>SMPP v3.4 Direct Session</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Visual Live Module Preview */}
-            <div className="lg:col-span-5">
-              <div className="rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-2xl">
+            <ScrollReveal direction="left" delay={0.2} className="lg:col-span-5">
+              <div className="rounded-2xl border border-slate-800/80 bg-[#020618] p-6 text-white shadow-2xl">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                   <div className="flex items-center gap-2">
-                    <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="size-2 rounded-xs bg-emerald-400 animate-pulse" />
                     <span className="text-xs font-bold text-slate-200 font-mono">CPaaS Gateway Monitor</span>
                   </div>
                   <span className="rounded-md bg-blue-900/60 text-blue-300 px-2 py-0.5 text-[10px] font-mono">
@@ -144,7 +142,7 @@ export function CommunicationCloudPage() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -160,7 +158,7 @@ export function CommunicationCloudPage() {
 
           <div className="mt-16 space-y-16">
             {/* Module 1: WhatsApp Business API */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 mb-4">
                   <MessageSquare className="size-6" />
@@ -209,10 +207,10 @@ export function CommunicationCloudPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Module 2: SMS Gateway & DLT */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-4">
                   <Zap className="size-6" />
@@ -261,10 +259,10 @@ export function CommunicationCloudPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Module 3: Omnichannel Team Inbox */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-4">
                   <Inbox className="size-6" />
@@ -313,10 +311,10 @@ export function CommunicationCloudPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Module 4: Email, Voice & Developer APIs */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 mb-4">
                   <Code2 className="size-6" />
@@ -365,7 +363,7 @@ export function CommunicationCloudPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -381,11 +379,15 @@ export function CommunicationCloudPage() {
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {product.benefits.map((benefit, i) => (
-              <div key={i} className="rounded-2xl bg-white border border-slate-200 p-6 shadow-xs">
+              <StaggerItem
+                key={i}
+                index={i}
+                className="rounded-2xl bg-white border border-slate-200/90 p-6 shadow-xs hover:border-blue-300 hover:shadow-md transition-all"
+              >
                 <CheckCircle2 className="size-6 text-blue-600 mb-4" />
                 <h4 className="text-base font-bold text-slate-900">{benefit.title}</h4>
                 <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">{benefit.description}</p>
-              </div>
+              </StaggerItem>
             ))}
           </div>
         </div>

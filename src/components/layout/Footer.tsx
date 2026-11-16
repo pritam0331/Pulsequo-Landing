@@ -73,7 +73,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-slate-950 text-slate-400 border-t border-slate-800/80">
+    <footer className="bg-[#020618] text-slate-400 border-t border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 xl:gap-12">
           {/* Column 1 & 2: Brand, Tagline, & Contact Details */}
@@ -203,6 +203,9 @@ export function Footer() {
                 <FooterLink to="/resources/guides">Implementation Guides</FooterLink>
               </li>
               <li>
+                <FooterLink to="/trai-guidelines">TRAI Compliance Guidelines</FooterLink>
+              </li>
+              <li>
                 <FooterLink to="/developers/api-documentation">API Documentation</FooterLink>
               </li>
               <li>
@@ -235,7 +238,7 @@ export function Footer() {
               <li>
                 <FooterLink to="/careers">
                   <span>Careers</span>
-                  <span className="text-[10px] bg-blue-900/60 text-blue-300 px-1.5 py-0.5 rounded-full ml-1">Hiring</span>
+                  <span className="text-[10px] bg-blue-900/60 text-blue-300 px-1.5 py-0.5 rounded-sm ml-1 font-semibold">Hiring</span>
                 </FooterLink>
               </li>
               <li>
@@ -266,18 +269,21 @@ export function Footer() {
           </div>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span className="hover:text-slate-400 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <FooterLink to="/terms" className="hover:text-white transition-colors">
               Terms of Service
-            </span>
-            <span className="hover:text-slate-400 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            </FooterLink>
+            <FooterLink to="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
-            </span>
-            <span className="hover:text-slate-400 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            </FooterLink>
+            <FooterLink to="/trai-guidelines" className="hover:text-white transition-colors">
+              TRAI Guidelines
+            </FooterLink>
+            <FooterLink to="/trai-dlt-policy" className="hover:text-white transition-colors">
               TRAI DLT Policy
-            </span>
-            <span className="hover:text-slate-400 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            </FooterLink>
+            <FooterLink to="/security-gdpr" className="hover:text-white transition-colors">
               Security & GDPR
-            </span>
+            </FooterLink>
           </div>
         </div>
       </div>

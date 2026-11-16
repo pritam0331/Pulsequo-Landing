@@ -16,6 +16,7 @@ import { Breadcrumbs } from '../components/common/Breadcrumbs'
 import { SectionHeading } from '../components/common/SectionHeading'
 import { CTASection } from '../components/common/CTASection'
 import { FAQAccordion } from '../components/common/FAQAccordion'
+import { ScrollReveal, StaggerItem } from '../components/common/ScrollReveal'
 import { pricingPlans, pricingComparisonCategories } from '../data/pricing'
 
 export function PricingPage() {
@@ -68,10 +69,10 @@ export function PricingPage() {
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <Breadcrumbs items={[{ label: 'Pricing' }]} className="justify-center mb-6" />
 
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-800 mb-6">
             <span>Transparent Enterprise Licensing</span>
           </span>
 
@@ -114,18 +115,20 @@ export function PricingPage() {
               Unified & Enterprise
             </button>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Pricing Cards Grid */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-            {filteredPlans.map((plan) => {
+            {filteredPlans.map((plan, idx) => {
               const isPopular = plan.popular
               return (
-                <div
+                <StaggerItem
                   key={plan.id}
+                  index={idx}
+                  liftOnHover={false}
                   className={`relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 ${
                     isPopular
                       ? 'border-2 border-blue-600 bg-white shadow-2xl scale-[1.02] z-10'
@@ -133,7 +136,7 @@ export function PricingPage() {
                   }`}
                 >
                   {isPopular && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-4 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-xs">
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-md bg-blue-600 px-3 py-0.5 text-xs font-semibold text-white shadow-xs">
                       {plan.badge || 'Most Popular'}
                     </div>
                   )}
@@ -144,7 +147,7 @@ export function PricingPage() {
                         {plan.category}
                       </span>
                       {!isPopular && plan.badge && (
-                        <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-semibold text-slate-600">
+                        <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
                           {plan.badge}
                         </span>
                       )}
@@ -185,7 +188,7 @@ export function PricingPage() {
                       <ArrowRight className="size-4" />
                     </Link>
                   </div>
-                </div>
+                </StaggerItem>
               )
             })}
           </div>
@@ -194,7 +197,7 @@ export function PricingPage() {
 
       {/* Feature Comparison Table */}
       <section className="py-20 bg-slate-50 border-t border-slate-200/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="Detailed Matrix"
             title="Comprehensive Feature Comparison"
@@ -202,7 +205,7 @@ export function PricingPage() {
           />
 
           <div className="mt-8 flex justify-end md:hidden">
-            <span className="text-[11px] font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+            <span className="text-[11px] font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
               👉 Swipe horizontally to compare all 4 columns
             </span>
           </div>
@@ -266,7 +269,7 @@ export function PricingPage() {
               </table>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Pricing FAQs */}

@@ -17,6 +17,7 @@ import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { SectionHeading } from '../../components/common/SectionHeading'
 import { CTASection } from '../../components/common/CTASection'
 import { FAQAccordion } from '../../components/common/FAQAccordion'
+import { ScrollReveal, StaggerItem } from '../../components/common/ScrollReveal'
 import { productsData } from '../../data/products'
 import { siteConfig } from '../../config/siteConfig'
 
@@ -43,17 +44,14 @@ export function SupportCRMPage() {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-violet-100/80 border border-violet-200 px-3.5 py-1 text-xs font-semibold text-violet-800 mb-6">
+            <ScrollReveal direction="up" className="lg:col-span-7">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-violet-100/80 border border-violet-200 px-3 py-1 text-xs font-semibold text-violet-800 mb-6">
                 <Headphones className="size-3.5 text-violet-600" />
                 <span>Omnichannel Helpdesk & Ticket Lifecycle</span>
               </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
-                Deliver Customer Support{' '}
-                <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                  That Builds Loyalty.
-                </span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.03em] leading-[1.08]">
+                Deliver customer support that drives resolution.
               </h1>
 
               <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
@@ -62,20 +60,20 @@ export function SupportCRMPage() {
                 intelligent knowledge bases.
               </p>
 
-              <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+              <div className="mt-8 flex flex-col sm:flex-row items-center gap-3.5">
                 <Link
                   to="/book-demo?product=Support+CRM"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 rounded-xl transition-all shadow-md shadow-violet-500/20"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 rounded-lg transition-colors shadow-sm"
                 >
                   <CalendarCheck className="size-4" />
-                  <span>Request Support CRM Demo</span>
+                  <span>Request support CRM demo</span>
                 </Link>
 
                 <a
                   href={siteConfig.appUrl}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors shadow-2xs"
                 >
-                  <span>Explore App</span>
+                  <span>Explore app</span>
                   <ArrowRight className="size-4" />
                 </a>
               </div>
@@ -94,11 +92,11 @@ export function SupportCRMPage() {
                   <span>Searchable Knowledge Base</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Support Helpdesk Mockup Preview */}
-            <div className="lg:col-span-5">
-              <div className="rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-2xl">
+            <ScrollReveal direction="left" delay={0.2} className="lg:col-span-5">
+              <div className="rounded-3xl border border-slate-800/80 bg-[#020618] p-6 text-white shadow-2xl">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                   <span className="text-xs font-bold text-slate-200 font-mono">Live Ticket Queue</span>
                   <span className="rounded-md bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 text-[10px] font-mono">
@@ -141,7 +139,7 @@ export function SupportCRMPage() {
                   <span className="text-violet-400 font-mono">3 Agents Online</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -157,7 +155,7 @@ export function SupportCRMPage() {
 
           <div className="mt-16 space-y-16">
             {/* A. Ticket Lifecycle */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 mb-4">
                   <Headphones className="size-6" />
@@ -195,10 +193,10 @@ export function SupportCRMPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* B. SLA Management & Knowledge Base */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-4">
                   <Clock className="size-6" />
@@ -236,10 +234,10 @@ export function SupportCRMPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* C. Agent Collaboration & Customer History */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               <div className="lg:col-span-5">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 mb-4">
                   <Users className="size-6" />
@@ -277,7 +275,7 @@ export function SupportCRMPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -293,11 +291,15 @@ export function SupportCRMPage() {
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {product.benefits.map((benefit, i) => (
-              <div key={i} className="rounded-2xl bg-white border border-slate-200 p-6 shadow-xs">
+              <StaggerItem
+                key={i}
+                index={i}
+                className="rounded-2xl bg-white border border-slate-200/90 p-6 shadow-xs hover:border-violet-300 hover:shadow-md transition-all"
+              >
                 <CheckCircle2 className="size-6 text-violet-600 mb-4" />
                 <h4 className="text-base font-bold text-slate-900">{benefit.title}</h4>
                 <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">{benefit.description}</p>
-              </div>
+              </StaggerItem>
             ))}
           </div>
         </div>

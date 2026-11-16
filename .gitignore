@@ -1,0 +1,14 @@
+# Dependencies & caches
+node_modules/.vite/
+node_modules/.tmp/
+node_modules/.cache/
+
+# Agent local tooling
+.agents/
+.codex/
+skills-lock.json
+
+# Local Environment & Logs
+*.log
+.DS_Store
+Thumbs.db

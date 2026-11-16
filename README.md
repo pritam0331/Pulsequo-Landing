@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # PulseQuo Marketing Website (AI & CPaaS)
 
 A standalone, production-ready marketing website for **PulseQuo** — an AI-powered business communication (CPaaS), Sales CRM, Support CRM, and workflow automation platform.
@@ -68,11 +67,15 @@ AI and cpass website/
 │   └── main.tsx                # Standalone React Router entry point
 ├── .env.example                # Local environment template
 ├── .env.production.example     # Production environment template
-├── AWS_DEPLOYMENT_GUIDE.md     # Step-by-step S3 + CloudFront + ACM deployment guide
-├── DNS_CONFIGURATION_GUIDE.md  # DNS routing guide (marketing domain vs app dashboard domain)
-├── package.json                # Dependencies and scripts
-├── tsconfig.json               # TypeScript configuration
-└── vite.config.ts              # Vite configuration with chunk splitting
+├── deployment/
+│   ├── ARCHITECTURE.md             # End-to-end client-server architecture & sequence diagrams
+│   ├── AWS_DEPLOYMENT_GUIDE.md     # Step-by-step S3 + CloudFront + ACM deployment guide
+│   ├── DNS_CONFIGURATION_GUIDE.md  # DNS routing guide (marketing domain vs app dashboard domain)
+│   ├── TESTING_REPORT.md           # Verification report for all 24 marketing routes & forms
+│   └── Design.md                   # Full design tokens, component architecture & UI spec
+├── package.json                    # Dependencies and scripts
+├── tsconfig.json                   # TypeScript configuration
+└── vite.config.ts                  # Vite configuration with chunk splitting
 ```
 
 ---
@@ -120,7 +123,14 @@ VITE_API_BASE_URL=https://api.pulsequo.com
 
 All **Login**, **Get Started**, and **Open App** buttons navigate users seamlessly to the existing application dashboard.
 
-=======
-# Pulsequo-Landing
-Cpaas and AI-Automation platform
->>>>>>> 0b5b87cb61ac2f5fc4808b0113544962266872e0
+---
+
+## 📚 Technical Documentation & Deployment Guides
+
+All deployment, DNS, verification, and design specifications are consolidated in the `deployment/` directory:
+
+* [Architecture Specification](file:///c:/Users/user/Pulsequo-Landing/deployment/ARCHITECTURE.md) — End-to-end client-server architecture, microservices, and Kafka event pipelines.
+* [AWS Deployment Guide](file:///c:/Users/user/Pulsequo-Landing/deployment/AWS_DEPLOYMENT_GUIDE.md) — S3, CloudFront, ACM, OAC, and cache policies.
+* [DNS Configuration Guide](file:///c:/Users/user/Pulsequo-Landing/deployment/DNS_CONFIGURATION_GUIDE.md) — Apex, GoDaddy delegation, and Route 53 setup.
+* [Design Specification](file:///c:/Users/user/Pulsequo-Landing/deployment/Design.md) — Design tokens, brand colors, typography, and component hierarchy.
+* [Testing & Verification Report](file:///c:/Users/user/Pulsequo-Landing/deployment/TESTING_REPORT.md) — Route matrix, SEO schemas, and interactive form verification.
