@@ -60,13 +60,13 @@ export function MarketingLayout() {
       {/* Global Footer */}
       <Footer />
 
-      {/* Floating Back to Top Button */}
+      {/* Floating Back to Top Button (positioned above bottom-right chat widget) */}
       {showScrollTop && (
         <button
           type="button"
           onClick={scrollToTop}
           aria-label="Scroll back to top"
-          className="fixed bottom-6 right-6 z-40 size-11 rounded-2xl bg-slate-900/90 hover:bg-blue-600 text-white shadow-xl shadow-slate-900/20 backdrop-blur-md border border-slate-700/60 flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-blue-500/30 cursor-pointer animate-in fade-in-0 zoom-in-90"
+          className="fixed bottom-24 right-6 z-40 size-11 rounded-2xl bg-slate-900/90 hover:bg-blue-600 text-white shadow-xl shadow-slate-900/20 backdrop-blur-md border border-slate-700/60 flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-blue-500/30 cursor-pointer animate-in fade-in-0 zoom-in-90"
         >
           <ArrowUp className="size-5" />
         </button>
