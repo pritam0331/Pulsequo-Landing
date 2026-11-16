@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /app/
+Disallow: /widget/chat
+Disallow: /flows/
+
+Sitemap: https://www.pulsequo.com/sitemap.xml

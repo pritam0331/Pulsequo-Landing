@@ -1,0 +1,310 @@
+/**
+ * PulseQuo Solutions Data
+ * Specialized use cases, challenges, architecture solutions, and workflows.
+ */
+
+export interface SolutionDetail {
+  id: string
+  slug: string
+  title: string
+  targetAudience: string
+  heroHeadline: string
+  heroDescription: string
+  challenges: { problem: string; impact: string }[]
+  howPulseQuoSolves: { title: string; description: string; module: string }[]
+  workflowSteps: { step: number; title: string; description: string }[]
+  keyBenefits: string[]
+  recommendedProducts: { name: string; href: string; reason: string }[]
+}
+
+export const solutionsData: Record<string, SolutionDetail> = {
+  'sales-teams': {
+    id: 'sales-teams',
+    slug: 'sales-teams',
+    title: 'Solutions for Sales Teams',
+    targetAudience: 'Inbound Sales Reps, SDRs, Account Executives, and Sales Leadership',
+    heroHeadline: 'Accelerate Deal Velocity with Conversational Sales Automation',
+    heroDescription:
+      'Eliminate manual data entry, respond to high-intent leads across WhatsApp and web chat within seconds, and manage visual deal pipelines with deep communication context.',
+    challenges: [
+      {
+        problem: 'Slow Lead Response Times',
+        impact: 'Leads go cold within minutes if reps are occupied or working outside business hours.',
+      },
+      {
+        problem: 'Scattered Conversation Context',
+        impact: 'Sales reps lack visibility into what prospects discussed with chatbots or marketing campaigns.',
+      },
+      {
+        problem: 'Manual CRM Hygiene Friction',
+        impact: 'Reps waste hours logging calls, pasting chat transcripts, and updating deal stages manually.',
+      },
+    ],
+    howPulseQuoSolves: [
+      {
+        title: 'Instant Conversational Qualification',
+        description: 'AI bots engage inbound prospects immediately, gather intent, budget, and requirements, then route hot leads directly to active reps.',
+        module: 'AI & Automation + Sales CRM',
+      },
+      {
+        title: 'Unified Lead Communication Workspace',
+        description: 'Chat over WhatsApp, SMS, and email directly from the deal record with complete interaction histories visible on one screen.',
+        module: 'Communication Cloud',
+      },
+      {
+        title: 'Visual Pipeline & Stagnant Deal Alerts',
+        description: 'Track deals through customizable Kanban stages and receive proactive alerts when high-value opportunities stall.',
+        module: 'Sales CRM',
+      },
+    ],
+    workflowSteps: [
+      { step: 1, title: 'Inbound Prospect Reaches Out', description: 'Visitor engages via WhatsApp QR code or website chat widget.' },
+      { step: 2, title: 'AI Assistant Qualifies Intent', description: 'Gathers company size, use case, and contact details with instant confirmation.' },
+      { step: 3, title: 'Lead Routed to Sales Rep', description: 'Assigned rep receives real-time notification with full conversational context.' },
+      { step: 4, title: 'Deal Progression in Pipeline', description: 'Rep conducts demo, logs next steps, and moves the deal to proposal stage.' },
+    ],
+    keyBenefits: [
+      'Sub-second first response time to inbound buyer inquiries',
+      'Unified conversation logs directly inside deal timelines',
+      'Automated meeting scheduling directly via chat',
+      'Zero manual copy-pasting between chat tools and CRM',
+    ],
+    recommendedProducts: [
+      { name: 'Sales CRM', href: '/products/sales-crm', reason: 'Track deals, manage contacts, and forecast pipeline revenue.' },
+      { name: 'Communication Cloud', href: '/products/communication-cloud', reason: 'Engage leads across verified WhatsApp and SMS channels.' },
+      { name: 'AI & Automation', href: '/products/ai-automation', reason: 'Pre-qualify leads 24/7 with autonomous conversational agents.' },
+    ],
+  },
+
+  'customer-support': {
+    id: 'customer-support',
+    slug: 'customer-support',
+    title: 'Solutions for Customer Support',
+    targetAudience: 'Support Agents, Customer Success Managers, and Helpdesk Directors',
+    heroHeadline: 'Deliver Rapid, Empathetic Multi-Channel Customer Support',
+    heroDescription:
+      'Unify incoming queries from WhatsApp, live chat, email, and SMS into one collaborative team inbox with intelligent SLA management and seamless AI-to-human handoffs.',
+    challenges: [
+      {
+        problem: 'Overwhelming Ticket Backlogs',
+        impact: 'Repetitive Tier-1 queries like order tracking or account lookups consume valuable agent hours.',
+      },
+      {
+        problem: 'Disconnected Support Silos',
+        impact: 'Customers have to repeat their issue when switching from WhatsApp to email or web chat.',
+      },
+      {
+        problem: 'SLA Breaches and Missed Follow-ups',
+        impact: 'Urgent customer escalations get buried in shared inboxes without clear ownership.',
+      },
+    ],
+    howPulseQuoSolves: [
+      {
+        title: 'Autonomous Tier-1 Resolution',
+        description: 'AI bots grounded in your official documentation solve common FAQs and status queries immediately.',
+        module: 'AI & Automation + Support CRM',
+      },
+      {
+        title: 'Context-Preserved Bot-to-Human Handover',
+        description: 'When complex issues arise, conversations transfer to human agents with full transcripts and customer metadata.',
+        module: 'Omnichannel Inbox',
+      },
+      {
+        title: 'Enforced SLA Tracking & Priority Queues',
+        description: 'Set explicit first response and resolution targets with visual warning indicators before breaches occur.',
+        module: 'Support CRM',
+      },
+    ],
+    workflowSteps: [
+      { step: 1, title: 'Customer Submits Query', description: 'Customer messages support via WhatsApp or web helpdesk widget.' },
+      { step: 2, title: 'AI Knowledge Lookup', description: 'Bot attempts resolution using verified knowledge base documentation.' },
+      { step: 3, title: 'Graceful Agent Escalation', description: 'If unresolved, ticket is routed to the designated queue with SLA timer.' },
+      { step: 4, title: 'Collaborative Resolution', description: 'Agent reviews context, uses internal notes, and resolves the customer issue.' },
+    ],
+    keyBenefits: [
+      '24/7 immediate first response across all connected channels',
+      'Reduced ticket volume for human support engineers',
+      'Clear SLA ownership and escalation paths',
+      'Comprehensive customer history across past tickets',
+    ],
+    recommendedProducts: [
+      { name: 'Customer Support CRM', href: '/products/support-crm', reason: 'Centralize ticketing, SLA tracking, and agent work queues.' },
+      { name: 'Communication Cloud', href: '/products/communication-cloud', reason: 'Omnichannel team inbox for WhatsApp and live chat.' },
+      { name: 'AI & Automation', href: '/products/ai-automation', reason: 'Automate Tier-1 resolution with knowledge base grounding.' },
+    ],
+  },
+
+  'marketing-teams': {
+    id: 'marketing-teams',
+    slug: 'marketing-teams',
+    title: 'Solutions for Marketing Teams',
+    targetAudience: 'Growth Marketers, Lifecycle Managers, and Campaign Specialists',
+    heroHeadline: 'Launch High-Engagement WhatsApp & SMS Campaigns That Convert',
+    heroDescription:
+      'Drive customer engagement with verified WhatsApp marketing templates, interactive buttons, high-throughput SMS promotions, and granular delivery telemetry.',
+    challenges: [
+      {
+        problem: 'Low Email Open Rates',
+        impact: 'Critical product announcements and seasonal promotions get lost in spam folders and promotional tabs.',
+      },
+      {
+        problem: 'Meta Template Rejections & DLT Complexity',
+        impact: 'Navigating WhatsApp approval policies and Indian DLT regulatory guidelines delays campaign launches.',
+      },
+      {
+        problem: 'One-Way Broadcast Dead Ends',
+        impact: 'Traditional mass SMS offers no way for interested recipients to immediately respond or ask questions.',
+      },
+    ],
+    howPulseQuoSolves: [
+      {
+        title: 'Interactive WhatsApp Broadcasts',
+        description: 'Send personalized campaigns featuring rich media, quick-reply buttons, and direct product catalog links.',
+        module: 'Communication Cloud',
+      },
+      {
+        title: 'Two-Way Conversational Marketing',
+        description: 'When a customer taps a quick-reply button, an automated conversational flow guides them toward checkout or demo booking.',
+        module: 'AI & Automation',
+      },
+      {
+        title: 'Comprehensive Delivery & Read Analytics',
+        description: 'Track granular delivery receipts (sent, delivered, read, clicked, failed) with clear error code diagnostics.',
+        module: 'Communication Cloud',
+      },
+    ],
+    workflowSteps: [
+      { step: 1, title: 'Audience Segmentation', description: 'Filter target contacts by purchase history, location, or customer tags.' },
+      { step: 2, title: 'Template Selection & Personalization', description: 'Select pre-approved WhatsApp or DLT-registered SMS templates.' },
+      { step: 3, title: 'Automated Broadcast Execution', description: 'Schedule broadcasts with carrier rate-limiting to avoid carrier throttling.' },
+      { step: 4, title: 'Interactive Bot Engagement', description: 'Inbound replies trigger interactive automated flows for instant conversions.' },
+    ],
+    keyBenefits: [
+      'Up to 90%+ open rates with verified WhatsApp Business messaging',
+      'Two-way conversational engagement instead of dead-end blasts',
+      'Pre-validated templates conforming to Meta & TRAI DLT policies',
+      'Direct synchronization of campaign leads into PulseQuo Sales CRM',
+    ],
+    recommendedProducts: [
+      { name: 'Communication Cloud', href: '/products/communication-cloud', reason: 'Official WhatsApp Business API and DLT-compliant SMS.' },
+      { name: 'AI & Automation', href: '/products/ai-automation', reason: 'Design interactive response trees for campaign replies.' },
+      { name: 'Sales CRM', href: '/products/sales-crm', reason: 'Track revenue and attribution generated by inbound campaign responses.' },
+    ],
+  },
+
+  'startups': {
+    id: 'startups',
+    slug: 'startups',
+    title: 'Solutions for Startups',
+    targetAudience: 'Founders, Early-Stage Growth Leads, and Lean Product Teams',
+    heroHeadline: 'Scale Customer Operations without Scaling Headcount',
+    heroDescription:
+      'Consolidate your communication stack, lead pipeline, and support helpdesk into one integrated platform without managing multiple expensive SaaS subscriptions.',
+    challenges: [
+      {
+        problem: 'Tool Sprawl & High Subscription Costs',
+        impact: 'Paying separate fees for CRM, live chat, WhatsApp tools, and ticketing drains early runway.',
+      },
+      {
+        problem: 'Fragmented Customer Records',
+        impact: 'Customer conversations are trapped in personal founder phones and separate email inboxes.',
+      },
+      {
+        problem: 'Limited Team Bandwidth',
+        impact: 'Founders spend hours handling repetitive inbound queries instead of building product.',
+      },
+    ],
+    howPulseQuoSolves: [
+      {
+        title: 'All-in-One Customer Experience Platform',
+        description: 'Get CPaaS communication, sales pipeline management, customer support, and AI bots in one place.',
+        module: 'Unified PulseQuo Platform',
+      },
+      {
+        title: 'Automated Inbound Lead Qualification',
+        description: 'AI bots engage visitors 24/7, capture requirements, and book meetings on founders’ calendars automatically.',
+        module: 'AI & Automation',
+      },
+      {
+        title: 'Centralized Team Inbox',
+        description: 'All founders and team members can share one official WhatsApp Business number and support queue.',
+        module: 'Omnichannel Inbox',
+      },
+    ],
+    workflowSteps: [
+      { step: 1, title: 'Quick Multi-Channel Setup', description: 'Connect WhatsApp number and embed the website chat widget in 10 minutes.' },
+      { step: 2, title: 'Deploy AI Knowledge Assistant', description: 'Upload pitch deck, product documentation, or pricing FAQs for instant answers.' },
+      { step: 3, title: 'Automated Pipeline Capture', description: 'Every interested prospect is saved as a lead with full qualification notes.' },
+      { step: 4, title: 'Collaborative Founder Follow-up', description: 'Team shares notes and closes deals from a unified interface.' },
+    ],
+    keyBenefits: [
+      'Single consolidated bill replacing 4+ fragmented software subscriptions',
+      'Professional enterprise presence from Day 1 with official WhatsApp branding',
+      'Zero engineering resources needed to create or adjust conversational flows',
+      'Full ownership and historical archive of all customer relationships',
+    ],
+    recommendedProducts: [
+      { name: 'AI & Automation', href: '/products/ai-automation', reason: 'Deploy autonomous bots to handle sales and support inquiries.' },
+      { name: 'Communication Cloud', href: '/products/communication-cloud', reason: 'Connect official WhatsApp and transactional SMS.' },
+      { name: 'Sales CRM', href: '/products/sales-crm', reason: 'Organize your early pipeline and follow-up activities.' },
+    ],
+  },
+
+  'enterprises': {
+    id: 'enterprises',
+    slug: 'enterprises',
+    title: 'Solutions for Enterprises',
+    targetAudience: 'Chief Technology Officers, VP of Customer Experience, IT Directors',
+    heroHeadline: 'Enterprise-Grade Security, High Throughput, and Governance',
+    heroDescription:
+      'Engineered for high-volume communication demands with multi-tenant architecture, role-based access control (RBAC), Model Context Protocol integrations, and dedicated SLA support.',
+    challenges: [
+      {
+        problem: 'Security & Regulatory Compliance Requirements',
+        impact: 'Strict data residency, tenant isolation, and audit logging standards across all customer interactions.',
+      },
+      {
+        problem: 'Massive Transactional Message Volumes',
+        impact: 'Legacy messaging vendors fail to provide resilient carrier failovers during traffic surges.',
+      },
+      {
+        problem: 'Complex Legacy System Integration',
+        impact: 'Integrating modern AI agents with on-premises databases and ERPs requires fragile custom glue code.',
+      },
+    ],
+    howPulseQuoSolves: [
+      {
+        title: 'Multi-Tenant Architecture & Role-Based Access',
+        description: 'Granular permissions, separate enterprise workspaces, and comprehensive audit logs for compliance.',
+        module: 'Enterprise Console',
+      },
+      {
+        title: 'High-Throughput Carrier Routing & SMPP',
+        description: 'Resilient message dispatch engine with multi-carrier failover and dedicated SMPP sessions.',
+        module: 'Communication Cloud',
+      },
+      {
+        title: 'Model Context Protocol (MCP) Standards',
+        description: 'Standardized sandboxed tool execution for securely querying internal data systems and ERP endpoints.',
+        module: 'AI & Automation',
+      },
+    ],
+    workflowSteps: [
+      { step: 1, title: 'Enterprise Architecture Alignment', description: 'Configure custom domain, tenant boundaries, and SSO authentication.' },
+      { step: 2, title: 'Carrier & Channel Provisioning', description: 'Provision dedicated WhatsApp Business accounts and SMPP carrier trunks.' },
+      { step: 3, title: 'Secure MCP Tool Integration', description: 'Bind enterprise database tools and custom webhooks with HMAC verification.' },
+      { step: 4, title: 'Dedicated SLA & Telemetry', description: 'Continuous uptime monitoring with priority 24/7 enterprise support.' },
+    ],
+    keyBenefits: [
+      'High-throughput message dispatch with intelligent carrier redundancy',
+      'Model Context Protocol (MCP) tool integration for sandboxed enterprise data access',
+      'Role-based access controls and audit logging for security governance',
+      'Dedicated enterprise solutions engineering and SLA guarantees',
+    ],
+    recommendedProducts: [
+      { name: 'Communication Cloud', href: '/products/communication-cloud', reason: 'Carrier-grade SMS gateway and high-volume WhatsApp API.' },
+      { name: 'AI & Automation', href: '/products/ai-automation', reason: 'Secure MCP server integration with enterprise backend systems.' },
+      { name: 'Customer Support CRM', href: '/products/support-crm', reason: 'Multi-tiered SLA enforcement and department work queues.' },
+    ],
+  },
+}
