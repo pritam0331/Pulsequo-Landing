@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PulseQuo Marketing Website (AI & CPaaS)
 
 A standalone, production-ready marketing website for **PulseQuo** — an AI-powered business communication (CPaaS), Sales CRM, Support CRM, and workflow automation platform.
@@ -119,3 +120,7 @@ VITE_API_BASE_URL=https://api.pulsequo.com
 
 All **Login**, **Get Started**, and **Open App** buttons navigate users seamlessly to the existing application dashboard.
 
+=======
+# Pulsequo-Landing
+Cpaas and AI-Automation platform
+>>>>>>> 0b5b87cb61ac2f5fc4808b0113544962266872e0
