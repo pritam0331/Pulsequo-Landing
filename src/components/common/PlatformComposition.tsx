@@ -177,12 +177,12 @@ export function PlatformComposition() {
   )
 
   return (
-    <div className="w-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white shadow-2xl overflow-hidden ring-1 ring-slate-900/5 transition-all text-slate-900 font-sans">
+    <div className="w-full max-w-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white shadow-2xl overflow-hidden ring-1 ring-slate-900/5 transition-all text-slate-900 font-sans">
       {/* ─────────────────────────────────────────────────────────────
           MAIN 4-COLUMN WORKSPACE CONTAINER
           Preserves the exact desktop layout with seamless horizontal scrolling on small screens
          ───────────────────────────────────────────────────────────── */}
-      <div className="overflow-x-auto no-scrollbar">
+      <div className="w-full max-w-full overflow-x-auto no-scrollbar">
         <div className="min-w-[960px] xl:min-w-full flex h-[580px] bg-white text-left divide-x divide-slate-100">
           {/* ── COLUMN 1: LEFT NAVIGATION SIDEBAR ── */}
           <aside className="w-52 shrink-0 p-5 flex flex-col justify-between bg-white select-none">

@@ -262,7 +262,7 @@ export function MarketingHomePage() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: easeOutCurve }}
-              className="text-4xl xs:text-5xl sm:text-6xl lg:text-[68px] font-black text-slate-900 tracking-[-0.035em] leading-[1.08] max-w-4xl mx-auto"
+              className="text-3xl sm:text-5xl lg:text-[68px] font-black text-slate-900 tracking-[-0.035em] leading-[1.08] max-w-4xl mx-auto break-words"
             >
               One intelligent platform for{' '}
               <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
@@ -314,7 +314,7 @@ export function MarketingHomePage() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: easeOutCurve }}
-            className="mt-12 sm:mt-16 relative"
+            className="mt-12 sm:mt-16 relative w-full max-w-full overflow-hidden"
           >
             <PlatformComposition />
           </motion.div>
