@@ -222,7 +222,7 @@ export function MarketingHomePage() {
   ]
 
   return (
-    <div className="relative overflow-hidden bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+    <div className="-mt-[3.75rem] sm:-mt-[4.25rem] relative overflow-hidden bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
       <SEO
         title="PulseQuo · One Platform. Complete Customer Experience."
         description="Unified enterprise platform connecting official WhatsApp & SMS CPaaS, intelligent Sales CRM pipelines, Support helpdesk, and autonomous AI agents."
@@ -234,7 +234,7 @@ export function MarketingHomePage() {
          ───────────────────────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative min-h-[calc(100vh-4.5rem)] flex flex-col justify-center items-center bg-[#070d24] border-b border-slate-800 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 overflow-hidden"
+        className="relative min-h-screen flex flex-col justify-center items-center bg-[#070d24] border-b border-slate-800 px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-hidden"
       >
         {/* User Circuit Board Background */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
@@ -247,11 +247,11 @@ export function MarketingHomePage() {
           <div
             className="absolute inset-0"
             style={{
-              background: 'radial-gradient(ellipse 75% 65% at 50% 50%, rgba(7, 13, 36, 0.55) 0%, rgba(7, 13, 36, 0.88) 100%)',
+              background: 'radial-gradient(ellipse 75% 65% at 50% 50%, rgba(7, 13, 36, 0.5) 0%, rgba(7, 13, 36, 0.85) 100%)',
             }}
           />
           {/* Smooth Hairline Boundary Fades */}
-          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#070d24]/90 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#070d24]/50 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#070d24] to-transparent" />
         </div>
 
