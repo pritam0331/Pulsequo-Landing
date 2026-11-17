@@ -231,37 +231,18 @@ export function MarketingHomePage() {
          ───────────────────────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative min-h-screen flex flex-col justify-center items-center bg-[#070d24] border-b border-slate-800 px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-hidden"
+        className="relative min-h-screen flex flex-col justify-center items-center bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-hidden"
       >
-        {/* User Circuit Board Background */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-          <img
-            src="/circuit-bg.jpg"
-            alt=""
-            className="w-full h-full object-cover object-center opacity-85 sm:opacity-95"
-          />
-          {/* Subtle Radial Vignette for Center Text Contrast */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: 'radial-gradient(ellipse 75% 65% at 50% 50%, rgba(7, 13, 36, 0.5) 0%, rgba(7, 13, 36, 0.85) 100%)',
-            }}
-          />
-          {/* Smooth Hairline Boundary Fades */}
-          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#070d24]/50 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#070d24] to-transparent" />
-        </div>
-
         <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto">
           {/* Main Command Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: easeOutCurve }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-black text-white tracking-[-0.035em] leading-[1.08] max-w-4xl mx-auto break-words drop-shadow-sm"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-black tracking-[-0.035em] leading-[1.08] max-w-4xl mx-auto break-words text-slate-900"
           >
             One intelligent platform for{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400">
+            <span className="text-blue-600">
               every customer conversation.
             </span>
           </motion.h1>
@@ -271,13 +252,13 @@ export function MarketingHomePage() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.12, ease: easeOutCurve }}
-            className="mt-6 sm:mt-7 text-base sm:text-lg md:text-xl lg:text-[21px] text-slate-200 leading-relaxed max-w-3xl mx-auto font-normal text-balance drop-shadow-xs"
+            className="mt-6 sm:mt-7 text-base sm:text-lg md:text-xl lg:text-[21px] text-slate-600 leading-relaxed max-w-3xl mx-auto font-normal text-balance"
           >
             Connect every message directly to revenue and resolution. PulseQuo unifies{' '}
-            <span className="text-white font-semibold">official WhatsApp & SMS CPaaS</span>,{' '}
-            <span className="text-white font-semibold">sales pipelines</span>,{' '}
-            <span className="text-white font-semibold">support helpdesk</span>, and{' '}
-            <span className="text-white font-semibold">autonomous AI agents</span> in a single synchronized workspace.
+            <span className="text-slate-900 font-bold">official WhatsApp & SMS CPaaS</span>,{' '}
+            <span className="text-slate-900 font-bold">sales pipelines</span>,{' '}
+            <span className="text-slate-900 font-bold">support helpdesk</span>, and{' '}
+            <span className="text-slate-900 font-bold">autonomous AI agents</span> in a single synchronized workspace.
           </motion.p>
 
           {/* Primary Action Buttons */}
@@ -289,7 +270,7 @@ export function MarketingHomePage() {
           >
             <Link
               to="/book-demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-all shadow-lg shadow-blue-600/30 active:scale-[0.99]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-md shadow-blue-500/20 active:scale-[0.99]"
             >
               <CalendarCheck className="size-4.5" />
               <span>Book a personalized demo</span>
@@ -297,10 +278,10 @@ export function MarketingHomePage() {
 
             <a
               href="#platform-overview"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 backdrop-blur-md rounded-lg transition-all shadow-2xs active:scale-[0.99]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl transition-all shadow-xs active:scale-[0.99]"
             >
               <span>Explore the 4 engines</span>
-              <ArrowRight className="size-4.5 text-slate-300" />
+              <ArrowRight className="size-4.5 text-slate-400" />
             </a>
           </motion.div>
 
@@ -312,52 +293,52 @@ export function MarketingHomePage() {
             className="mt-14 sm:mt-16 flex items-center justify-center gap-2 sm:gap-3 select-none"
           >
             {/* Engine 1: WhatsApp & SMS CPaaS */}
-            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-cyan-400 transition-colors" title="Official WhatsApp & SMS CPaaS">
+            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-blue-600 transition-colors" title="Official WhatsApp & SMS CPaaS">
               <MessageSquareText className="size-8 sm:size-10" strokeWidth={1.5} />
             </div>
 
             {/* Dotted Connector 1 */}
             <div className="relative w-10 sm:w-16 flex items-center justify-center">
-              <div className="w-full border-b-2 border-dotted border-slate-600" />
+              <div className="w-full border-b-2 border-dotted border-slate-300" />
               <motion.div
                 animate={{ x: [-16, 16], opacity: [0, 1, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute size-1.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/50"
+                className="absolute size-1.5 rounded-full bg-blue-500 shadow-sm shadow-blue-500/50"
               />
             </div>
 
             {/* Engine 2: Sales Pipelines */}
-            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-cyan-400 transition-colors" title="Sales Pipelines & Workflows">
+            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-blue-600 transition-colors" title="Sales Pipelines & Workflows">
               <GitBranch className="size-8 sm:size-10" strokeWidth={1.5} />
             </div>
 
             {/* Dotted Connector 2 */}
             <div className="relative w-10 sm:w-16 flex items-center justify-center">
-              <div className="w-full border-b-2 border-dotted border-slate-600" />
+              <div className="w-full border-b-2 border-dotted border-slate-300" />
               <motion.div
                 animate={{ x: [-16, 16], opacity: [0, 1, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
-                className="absolute size-1.5 rounded-full bg-blue-400 shadow-sm shadow-blue-400/50"
+                className="absolute size-1.5 rounded-full bg-blue-500 shadow-sm shadow-blue-500/50"
               />
             </div>
 
             {/* Engine 3: Support Helpdesk */}
-            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-cyan-400 transition-colors" title="Support Helpdesk">
+            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-blue-600 transition-colors" title="Support Helpdesk">
               <Headset className="size-8 sm:size-10" strokeWidth={1.5} />
             </div>
 
             {/* Dotted Connector 3 */}
             <div className="relative w-10 sm:w-16 flex items-center justify-center">
-              <div className="w-full border-b-2 border-dotted border-slate-600" />
+              <div className="w-full border-b-2 border-dotted border-slate-300" />
               <motion.div
                 animate={{ x: [-16, 16], opacity: [0, 1, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 1.4 }}
-                className="absolute size-1.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/50"
+                className="absolute size-1.5 rounded-full bg-blue-500 shadow-sm shadow-blue-500/50"
               />
             </div>
 
             {/* Engine 4: Autonomous AI Agents */}
-            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-purple-400 transition-colors" title="Autonomous AI Agents">
+            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-purple-600 transition-colors" title="Autonomous AI Agents">
               <Brain className="size-8 sm:size-10" strokeWidth={1.5} />
             </div>
           </motion.div>
