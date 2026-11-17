@@ -84,19 +84,19 @@ export function Navbar() {
     <>
       <header
         ref={navRef}
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+        className={`sticky top-0 z-40 w-full transition-all duration-200 ${
           isScrolled
-            ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-sm shadow-slate-900/5 py-2.5'
-            : 'bg-white/80 backdrop-blur-md border-b border-slate-200/50 py-3.5'
+            ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-xs py-1.5'
+            : 'bg-white/90 backdrop-blur-md border-b border-slate-200/50 py-2'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Brand Logo */}
-            <Logo showTagline={false} />
+          <div className="flex items-center justify-between h-10 sm:h-11">
+            {/* Brand Logo (Compact) */}
+            <Logo size="sm" showTagline={false} />
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5" aria-label="Main Navigation">
+            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1" aria-label="Main Navigation">
               {/* 1. Products Dropdown */}
               <div className="relative">
                 <button
@@ -106,7 +106,7 @@ export function Navbar() {
                     setSolutionsOpen(false)
                     setResourcesOpen(false)
                   }}
-                  className={`group inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-xl transition-all ${
+                  className={`group inline-flex items-center gap-1 px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
                     productsOpen || location.pathname.startsWith('/products')
                       ? 'text-blue-600 bg-blue-50/90'
                       : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
@@ -115,36 +115,36 @@ export function Navbar() {
                 >
                   <span>Products</span>
                   <ChevronDown
-                    className={`size-4 text-slate-400 group-hover:text-blue-600 transition-transform duration-200 ${
+                    className={`size-3.5 text-slate-400 group-hover:text-blue-600 transition-transform duration-200 ${
                       productsOpen ? 'rotate-180 text-blue-600' : ''
                     }`}
                   />
                 </button>
 
                 {productsOpen && (
-                  <div className="absolute left-0 mt-2.5 w-[420px] rounded-2xl bg-white/95 backdrop-blur-xl p-3.5 shadow-2xl ring-1 ring-slate-900/10 focus:outline-none transition-all animate-in fade-in-0 zoom-in-95 duration-200">
-                    <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-100 mb-2">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  <div className="absolute left-0 mt-2 w-[360px] rounded-xl bg-white/95 backdrop-blur-xl p-2.5 shadow-xl ring-1 ring-slate-900/10 focus:outline-none transition-all animate-in fade-in-0 zoom-in-95 duration-200">
+                    <div className="flex items-center justify-between px-2.5 py-1 border-b border-slate-100 mb-1.5">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                         Unified Engines
                       </span>
-                      <span className="text-[11px] font-medium text-blue-600">4 Core Suites</span>
+                      <span className="text-[10px] font-medium text-blue-600">4 Core Suites</span>
                     </div>
 
                     <div className="space-y-1">
                       <Link
                         to="/products/communication-cloud"
-                        className="group flex items-start gap-3.5 rounded-xl p-3 hover:bg-blue-50/70 transition-all"
+                        className="group flex items-start gap-2.5 rounded-lg p-2 hover:bg-blue-50/70 transition-all"
                       >
-                        <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-100/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
-                          <MessageSquare className="size-5" />
+                        <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-blue-100/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
+                          <MessageSquare className="size-4" />
                         </div>
                         <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                               Communication Cloud
                             </span>
                           </div>
-                          <p className="mt-0.5 text-xs text-slate-500 leading-relaxed">
+                          <p className="mt-0.5 text-[11px] text-slate-500 leading-snug">
                             Official WhatsApp Business API, SMS gateway, voice, and team inbox.
                           </p>
                         </div>
@@ -152,18 +152,18 @@ export function Navbar() {
 
                       <Link
                         to="/products/sales-crm"
-                        className="group flex items-start gap-3.5 rounded-xl p-3 hover:bg-blue-50/70 transition-all"
+                        className="group flex items-start gap-2.5 rounded-lg p-2 hover:bg-blue-50/70 transition-all"
                       >
-                        <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-100/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
-                          <TrendingUp className="size-5" />
+                        <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-blue-100/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
+                          <TrendingUp className="size-4" />
                         </div>
                         <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                               Sales CRM
                             </span>
                           </div>
-                          <p className="mt-0.5 text-xs text-slate-500 leading-relaxed">
+                          <p className="mt-0.5 text-[11px] text-slate-500 leading-snug">
                             Lead scoring, visual Kanban stages, timeline tracking, and conversational sales.
                           </p>
                         </div>
@@ -171,18 +171,18 @@ export function Navbar() {
 
                       <Link
                         to="/products/support-crm"
-                        className="group flex items-start gap-3.5 rounded-xl p-3 hover:bg-blue-50/70 transition-all"
+                        className="group flex items-start gap-2.5 rounded-lg p-2 hover:bg-blue-50/70 transition-all"
                       >
-                        <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-blue-100/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
-                          <Headphones className="size-5" />
+                        <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-blue-100/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
+                          <Headphones className="size-4" />
                         </div>
                         <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                               Support CRM
                             </span>
                           </div>
-                          <p className="mt-0.5 text-xs text-slate-500 leading-relaxed">
+                          <p className="mt-0.5 text-[11px] text-slate-500 leading-snug">
                             Omnichannel ticketing, SLA resolution countdowns, and automated routing.
                           </p>
                         </div>
@@ -190,18 +190,18 @@ export function Navbar() {
 
                       <Link
                         to="/products/ai-automation"
-                        className="group flex items-start gap-3.5 rounded-xl p-3 hover:bg-purple-50/70 transition-all"
+                        className="group flex items-start gap-2.5 rounded-lg p-2 hover:bg-purple-50/70 transition-all"
                       >
-                        <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl bg-purple-100/80 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-xs">
-                          <Bot className="size-5" />
+                        <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-purple-100/80 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-xs">
+                          <Bot className="size-4" />
                         </div>
                         <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-slate-900 group-hover:text-purple-600 transition-colors">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-bold text-slate-900 group-hover:text-purple-600 transition-colors">
                               AI & Automation
                             </span>
                           </div>
-                          <p className="mt-0.5 text-xs text-slate-500 leading-relaxed">
+                          <p className="mt-0.5 text-[11px] text-slate-500 leading-snug">
                             Visual flow designer, autonomous agents, and Model Context Protocol servers.
                           </p>
                         </div>
@@ -220,7 +220,7 @@ export function Navbar() {
                     setProductsOpen(false)
                     setResourcesOpen(false)
                   }}
-                  className={`group inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-xl transition-all ${
+                  className={`group inline-flex items-center gap-1 px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
                     solutionsOpen || location.pathname.startsWith('/solutions')
                       ? 'text-blue-600 bg-blue-50/90'
                       : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
@@ -229,85 +229,85 @@ export function Navbar() {
                 >
                   <span>Solutions</span>
                   <ChevronDown
-                    className={`size-4 text-slate-400 group-hover:text-blue-600 transition-transform duration-200 ${
+                    className={`size-3.5 text-slate-400 group-hover:text-blue-600 transition-transform duration-200 ${
                       solutionsOpen ? 'rotate-180 text-blue-600' : ''
                     }`}
                   />
                 </button>
 
                 {solutionsOpen && (
-                  <div className="absolute left-0 mt-2.5 w-88 rounded-2xl bg-white/95 backdrop-blur-xl p-3.5 shadow-2xl ring-1 ring-slate-900/10 focus:outline-none animate-in fade-in-0 zoom-in-95 duration-200">
+                  <div className="absolute left-0 mt-2 w-80 rounded-xl bg-white/95 backdrop-blur-xl p-2.5 shadow-xl ring-1 ring-slate-900/10 focus:outline-none animate-in fade-in-0 zoom-in-95 duration-200">
                     <div className="space-y-1">
                       <Link
                         to="/solutions"
-                        className="flex items-center justify-between px-3 py-2 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50/80 rounded-xl transition-colors mb-2"
+                        className="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50/80 rounded-lg transition-colors mb-1.5"
                       >
                         <span>Explore All Solutions</span>
-                        <ArrowRight className="size-3.5" />
+                        <ArrowRight className="size-3" />
                       </Link>
 
                       <Link
                         to="/solutions/sales-teams"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
+                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                       >
-                        <div className="size-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-                          <TrendingUp className="size-4" />
+                        <div className="size-6 rounded-md bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                          <TrendingUp className="size-3.5" />
                         </div>
                         <div>
-                          <div className="font-semibold text-slate-900">For Sales Teams</div>
-                          <div className="text-[11px] text-slate-500">Accelerate lead velocity & conversion</div>
+                          <div className="font-semibold text-slate-900 text-xs">For Sales Teams</div>
+                          <div className="text-[10.5px] text-slate-500">Accelerate lead velocity & conversion</div>
                         </div>
                       </Link>
 
                       <Link
                         to="/solutions/customer-support"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
+                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                       >
-                        <div className="size-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-                          <Headphones className="size-4" />
+                        <div className="size-6 rounded-md bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                          <Headphones className="size-3.5" />
                         </div>
                         <div>
-                          <div className="font-semibold text-slate-900">For Customer Support</div>
-                          <div className="text-[11px] text-slate-500">Fast first-response & SLA defense</div>
+                          <div className="font-semibold text-slate-900 text-xs">For Customer Support</div>
+                          <div className="text-[10.5px] text-slate-500">Fast first-response & SLA defense</div>
                         </div>
                       </Link>
 
                       <Link
                         to="/solutions/marketing-teams"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
+                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                       >
-                        <div className="size-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-                          <Sparkles className="size-4" />
+                        <div className="size-6 rounded-md bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                          <Sparkles className="size-3.5" />
                         </div>
                         <div>
-                          <div className="font-semibold text-slate-900">For Marketing Teams</div>
-                          <div className="text-[11px] text-slate-500">Targeted WhatsApp & SMS broadcasts</div>
+                          <div className="font-semibold text-slate-900 text-xs">For Marketing Teams</div>
+                          <div className="text-[10.5px] text-slate-500">Targeted WhatsApp & SMS broadcasts</div>
                         </div>
                       </Link>
 
                       <Link
                         to="/solutions/startups"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-600 transition-colors"
+                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-600 transition-colors"
                       >
-                        <div className="size-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                          <Users className="size-4" />
+                        <div className="size-6 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                          <Users className="size-3.5" />
                         </div>
                         <div>
-                          <div className="font-semibold text-slate-900">For Startups</div>
-                          <div className="text-[11px] text-slate-500">All-in-one stack without overhead</div>
+                          <div className="font-semibold text-slate-900 text-xs">For Startups</div>
+                          <div className="text-[10.5px] text-slate-500">All-in-one stack without overhead</div>
                         </div>
                       </Link>
 
                       <Link
                         to="/solutions/enterprises"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-amber-600 transition-colors"
+                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-amber-600 transition-colors"
                       >
-                        <div className="size-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
-                          <Building2 className="size-4" />
+                        <div className="size-6 rounded-md bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                          <Building2 className="size-3.5" />
                         </div>
                         <div>
-                          <div className="font-semibold text-slate-900">For Enterprises</div>
-                          <div className="text-[11px] text-slate-500">High-throughput routing & custom SLAs</div>
+                          <div className="font-semibold text-slate-900 text-xs">For Enterprises</div>
+                          <div className="text-[10.5px] text-slate-500">High-throughput routing & custom SLAs</div>
                         </div>
                       </Link>
                     </div>
@@ -318,7 +318,7 @@ export function Navbar() {
               {/* 3. Integrations */}
               <Link
                 to="/integrations"
-                className={`px-3 py-2 text-sm font-semibold rounded-xl transition-all ${
+                className={`px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
                   location.pathname === '/integrations'
                     ? 'text-blue-600 bg-blue-50/90'
                     : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
@@ -336,7 +336,7 @@ export function Navbar() {
                     setProductsOpen(false)
                     setSolutionsOpen(false)
                   }}
-                  className={`group inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-xl transition-all ${
+                  className={`group inline-flex items-center gap-1 px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
                     resourcesOpen ||
                     location.pathname.startsWith('/resources') ||
                     location.pathname.startsWith('/developers')
@@ -347,64 +347,64 @@ export function Navbar() {
                 >
                   <span>Resources</span>
                   <ChevronDown
-                    className={`size-4 text-slate-400 group-hover:text-blue-600 transition-transform duration-200 ${
+                    className={`size-3.5 text-slate-400 group-hover:text-blue-600 transition-transform duration-200 ${
                       resourcesOpen ? 'rotate-180 text-blue-600' : ''
                     }`}
                   />
                 </button>
 
                 {resourcesOpen && (
-                  <div className="absolute left-0 mt-2.5 w-76 rounded-2xl bg-white/95 backdrop-blur-xl p-3.5 shadow-2xl ring-1 ring-slate-900/10 focus:outline-none animate-in fade-in-0 zoom-in-95 duration-200">
+                  <div className="absolute left-0 mt-2 w-64 rounded-xl bg-white/95 backdrop-blur-xl p-2.5 shadow-xl ring-1 ring-slate-900/10 focus:outline-none animate-in fade-in-0 zoom-in-95 duration-200">
                     <div className="space-y-1">
                       <Link
                         to="/resources"
-                        className="flex items-center justify-between px-3 py-2 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50/80 rounded-xl transition-colors mb-2"
+                        className="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50/80 rounded-lg transition-colors mb-1.5"
                       >
                         <span>Resource Center</span>
-                        <ArrowRight className="size-3.5" />
+                        <ArrowRight className="size-3" />
                       </Link>
 
                       <Link
                         to="/resources/blog"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
+                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                       >
-                        <BookOpen className="size-4 text-blue-600" />
+                        <BookOpen className="size-3.5 text-blue-600 shrink-0" />
                         <div>
-                          <div className="font-semibold text-slate-900">Blog & Insights</div>
-                          <div className="text-[11px] text-slate-500">Playbooks, CPaaS tips, trends</div>
+                          <div className="font-semibold text-slate-900 text-xs">Blog & Insights</div>
+                          <div className="text-[10.5px] text-slate-500">Playbooks, CPaaS tips, trends</div>
                         </div>
                       </Link>
 
                       <Link
                         to="/resources/guides"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
+                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                       >
-                        <Layers className="size-4 text-blue-600" />
+                        <Layers className="size-3.5 text-blue-600 shrink-0" />
                         <div>
-                          <div className="font-semibold text-slate-900">Implementation Guides</div>
-                          <div className="text-[11px] text-slate-500">Step-by-step onboarding walkthroughs</div>
+                          <div className="font-semibold text-slate-900 text-xs">Implementation Guides</div>
+                          <div className="text-[10.5px] text-slate-500">Step-by-step onboarding walkthroughs</div>
                         </div>
                       </Link>
 
                       <Link
                         to="/developers/api-documentation"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-purple-600 transition-colors"
+                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-purple-600 transition-colors"
                       >
-                        <Code2 className="size-4 text-purple-600" />
+                        <Code2 className="size-3.5 text-purple-600 shrink-0" />
                         <div>
-                          <div className="font-semibold text-slate-900">API Documentation</div>
-                          <div className="text-[11px] text-slate-500">RESTful schemas & SDKs</div>
+                          <div className="font-semibold text-slate-900 text-xs">API Documentation</div>
+                          <div className="text-[10.5px] text-slate-500">RESTful schemas & SDKs</div>
                         </div>
                       </Link>
 
                       <Link
                         to="/developers/webhooks"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-600 transition-colors"
+                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-600 transition-colors"
                       >
-                        <Webhook className="size-4 text-emerald-600" />
+                        <Webhook className="size-3.5 text-emerald-600 shrink-0" />
                         <div>
-                          <div className="font-semibold text-slate-900">Webhooks & Events</div>
-                          <div className="text-[11px] text-slate-500">HMAC signed event streams</div>
+                          <div className="font-semibold text-slate-900 text-xs">Webhooks & Events</div>
+                          <div className="text-[10.5px] text-slate-500">HMAC signed event streams</div>
                         </div>
                       </Link>
                     </div>
@@ -415,7 +415,7 @@ export function Navbar() {
               {/* 5. Pricing */}
               <Link
                 to="/pricing"
-                className={`px-3 py-2 text-sm font-semibold rounded-xl transition-all ${
+                className={`px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
                   location.pathname === '/pricing'
                     ? 'text-blue-600 bg-blue-50/90'
                     : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
@@ -427,7 +427,7 @@ export function Navbar() {
               {/* 6. About Us */}
               <Link
                 to="/about"
-                className={`px-3 py-2 text-sm font-semibold rounded-xl transition-all ${
+                className={`px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
                   location.pathname === '/about'
                     ? 'text-blue-600 bg-blue-50/90'
                     : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
@@ -438,34 +438,34 @@ export function Navbar() {
             </nav>
 
             {/* Desktop Action CTAs */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-2.5">
               <Link
                 to="/book-demo"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-xs"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors shadow-xs"
               >
-                <CalendarCheck className="size-4" />
+                <CalendarCheck className="size-3.5" />
                 <span>Book a Demo</span>
               </Link>
             </div>
 
             {/* Mobile Actions: Demo Quick Button & Hamburger */}
-            <div className="flex items-center gap-2 lg:hidden">
+            <div className="flex items-center gap-1.5 lg:hidden">
               <Link
                 to="/book-demo"
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200/80 rounded-lg shadow-xs"
+                className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200/80 rounded-md shadow-xs"
               >
-                <CalendarCheck className="size-3.5" />
+                <CalendarCheck className="size-3" />
                 <span>Demo</span>
               </Link>
 
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-xl text-slate-700 bg-slate-100/80 hover:bg-slate-200/80 transition-colors"
+                className="inline-flex items-center justify-center p-1.5 rounded-md text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors"
                 aria-label="Toggle navigation menu"
                 aria-expanded={mobileMenuOpen}
               >
-                {mobileMenuOpen ? <X className="size-6 text-slate-900" /> : <Menu className="size-6 text-slate-900" />}
+                {mobileMenuOpen ? <X className="size-5 text-slate-900" /> : <Menu className="size-5 text-slate-900" />}
               </button>
             </div>
           </div>

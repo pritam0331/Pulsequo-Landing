@@ -7,6 +7,7 @@ import { Link } from 'react-router'
 
 interface LogoProps {
   variant?: 'light' | 'dark'
+  size?: 'sm' | 'md'
   className?: string
   showTagline?: boolean
   linkToHome?: boolean
@@ -14,14 +15,21 @@ interface LogoProps {
 
 export function Logo({
   variant = 'light',
+  size = 'md',
   className = '',
   showTagline = false,
   linkToHome = true,
 }: LogoProps) {
+  const isSmall = size === 'sm'
+
   const content = (
-    <div className={`flex items-center gap-3 select-none ${className}`}>
+    <div className={`flex items-center ${isSmall ? 'gap-2' : 'gap-3'} select-none ${className}`}>
       {/* Official PulseQuo Brand Icon: Square without background or rounded corners */}
-      <div className="relative size-9 shrink-0 flex items-center justify-center rounded-none bg-transparent">
+      <div
+        className={`relative ${
+          isSmall ? 'size-7' : 'size-9'
+        } shrink-0 flex items-center justify-center rounded-none bg-transparent`}
+      >
         <img
           src="/pulsequo-icon.png"
           alt="PulseQuo"
@@ -32,7 +40,9 @@ export function Logo({
 
       <div className="flex flex-col">
         <span
-          className={`text-xl font-bold tracking-tight leading-none ${
+          className={`${
+            isSmall ? 'text-lg' : 'text-xl'
+          } font-bold tracking-tight leading-none ${
             variant === 'dark' ? 'text-white' : 'text-slate-900'
           }`}
         >
