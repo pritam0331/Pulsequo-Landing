@@ -41,6 +41,7 @@ import { WorkflowCanvas } from '../components/common/WorkflowCanvas'
 import { CTASection } from '../components/common/CTASection'
 import { FAQAccordion } from '../components/common/FAQAccordion'
 import { ContactForm } from '../components/forms/ContactForm'
+import { PricingCards } from '../components/pricing/PricingCards'
 import { siteConfig } from '../config/siteConfig'
 import { generalFaqs } from '../data/faqs'
 
@@ -921,9 +922,26 @@ export function MarketingHomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          8. FREQUENTLY ASKED QUESTIONS (SPLIT TWO-COLUMN LAYOUT)
+          8. TRANSPARENT PRICING PLANS
          ───────────────────────────────────────────────────────────── */}
-      <section id="faqs" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="pricing" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            badge="FLEXIBLE PRICING"
+            title="Simple, Transparent Plans Built to Scale"
+            description="Predictable pricing with no hidden seat fees. Start with a 14-day free trial or contact us for bespoke enterprise clusters."
+          />
+
+          <div className="mt-6 sm:mt-8">
+            <PricingCards defaultAnnual={true} showAdditionalSupport={false} />
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          9. FREQUENTLY ASKED QUESTIONS (SPLIT TWO-COLUMN LAYOUT)
+         ───────────────────────────────────────────────────────────── */}
+      <section id="faqs" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left Column: Heading, Subhead & Contact Action */}

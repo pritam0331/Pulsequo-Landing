@@ -16,9 +16,14 @@ import { pricingTiers, pricingAdditionalSupport, type PricingPlanTier } from '..
 interface PricingCardsProps {
   className?: string
   defaultAnnual?: boolean
+  showAdditionalSupport?: boolean
 }
 
-export function PricingCards({ className = '', defaultAnnual = true }: PricingCardsProps) {
+export function PricingCards({
+  className = '',
+  defaultAnnual = true,
+  showAdditionalSupport = true,
+}: PricingCardsProps) {
   const [isAnnual, setIsAnnual] = useState(defaultAnnual)
 
   return (
@@ -222,59 +227,61 @@ export function PricingCards({ className = '', defaultAnnual = true }: PricingCa
       {/* ─────────────────────────────────────────────────────────────
           3. ADDITIONAL SUPPORT / INFO CARD (Concierge Box)
          ───────────────────────────────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-        className="mt-14 rounded-3xl bg-slate-50 border border-slate-200/90 p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xs"
-      >
-        <div className="max-w-2xl">
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-2.5 py-0.5 text-xs font-semibold text-blue-800">
-            <CalendarCheck className="size-3.5 text-blue-600" />
-            <span>Additional Support & Custom Planning</span>
-          </span>
+      {showAdditionalSupport && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mt-14 rounded-3xl bg-slate-50 border border-slate-200/90 p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xs"
+        >
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-2.5 py-0.5 text-xs font-semibold text-blue-800">
+              <CalendarCheck className="size-3.5 text-blue-600" />
+              <span>Additional Support & Custom Planning</span>
+            </span>
 
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-2.5">
-            {pricingAdditionalSupport.headline}
-          </h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-2.5">
+              {pricingAdditionalSupport.headline}
+            </h3>
 
-          <p className="mt-1.5 text-sm text-slate-600 leading-relaxed">
-            {pricingAdditionalSupport.description}
-          </p>
+            <p className="mt-1.5 text-sm text-slate-600 leading-relaxed">
+              {pricingAdditionalSupport.description}
+            </p>
 
-          {/* Direct Contact Details */}
-          <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-slate-700">
-            <a
-              href={`tel:${pricingAdditionalSupport.phone.replace(/\s+/g, '')}`}
-              className="inline-flex items-center gap-2 font-medium hover:text-blue-600 transition-colors"
-            >
-              <Phone className="size-4 text-blue-600 shrink-0" />
-              <span>{pricingAdditionalSupport.phone}</span>
-            </a>
+            {/* Direct Contact Details */}
+            <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-slate-700">
+              <a
+                href={`tel:${pricingAdditionalSupport.phone.replace(/\s+/g, '')}`}
+                className="inline-flex items-center gap-2 font-medium hover:text-blue-600 transition-colors"
+              >
+                <Phone className="size-4 text-blue-600 shrink-0" />
+                <span>{pricingAdditionalSupport.phone}</span>
+              </a>
 
-            <a
-              href={`mailto:${pricingAdditionalSupport.email}`}
-              className="inline-flex items-center gap-2 font-medium hover:text-blue-600 transition-colors"
-            >
-              <Mail className="size-4 text-blue-600 shrink-0" />
-              <span>{pricingAdditionalSupport.email}</span>
-            </a>
+              <a
+                href={`mailto:${pricingAdditionalSupport.email}`}
+                className="inline-flex items-center gap-2 font-medium hover:text-blue-600 transition-colors"
+              >
+                <Mail className="size-4 text-blue-600 shrink-0" />
+                <span>{pricingAdditionalSupport.email}</span>
+              </a>
+            </div>
           </div>
-        </div>
 
-        {/* Action Button */}
-        <div className="shrink-0 w-full sm:w-auto">
-          <Link
-            to={pricingAdditionalSupport.ctaHref}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3.5 text-sm shadow-md shadow-blue-500/25 transition-all"
-          >
-            <CalendarCheck className="size-4" />
-            <span>{pricingAdditionalSupport.ctaText}</span>
-            <ArrowRight className="size-4" />
-          </Link>
-        </div>
-      </motion.div>
+          {/* Action Button */}
+          <div className="shrink-0 w-full sm:w-auto">
+            <Link
+              to={pricingAdditionalSupport.ctaHref}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3.5 text-sm shadow-md shadow-blue-500/25 transition-all"
+            >
+              <CalendarCheck className="size-4" />
+              <span>{pricingAdditionalSupport.ctaText}</span>
+              <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </motion.div>
+      )}
     </div>
   )
 }
