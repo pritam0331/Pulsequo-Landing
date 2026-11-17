@@ -845,10 +845,6 @@ export function MarketingHomePage() {
               transition={{ duration: 0.5, ease: easeOutCurve }}
               className="lg:col-span-5 lg:sticky lg:top-28"
             >
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase mb-3.5 bg-blue-50 text-blue-700 border border-blue-200/90 shadow-2xs">
-                <span className="size-1.5 rounded-xs bg-blue-500 animate-pulse" />
-                <span>FREQUENTLY ASKED QUESTIONS</span>
-              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
                 Everything you need to know
               </h2>
@@ -880,6 +876,13 @@ export function MarketingHomePage() {
               transition={{ duration: 0.5, delay: 0.1, ease: easeOutCurve }}
               className="lg:col-span-7"
             >
+              <div className="flex items-center justify-between mb-3 px-0.5">
+                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase bg-blue-50 text-blue-700 border border-blue-200/90 shadow-2xs">
+                  <span className="size-1.5 rounded-xs bg-blue-500 animate-pulse" />
+                  <span>Frequently Asked Questions</span>
+                </div>
+                <span className="text-xs font-mono text-slate-500">Scroll to view all (8)</span>
+              </div>
               <FAQAccordion items={generalFaqs} />
             </motion.div>
           </div>
