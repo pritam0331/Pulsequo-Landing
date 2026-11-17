@@ -20,6 +20,14 @@ import {
   Sparkles,
   Building,
   Rocket,
+  Radio,
+  Cloud,
+  Target,
+  KeyRound,
+  Hash,
+  FileSpreadsheet,
+  ShoppingBag,
+  Code2,
 } from 'lucide-react'
 import { SEO } from '../components/common/SEO'
 import { SectionHeading } from '../components/common/SectionHeading'
@@ -56,16 +64,106 @@ export function MarketingHomePage() {
   ]
 
   const integrations = [
-    { name: 'WhatsApp Business API', tag: 'Meta Official Partner' },
-    { name: 'Carrier SMS SMPP', tag: 'TRAI DLT Engine' },
-    { name: 'Salesforce CRM', tag: 'Bi-Directional Sync' },
-    { name: 'HubSpot', tag: 'Automated Deals & Leads' },
-    { name: 'Model Context Protocol', tag: 'Native MCP Tools' },
-    { name: 'HMAC Webhooks', tag: 'Signed Secure Callbacks' },
-    { name: 'Slack Connect', tag: 'Internal Team Escalations' },
-    { name: 'Google Sheets & Drive', tag: 'Real-Time Data Sync' },
-    { name: 'Shopify & WooCommerce', tag: 'Order & Cart Sync' },
-    { name: 'RESTful Core API', tag: 'OpenAPI 3.1 Spec' },
+    {
+      name: 'WhatsApp Business API',
+      tag: 'Meta Official Partner',
+      spec: 'Cloud API v20',
+      description: 'Official Meta BSP connectivity with green tick verification, interactive buttons, and template manager.',
+      icon: MessageSquare,
+      accent: 'blue',
+      category: 'MESSAGING',
+      link: '/products/communication-cloud',
+    },
+    {
+      name: 'Carrier SMS SMPP',
+      tag: 'TRAI DLT Engine',
+      spec: 'SMPP v3.4',
+      description: 'Direct operator binds with TRAI DLT template hashing and high-throughput transactional OTP routing.',
+      icon: Radio,
+      accent: 'blue',
+      category: 'CARRIER TELCO',
+      link: '/products/communication-cloud',
+    },
+    {
+      name: 'Salesforce CRM',
+      tag: 'Bi-Directional Sync',
+      spec: 'REST & Apex',
+      description: 'Automated lead injection, custom object mapping, and deal timeline conversational history.',
+      icon: Cloud,
+      accent: 'blue',
+      category: 'ENTERPRISE CRM',
+      link: '/integrations',
+    },
+    {
+      name: 'HubSpot',
+      tag: 'Automated Deals & Leads',
+      spec: 'Timeline API',
+      description: 'Inbound contact auto-creation, pipeline stage triggers, and chat transcript activity logging.',
+      icon: Target,
+      accent: 'blue',
+      category: 'GROWTH CRM',
+      link: '/integrations',
+    },
+    {
+      name: 'Model Context Protocol',
+      tag: 'Native MCP Tools',
+      spec: 'Anthropic MCP',
+      description: 'Open standard protocol enabling autonomous AI agents to query customer data and trigger tools securely.',
+      icon: Bot,
+      accent: 'purple',
+      category: 'AI PROTOCOL',
+      link: '/products/ai-automation',
+    },
+    {
+      name: 'HMAC Webhooks',
+      tag: 'Signed Secure Callbacks',
+      spec: 'SHA-256 HMAC',
+      description: 'Tamper-proof signed event streams with exponential backoff and zero-loss queuing architecture.',
+      icon: KeyRound,
+      accent: 'purple',
+      category: 'SECURITY',
+      link: '/developers/webhooks',
+    },
+    {
+      name: 'Slack Connect',
+      tag: 'Internal Team Escalations',
+      spec: 'Events API',
+      description: 'Real-time VIP lead escalation channels with 1-click human agent takeover and thread syncing.',
+      icon: Hash,
+      accent: 'blue',
+      category: 'COLLABORATION',
+      link: '/integrations',
+    },
+    {
+      name: 'Google Sheets & Drive',
+      tag: 'Real-Time Data Sync',
+      spec: 'Sheets v4 API',
+      description: 'Instant bi-directional row synchronization, campaign data exports, and transcript archiving.',
+      icon: FileSpreadsheet,
+      accent: 'blue',
+      category: 'WORKSPACE',
+      link: '/integrations',
+    },
+    {
+      name: 'Shopify & WooCommerce',
+      tag: 'Order & Cart Sync',
+      spec: 'Storefront Hooks',
+      description: 'Abandoned checkout recovery, automated WhatsApp delivery tracking, and catalog sync.',
+      icon: ShoppingBag,
+      accent: 'blue',
+      category: 'E-COMMERCE',
+      link: '/integrations',
+    },
+    {
+      name: 'RESTful Core API',
+      tag: 'OpenAPI 3.1 Spec',
+      spec: 'REST / JSON',
+      description: 'Full programmatic access with 99.99% throughput SLA, SDK generation, and fine-grained bearer tokens.',
+      icon: Code2,
+      accent: 'blue',
+      category: 'DEVELOPER API',
+      link: '/developers/api-documentation',
+    },
   ]
 
   const growthSolutions = [
@@ -580,39 +678,120 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           5. INTEGRATIONS & ECOSYSTEM GRID (QUIET, TRUSTWORTHY ARCHITECTURE)
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-slate-50/70 border-t border-slate-200/80">
+      <section className="py-20 sm:py-24 bg-slate-50/70 border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-semibold text-blue-600 block mb-2 font-mono">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <span className="text-xs font-semibold text-blue-600 block mb-2 font-mono uppercase tracking-wider">
               Ecosystem & Integrations
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
               Connected with your existing enterprise stack
             </h2>
-            <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
               Native bi-directional connectors, carrier SMPP bindings, and Model Context Protocol (MCP) tooling.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 max-w-5xl mx-auto">
-            {integrations.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex flex-col p-4 rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-xs transition-all"
-              >
-                <div className="size-1.5 rounded-xs bg-blue-600 mb-2.5" />
-                <span className="text-sm font-bold text-slate-900">{item.name}</span>
-                <span className="text-[11px] text-slate-500 mt-1 font-medium">{item.tag}</span>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {integrations.map((item, idx) => {
+              const isPurple = item.accent === 'purple'
+              const IconComponent = item.icon
+
+              return (
+                <Link
+                  key={idx}
+                  to={item.link}
+                  className="group relative flex flex-col justify-between p-4 sm:p-5 rounded-xl bg-white border border-slate-200/90 hover:border-blue-500/80 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  <div>
+                    {/* Top row: Icon and spec chip */}
+                    <div className="flex items-center justify-between gap-2">
+                      <div
+                        className={`size-10 rounded-lg flex items-center justify-center border transition-all duration-200 shadow-xs ${
+                          isPurple
+                            ? 'bg-purple-50/80 border-purple-200/80 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600'
+                            : 'bg-blue-50/80 border-blue-200/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600'
+                        }`}
+                      >
+                        <IconComponent className="size-5" />
+                      </div>
+
+                      <span
+                        className={`font-mono text-[10px] font-semibold px-2 py-0.5 rounded-sm border ${
+                          isPurple
+                            ? 'bg-purple-50/60 text-purple-700 border-purple-200/70'
+                            : 'bg-slate-100 text-slate-600 border-slate-200/70'
+                        }`}
+                      >
+                        {item.spec}
+                      </span>
+                    </div>
+
+                    {/* Category micro-label */}
+                    <div className="mt-3.5">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
+                        {item.category}
+                      </span>
+                    </div>
+
+                    {/* Technology Name */}
+                    <h3 className="mt-1 text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight leading-snug">
+                      {item.name}
+                    </h3>
+
+                    {/* Tag badge with status indicator dot */}
+                    <div className="flex items-center gap-1.5 mt-1.5">
+                      <span
+                        className={`size-1.5 rounded-xs shrink-0 ${
+                          isPurple ? 'bg-purple-600' : 'bg-blue-600'
+                        }`}
+                      />
+                      <span className="text-[11px] font-semibold text-slate-700 font-mono">
+                        {item.tag}
+                      </span>
+                    </div>
+
+                    {/* Description */}
+                    <p className="mt-2.5 text-xs text-slate-600 leading-relaxed line-clamp-3">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  {/* Card bottom footer */}
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                    <span className="font-mono text-[10px] text-slate-400 font-medium">
+                      Bi-directional
+                    </span>
+                    <span className="inline-flex items-center gap-1 font-semibold text-slate-500 group-hover:text-blue-600 transition-colors">
+                      <span>Connect</span>
+                      <ArrowRight className="size-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
 
-          <div className="mt-10 text-center">
+          {/* Ecosystem Trust & Spec Bar */}
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-4.5 rounded-xl bg-white border border-slate-200 shadow-xs">
+            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-600">
+              <span className="flex items-center gap-2">
+                <span className="size-2 rounded-xs bg-emerald-500 inline-block" />
+                <span className="font-bold text-slate-900">50+ Enterprise Connectors</span>
+              </span>
+              <span className="text-slate-300">·</span>
+              <span>Sub-120ms Event Relay</span>
+              <span className="text-slate-300 hidden md:inline">·</span>
+              <span className="hidden md:inline">OpenAPI 3.1 & SDKs</span>
+              <span className="text-slate-300 hidden lg:inline">·</span>
+              <span className="hidden lg:inline text-purple-700 font-semibold">Model Context Protocol</span>
+            </div>
+
             <Link
               to="/integrations"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
             >
-              <span>View all 50+ integrations and developer specifications</span>
+              <span>Explore all integrations & developer specs</span>
               <ArrowRight className="size-3.5" />
             </Link>
           </div>
