@@ -78,17 +78,17 @@ export function Footer() {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/5 blur-3xl pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 xl:gap-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-8 sm:pb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 xl:gap-10">
           {/* Column 1 & 2: Brand, Tagline, & Contact Details */}
           <div className="col-span-1 sm:col-span-2">
             <Logo variant="dark" showTagline={true} />
-            <p className="mt-4 text-sm text-slate-400 leading-relaxed max-w-sm">
+            <p className="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
               PulseQuo is the unified customer experience platform uniting omnichannel CPaaS messaging, sales CRM,
               customer support helpdesk, and AI automation into a single cohesive infrastructure.
             </p>
 
-            <div className="mt-6 space-y-2.5 text-xs text-slate-300">
+            <div className="mt-4 space-y-2 text-xs text-slate-300">
               <div className="flex items-center gap-2">
                 <Mail className="size-4 text-blue-400 shrink-0" />
                 <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-blue-400 text-slate-300 transition-colors">
@@ -106,7 +106,7 @@ export function Footer() {
             </div>
 
             {/* Social Links */}
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-4 flex items-center gap-2.5">
               <a
                 href={siteConfig.social.linkedin}
                 target="_blank"
@@ -149,7 +149,7 @@ export function Footer() {
           {/* Column 3: Products */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-white">Products</p>
-            <ul className="mt-4 space-y-2.5 text-sm">
+            <ul className="mt-3 space-y-2 text-xs sm:text-sm">
               <li>
                 <FooterLink to="/products/communication-cloud">Communication Cloud</FooterLink>
               </li>
@@ -174,7 +174,7 @@ export function Footer() {
           {/* Column 4: Solutions */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-white">Solutions</p>
-            <ul className="mt-4 space-y-2.5 text-sm">
+            <ul className="mt-3 space-y-2 text-xs sm:text-sm">
               <li>
                 <FooterLink to="/solutions/sales-teams">Sales Teams</FooterLink>
               </li>
@@ -199,7 +199,7 @@ export function Footer() {
           {/* Column 5: Developers & Resources */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-white">Resources</p>
-            <ul className="mt-4 space-y-2.5 text-sm">
+            <ul className="mt-3 space-y-2 text-xs sm:text-sm">
               <li>
                 <FooterLink to="/resources/blog">Blog & Articles</FooterLink>
               </li>
@@ -237,7 +237,7 @@ export function Footer() {
           {/* Column 6: Company & Trust */}
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-white">Company</p>
-            <ul className="mt-4 space-y-2.5 text-sm">
+            <ul className="mt-3 space-y-2 text-xs sm:text-sm">
               <li>
                 <FooterLink to="/about">About PulseQuo</FooterLink>
               </li>
@@ -269,7 +269,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright, Compliance, Legal */}
-        <div className="mt-16 pt-8 border-t border-blue-950/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="mt-10 sm:mt-12 pt-6 border-t border-blue-950/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-2">
             <ShieldCheck className="size-4 text-blue-400 shrink-0" />
             <span>

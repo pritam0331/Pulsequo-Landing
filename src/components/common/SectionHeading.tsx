@@ -33,7 +33,7 @@ export function SectionHeading({
       } ${className}`}
     >
       {badge && (
-        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold mb-4 shadow-2xs ${
+        <div className={`inline-flex items-center gap-2 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase mb-3.5 shadow-2xs ${
           dark
             ? 'bg-blue-950/80 text-blue-300 border border-blue-700/60'
             : 'bg-blue-50 text-blue-700 border border-blue-200/90'

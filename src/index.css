@@ -327,3 +327,22 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Thin custom scrollbar */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
