@@ -35,25 +35,12 @@ export function CTASection({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Compact Rectangle Card */}
         <motion.div
-          initial={{ opacity: 0, y: 28, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-[#020618] border border-slate-800/80 shadow-2xl p-8 sm:p-12 lg:p-14 text-center"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="relative overflow-hidden rounded-2xl bg-[#070d24] border border-blue-950/80 shadow-xl p-8 sm:p-12 lg:p-14 text-center"
         >
-          {/* Subtle Ambient Decorative Accents */}
-          <motion.div
-            animate={{ scale: [1, 1.1, 1], opacity: [0.12, 0.2, 0.12] }}
-            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-0 right-1/4 w-72 h-72 bg-blue-600 blur-[90px] rounded-3xl pointer-events-none"
-          />
-          <motion.div
-            animate={{ scale: [1, 1.12, 1], opacity: [0.1, 0.18, 0.1] }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-            className="absolute bottom-0 left-1/4 w-72 h-72 bg-purple-600 blur-[90px] rounded-3xl pointer-events-none"
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:20px_20px] opacity-25 pointer-events-none" />
-
           <div className="relative z-10 max-w-3xl mx-auto">
             {/* Headline */}
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-[1.18]">

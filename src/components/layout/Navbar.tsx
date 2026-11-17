@@ -152,14 +152,14 @@ export function Navbar() {
 
                       <Link
                         to="/products/sales-crm"
-                        className="group flex items-start gap-3.5 rounded-xl p-3 hover:bg-indigo-50/70 transition-all"
+                        className="group flex items-start gap-3.5 rounded-xl p-3 hover:bg-blue-50/70 transition-all"
                       >
-                        <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl bg-indigo-100/80 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-xs">
+                        <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-100/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
                           <TrendingUp className="size-5" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                            <span className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                               Sales CRM
                             </span>
                           </div>
@@ -171,14 +171,14 @@ export function Navbar() {
 
                       <Link
                         to="/products/support-crm"
-                        className="group flex items-start gap-3.5 rounded-xl p-3 hover:bg-violet-50/70 transition-all"
+                        className="group flex items-start gap-3.5 rounded-xl p-3 hover:bg-blue-50/70 transition-all"
                       >
-                        <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-violet-100/80 text-violet-600 group-hover:bg-violet-600 group-hover:text-white transition-all shadow-xs">
+                        <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-blue-100/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
                           <Headphones className="size-5" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-slate-900 group-hover:text-violet-600 transition-colors">
+                            <span className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                               Support CRM
                             </span>
                           </div>
@@ -261,9 +261,9 @@ export function Navbar() {
 
                       <Link
                         to="/solutions/customer-support"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-violet-600 transition-colors"
+                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                       >
-                        <div className="size-7 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center">
+                        <div className="size-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
                           <Headphones className="size-4" />
                         </div>
                         <div>
@@ -274,9 +274,9 @@ export function Navbar() {
 
                       <Link
                         to="/solutions/marketing-teams"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-indigo-600 transition-colors"
+                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                       >
-                        <div className="size-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <div className="size-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
                           <Sparkles className="size-4" />
                         </div>
                         <div>
@@ -377,9 +377,9 @@ export function Navbar() {
 
                       <Link
                         to="/resources/guides"
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-indigo-600 transition-colors"
+                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
                       >
-                        <Layers className="size-4 text-indigo-600" />
+                        <Layers className="size-4 text-blue-600" />
                         <div>
                           <div className="font-semibold text-slate-900">Implementation Guides</div>
                           <div className="text-[11px] text-slate-500">Step-by-step onboarding walkthroughs</div>
@@ -538,9 +538,9 @@ export function Navbar() {
 
                   <Link
                     to="/products/sales-crm"
-                    className="flex items-start gap-3 p-3 rounded-2xl bg-indigo-50/60 border border-indigo-100 hover:bg-indigo-100/70 transition-colors"
+                    className="flex items-start gap-3 p-3 rounded-2xl bg-blue-50/60 border border-blue-100 hover:bg-blue-100/70 transition-colors"
                   >
-                    <div className="size-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
+                    <div className="size-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
                       <TrendingUp className="size-5" />
                     </div>
                     <div>
@@ -551,9 +551,9 @@ export function Navbar() {
 
                   <Link
                     to="/products/support-crm"
-                    className="flex items-start gap-3 p-3 rounded-2xl bg-violet-50/60 border border-violet-100 hover:bg-violet-100/70 transition-colors"
+                    className="flex items-start gap-3 p-3 rounded-2xl bg-blue-50/60 border border-blue-100 hover:bg-blue-100/70 transition-colors"
                   >
-                    <div className="size-9 rounded-xl bg-violet-600 text-white flex items-center justify-center shrink-0">
+                    <div className="size-9 rounded-xl bg-[#070d24] text-white flex items-center justify-center shrink-0">
                       <Headphones className="size-5" />
                     </div>
                     <div>
@@ -596,14 +596,14 @@ export function Navbar() {
                     to="/solutions/customer-support"
                     className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 text-sm font-semibold text-slate-700"
                   >
-                    <Headphones className="size-4 text-violet-600" />
+                    <Headphones className="size-4 text-blue-600" />
                     <span>For Customer Support</span>
                   </Link>
                   <Link
                     to="/solutions/marketing-teams"
                     className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 text-sm font-semibold text-slate-700"
                   >
-                    <Sparkles className="size-4 text-indigo-600" />
+                    <Sparkles className="size-4 text-blue-600" />
                     <span>For Marketing Teams</span>
                   </Link>
                   <Link
@@ -657,7 +657,7 @@ export function Navbar() {
                     to="/resources/blog"
                     className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                   >
-                    <BookOpen className="size-4 text-indigo-600 mb-1" />
+                    <BookOpen className="size-4 text-blue-600 mb-1" />
                     Blog & News
                   </Link>
                   <Link
