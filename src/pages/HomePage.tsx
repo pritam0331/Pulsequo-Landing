@@ -67,7 +67,6 @@ export function MarketingHomePage() {
     {
       name: 'WhatsApp Business API',
       tag: 'Meta Official Partner',
-      spec: 'Cloud API v20',
       description: 'Official Meta BSP connectivity with green tick verification, interactive buttons, and template manager.',
       icon: MessageSquare,
       accent: 'blue',
@@ -77,7 +76,6 @@ export function MarketingHomePage() {
     {
       name: 'Carrier SMS SMPP',
       tag: 'TRAI DLT Engine',
-      spec: 'SMPP v3.4',
       description: 'Direct operator binds with TRAI DLT template hashing and high-throughput transactional OTP routing.',
       icon: Radio,
       accent: 'blue',
@@ -87,7 +85,6 @@ export function MarketingHomePage() {
     {
       name: 'Salesforce CRM',
       tag: 'Bi-Directional Sync',
-      spec: 'REST & Apex',
       description: 'Automated lead injection, custom object mapping, and deal timeline conversational history.',
       icon: Cloud,
       accent: 'blue',
@@ -97,7 +94,6 @@ export function MarketingHomePage() {
     {
       name: 'HubSpot',
       tag: 'Automated Deals & Leads',
-      spec: 'Timeline API',
       description: 'Inbound contact auto-creation, pipeline stage triggers, and chat transcript activity logging.',
       icon: Target,
       accent: 'blue',
@@ -107,7 +103,6 @@ export function MarketingHomePage() {
     {
       name: 'Model Context Protocol',
       tag: 'Native MCP Tools',
-      spec: 'Anthropic MCP',
       description: 'Open standard protocol enabling autonomous AI agents to query customer data and trigger tools securely.',
       icon: Bot,
       accent: 'purple',
@@ -117,7 +112,6 @@ export function MarketingHomePage() {
     {
       name: 'HMAC Webhooks',
       tag: 'Signed Secure Callbacks',
-      spec: 'SHA-256 HMAC',
       description: 'Tamper-proof signed event streams with exponential backoff and zero-loss queuing architecture.',
       icon: KeyRound,
       accent: 'purple',
@@ -127,7 +121,6 @@ export function MarketingHomePage() {
     {
       name: 'Slack Connect',
       tag: 'Internal Team Escalations',
-      spec: 'Events API',
       description: 'Real-time VIP lead escalation channels with 1-click human agent takeover and thread syncing.',
       icon: Hash,
       accent: 'blue',
@@ -137,7 +130,6 @@ export function MarketingHomePage() {
     {
       name: 'Google Sheets & Drive',
       tag: 'Real-Time Data Sync',
-      spec: 'Sheets v4 API',
       description: 'Instant bi-directional row synchronization, campaign data exports, and transcript archiving.',
       icon: FileSpreadsheet,
       accent: 'blue',
@@ -147,7 +139,6 @@ export function MarketingHomePage() {
     {
       name: 'Shopify & WooCommerce',
       tag: 'Order & Cart Sync',
-      spec: 'Storefront Hooks',
       description: 'Abandoned checkout recovery, automated WhatsApp delivery tracking, and catalog sync.',
       icon: ShoppingBag,
       accent: 'blue',
@@ -157,7 +148,6 @@ export function MarketingHomePage() {
     {
       name: 'RESTful Core API',
       tag: 'OpenAPI 3.1 Spec',
-      spec: 'REST / JSON',
       description: 'Full programmatic access with 99.99% throughput SLA, SDK generation, and fine-grained bearer tokens.',
       icon: Code2,
       accent: 'blue',
@@ -704,27 +694,15 @@ export function MarketingHomePage() {
                   className="group relative flex flex-col justify-between p-4 sm:p-5 rounded-xl bg-white border border-slate-200/90 hover:border-blue-500/80 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <div>
-                    {/* Top row: Icon and spec chip */}
-                    <div className="flex items-center justify-between gap-2">
-                      <div
-                        className={`size-10 rounded-lg flex items-center justify-center border transition-all duration-200 shadow-xs ${
-                          isPurple
-                            ? 'bg-purple-50/80 border-purple-200/80 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600'
-                            : 'bg-blue-50/80 border-blue-200/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600'
-                        }`}
-                      >
-                        <IconComponent className="size-5" />
-                      </div>
-
-                      <span
-                        className={`font-mono text-[10px] font-semibold px-2 py-0.5 rounded-sm border ${
-                          isPurple
-                            ? 'bg-purple-50/60 text-purple-700 border-purple-200/70'
-                            : 'bg-slate-100 text-slate-600 border-slate-200/70'
-                        }`}
-                      >
-                        {item.spec}
-                      </span>
+                    {/* Top: Integration Icon */}
+                    <div
+                      className={`size-10 rounded-lg flex items-center justify-center border transition-all duration-200 shadow-xs ${
+                        isPurple
+                          ? 'bg-purple-50/80 border-purple-200/80 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600'
+                          : 'bg-blue-50/80 border-blue-200/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600'
+                      }`}
+                    >
+                      <IconComponent className="size-5" />
                     </div>
 
                     {/* Category micro-label */}
