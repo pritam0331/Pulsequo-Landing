@@ -222,94 +222,137 @@ export function MarketingHomePage() {
       />
 
       {/* ─────────────────────────────────────────────────────────────
-          1. HERO SECTION: CLEAN, FOCUSED, HIGH-CONVERSION ARCHITECTURE
+          1. HERO SECTION: FULL-VIEWPORT MAIN SCREEN ARCHITECTURE
          ───────────────────────────────────────────────────────────── */}
-      <section id="hero" className="relative overflow-hidden bg-white pt-4 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 border-b border-slate-200/80">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            {/* Main Command Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: easeOutCurve }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-black text-slate-900 tracking-[-0.035em] leading-[1.12] max-w-3xl mx-auto break-words"
-            >
-              One intelligent platform for{' '}
-              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
-                every customer conversation.
-              </span>
-            </motion.h1>
-
-            {/* Clear, Authoritative Subheadline */}
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.08, ease: easeOutCurve }}
-              className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed max-w-2xl sm:max-w-3xl mx-auto font-normal text-balance"
-            >
-              Connect every message directly to revenue and resolution. PulseQuo unifies{' '}
-              <span className="text-slate-900 font-semibold">official WhatsApp & SMS CPaaS</span>,{' '}
-              <span className="text-slate-900 font-semibold">sales pipelines</span>,{' '}
-              <span className="text-slate-900 font-semibold">support helpdesk</span>, and{' '}
-              <span className="text-slate-900 font-semibold">autonomous AI agents</span> in a single synchronized workspace.
-            </motion.p>
-
-            {/* Primary Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.16, ease: easeOutCurve }}
-              className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-3.5"
-            >
-              <Link
-                to="/book-demo"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
-              >
-                <CalendarCheck className="size-4" />
-                <span>Book a personalized demo</span>
-              </Link>
-
-              <a
-                href="#platform-overview"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 rounded-lg transition-colors shadow-2xs"
-              >
-                <span>Explore the 4 engines</span>
-                <ArrowRight className="size-4 text-slate-400" />
-              </a>
-            </motion.div>
-          </div>
-
-          {/* Clean, Flat, Interactive Platform Workspace Preview */}
+      <section
+        id="hero"
+        className="relative min-h-[calc(100vh-4.5rem)] flex flex-col justify-center items-center bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
+      >
+        <div className="relative max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto">
+          {/* Subtle Category Micro-Tag */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.24, ease: easeOutCurve }}
-            className="mt-8 sm:mt-10 lg:mt-12 relative w-full max-w-full overflow-hidden"
+            transition={{ duration: 0.45, ease: easeOutCurve }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase mb-6 bg-blue-50 text-blue-700 border border-blue-200/90 shadow-2xs"
           >
-            <PlatformComposition />
+            <span className="size-1.5 rounded-xs bg-blue-600 animate-pulse" />
+            <span>ENTERPRISE CUSTOMER EXPERIENCE PLATFORM</span>
+          </motion.div>
+
+          {/* Main Command Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05, ease: easeOutCurve }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-black text-slate-900 tracking-[-0.035em] leading-[1.08] max-w-4xl mx-auto break-words"
+          >
+            One intelligent platform for{' '}
+            <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+              every customer conversation.
+            </span>
+          </motion.h1>
+
+          {/* Clear, Authoritative Subheadline */}
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.12, ease: easeOutCurve }}
+            className="mt-6 sm:mt-7 text-base sm:text-lg md:text-xl lg:text-[21px] text-slate-600 leading-relaxed max-w-3xl mx-auto font-normal text-balance"
+          >
+            Connect every message directly to revenue and resolution. PulseQuo unifies{' '}
+            <span className="text-slate-900 font-semibold">official WhatsApp & SMS CPaaS</span>,{' '}
+            <span className="text-slate-900 font-semibold">sales pipelines</span>,{' '}
+            <span className="text-slate-900 font-semibold">support helpdesk</span>, and{' '}
+            <span className="text-slate-900 font-semibold">autonomous AI agents</span> in a single synchronized workspace.
+          </motion.p>
+
+          {/* Primary Action Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.18, ease: easeOutCurve }}
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto"
+          >
+            <Link
+              to="/book-demo"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
+            >
+              <CalendarCheck className="size-4.5" />
+              <span>Book a personalized demo</span>
+            </Link>
+
+            <a
+              href="#platform-overview"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 rounded-lg transition-colors shadow-2xs"
+            >
+              <span>Explore the 4 engines</span>
+              <ArrowRight className="size-4.5 text-slate-400" />
+            </a>
+          </motion.div>
+
+          {/* Reassurance & Compliance Specs */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.25, ease: easeOutCurve }}
+            className="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-mono text-slate-500"
+          >
+            <span className="flex items-center gap-1.5">
+              <span className="size-1.5 rounded-xs bg-emerald-500" /> Meta Official Partner
+            </span>
+            <span className="text-slate-300">·</span>
+            <span className="flex items-center gap-1.5">
+              <span className="size-1.5 rounded-xs bg-blue-500" /> TRAI DLT Compliant SMS
+            </span>
+            <span className="text-slate-300">·</span>
+            <span className="flex items-center gap-1.5">
+              <span className="size-1.5 rounded-xs bg-purple-500" /> Native MCP Tools
+            </span>
+            <span className="text-slate-300">·</span>
+            <span>99.99% Carrier SLA</span>
           </motion.div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. ENTERPRISE TELEMETRY & PROOF STRIP
+          2. PLATFORM WORKSPACE SHOWCASE & TELEMETRY
          ───────────────────────────────────────────────────────────── */}
-      <section id="telemetry" className="py-8 sm:py-10 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="workspace-preview" className="py-16 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-            {achievements.map((item, idx) => (
-              <div key={idx} className="flex flex-col">
-                <p className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-mono">
-                  {item.stat}
-                </p>
-                <p className="text-sm font-semibold text-slate-800 mt-1">
-                  {item.label}
-                </p>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  {item.sublabel}
-                </p>
-              </div>
-            ))}
+          <SectionHeading
+            badge="UNIFIED WORKSPACE"
+            title="Inside the PulseQuo Command Center"
+            description="A synchronized console unifying omnichannel team inboxes, autonomous AI agents, live CPaaS telemetry, and customer CRM records."
+          />
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6, ease: easeOutCurve }}
+            className="mt-10 sm:mt-12 relative w-full max-w-full overflow-hidden"
+          >
+            <PlatformComposition />
+          </motion.div>
+
+          {/* Telemetry Strip inside the workspace showcase */}
+          <div id="telemetry" className="mt-14 pt-10 border-t border-slate-200/80">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+              {achievements.map((item, idx) => (
+                <div key={idx} className="flex flex-col">
+                  <p className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-mono">
+                    {item.stat}
+                  </p>
+                  <p className="text-sm font-semibold text-slate-800 mt-1">
+                    {item.label}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    {item.sublabel}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
