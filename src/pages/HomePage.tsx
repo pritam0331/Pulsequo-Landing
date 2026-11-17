@@ -224,7 +224,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           1. HERO SECTION: CLEAN, FOCUSED, HIGH-CONVERSION ARCHITECTURE
          ───────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/70 via-white to-white pt-12 pb-16 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-28 border-b border-slate-100">
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/70 via-white to-white pt-3 sm:pt-5 lg:pt-6 pb-6 sm:pb-8 lg:pb-10 border-b border-slate-100">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             {/* Main Command Headline */}
@@ -232,7 +232,7 @@ export function MarketingHomePage() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: easeOutCurve }}
-              className="text-3xl sm:text-5xl lg:text-[68px] font-black text-slate-900 tracking-[-0.035em] leading-[1.08] max-w-4xl mx-auto break-words"
+              className="text-2xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-black text-slate-900 tracking-[-0.03em] leading-[1.12] max-w-3xl mx-auto break-words"
             >
               One intelligent platform for{' '}
               <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
@@ -245,7 +245,7 @@ export function MarketingHomePage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: easeOutCurve }}
-              className="mt-6 text-base sm:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto font-normal text-balance"
+              className="mt-3 sm:mt-3.5 text-xs sm:text-sm lg:text-[15px] text-slate-600 leading-relaxed max-w-2xl mx-auto font-normal text-balance"
             >
               Connect every message directly to revenue and resolution. PulseQuo unifies{' '}
               <span className="text-slate-900 font-semibold">official WhatsApp & SMS CPaaS</span>,{' '}
@@ -259,11 +259,11 @@ export function MarketingHomePage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2, ease: easeOutCurve }}
-              className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5"
+              className="mt-4 sm:mt-5 flex flex-col sm:flex-row items-center justify-center gap-3"
             >
               <Link
                 to="/book-demo"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
               >
                 <CalendarCheck className="size-4" />
                 <span>Book a personalized demo</span>
@@ -271,7 +271,7 @@ export function MarketingHomePage() {
 
               <a
                 href="#platform-overview"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 rounded-lg transition-colors shadow-2xs"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 rounded-lg transition-colors shadow-2xs"
               >
                 <span>Explore the 4 engines</span>
                 <ArrowRight className="size-4 text-slate-400" />
@@ -284,7 +284,7 @@ export function MarketingHomePage() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: easeOutCurve }}
-            className="mt-12 sm:mt-16 relative w-full max-w-full overflow-hidden"
+            className="mt-5 sm:mt-6 relative w-full max-w-full overflow-hidden"
           >
             <PlatformComposition />
           </motion.div>
