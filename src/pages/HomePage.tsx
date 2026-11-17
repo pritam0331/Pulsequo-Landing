@@ -32,7 +32,6 @@ import {
   GitBranch,
   Headset,
   Brain,
-  Mail,
 } from 'lucide-react'
 import { SEO } from '../components/common/SEO'
 import { SectionHeading } from '../components/common/SectionHeading'
@@ -40,9 +39,7 @@ import { PlatformComposition } from '../components/common/PlatformComposition'
 import { WorkflowCanvas } from '../components/common/WorkflowCanvas'
 import { CTASection } from '../components/common/CTASection'
 import { FAQAccordion } from '../components/common/FAQAccordion'
-import { ContactForm } from '../components/forms/ContactForm'
 import { PricingCards } from '../components/pricing/PricingCards'
-import { siteConfig } from '../config/siteConfig'
 import { generalFaqs } from '../data/faqs'
 
 const easeOutCurve = [0.22, 1, 0.36, 1] as const
@@ -1008,106 +1005,6 @@ export function MarketingHomePage() {
         secondaryCtaHref="/developers"
         showTrustBadges={false}
       />
-
-      {/* ─────────────────────────────────────────────────────────────
-          10. DIRECT CONTACT FORM AT LAST
-         ───────────────────────────────────────────────────────────── */}
-      <section id="contact" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-t border-slate-200/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* Left Column: Direct Inquiries & Contact Channels */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, ease: easeOutCurve }}
-              className="lg:col-span-5 flex flex-col justify-between"
-            >
-              <div>
-                <div className="inline-flex items-center gap-2 mb-3">
-                  <span className="size-2 rounded-xs bg-blue-600 shrink-0" />
-                  <span className="text-xs font-mono font-bold tracking-wider text-blue-600 uppercase">
-                    GET IN TOUCH
-                  </span>
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-[1.15]">
-                  Have a question? We’re here to help.
-                </h2>
-
-                <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-                  Whether you need custom carrier volume, WhatsApp Business API verification, or a tailored enterprise demo, our specialists reply within minutes.
-                </p>
-              </div>
-
-              {/* Direct Communication Desks */}
-              <div className="mt-8 space-y-3.5">
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 flex items-start gap-3.5 shadow-2xs">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
-                    <Mail className="size-4.5" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide font-mono">General Inquiries</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">Response within 2 hours</p>
-                    <a
-                      href={`mailto:${siteConfig.contactEmail}`}
-                      className="mt-1 block text-sm font-bold text-blue-600 hover:text-blue-700 hover:underline"
-                    >
-                      {siteConfig.contactEmail}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 flex items-start gap-3.5 shadow-2xs">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100">
-                    <MessageSquareText className="size-4.5" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide font-mono">Enterprise Sales</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">Custom throughput & volume pricing</p>
-                    <a
-                      href={`mailto:${siteConfig.salesEmail}`}
-                      className="mt-1 block text-sm font-bold text-indigo-600 hover:text-indigo-700 hover:underline"
-                    >
-                      {siteConfig.salesEmail}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 flex items-start gap-3.5 shadow-2xs">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100">
-                    <Headset className="size-4.5" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide font-mono">Technical Support</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">24/7 dedicated engineering SLA</p>
-                    <a
-                      href={`mailto:${siteConfig.supportEmail}`}
-                      className="mt-1 block text-sm font-bold text-emerald-600 hover:text-emerald-700 hover:underline"
-                    >
-                      {siteConfig.supportEmail}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right Column: Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: 0.1, ease: easeOutCurve }}
-              className="lg:col-span-7 w-full"
-            >
-              <ContactForm
-                title="Send Us a Direct Message"
-                subtitle="Fill out the form below and our team will get back to you promptly."
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }
