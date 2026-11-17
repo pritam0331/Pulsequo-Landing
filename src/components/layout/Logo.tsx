@@ -20,12 +20,12 @@ export function Logo({
 }: LogoProps) {
   const content = (
     <div className={`flex items-center gap-3 select-none ${className}`}>
-      {/* Official 3D PulseQuo Brand Icon from /pulsequo-logo.png */}
-      <div className="relative size-9 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 p-[1px] shadow-sm shadow-blue-500/20">
+      {/* Official PulseQuo Brand Icon: Square without background or rounded corners */}
+      <div className="relative size-9 shrink-0 flex items-center justify-center">
         <img
           src="/pulsequo-logo.png"
           alt="PulseQuo"
-          className="size-full object-cover object-center"
+          className="size-full object-contain"
           loading="eager"
         />
       </div>
