@@ -1303,6 +1303,7 @@ export function MarketingHomePage() {
         primaryCtaHref="/book-demo"
         secondaryCtaText="Explore Developer APIs"
         secondaryCtaHref="/developers"
+        showTrustBadges={false}
       />
     </div>
   )

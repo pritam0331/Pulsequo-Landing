@@ -15,6 +15,7 @@ interface CTASectionProps {
   primaryCtaHref?: string
   secondaryCtaText?: string
   secondaryCtaHref?: string
+  showTrustBadges?: boolean
 }
 
 export function CTASection({
@@ -24,6 +25,7 @@ export function CTASection({
   primaryCtaHref = siteConfig.appUrl,
   secondaryCtaText = 'Book a Personalized Demo',
   secondaryCtaHref = '/book-demo',
+  showTrustBadges = false,
 }: CTASectionProps) {
   const isPrimaryExternal = primaryCtaHref.startsWith('http')
   const isSecondaryExternal = secondaryCtaHref.startsWith('http')
@@ -108,21 +110,23 @@ export function CTASection({
               </motion.div>
             </div>
 
-            {/* Trust Badges Bar */}
-            <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-xs font-medium text-slate-400">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-emerald-400" />
-                <span>Instant Sandbox Activation</span>
+            {/* Optional Trust Badges Bar */}
+            {showTrustBadges && (
+              <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-xs font-medium text-slate-400">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-emerald-400" />
+                  <span>Instant Sandbox Activation</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="size-4 text-blue-400" />
+                  <span>TRAI DLT & Meta V20 Compliant</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Zap className="size-4 text-amber-400" />
+                  <span>99.99% Carrier Throughput SLA</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="size-4 text-blue-400" />
-                <span>TRAI DLT & Meta V20 Compliant</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="size-4 text-amber-400" />
-                <span>99.99% Carrier Throughput SLA</span>
-              </div>
-            </div>
+            )}
           </div>
         </motion.div>
       </div>
