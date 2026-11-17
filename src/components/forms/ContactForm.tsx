@@ -6,7 +6,17 @@ import { useState, type FormEvent } from 'react'
 import { CheckCircle2, AlertCircle, Loader2, Send } from 'lucide-react'
 import { submitContactForm, type ContactFormData } from '../../services/demoService'
 
-export function ContactForm() {
+interface ContactFormProps {
+  className?: string
+  title?: string
+  subtitle?: string
+}
+
+export function ContactForm({
+  className = '',
+  title = 'Send Us a Message',
+  subtitle = 'Our enterprise solutions and technical support desks are here to assist you.',
+}: ContactFormProps = {}) {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     businessEmail: '',
@@ -49,11 +59,9 @@ export function ContactForm() {
   }
 
   return (
-    <div className="rounded-3xl border border-slate-200/90 bg-white p-8 sm:p-10 shadow-xl shadow-slate-900/5">
-      <h3 className="text-2xl font-bold text-slate-900">Send Us a Message</h3>
-      <p className="mt-2 text-sm text-slate-600">
-        Our enterprise solutions and technical support desks are here to assist you.
-      </p>
+    <div className={`rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 lg:p-10 shadow-sm ${className}`}>
+      {title && <h3 className="text-2xl font-bold text-slate-900">{title}</h3>}
+      {subtitle && <p className="mt-2 text-sm text-slate-600">{subtitle}</p>}
 
       {successMsg && (
         <div className="mt-6 flex items-start gap-3 rounded-2xl bg-emerald-50 border border-emerald-200 p-4 text-emerald-800">
