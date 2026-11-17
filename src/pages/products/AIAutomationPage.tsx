@@ -44,6 +44,7 @@ import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { SectionHeading } from '../../components/common/SectionHeading'
 import { CTASection } from '../../components/common/CTASection'
 import { FAQAccordion } from '../../components/common/FAQAccordion'
+import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
 import { siteConfig } from '../../config/siteConfig'
 import type { FAQItem } from '../../data/faqs'
 
@@ -380,7 +381,8 @@ export function AIAutomationPage() {
         id="hero"
         className="relative bg-white border-b border-slate-200/80 pt-10 pb-16 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24 overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BackgroundAnimation variant="hero" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs
             items={[
               { label: 'Products', href: '/#platform-overview' },

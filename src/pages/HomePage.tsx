@@ -35,6 +35,7 @@ import { PlatformComposition } from '../components/common/PlatformComposition'
 import { WorkflowCanvas } from '../components/common/WorkflowCanvas'
 import { CTASection } from '../components/common/CTASection'
 import { FAQAccordion } from '../components/common/FAQAccordion'
+import { BackgroundAnimation } from '../components/common/BackgroundAnimation'
 import { generalFaqs } from '../data/faqs'
 
 const easeOutCurve = [0.22, 1, 0.36, 1] as const
@@ -226,9 +227,11 @@ export function MarketingHomePage() {
          ───────────────────────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative min-h-[calc(100vh-4.5rem)] flex flex-col justify-center items-center bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
+        className="relative min-h-[calc(100vh-4.5rem)] flex flex-col justify-center items-center bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 overflow-hidden"
       >
-        <div className="relative max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto">
+        <BackgroundAnimation variant="hero" />
+
+        <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto">
           {/* Main Command Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
