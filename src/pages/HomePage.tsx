@@ -224,7 +224,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           1. HERO SECTION: CLEAN, FOCUSED, HIGH-CONVERSION ARCHITECTURE
          ───────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/70 via-white to-white pt-3 sm:pt-4 lg:pt-6 pb-10 sm:pb-14 border-b border-slate-100">
+      <section id="hero" className="relative overflow-hidden bg-white pt-4 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 border-b border-slate-200/80">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             {/* Main Command Headline */}
@@ -294,7 +294,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           2. ENTERPRISE TELEMETRY & PROOF STRIP
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-10 bg-slate-50/60 border-y border-slate-200/70">
+      <section id="telemetry" className="py-8 sm:py-10 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {achievements.map((item, idx) => (
@@ -317,9 +317,10 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           3. PRODUCT ENGINES BENTO GRID
          ───────────────────────────────────────────────────────────── */}
-      <section id="platform-overview" className="py-20 sm:py-28 bg-white border-t border-slate-100">
+      <section id="platform-overview" className="py-16 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
+            badge="CORE PRODUCT SUITE"
             title="Four Synchronized Engines. One Cohesive Workspace."
             description="Replace fragmented point solutions with an enterprise infrastructure engineered to connect every customer message directly to revenue and resolution."
           />
@@ -553,7 +554,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           4. VISUAL WORKFLOW BUILDER SHOWCASE
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-gradient-to-b from-white via-slate-50/50 to-white border-t border-slate-100 overflow-hidden">
+      <section id="workflows" className="py-16 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Column: Lead Qualification Workflow Canvas */}
@@ -564,7 +565,7 @@ export function MarketingHomePage() {
               transition={{ duration: 0.55, ease: easeOutCurve }}
               className="lg:col-span-7 order-2 lg:order-1"
             >
-              <WorkflowCanvas className="bg-white shadow-xl shadow-slate-900/5 border-slate-200" />
+              <WorkflowCanvas className="bg-white shadow-sm border border-slate-200" />
             </motion.div>
 
             {/* Right Column: Visual Flow Automation Details */}
@@ -575,6 +576,11 @@ export function MarketingHomePage() {
               transition={{ duration: 0.55, delay: 0.1, ease: easeOutCurve }}
               className="lg:col-span-5 order-1 lg:order-2"
             >
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase mb-3.5 bg-blue-50 text-blue-700 border border-blue-200/90 shadow-2xs">
+                <span className="size-1.5 rounded-xs bg-blue-500 animate-pulse" />
+                <span>WORKFLOW AUTOMATION</span>
+              </div>
+
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
                 Visual flow automation. Built for scale.
               </h2>
@@ -646,23 +652,17 @@ export function MarketingHomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          5. INTEGRATIONS & ECOSYSTEM GRID (QUIET, TRUSTWORTHY ARCHITECTURE)
+          5. INTEGRATIONS & ECOSYSTEM GRID
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-slate-50/70 border-t border-slate-200/80">
+      <section id="integrations" className="py-16 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <span className="text-xs font-semibold text-blue-600 block mb-2 font-mono uppercase tracking-wider">
-              Ecosystem & Integrations
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-              Connected with your existing enterprise stack
-            </h2>
-            <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
-              Native bi-directional connectors, carrier SMPP bindings, and Model Context Protocol (MCP) tooling.
-            </p>
-          </div>
+          <SectionHeading
+            badge="INTEGRATIONS & ECOSYSTEM"
+            title="Connected with your existing enterprise stack"
+            description="Native bi-directional connectors, carrier SMPP bindings, and Model Context Protocol (MCP) tooling."
+          />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <div className="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
             {integrations.map((item, idx) => {
               const isPurple = item.accent === 'purple'
               const IconComponent = item.icon
@@ -671,7 +671,7 @@ export function MarketingHomePage() {
                 <Link
                   key={idx}
                   to={item.link}
-                  className="group flex flex-col p-3.5 sm:p-4 rounded-xl bg-white border border-slate-200/90 hover:border-blue-500 hover:shadow-xs transition-all duration-200"
+                  className="group flex flex-col p-3.5 sm:p-4 rounded-xl bg-slate-50/60 border border-slate-200/90 hover:border-blue-500 hover:bg-white hover:shadow-xs transition-all duration-200"
                 >
                   <div
                     className={`size-8.5 rounded-lg flex items-center justify-center border transition-all duration-200 shadow-2xs ${
@@ -696,7 +696,7 @@ export function MarketingHomePage() {
           </div>
 
           {/* Ecosystem Trust & Spec Bar */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-4.5 rounded-xl bg-white border border-slate-200 shadow-xs">
+          <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-4.5 rounded-xl bg-slate-50/80 border border-slate-200/80 shadow-2xs">
             <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-600">
               <span className="flex items-center gap-2">
                 <span className="size-2 rounded-xs bg-emerald-500 inline-block" />
@@ -724,9 +724,10 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           6. SOLUTIONS BY TEAM & COMPANY STAGE
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-white border-t border-slate-100">
+      <section id="solutions" className="py-16 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
+            badge="OPERATIONAL SOLUTIONS"
             title="Tailored for Every Operational Growth Stage"
             description="Discover how PulseQuo aligns specifically with your team’s KPIs and operational priorities."
           />
@@ -785,9 +786,10 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           7. VERIFIED CUSTOMER IMPACT STORIES (NO STAR RATINGS)
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-slate-50/70 border-t border-slate-200/80">
+      <section id="reviews" className="py-16 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
+            badge="CUSTOMER STORIES"
             title="Trusted by Fast-Growing Companies"
             description="See how enterprise teams rely on PulseQuo every day to drive revenue and deliver stellar customer support."
           />
@@ -800,7 +802,7 @@ export function MarketingHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.45, delay: i * 0.08, ease: easeOutCurve }}
-                className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs hover:border-slate-300 hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
+                className="rounded-xl bg-slate-50/60 border border-slate-200 p-5 shadow-xs hover:border-slate-300 hover:bg-white hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
               >
                 <div>
                   <div className="mb-2.5">
@@ -814,7 +816,7 @@ export function MarketingHomePage() {
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center gap-2.5">
+                <div className="mt-4 pt-3.5 border-t border-slate-200/70 flex items-center gap-2.5">
                   <div className="size-8 rounded-lg bg-slate-900 text-white font-semibold text-xs flex items-center justify-center shadow-2xs">
                     {rev.avatar}
                   </div>
@@ -832,7 +834,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           8. FREQUENTLY ASKED QUESTIONS (SPLIT TWO-COLUMN LAYOUT)
          ───────────────────────────────────────────────────────────── */}
-      <section id="faqs" className="py-20 sm:py-28 bg-white border-t border-slate-200/80">
+      <section id="faqs" className="py-16 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left Column: Heading, Subhead & Contact Action */}
@@ -843,9 +845,10 @@ export function MarketingHomePage() {
               transition={{ duration: 0.5, ease: easeOutCurve }}
               className="lg:col-span-5 lg:sticky lg:top-28"
             >
-              <span className="text-xs font-semibold text-blue-600 font-mono block mb-2">
-                Frequently Asked Questions
-              </span>
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase mb-3.5 bg-blue-50 text-blue-700 border border-blue-200/90 shadow-2xs">
+                <span className="size-1.5 rounded-xs bg-blue-500 animate-pulse" />
+                <span>FREQUENTLY ASKED QUESTIONS</span>
+              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
                 Everything you need to know
               </h2>
@@ -854,7 +857,7 @@ export function MarketingHomePage() {
               </p>
 
               {/* Consultation Card */}
-              <div className="mt-8 p-5 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="mt-8 p-5 rounded-xl bg-white border border-slate-200 shadow-2xs">
                 <h4 className="text-sm font-bold text-slate-900">Have questions about your setup?</h4>
                 <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
                   Our solution engineers can review your existing telecom routes, WhatsApp templates, and CRM integration requirements.
@@ -887,6 +890,7 @@ export function MarketingHomePage() {
           9. FINAL HIGH-CONVERTING CLOSING CTA
          ───────────────────────────────────────────────────────────── */}
       <CTASection
+        id="get-started"
         headline="Ready to Accelerate Your Customer Experience?"
         subheadline="Join forward-thinking businesses using PulseQuo to unify omnichannel messaging, automate sales pipelines, and scale customer support with AI."
         primaryCtaText="Book a Personalized Demo"
