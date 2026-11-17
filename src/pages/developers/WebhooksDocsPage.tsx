@@ -438,7 +438,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
       {/* ─────────────────────────────────────────────────────────────
           3. HMAC SHA-256 SECURITY & VERIFICATION PLAYGROUND
          ───────────────────────────────────────────────────────────── */}
-      <section id="security" className="py-16 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
+      <section id="security" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="CRYPTOGRAPHIC VERIFICATION"
@@ -551,7 +551,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
       {/* ─────────────────────────────────────────────────────────────
           4. INTERACTIVE EVENT CATALOG & LIVE PAYLOAD INSPECTOR
          ───────────────────────────────────────────────────────────── */}
-      <section id="events" className="py-16 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="events" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="EVENT SPECIFICATIONS"
@@ -654,7 +654,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
       {/* ─────────────────────────────────────────────────────────────
           5. FAULT TOLERANCE & RETRY INFRASTRUCTURE
          ───────────────────────────────────────────────────────────── */}
-      <section id="retries" className="py-16 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
+      <section id="retries" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="DELIVERY GUARANTEES"

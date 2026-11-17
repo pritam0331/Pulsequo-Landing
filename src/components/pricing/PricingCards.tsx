@@ -1,10 +1,3 @@
-/**
- * PulseQuo Modern Pricing Cards Component
- * Features Annual / Monthly billing toggle (20% discount),
- * Starter, Growth (Most Popular), and Enterprise tiers,
- * plus an Additional Support / Concierge advisory card.
- */
-
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { motion, AnimatePresence } from 'motion/react'
@@ -26,7 +19,6 @@ interface PricingCardsProps {
 }
 
 export function PricingCards({ className = '', defaultAnnual = true }: PricingCardsProps) {
-  // Default to Annual toggle so $23 and $63 (Save 20%) are displayed immediately
   const [isAnnual, setIsAnnual] = useState(defaultAnnual)
 
   return (
@@ -39,11 +31,10 @@ export function PricingCards({ className = '', defaultAnnual = true }: PricingCa
           <button
             type="button"
             onClick={() => setIsAnnual(false)}
-            className={`rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              !isAnnual
-                ? 'bg-white text-slate-900 shadow-sm border border-slate-200/70'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
+            className={`rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer ${!isAnnual
+              ? 'bg-white text-slate-900 shadow-sm border border-slate-200/70'
+              : 'text-slate-600 hover:text-slate-900'
+              }`}
           >
             Monthly Billing
           </button>
@@ -51,19 +42,17 @@ export function PricingCards({ className = '', defaultAnnual = true }: PricingCa
           <button
             type="button"
             onClick={() => setIsAnnual(true)}
-            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              isAnnual
-                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
+            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer ${isAnnual
+              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
+              : 'text-slate-600 hover:text-slate-900'
+              }`}
           >
             <span>Annual Billing</span>
             <span
-              className={`rounded-md px-2 py-0.5 text-[11px] font-extrabold uppercase tracking-wide transition-colors ${
-                isAnnual
-                  ? 'bg-white text-blue-700 shadow-2xs'
-                  : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
-              }`}
+              className={`rounded-md px-2 py-0.5 text-[11px] font-extrabold uppercase tracking-wide transition-colors ${isAnnual
+                ? 'bg-white text-blue-700 shadow-2xs'
+                : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                }`}
             >
               Save 20%
             </span>
@@ -89,8 +78,8 @@ export function PricingCards({ className = '', defaultAnnual = true }: PricingCa
           const currentPrice = isEnterprise
             ? 'Custom'
             : isAnnual
-            ? `$${plan.annualRate}`
-            : `$${plan.monthlyRate}`
+              ? `$${plan.annualRate}`
+              : `$${plan.monthlyRate}`
 
           const originalMonthlyPrice = !isEnterprise ? `$${plan.monthlyRate}` : null
 
@@ -102,11 +91,10 @@ export function PricingCards({ className = '', defaultAnnual = true }: PricingCa
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -6 }}
-              className={`relative rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
-                isPopular
-                  ? 'bg-white border-2 border-blue-600 shadow-2xl scale-[1.02] z-10'
-                  : 'bg-white border border-slate-200/90 shadow-sm hover:border-slate-300 hover:shadow-xl'
-              }`}
+              className={`relative rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 ${isPopular
+                ? 'bg-white border-2 border-blue-600 shadow-2xl scale-[1.02] z-10'
+                : 'bg-white border border-slate-200/90 shadow-sm hover:border-slate-300 hover:shadow-xl'
+                }`}
             >
               {/* Popular Highlight Badge */}
               {isPopular && (
@@ -122,13 +110,12 @@ export function PricingCards({ className = '', defaultAnnual = true }: PricingCa
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div
-                      className={`size-9 rounded-xl flex items-center justify-center ${
-                        isPopular
-                          ? 'bg-blue-100 text-blue-700'
-                          : isEnterprise
+                      className={`size-9 rounded-xl flex items-center justify-center ${isPopular
+                        ? 'bg-blue-100 text-blue-700'
+                        : isEnterprise
                           ? 'bg-slate-900 text-white'
                           : 'bg-slate-100 text-slate-700'
-                      }`}
+                        }`}
                     >
                       {plan.id === 'starter' && <Zap className="size-4" />}
                       {plan.id === 'growth' && <Sparkles className="size-4" />}
@@ -198,9 +185,8 @@ export function PricingCards({ className = '', defaultAnnual = true }: PricingCa
                     {plan.features.map((feature: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
                         <CheckCircle2
-                          className={`size-4.5 shrink-0 mt-0.5 ${
-                            isPopular ? 'text-blue-600' : 'text-emerald-600'
-                          }`}
+                          className={`size-4.5 shrink-0 mt-0.5 ${isPopular ? 'text-blue-600' : 'text-emerald-600'
+                            }`}
                         />
                         <span className="leading-snug">{feature}</span>
                       </li>
@@ -213,11 +199,10 @@ export function PricingCards({ className = '', defaultAnnual = true }: PricingCa
               <div className="mt-8 pt-6 border-t border-slate-100">
                 <Link
                   to={plan.ctaHref}
-                  className={`w-full inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-bold transition-all shadow-xs ${
-                    isPopular
-                      ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/30'
-                      : 'bg-[#020618] hover:bg-slate-800 text-white'
-                  }`}
+                  className={`w-full inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-bold transition-all shadow-xs ${isPopular
+                    ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/30'
+                    : 'bg-[#020618] hover:bg-slate-800 text-white'
+                    }`}
                 >
                   <span>{plan.ctaText}</span>
                   <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />

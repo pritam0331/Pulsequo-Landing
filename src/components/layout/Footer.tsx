@@ -216,9 +216,6 @@ export function Footer() {
                 <FooterLink to="/developers/webhooks">Webhooks & Events</FooterLink>
               </li>
               <li>
-                <FooterLink to="/developers">Developer Portal</FooterLink>
-              </li>
-              <li>
                 <a
                   href={siteConfig.statusPage}
                   target="_blank"
@@ -255,14 +252,6 @@ export function Footer() {
               </li>
               <li>
                 <FooterLink to="/book-demo">Book a Demo</FooterLink>
-              </li>
-              <li>
-                <a
-                  href={siteConfig.appUrl.startsWith('http') ? `${siteConfig.appUrl}/login` : '/login'}
-                  className="text-slate-300 hover:text-blue-400 transition-colors"
-                >
-                  Customer Login
-                </a>
               </li>
             </ul>
           </div>

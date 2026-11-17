@@ -366,7 +366,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           2. PLATFORM WORKSPACE SHOWCASE & TELEMETRY
          ───────────────────────────────────────────────────────────── */}
-      <section id="workspace-preview" className="py-16 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="workspace-preview" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="UNIFIED WORKSPACE"
@@ -379,13 +379,13 @@ export function MarketingHomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6, ease: easeOutCurve }}
-            className="mt-10 sm:mt-12 relative w-full max-w-full overflow-hidden"
+            className="mt-6 sm:mt-8 relative w-full max-w-full overflow-hidden"
           >
             <PlatformComposition />
           </motion.div>
 
           {/* Telemetry Strip inside the workspace showcase */}
-          <div id="telemetry" className="mt-14 pt-10 border-t border-slate-200/80">
+          <div id="telemetry" className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-slate-200/80">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
               {achievements.map((item, idx) => (
                 <div key={idx} className="flex flex-col">
@@ -408,7 +408,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           3. PRODUCT ENGINES BENTO GRID
          ───────────────────────────────────────────────────────────── */}
-      <section id="platform-overview" className="py-16 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
+      <section id="platform-overview" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="CORE PRODUCT SUITE"
@@ -416,7 +416,7 @@ export function MarketingHomePage() {
             description="Replace fragmented point solutions with an enterprise infrastructure engineered to connect every customer message directly to revenue and resolution."
           />
 
-          <div className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 lg:grid-cols-12 gap-5">
             {/* Bento Card 1: Communication Cloud (7 Columns) */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -645,7 +645,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           4. VISUAL WORKFLOW BUILDER SHOWCASE
          ───────────────────────────────────────────────────────────── */}
-      <section id="workflows" className="py-16 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80 overflow-hidden">
+      <section id="workflows" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Column: Lead Qualification Workflow Canvas */}
@@ -740,7 +740,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           5. INTEGRATIONS & ECOSYSTEM GRID
          ───────────────────────────────────────────────────────────── */}
-      <section id="integrations" className="py-16 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
+      <section id="integrations" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="INTEGRATIONS & ECOSYSTEM"
@@ -748,7 +748,7 @@ export function MarketingHomePage() {
             description="Native bi-directional connectors, carrier SMPP bindings, and Model Context Protocol (MCP) tooling."
           />
 
-          <div className="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
             {integrations.map((item, idx) => {
               const isPurple = item.accent === 'purple'
               const IconComponent = item.icon
@@ -810,7 +810,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           6. SOLUTIONS BY TEAM & COMPANY STAGE
          ───────────────────────────────────────────────────────────── */}
-      <section id="solutions" className="py-16 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="solutions" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="OPERATIONAL SOLUTIONS"
@@ -818,7 +818,7 @@ export function MarketingHomePage() {
             description="Discover how PulseQuo aligns specifically with your team’s KPIs and operational priorities."
           />
 
-          <div className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {growthSolutions.map((sol, idx) => (
               <motion.div
                 key={idx}
@@ -872,7 +872,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           7. VERIFIED CUSTOMER IMPACT STORIES (NO STAR RATINGS)
          ───────────────────────────────────────────────────────────── */}
-      <section id="reviews" className="py-16 sm:py-20 lg:py-24 bg-white border-b border-slate-200/80">
+      <section id="reviews" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="CUSTOMER STORIES"
@@ -880,7 +880,7 @@ export function MarketingHomePage() {
             description="See how enterprise teams rely on PulseQuo every day to drive revenue and deliver stellar customer support."
           />
 
-          <div className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
             {customerReviews.map((rev, i) => (
               <motion.div
                 key={i}
@@ -920,7 +920,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           8. FREQUENTLY ASKED QUESTIONS (SPLIT TWO-COLUMN LAYOUT)
          ───────────────────────────────────────────────────────────── */}
-      <section id="faqs" className="py-16 sm:py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="faqs" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left Column: Heading, Subhead & Contact Action */}

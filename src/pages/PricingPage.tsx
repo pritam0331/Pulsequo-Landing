@@ -88,14 +88,14 @@ export function PricingPage() {
       </section>
 
       {/* Main Pricing Cards Section */}
-      <section className="py-20 bg-white">
+      <section className="py-8 sm:py-10 lg:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <PricingCards defaultAnnual={true} />
         </div>
       </section>
 
       {/* Feature Comparison Table */}
-      <section className="py-20 bg-slate-50 border-t border-slate-200/80">
+      <section className="py-8 sm:py-10 lg:py-12 bg-slate-50 border-t border-slate-200/80">
         <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="Detailed Matrix"
@@ -178,7 +178,7 @@ export function PricingPage() {
       </section>
 
       {/* Pricing FAQs */}
-      <section className="py-20 bg-white">
+      <section className="py-8 sm:py-10 lg:py-12 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="Pricing FAQs"
