@@ -67,91 +67,71 @@ export function MarketingHomePage() {
     {
       name: 'WhatsApp Business API',
       tag: 'Meta Official Partner',
-      description: 'Official Meta BSP connectivity with green tick verification, interactive buttons, and template manager.',
       icon: MessageSquare,
       accent: 'blue',
-      category: 'MESSAGING',
       link: '/products/communication-cloud',
     },
     {
       name: 'Carrier SMS SMPP',
       tag: 'TRAI DLT Engine',
-      description: 'Direct operator binds with TRAI DLT template hashing and high-throughput transactional OTP routing.',
       icon: Radio,
       accent: 'blue',
-      category: 'CARRIER TELCO',
       link: '/products/communication-cloud',
     },
     {
       name: 'Salesforce CRM',
       tag: 'Bi-Directional Sync',
-      description: 'Automated lead injection, custom object mapping, and deal timeline conversational history.',
       icon: Cloud,
       accent: 'blue',
-      category: 'ENTERPRISE CRM',
       link: '/integrations',
     },
     {
       name: 'HubSpot',
       tag: 'Automated Deals & Leads',
-      description: 'Inbound contact auto-creation, pipeline stage triggers, and chat transcript activity logging.',
       icon: Target,
       accent: 'blue',
-      category: 'GROWTH CRM',
       link: '/integrations',
     },
     {
       name: 'Model Context Protocol',
       tag: 'Native MCP Tools',
-      description: 'Open standard protocol enabling autonomous AI agents to query customer data and trigger tools securely.',
       icon: Bot,
       accent: 'purple',
-      category: 'AI PROTOCOL',
       link: '/products/ai-automation',
     },
     {
       name: 'HMAC Webhooks',
       tag: 'Signed Secure Callbacks',
-      description: 'Tamper-proof signed event streams with exponential backoff and zero-loss queuing architecture.',
       icon: KeyRound,
       accent: 'purple',
-      category: 'SECURITY',
       link: '/developers/webhooks',
     },
     {
       name: 'Slack Connect',
       tag: 'Internal Team Escalations',
-      description: 'Real-time VIP lead escalation channels with 1-click human agent takeover and thread syncing.',
       icon: Hash,
       accent: 'blue',
-      category: 'COLLABORATION',
       link: '/integrations',
     },
     {
       name: 'Google Sheets & Drive',
       tag: 'Real-Time Data Sync',
-      description: 'Instant bi-directional row synchronization, campaign data exports, and transcript archiving.',
       icon: FileSpreadsheet,
       accent: 'blue',
-      category: 'WORKSPACE',
       link: '/integrations',
     },
     {
       name: 'Shopify & WooCommerce',
       tag: 'Order & Cart Sync',
-      description: 'Abandoned checkout recovery, automated WhatsApp delivery tracking, and catalog sync.',
       icon: ShoppingBag,
       accent: 'blue',
-      category: 'E-COMMERCE',
       link: '/integrations',
     },
     {
       name: 'RESTful Core API',
       tag: 'OpenAPI 3.1 Spec',
-      description: 'Full programmatic access with 99.99% throughput SLA, SDK generation, and fine-grained bearer tokens.',
       icon: Code2,
       accent: 'blue',
-      category: 'DEVELOPER API',
       link: '/developers/api-documentation',
     },
   ]
@@ -691,60 +671,25 @@ export function MarketingHomePage() {
                 <Link
                   key={idx}
                   to={item.link}
-                  className="group relative flex flex-col justify-between p-4 sm:p-5 rounded-xl bg-white border border-slate-200/90 hover:border-blue-500/80 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                  className="group flex flex-col p-4.5 rounded-xl bg-white border border-slate-200/90 hover:border-blue-500 hover:shadow-xs transition-all duration-200"
                 >
-                  <div>
-                    {/* Top: Integration Icon */}
-                    <div
-                      className={`size-10 rounded-lg flex items-center justify-center border transition-all duration-200 shadow-xs ${
-                        isPurple
-                          ? 'bg-purple-50/80 border-purple-200/80 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600'
-                          : 'bg-blue-50/80 border-blue-200/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600'
-                      }`}
-                    >
-                      <IconComponent className="size-5" />
-                    </div>
-
-                    {/* Category micro-label */}
-                    <div className="mt-3.5">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
-                        {item.category}
-                      </span>
-                    </div>
-
-                    {/* Technology Name */}
-                    <h3 className="mt-1 text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight leading-snug">
-                      {item.name}
-                    </h3>
-
-                    {/* Tag badge with status indicator dot */}
-                    <div className="flex items-center gap-1.5 mt-1.5">
-                      <span
-                        className={`size-1.5 rounded-xs shrink-0 ${
-                          isPurple ? 'bg-purple-600' : 'bg-blue-600'
-                        }`}
-                      />
-                      <span className="text-[11px] font-semibold text-slate-700 font-mono">
-                        {item.tag}
-                      </span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="mt-2.5 text-xs text-slate-600 leading-relaxed line-clamp-3">
-                      {item.description}
-                    </p>
+                  <div
+                    className={`size-10 rounded-lg flex items-center justify-center border transition-all duration-200 shadow-2xs ${
+                      isPurple
+                        ? 'bg-purple-50/80 border-purple-200/80 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600'
+                        : 'bg-blue-50/80 border-blue-200/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600'
+                    }`}
+                  >
+                    <IconComponent className="size-5" />
                   </div>
 
-                  {/* Card bottom footer */}
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                    <span className="font-mono text-[10px] text-slate-400 font-medium">
-                      Bi-directional
-                    </span>
-                    <span className="inline-flex items-center gap-1 font-semibold text-slate-500 group-hover:text-blue-600 transition-colors">
-                      <span>Connect</span>
-                      <ArrowRight className="size-3 group-hover:translate-x-0.5 transition-transform" />
-                    </span>
-                  </div>
+                  <h3 className="mt-4 text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight leading-snug">
+                    {item.name}
+                  </h3>
+
+                  <p className="mt-1 text-xs text-slate-500 font-medium">
+                    {item.tag}
+                  </p>
                 </Link>
               )
             })}
