@@ -239,10 +239,10 @@ export function MarketingHomePage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: easeOutCurve }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-black tracking-[-0.035em] leading-[1.08] max-w-4xl mx-auto break-words text-slate-900"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-[60px] xl:text-[66px] font-black tracking-[-0.035em] leading-[1.12] max-w-5xl mx-auto text-slate-900"
           >
-            One intelligent platform for{' '}
-            <span className="text-blue-600">
+            <span className="block">One intelligent platform for</span>
+            <span className="block text-blue-600">
               every customer conversation.
             </span>
           </motion.h1>
