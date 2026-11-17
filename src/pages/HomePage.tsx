@@ -231,9 +231,9 @@ export function MarketingHomePage() {
          ───────────────────────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative min-h-screen flex flex-col justify-center items-center bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-hidden"
+        className="relative min-h-screen flex flex-col justify-center items-center bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-14 sm:pb-16 overflow-hidden"
       >
-        <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto">
+        <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto translate-y-2 sm:translate-y-4">
           {/* Main Command Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -285,61 +285,61 @@ export function MarketingHomePage() {
             </a>
           </motion.div>
 
-          {/* 4 Connected Platform Engines */}
+          {/* 4 Connected Platform Engines (Refined, Compact Aesthetic) */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.25, ease: easeOutCurve }}
-            className="mt-14 sm:mt-16 flex items-center justify-center gap-2 sm:gap-3 select-none"
+            className="mt-8 sm:mt-10 flex items-center justify-center gap-1.5 sm:gap-2.5 select-none"
           >
             {/* Engine 1: WhatsApp & SMS CPaaS */}
-            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-blue-600 transition-colors" title="Official WhatsApp & SMS CPaaS">
-              <MessageSquareText className="size-8 sm:size-10" strokeWidth={1.5} />
+            <div className="flex items-center justify-center p-1 text-slate-400 hover:text-blue-600 transition-colors" title="Official WhatsApp & SMS CPaaS">
+              <MessageSquareText className="size-5 sm:size-6" strokeWidth={1.5} />
             </div>
 
             {/* Dotted Connector 1 */}
-            <div className="relative w-10 sm:w-16 flex items-center justify-center">
-              <div className="w-full border-b-2 border-dotted border-slate-300" />
+            <div className="relative w-8 sm:w-12 flex items-center justify-center">
+              <div className="w-full border-b border-dotted border-slate-300" />
               <motion.div
-                animate={{ x: [-16, 16], opacity: [0, 1, 0] }}
+                animate={{ x: [-12, 12], opacity: [0, 1, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute size-1.5 rounded-full bg-blue-500 shadow-sm shadow-blue-500/50"
+                className="absolute size-1 sm:size-1.5 rounded-full bg-blue-500 shadow-xs shadow-blue-500/50"
               />
             </div>
 
             {/* Engine 2: Sales Pipelines */}
-            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-blue-600 transition-colors" title="Sales Pipelines & Workflows">
-              <GitBranch className="size-8 sm:size-10" strokeWidth={1.5} />
+            <div className="flex items-center justify-center p-1 text-slate-400 hover:text-blue-600 transition-colors" title="Sales Pipelines & Workflows">
+              <GitBranch className="size-5 sm:size-6" strokeWidth={1.5} />
             </div>
 
             {/* Dotted Connector 2 */}
-            <div className="relative w-10 sm:w-16 flex items-center justify-center">
-              <div className="w-full border-b-2 border-dotted border-slate-300" />
+            <div className="relative w-8 sm:w-12 flex items-center justify-center">
+              <div className="w-full border-b border-dotted border-slate-300" />
               <motion.div
-                animate={{ x: [-16, 16], opacity: [0, 1, 0] }}
+                animate={{ x: [-12, 12], opacity: [0, 1, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
-                className="absolute size-1.5 rounded-full bg-blue-500 shadow-sm shadow-blue-500/50"
+                className="absolute size-1 sm:size-1.5 rounded-full bg-blue-500 shadow-xs shadow-blue-500/50"
               />
             </div>
 
             {/* Engine 3: Support Helpdesk */}
-            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-blue-600 transition-colors" title="Support Helpdesk">
-              <Headset className="size-8 sm:size-10" strokeWidth={1.5} />
+            <div className="flex items-center justify-center p-1 text-slate-400 hover:text-blue-600 transition-colors" title="Support Helpdesk">
+              <Headset className="size-5 sm:size-6" strokeWidth={1.5} />
             </div>
 
             {/* Dotted Connector 3 */}
-            <div className="relative w-10 sm:w-16 flex items-center justify-center">
-              <div className="w-full border-b-2 border-dotted border-slate-300" />
+            <div className="relative w-8 sm:w-12 flex items-center justify-center">
+              <div className="w-full border-b border-dotted border-slate-300" />
               <motion.div
-                animate={{ x: [-16, 16], opacity: [0, 1, 0] }}
+                animate={{ x: [-12, 12], opacity: [0, 1, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 1.4 }}
-                className="absolute size-1.5 rounded-full bg-blue-500 shadow-sm shadow-blue-500/50"
+                className="absolute size-1 sm:size-1.5 rounded-full bg-blue-500 shadow-xs shadow-blue-500/50"
               />
             </div>
 
             {/* Engine 4: Autonomous AI Agents */}
-            <div className="flex items-center justify-center p-1.5 text-slate-400 hover:text-purple-600 transition-colors" title="Autonomous AI Agents">
-              <Brain className="size-8 sm:size-10" strokeWidth={1.5} />
+            <div className="flex items-center justify-center p-1 text-slate-400 hover:text-purple-600 transition-colors" title="Autonomous AI Agents">
+              <Brain className="size-5 sm:size-6" strokeWidth={1.5} />
             </div>
           </motion.div>
         </div>
