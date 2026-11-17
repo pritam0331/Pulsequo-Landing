@@ -40,7 +40,7 @@ export function CTASection({
   const isSecondaryExternal = secondaryCtaHref.startsWith('http')
 
   return (
-    <section id={id} className="py-12 sm:py-16 lg:py-20 bg-white relative border-t border-slate-200/70">
+    <section id={id} className="py-12 sm:py-16 lg:py-20 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Heading, Value Proposition, Action CTAs */}

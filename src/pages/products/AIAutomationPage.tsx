@@ -379,7 +379,7 @@ export function AIAutomationPage() {
           ========================================================================= */}
       <section
         id="hero"
-        className="relative bg-white border-b border-slate-200/80 pt-10 pb-16 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24 overflow-hidden"
+        className="relative bg-white pt-10 pb-16 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24 overflow-hidden"
       >
         <BackgroundAnimation variant="hero" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -599,7 +599,7 @@ export function AIAutomationPage() {
       {/* =========================================================================
           SECTION 2: AI TELEMETRY & SLA STRIP (#telemetry)
           ========================================================================= */}
-      <section id="telemetry" className="bg-slate-50/70 border-b border-slate-200/80 py-8 sm:py-10">
+      <section id="telemetry" className="bg-slate-50/70 py-8 sm:py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/80">
             {/* Metric 1 */}
@@ -660,7 +660,7 @@ export function AIAutomationPage() {
       {/* =========================================================================
           SECTION 3: VISUAL FLOW DESIGNER (#flow-builder)
           ========================================================================= */}
-      <section id="flow-builder" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
+      <section id="flow-builder" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="VISUAL FLOW DESIGNER"
@@ -840,7 +840,7 @@ export function AIAutomationPage() {
       {/* =========================================================================
           SECTION 4: MODEL CONTEXT PROTOCOL (MCP) LIVE CONSOLE (#mcp-agents)
           ========================================================================= */}
-      <section id="mcp-agents" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="mcp-agents" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="MODEL CONTEXT PROTOCOL"
@@ -996,7 +996,7 @@ export function AIAutomationPage() {
       {/* =========================================================================
           SECTION 5: ENTERPRISE CAPABILITIES BENTO GRID (#capabilities)
           ========================================================================= */}
-      <section id="capabilities" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
+      <section id="capabilities" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="ENTERPRISE CAPABILITIES"
@@ -1137,7 +1137,7 @@ export function AIAutomationPage() {
       {/* =========================================================================
           SECTION 6: MEASURABLE BUSINESS ROI (#impact)
           ========================================================================= */}
-      <section id="impact" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="impact" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="MEASURABLE IMPACT"
@@ -1197,7 +1197,7 @@ export function AIAutomationPage() {
           SECTION 7: FREQUENTLY ASKED QUESTIONS (#faqs)
           Scrollable Clamped Accordion with Header Tag on Top
           ========================================================================= */}
-      <section id="faqs" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
+      <section id="faqs" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left Column: Context & Support Link */}

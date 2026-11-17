@@ -231,7 +231,7 @@ export function MarketingHomePage() {
          ───────────────────────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative min-h-screen flex flex-col justify-center items-center bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-14 sm:pb-16 overflow-hidden"
+        className="relative min-h-screen flex flex-col justify-center items-center bg-white px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-14 sm:pb-16 overflow-hidden"
       >
         <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto translate-y-2 sm:translate-y-4">
           {/* Main Command Headline */}
@@ -348,7 +348,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           2. PLATFORM WORKSPACE SHOWCASE & TELEMETRY
          ───────────────────────────────────────────────────────────── */}
-      <section id="workspace-preview" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="workspace-preview" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="UNIFIED WORKSPACE"
@@ -390,7 +390,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           3. PRODUCT ENGINES BENTO GRID
          ───────────────────────────────────────────────────────────── */}
-      <section id="platform-overview" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
+      <section id="platform-overview" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="CORE PRODUCT SUITE"
@@ -627,7 +627,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           4. VISUAL WORKFLOW BUILDER SHOWCASE
          ───────────────────────────────────────────────────────────── */}
-      <section id="workflows" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80 overflow-hidden">
+      <section id="workflows" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Column: Lead Qualification Workflow Canvas */}
@@ -722,7 +722,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           5. INTEGRATIONS & ECOSYSTEM GRID
          ───────────────────────────────────────────────────────────── */}
-      <section id="integrations" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
+      <section id="integrations" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="INTEGRATIONS & ECOSYSTEM"
@@ -792,7 +792,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           6. SOLUTIONS BY TEAM & COMPANY STAGE
          ───────────────────────────────────────────────────────────── */}
-      <section id="solutions" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="solutions" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="OPERATIONAL SOLUTIONS"
@@ -854,7 +854,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           7. VERIFIED CUSTOMER IMPACT STORIES (NO STAR RATINGS)
          ───────────────────────────────────────────────────────────── */}
-      <section id="reviews" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
+      <section id="reviews" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="CUSTOMER STORIES"
@@ -902,7 +902,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           8. TRANSPARENT PRICING PLANS
          ───────────────────────────────────────────────────────────── */}
-      <section id="pricing" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="pricing" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="FLEXIBLE PRICING"
@@ -919,7 +919,7 @@ export function MarketingHomePage() {
       {/* ─────────────────────────────────────────────────────────────
           9. FREQUENTLY ASKED QUESTIONS (SPLIT TWO-COLUMN LAYOUT)
          ───────────────────────────────────────────────────────────── */}
-      <section id="faqs" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
+      <section id="faqs" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left Column: Heading, Subhead & Contact Action */}

@@ -267,7 +267,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
          ───────────────────────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative bg-white border-b border-slate-200/80 pt-8 sm:pt-12 pb-16 sm:pb-20 overflow-hidden"
+        className="relative bg-white pt-8 sm:pt-12 pb-16 sm:pb-20 overflow-hidden"
       >
         <BackgroundAnimation variant="hero" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -397,7 +397,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
       {/* ─────────────────────────────────────────────────────────────
           2. ENTERPRISE TELEMETRY & RELIABILITY STRIP
          ───────────────────────────────────────────────────────────── */}
-      <section id="telemetry" className="py-8 sm:py-10 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="telemetry" className="py-8 sm:py-10 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             <div className="flex flex-col">
@@ -438,7 +438,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
       {/* ─────────────────────────────────────────────────────────────
           3. HMAC SHA-256 SECURITY & VERIFICATION PLAYGROUND
          ───────────────────────────────────────────────────────────── */}
-      <section id="security" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
+      <section id="security" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="CRYPTOGRAPHIC VERIFICATION"
@@ -551,7 +551,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
       {/* ─────────────────────────────────────────────────────────────
           4. INTERACTIVE EVENT CATALOG & LIVE PAYLOAD INSPECTOR
          ───────────────────────────────────────────────────────────── */}
-      <section id="events" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 border-b border-slate-200/80">
+      <section id="events" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="EVENT SPECIFICATIONS"
@@ -654,7 +654,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
       {/* ─────────────────────────────────────────────────────────────
           5. FAULT TOLERANCE & RETRY INFRASTRUCTURE
          ───────────────────────────────────────────────────────────── */}
-      <section id="retries" className="py-6 sm:py-8 lg:py-10 bg-white border-b border-slate-200/80">
+      <section id="retries" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="DELIVERY GUARANTEES"
