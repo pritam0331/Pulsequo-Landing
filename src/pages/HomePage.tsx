@@ -830,9 +830,9 @@ export function MarketingHomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          8. FREQUENTLY ASKED QUESTIONS (SPLIT TWO-COLUMN SCROLLABLE LAYOUT)
+          8. FREQUENTLY ASKED QUESTIONS (SPLIT TWO-COLUMN LAYOUT)
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-white border-t border-slate-200/80">
+      <section id="faqs" className="py-20 sm:py-28 bg-white border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left Column: Heading, Subhead & Contact Action */}
@@ -869,7 +869,7 @@ export function MarketingHomePage() {
               </div>
             </motion.div>
 
-            {/* Right Column: Scrollable Flex Container with FAQs */}
+            {/* Right Column: All FAQs in a Single Bordered Flexbox Container */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -877,9 +877,7 @@ export function MarketingHomePage() {
               transition={{ duration: 0.5, delay: 0.1, ease: easeOutCurve }}
               className="lg:col-span-7"
             >
-              <div className="max-h-[580px] overflow-y-auto pr-2 sm:pr-4 rounded-xl focus:outline-none">
-                <FAQAccordion items={generalFaqs} />
-              </div>
+              <FAQAccordion items={generalFaqs} />
             </motion.div>
           </div>
         </div>

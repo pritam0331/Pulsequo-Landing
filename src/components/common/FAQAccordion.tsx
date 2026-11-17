@@ -21,41 +21,30 @@ export function FAQAccordion({ items, className = '' }: FAQAccordionProps) {
   }
 
   return (
-    <div className={`space-y-2.5 ${className}`}>
+    <div className={`flex flex-col rounded-2xl border border-slate-200 bg-white divide-y divide-slate-200/80 shadow-xs overflow-hidden ${className}`}>
       {items.map((item, idx) => {
         const isOpen = openIndex === idx
         return (
           <div
             key={item.id || idx}
-            className={`rounded-xl border transition-all duration-200 overflow-hidden ${
-              isOpen
-                ? 'border-blue-500 bg-white shadow-xs ring-1 ring-blue-500/20'
-                : 'border-slate-300/85 bg-white hover:border-slate-400 shadow-2xs'
-            }`}
+            className={`transition-colors duration-200 ${isOpen ? 'bg-slate-50/50' : 'hover:bg-slate-50/40'}`}
           >
             <button
               type="button"
               onClick={() => toggle(idx)}
-              className="flex w-full items-center justify-between gap-3.5 py-3 px-4 sm:py-3.5 sm:px-5 text-left text-xs sm:text-sm font-bold text-slate-900 focus:outline-none cursor-pointer group"
+              className="flex w-full items-center justify-between gap-4 py-4 px-5 sm:py-5 sm:px-6 text-left cursor-pointer group focus:outline-none"
               aria-expanded={isOpen}
             >
-              <span className="flex items-center gap-2.5">
-                <span
-                  className={`size-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0 transition-colors ${
-                    isOpen ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600'
-                  }`}
-                >
-                  Q
-                </span>
-                <span className={`transition-colors leading-snug ${isOpen ? 'text-blue-700' : 'group-hover:text-blue-600'}`}>
-                  {item.question}
-                </span>
+              <span className={`text-sm sm:text-base font-bold transition-colors leading-snug ${isOpen ? 'text-blue-600' : 'text-slate-900 group-hover:text-blue-600'}`}>
+                {item.question}
               </span>
-              <ChevronDown
-                className={`size-4 shrink-0 text-slate-400 transition-transform duration-200 ${
-                  isOpen ? 'rotate-180 text-blue-600' : 'group-hover:text-slate-600'
-                }`}
-              />
+              <div className={`size-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${isOpen ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600'}`}>
+                <ChevronDown
+                  className={`size-4 transition-transform duration-200 ${
+                    isOpen ? 'rotate-180 text-blue-600' : 'text-slate-500 group-hover:text-blue-600'
+                  }`}
+                />
+              </div>
             </button>
 
             <AnimatePresence initial={false}>
@@ -64,11 +53,11 @@ export function FAQAccordion({ items, className = '' }: FAQAccordionProps) {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="px-4 sm:px-5 pb-3.5 pt-2 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
-                    <div className="pl-7.5">{item.answer}</div>
+                  <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+                    <p>{item.answer}</p>
                   </div>
                 </motion.div>
               )}
