@@ -1,11 +1,14 @@
 /**
  * PulseQuo Platform Workspace Preview
- * Pixel-accurate, interactive implementation of the modern enterprise inbox,
- * autonomous AI agent qualification, WhatsApp omnichannel messaging,
- * and real-time CRM customer context.
+ * Pixel-accurate, interactive implementation of:
+ * - Team Inbox (Omnichannel WhatsApp & SMS conversations + AI qualification + Customer context)
+ * - AI Agents (Autonomous Agent management, Model Context Protocol tools, and live simulation)
+ * - Workflows (Interactive visual workflow canvas)
+ * - Analytics (CPaaS throughput telemetry, delivery receipt rates, and AI deflection metrics)
+ * - Contacts (Enterprise CRM directory with search, filtering, and instant chat linking)
  */
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import {
   MessageSquare,
@@ -17,6 +20,7 @@ import {
   Check,
   CheckCheck,
   ArrowRight,
+  Bot,
 } from 'lucide-react'
 import { WorkflowCanvas } from './WorkflowCanvas'
 
@@ -134,6 +138,488 @@ const CONVERSATIONS: ConversationItem[] = [
   },
 ]
 
+// ─────────────────────────────────────────────────────────────────────────────
+// 1. DEDICATED AI AGENTS VIEW
+// ─────────────────────────────────────────────────────────────────────────────
+function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) => void }) {
+  const [selectedAgent, setSelectedAgent] = useState('lead-qualifier')
+  const [testPrompt, setTestPrompt] = useState('')
+  const [simulatedReply, setSimulatedReply] = useState<string | null>(null)
+
+  const agents = [
+    {
+      id: 'lead-qualifier',
+      name: 'Inbound Lead Qualifier',
+      channel: 'WhatsApp Business API',
+      status: 'Active',
+      deflection: '89% Qualified',
+      model: 'Gemini 2.5 Flash',
+      tools: 'MCP · Salesforce CRM Sync',
+      ragDocs: 'Sales_Playbook_v4.pdf',
+      latency: '24ms',
+      totalChats: '14,290',
+    },
+    {
+      id: 'support-sentinel',
+      name: 'Tier-1 Support Sentinel',
+      channel: 'Omnichannel (SMS + WhatsApp)',
+      status: 'Active',
+      deflection: '78% Autonomous',
+      model: 'Gemini 2.5 Pro',
+      tools: 'MCP · Jira & Zendesk Bridge',
+      ragDocs: 'Product_Knowledge_Base_2026',
+      latency: '36ms',
+      totalChats: '32,150',
+    },
+    {
+      id: 'order-tracker',
+      name: 'Order & Logistics Bot',
+      channel: 'Direct Carrier SMPP',
+      status: 'Active',
+      deflection: '94% Automated',
+      model: 'Gemini 2.5 Flash',
+      tools: 'Bluedart & Delhivery Webhooks',
+      ragDocs: 'Shipping_Policies.json',
+      latency: '18ms',
+      totalChats: '9,840',
+    },
+  ]
+
+  const active = agents.find((a) => a.id === selectedAgent) || agents[0]
+
+  const handleSimulate = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!testPrompt.trim()) return
+    setSimulatedReply(
+      `[${active.name} · RAG Grounded]: Processed query via ${active.tools}. No hallucination detected. Lead scored 94/100 and routed to account executive pipeline.`
+    )
+  }
+
+  return (
+    <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden bg-slate-50/40 select-none">
+      {/* Left List of Agents */}
+      <div className="w-full md:w-60 lg:w-64 border-r border-slate-100 bg-white p-3.5 flex flex-col justify-between shrink-0">
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-bold text-slate-900">Autonomous Agents</span>
+            <span className="text-[10px] font-mono font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-xs border border-emerald-200">
+              3 Active
+            </span>
+          </div>
+
+          <div className="space-y-1.5">
+            {agents.map((ag) => {
+              const isSelected = ag.id === selectedAgent
+              return (
+                <button
+                  key={ag.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedAgent(ag.id)
+                    setSimulatedReply(null)
+                  }}
+                  className={`w-full text-left p-2.5 rounded-lg border transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-blue-50/80 border-blue-200 text-blue-900 shadow-2xs'
+                      : 'bg-white hover:bg-slate-50 border-slate-200/70 text-slate-700'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold truncate">{ag.name}</span>
+                    <span className="size-1.5 rounded-xs bg-emerald-500 shrink-0" />
+                  </div>
+                  <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500 font-medium">
+                    <span className="truncate max-w-[110px]">{ag.channel}</span>
+                    <span className="font-mono text-blue-600 font-semibold">{ag.deflection}</span>
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+          <span>MCP Tools Connected</span>
+          <span className="font-mono text-purple-600 font-bold">12 Tools</span>
+        </div>
+      </div>
+
+      {/* Right Agent Workspace Details & Simulator */}
+      <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between overflow-y-auto">
+        <div>
+          {/* Header */}
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80">
+            <div>
+              <div className="flex items-center gap-2">
+                <Bot className="size-4 text-purple-600" />
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900">{active.name}</h3>
+                <span className="size-1.5 rounded-xs bg-emerald-500 animate-pulse" />
+              </div>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                Model: <span className="font-mono text-purple-600 font-semibold">{active.model}</span> • Grounding: <span className="font-mono text-slate-700">{active.ragDocs}</span>
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => onSwitchToInbox('sales-enquiry')}
+              className="text-xs font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 cursor-pointer"
+            >
+              <span>View live in Inbox</span>
+              <ArrowRight className="size-3" />
+            </button>
+          </div>
+
+          {/* Telemetry 3-Grid */}
+          <div className="grid grid-cols-3 gap-2.5 my-3">
+            <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+              <span className="text-[10px] text-slate-400 font-medium block">Total Handled</span>
+              <span className="text-xs sm:text-sm font-bold font-mono text-slate-900">{active.totalChats}</span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+              <span className="text-[10px] text-slate-400 font-medium block">Avg Response</span>
+              <span className="text-xs sm:text-sm font-bold font-mono text-blue-600">{active.latency}</span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+              <span className="text-[10px] text-slate-400 font-medium block">Zero-Hallucination</span>
+              <span className="text-xs sm:text-sm font-bold font-mono text-emerald-600">100% SLA</span>
+            </div>
+          </div>
+
+          {/* Execution Architecture Box */}
+          <div className="rounded-lg border border-slate-200/80 bg-white p-3 text-xs shadow-2xs space-y-1.5">
+            <div className="flex items-center justify-between text-[11px]">
+              <span className="text-slate-500 font-medium">Model Context Protocol (MCP) Bindings:</span>
+              <span className="font-mono font-semibold text-purple-700">{active.tools}</span>
+            </div>
+            <div className="flex items-center justify-between text-[11px]">
+              <span className="text-slate-500 font-medium">Enterprise Guardrails:</span>
+              <span className="font-mono text-emerald-700 font-semibold">Strict Verification • Anti-Drift Active</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Interactive Simulation Console */}
+        <div className="mt-2.5">
+          {simulatedReply && (
+            <div className="mb-2 p-2 rounded-lg bg-purple-50/70 border border-purple-200/70 text-xs text-purple-950 font-mono leading-relaxed">
+              {simulatedReply}
+            </div>
+          )}
+          <form onSubmit={handleSimulate} className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white p-1.5 shadow-2xs focus-within:border-blue-500">
+            <input
+              type="text"
+              value={testPrompt}
+              onChange={(e) => setTestPrompt(e.target.value)}
+              placeholder="Test agent prompt (e.g. 'Can I get pricing for 50 agents?')..."
+              className="flex-1 bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none px-2 py-0.5"
+            />
+            <button
+              type="submit"
+              className="px-3 py-1 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs cursor-pointer transition-colors"
+            >
+              Simulate
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2. DEDICATED ANALYTICS & TELEMETRY VIEW
+// ─────────────────────────────────────────────────────────────────────────────
+function AnalyticsView() {
+  const [timeRange, setTimeRange] = useState<'today' | '7d' | '30d'>('today')
+
+  return (
+    <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between overflow-y-auto bg-slate-50/40 h-full select-none">
+      <div>
+        {/* Top Header */}
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <BarChart3 className="size-4 text-blue-600" />
+              <h3 className="text-xs sm:text-sm font-bold text-slate-900">Platform Analytics & CPaaS Telemetry</h3>
+            </div>
+            <p className="text-[11px] text-slate-500 mt-0.5">Real-time carrier throughput, delivery rates, and AI deflection metrics</p>
+          </div>
+          <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-md text-[11px] font-semibold text-slate-600">
+            {(['today', '7d', '30d'] as const).map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setTimeRange(t)}
+                className={`px-2 py-0.5 rounded-xs transition-colors cursor-pointer uppercase ${
+                  timeRange === t ? 'bg-white text-blue-600 shadow-2xs' : 'hover:text-slate-900'
+                }`}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 4 Stat Cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
+          <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+            <span className="text-[10px] text-slate-400 font-medium block">Total Messages</span>
+            <div className="flex items-baseline gap-1 mt-0.5">
+              <span className="text-xs sm:text-sm font-bold font-mono text-slate-900">1,284,920</span>
+              <span className="text-[10px] font-mono font-bold text-emerald-600">+14%</span>
+            </div>
+            <span className="text-[10px] text-slate-400">WhatsApp & SMS</span>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+            <span className="text-[10px] text-slate-400 font-medium block">Delivery SLA (DLR)</span>
+            <div className="flex items-baseline gap-1 mt-0.5">
+              <span className="text-xs sm:text-sm font-bold font-mono text-blue-600">99.98%</span>
+              <span className="text-[10px] font-mono font-bold text-emerald-600">DLT</span>
+            </div>
+            <span className="text-[10px] text-slate-400">Sub-second receipt</span>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+            <span className="text-[10px] text-slate-400 font-medium block">Autonomous Deflection</span>
+            <div className="flex items-baseline gap-1 mt-0.5">
+              <span className="text-xs sm:text-sm font-bold font-mono text-purple-600">78.4%</span>
+              <span className="text-[10px] font-mono font-bold text-purple-600">AI</span>
+            </div>
+            <span className="text-[10px] text-slate-400">Tier-1 auto-resolved</span>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+            <span className="text-[10px] text-slate-400 font-medium block">Avg Response Latency</span>
+            <div className="flex items-baseline gap-1 mt-0.5">
+              <span className="text-xs sm:text-sm font-bold font-mono text-emerald-600">28ms</span>
+              <span className="text-[10px] font-mono font-bold text-emerald-600">Edge</span>
+            </div>
+            <span className="text-[10px] text-slate-400">Mumbai Node Active</span>
+          </div>
+        </div>
+
+        {/* Channels Breakdown & SLA Health */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          {/* Channel distribution */}
+          <div className="p-3 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+            <span className="text-xs font-bold text-slate-900 block mb-2">Omnichannel Throughput Breakdown</span>
+            <div className="space-y-1.5 text-xs">
+              <div>
+                <div className="flex justify-between text-[11px] mb-0.5 font-medium text-slate-700">
+                  <span>WhatsApp Business API (Meta v20)</span>
+                  <span className="font-mono text-blue-600 font-bold">64% · 822k</span>
+                </div>
+                <div className="h-1.5 rounded-xs bg-slate-100 overflow-hidden">
+                  <div className="h-full bg-blue-600 rounded-xs w-[64%]" />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-[11px] mb-0.5 font-medium text-slate-700">
+                  <span>Carrier SMS (Direct SMPP Routes)</span>
+                  <span className="font-mono text-indigo-600 font-bold">26% · 334k</span>
+                </div>
+                <div className="h-1.5 rounded-xs bg-slate-100 overflow-hidden">
+                  <div className="h-full bg-indigo-600 rounded-xs w-[26%]" />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-[11px] mb-0.5 font-medium text-slate-700">
+                  <span>Website Live Chat & Voice</span>
+                  <span className="font-mono text-purple-600 font-bold">10% · 128k</span>
+                </div>
+                <div className="h-1.5 rounded-xs bg-slate-100 overflow-hidden">
+                  <div className="h-full bg-purple-600 rounded-xs w-[10%]" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CRM & Revenue Pipeline Outcome */}
+          <div className="p-3 rounded-lg bg-white border border-slate-200/80 shadow-2xs flex flex-col justify-between">
+            <span className="text-xs font-bold text-slate-900 block mb-2">CRM Revenue Pipeline Acceleration</span>
+            <div className="space-y-1.5 text-xs">
+              <div className="flex items-center justify-between p-1.5 rounded-md bg-slate-50 border border-slate-100">
+                <span className="text-[11px] text-slate-600">Influenced Revenue Pipeline</span>
+                <span className="font-mono font-bold text-slate-900">₹4,820,000</span>
+              </div>
+              <div className="flex items-center justify-between p-1.5 rounded-md bg-slate-50 border border-slate-100">
+                <span className="text-[11px] text-slate-600">Conversion Rate from WhatsApp</span>
+                <span className="font-mono font-bold text-emerald-600">38.4%</span>
+              </div>
+              <div className="flex items-center justify-between p-1.5 rounded-md bg-slate-50 border border-slate-100">
+                <span className="text-[11px] text-slate-600">SLA Breach Incidents (24h)</span>
+                <span className="font-mono font-bold text-emerald-600">0 (100% On-Time)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3. DEDICATED CONTACTS & CRM DIRECTORY VIEW
+// ─────────────────────────────────────────────────────────────────────────────
+function ContactsView({ onSelectContact }: { onSelectContact: (convId: string) => void }) {
+  const [filter, setFilter] = useState<'all' | 'leads' | 'clients'>('all')
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const contacts = [
+    {
+      id: 'sales-enquiry',
+      name: 'Aditi Sharma',
+      company: 'FinEdge Technologies',
+      phone: '+91 98201 44821',
+      channel: 'WhatsApp',
+      stage: 'Qualified Lead',
+      stageColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      owner: 'PulseQuo AI',
+      dealValue: '₹240,000',
+    },
+    {
+      id: 'order-update',
+      name: 'Karan Mehra',
+      company: 'RetailHub Express',
+      phone: '+91 99302 11982',
+      channel: 'WhatsApp',
+      stage: 'Support Active',
+      stageColor: 'bg-blue-50 text-blue-700 border-blue-200',
+      owner: 'Support Desk',
+      dealValue: '₹180,000',
+    },
+    {
+      id: 'demo-request',
+      name: 'Sneha Patel',
+      company: 'Zenith Logistics',
+      phone: '+91 97110 55291',
+      channel: 'Web Chat',
+      stage: 'Demo Booked',
+      stageColor: 'bg-purple-50 text-purple-700 border-purple-200',
+      owner: 'Sales Team',
+      dealValue: '₹520,000',
+    },
+    {
+      id: 'enterprise-lead',
+      name: 'Vikram Joshi',
+      company: 'OmniPay Global',
+      phone: '+91 98401 22910',
+      channel: 'Carrier SMS',
+      stage: 'Proposal Sent',
+      stageColor: 'bg-blue-50 text-blue-700 border-blue-200',
+      owner: 'PulseQuo AI',
+      dealValue: '₹1,200,000',
+    },
+  ]
+
+  const filtered = contacts.filter((c) => {
+    const matchesSearch =
+      c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.phone.includes(searchTerm)
+    if (!matchesSearch) return false
+    if (filter === 'leads') return c.stage.includes('Lead') || c.stage.includes('Demo')
+    if (filter === 'clients') return c.stage.includes('Support') || c.stage.includes('Proposal')
+    return true
+  })
+
+  return (
+    <div className="flex-1 flex flex-col h-full bg-white overflow-hidden select-none">
+      {/* Top Filter and Search Bar */}
+      <div className="p-3 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div className="relative flex-1 max-w-sm">
+          <Search className="size-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search contacts by name, company, or phone..."
+            className="w-full rounded-lg bg-slate-50 border border-slate-200/80 pl-8 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-all shadow-2xs"
+          />
+        </div>
+
+        <div className="flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={() => setFilter('all')}
+            className={`px-2 py-1 rounded-md text-xs font-semibold cursor-pointer transition-colors ${
+              filter === 'all' ? 'bg-blue-50 text-blue-600 border border-blue-200' : 'text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            All (4)
+          </button>
+          <button
+            type="button"
+            onClick={() => setFilter('leads')}
+            className={`px-2 py-1 rounded-md text-xs font-semibold cursor-pointer transition-colors ${
+              filter === 'leads' ? 'bg-blue-50 text-blue-600 border border-blue-200' : 'text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            Pipeline Leads (2)
+          </button>
+          <button
+            type="button"
+            onClick={() => setFilter('clients')}
+            className={`px-2 py-1 rounded-md text-xs font-semibold cursor-pointer transition-colors ${
+              filter === 'clients' ? 'bg-blue-50 text-blue-600 border border-blue-200' : 'text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            Clients (2)
+          </button>
+        </div>
+      </div>
+
+      {/* Contacts Table List */}
+      <div className="flex-1 overflow-y-auto divide-y divide-slate-100">
+        {filtered.map((item) => (
+          <div
+            key={item.id}
+            className="p-3 flex items-center justify-between gap-3 hover:bg-slate-50/70 transition-colors"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="size-8 rounded-lg bg-slate-900 text-white font-bold text-xs flex items-center justify-center shrink-0">
+                {item.name.slice(0, 2).toUpperCase()}
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-slate-900 truncate">{item.name}</span>
+                  <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-xs border ${item.stageColor}`}>
+                    {item.stage}
+                  </span>
+                </div>
+                <div className="text-[11px] text-slate-500 mt-0.5 truncate">
+                  {item.company} • {item.phone}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="text-right hidden sm:block">
+                <span className="text-xs font-mono font-bold text-slate-900 block">{item.dealValue}</span>
+                <span className="text-[10px] text-slate-400">Owner: {item.owner}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => onSelectContact(item.id === 'enterprise-lead' ? 'sales-enquiry' : item.id)}
+                className="px-2.5 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 text-xs font-semibold inline-flex items-center gap-1 transition-colors cursor-pointer"
+              >
+                <MessageSquare className="size-3" />
+                <span>Open Chat</span>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MAIN PLATFORM COMPOSITION COMPONENT
+// ─────────────────────────────────────────────────────────────────────────────
 export function PlatformComposition() {
   const [activeNav, setActiveNav] = useState<NavSection>('inbox')
   const [activeInboxTab, setActiveInboxTab] = useState<'open' | 'assigned'>('open')
@@ -185,15 +671,15 @@ export function PlatformComposition() {
       <div className="w-full max-w-full overflow-x-auto no-scrollbar">
         <div className="min-w-[960px] xl:min-w-full flex h-[430px] sm:h-[450px] lg:h-[460px] bg-white text-left divide-x divide-slate-100">
           {/* ── COLUMN 1: LEFT NAVIGATION SIDEBAR ── */}
-          <aside className="w-52 shrink-0 p-5 flex flex-col justify-between bg-white select-none">
+          <aside className="w-52 shrink-0 p-4 sm:p-5 flex flex-col justify-between bg-white select-none">
             <div>
               {/* Brand Logo */}
-              <div className="text-2xl font-black text-slate-900 tracking-tight font-sans">
+              <div className="text-xl font-black text-slate-900 tracking-tight font-sans">
                 PulseQuo
               </div>
 
               {/* Workspace Label */}
-              <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mt-7 mb-2.5">
+              <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mt-5 mb-2">
                 WORKSPACE
               </div>
 
@@ -208,7 +694,7 @@ export function PlatformComposition() {
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <MessageSquare className="size-4 text-blue-600 shrink-0" />
+                  <MessageSquare className={`size-4 ${activeNav === 'inbox' ? 'text-blue-600' : 'text-slate-400'} shrink-0`} />
                   <span>Team inbox</span>
                 </button>
 
@@ -221,7 +707,7 @@ export function PlatformComposition() {
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <Sparkles className="size-4 text-slate-400 shrink-0" />
+                  <Sparkles className={`size-4 ${activeNav === 'agents' ? 'text-blue-600' : 'text-slate-400'} shrink-0`} />
                   <span>AI agents</span>
                 </button>
 
@@ -234,7 +720,7 @@ export function PlatformComposition() {
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <GitBranch className="size-4 text-slate-400 shrink-0" />
+                  <GitBranch className={`size-4 ${activeNav === 'workflows' ? 'text-blue-600' : 'text-slate-400'} shrink-0`} />
                   <span>Workflows</span>
                 </button>
 
@@ -247,7 +733,7 @@ export function PlatformComposition() {
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <BarChart3 className="size-4 text-slate-400 shrink-0" />
+                  <BarChart3 className={`size-4 ${activeNav === 'analytics' ? 'text-blue-600' : 'text-slate-400'} shrink-0`} />
                   <span>Analytics</span>
                 </button>
 
@@ -260,295 +746,318 @@ export function PlatformComposition() {
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <LayoutGrid className="size-4 text-slate-400 shrink-0" />
+                  <LayoutGrid className={`size-4 ${activeNav === 'contacts' ? 'text-blue-600' : 'text-slate-400'} shrink-0`} />
                   <span>Contacts</span>
                 </button>
               </nav>
             </div>
 
             {/* Bottom Workspace Settings */}
-            <div className="pt-6 border-t border-slate-100">
-              <button
-                type="button"
-                className="text-xs text-slate-400 hover:text-slate-700 transition-colors font-medium cursor-pointer"
-              >
-                Workspace settings
-              </button>
+            <div className="pt-4 border-t border-slate-100">
+              <span className="text-[11px] text-slate-400 font-medium">
+                PulseQuo Enterprise v20
+              </span>
             </div>
           </aside>
 
-          {/* ── WORKFLOWS VIEW ── */}
-          {activeNav === 'workflows' ? (
+          {/* ── 2. DEDICATED WORKFLOWS VIEW ── */}
+          {activeNav === 'workflows' && (
             <div className="flex-1 bg-slate-50/50 p-6 sm:p-8 flex items-center justify-center overflow-y-auto">
               <WorkflowCanvas showWrapper={true} className="max-w-2xl w-full bg-white shadow-xs" />
             </div>
-          ) : (
+          )}
+
+          {/* ── 3. DEDICATED AI AGENTS VIEW ── */}
+          {activeNav === 'agents' && (
+            <AgentsView
+              onSwitchToInbox={(convId) => {
+                if (convId) setSelectedConvId(convId)
+                setActiveNav('inbox')
+              }}
+            />
+          )}
+
+          {/* ── 4. DEDICATED ANALYTICS VIEW ── */}
+          {activeNav === 'analytics' && <AnalyticsView />}
+
+          {/* ── 5. DEDICATED CONTACTS VIEW ── */}
+          {activeNav === 'contacts' && (
+            <ContactsView
+              onSelectContact={(convId) => {
+                setSelectedConvId(convId)
+                setActiveNav('inbox')
+              }}
+            />
+          )}
+
+          {/* ── 1. DEDICATED TEAM INBOX VIEW (CHAT WORKSPACE) ── */}
+          {activeNav === 'inbox' && (
             <>
               {/* ── COLUMN 2: CONVERSATION LIST (TEAM INBOX) ── */}
-              <section className="w-64 lg:w-72 shrink-0 p-4 lg:p-5 flex flex-col bg-white select-none">
-            {/* Header with counter badge */}
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-base lg:text-lg font-bold text-slate-900">
-                Team inbox
-              </h3>
-              <span className="text-xs font-semibold text-slate-400">
-                (12)
-              </span>
-            </div>
-
-            {/* Search conversations */}
-            <div className="relative mb-3.5">
-              <Search className="size-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search conversations"
-                className="w-full rounded-lg bg-slate-50/80 border border-slate-200/70 pl-8 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-all shadow-2xs"
-              />
-            </div>
-
-            {/* Filter Tabs: Open / Assigned to me */}
-            <div className="flex items-center gap-5 border-b border-slate-100 text-xs mb-3 font-sans">
-              <button
-                type="button"
-                onClick={() => setActiveInboxTab('open')}
-                className={`relative pb-2 cursor-pointer transition-colors ${
-                  activeInboxTab === 'open'
-                    ? 'font-bold text-blue-600'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-              >
-                <span>Open</span>
-                {activeInboxTab === 'open' && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-xs" />
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setActiveInboxTab('assigned')}
-                className={`relative pb-2 cursor-pointer transition-colors ${
-                  activeInboxTab === 'assigned'
-                    ? 'font-bold text-blue-600'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-              >
-                <span>Assigned to me</span>
-                {activeInboxTab === 'assigned' && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-xs" />
-                )}
-              </button>
-            </div>
-
-            {/* Conversation Items */}
-            <div className="space-y-1 overflow-y-auto flex-1 pr-0.5">
-              {filteredConversations.map((conv) => {
-                const isSelected = conv.id === selectedConvId
-                return (
-                  <div
-                    key={conv.id}
-                    onClick={() => setSelectedConvId(conv.id)}
-                    className={`p-3 rounded-lg cursor-pointer transition-all ${
-                      isSelected
-                        ? 'bg-slate-50/90 border border-slate-200/70 shadow-2xs'
-                        : 'hover:bg-slate-50/50 border border-transparent'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-xs text-slate-900 truncate">
-                        {conv.title}
-                      </span>
-                      <span className="text-[11px] text-slate-400 font-normal shrink-0 ml-2">
-                        {conv.time}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-xs text-slate-500 truncate">
-                      {conv.preview}
-                    </p>
-                  </div>
-                )
-              })}
-            </div>
-          </section>
-
-          {/* ── COLUMN 3: MAIN CHAT VIEW ── */}
-          <main className="flex-1 min-w-[340px] p-5 lg:p-6 flex flex-col justify-between bg-white">
-            <div>
-              {/* Header: Title + WhatsApp sub-badge */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                <div>
-                  <h2 className="text-base lg:text-lg font-bold text-slate-900 leading-none">
-                    {currentConv.title}
-                  </h2>
-                  <div className="flex items-center gap-1.5 mt-2 text-xs text-slate-500 font-medium">
-                    <WhatsAppIcon className="size-3.5 shrink-0" />
-                    <span>{currentConv.channel}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Chat Thread with smooth AnimatePresence transition on conversation change */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentConv.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                  className="py-2"
-                >
-                  {/* Date Stamp */}
-                  <div className="text-[11px] text-slate-400 font-medium text-center my-2 sm:my-3">
-                    Today, 10:42 AM
-                  </div>
-
-                  {/* Customer Message Bubble (Inbound) */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 12, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    className="max-w-md bg-slate-50 border border-slate-200/70 text-slate-800 text-xs sm:text-sm p-3.5 sm:p-4 rounded-2xl rounded-tl-sm leading-relaxed shadow-2xs whitespace-pre-line"
-                  >
-                    {currentConv.userMessage}
-                  </motion.div>
-
-                  {/* AI Agent Message Bubble (Outbound) */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 14, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.35, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-                    className="mt-3 sm:mt-4 max-w-lg bg-emerald-50/70 border border-emerald-200/60 text-slate-800 text-xs sm:text-sm p-3.5 sm:p-4 rounded-2xl rounded-tr-sm leading-relaxed shadow-2xs"
-                  >
-                    <p>{currentConv.agentReply}</p>
-                    <div className="mt-2 text-[11px] font-medium text-emerald-700 flex items-center gap-1">
-                      <span>{currentConv.agentName} · 10:42 AM</span>
-                      <CheckCheck className="size-3.5 text-emerald-600 inline ml-0.5" />
-                    </div>
-                  </motion.div>
-
-                  {/* Additional Live User & Agent Replies if tested interactively */}
-                  {liveReplies
-                    .filter((r) => r.convId === currentConv.id)
-                    .map((r) => (
-                      <div
-                        key={r.id}
-                        className={`mt-2.5 max-w-md text-xs sm:text-sm p-3 rounded-2xl shadow-2xs leading-relaxed ${
-                          r.sender === 'user'
-                            ? 'ml-auto bg-blue-600 text-white rounded-tr-sm'
-                            : 'bg-emerald-50/80 border border-emerald-200/70 text-slate-800 rounded-tl-sm'
-                        }`}
-                      >
-                        <p>{r.text}</p>
-                      </div>
-                    ))}
-
-                  {/* Status Qualified Lead Banner */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.97 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: 0.2 }}
-                    className="mt-3 sm:mt-4 rounded-lg bg-blue-50/80 border border-blue-200/60 px-3 py-2 flex items-center gap-2 text-xs font-semibold text-blue-700"
-                  >
-                    <Check className="size-4 text-blue-600 shrink-0" />
-                    <span>{currentConv.leadStatus}</span>
-                  </motion.div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Interactive Reply Box at Bottom */}
-            <form onSubmit={handleSendReply} className="mt-4 pt-3 border-t border-slate-100">
-              <div className="rounded-xl border border-slate-200 bg-white p-2 flex items-center gap-2 shadow-2xs focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 transition-all">
-                <input
-                  type="text"
-                  value={replyInput}
-                  onChange={(e) => setReplyInput(e.target.value)}
-                  placeholder="Reply to the conversation..."
-                  className="flex-1 bg-transparent text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none px-2 py-1"
-                />
-                <button
-                  type="submit"
-                  aria-label="Send reply"
-                  className="size-8 rounded-lg bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white flex items-center justify-center shrink-0 transition-colors shadow-xs cursor-pointer"
-                >
-                  <ArrowRight className="size-4" />
-                </button>
-              </div>
-            </form>
-          </main>
-
-          {/* ── COLUMN 4: CUSTOMER CONTEXT (RIGHT SIDEBAR) ── */}
-          <aside className="w-64 lg:w-72 shrink-0 p-5 lg:p-6 flex flex-col justify-between bg-white select-none">
-            <div>
-              {/* Context Header */}
-              <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-4">
-                CUSTOMER CONTEXT
-              </div>
-
-              {/* Sales-Ready Status Card */}
-              <div className="rounded-xl bg-emerald-50/70 border border-emerald-200/60 p-3.5">
-                <div className="flex items-center gap-2">
-                  <Check className="size-4 text-emerald-600 shrink-0" />
-                  <span className="text-xs font-bold text-emerald-900">
-                    Sales-ready conversation
+              <section className="w-64 lg:w-72 shrink-0 p-3.5 lg:p-4 flex flex-col bg-white select-none">
+                {/* Header with counter badge */}
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm lg:text-base font-bold text-slate-900">
+                    Team inbox
+                  </h3>
+                  <span className="text-xs font-semibold text-slate-400">
+                    (12)
                   </span>
                 </div>
-                <div className="text-[11px] text-emerald-700 pl-6 mt-0.5 font-medium">
-                  Qualified by {currentConv.agentName}
+
+                {/* Search conversations */}
+                <div className="relative mb-3">
+                  <Search className="size-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search conversations"
+                    className="w-full rounded-lg bg-slate-50/80 border border-slate-200/70 pl-8 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-all shadow-2xs"
+                  />
                 </div>
-              </div>
 
-              {/* Conversation Details Table */}
-              <div className="mt-6">
-                <h4 className="text-xs font-bold text-slate-900 mb-3">
-                  Conversation details
-                </h4>
+                {/* Filter Tabs: Open / Assigned to me */}
+                <div className="flex items-center gap-5 border-b border-slate-100 text-xs mb-2.5 font-sans">
+                  <button
+                    type="button"
+                    onClick={() => setActiveInboxTab('open')}
+                    className={`relative pb-2 cursor-pointer transition-colors ${
+                      activeInboxTab === 'open'
+                        ? 'font-bold text-blue-600'
+                        : 'text-slate-500 hover:text-slate-800'
+                    }`}
+                  >
+                    <span>Open</span>
+                    {activeInboxTab === 'open' && (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-xs" />
+                    )}
+                  </button>
 
-                <div className="space-y-2.5 text-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400 font-normal">Interest</span>
-                    <span className="font-semibold text-slate-900 text-right">
-                      {currentConv.details.interest}
-                    </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveInboxTab('assigned')}
+                    className={`relative pb-2 cursor-pointer transition-colors ${
+                      activeInboxTab === 'assigned'
+                        ? 'font-bold text-blue-600'
+                        : 'text-slate-500 hover:text-slate-800'
+                    }`}
+                  >
+                    <span>Assigned to me</span>
+                    {activeInboxTab === 'assigned' && (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-xs" />
+                    )}
+                  </button>
+                </div>
+
+                {/* Conversation Items */}
+                <div className="space-y-1 overflow-y-auto flex-1 pr-0.5">
+                  {filteredConversations.map((conv) => {
+                    const isSelected = conv.id === selectedConvId
+                    return (
+                      <div
+                        key={conv.id}
+                        onClick={() => setSelectedConvId(conv.id)}
+                        className={`p-2.5 rounded-lg cursor-pointer transition-all ${
+                          isSelected
+                            ? 'bg-slate-50/90 border border-slate-200/70 shadow-2xs'
+                            : 'hover:bg-slate-50/50 border border-transparent'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="font-semibold text-xs text-slate-900 truncate">
+                            {conv.title}
+                          </span>
+                          <span className="text-[11px] text-slate-400 font-normal shrink-0 ml-2">
+                            {conv.time}
+                          </span>
+                        </div>
+                        <p className="mt-0.5 text-xs text-slate-500 truncate">
+                          {conv.preview}
+                        </p>
+                      </div>
+                    )
+                  })}
+                </div>
+              </section>
+
+              {/* ── COLUMN 3: MAIN CHAT VIEW ── */}
+              <main className="flex-1 min-w-[340px] p-4 lg:p-5 flex flex-col justify-between bg-white">
+                <div>
+                  {/* Header: Title + WhatsApp sub-badge */}
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <div>
+                      <h2 className="text-sm lg:text-base font-bold text-slate-900 leading-none">
+                        {currentConv.title}
+                      </h2>
+                      <div className="flex items-center gap-1.5 mt-1.5 text-xs text-slate-500 font-medium">
+                        <WhatsAppIcon className="size-3.5 shrink-0" />
+                        <span>{currentConv.channel}</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400 font-normal">Team size</span>
-                    <span className="font-semibold text-slate-900 text-right">
-                      {currentConv.details.teamSize}
-                    </span>
+                  {/* Chat Thread with smooth AnimatePresence transition on conversation change */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentConv.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                      className="py-1"
+                    >
+                      {/* Date Stamp */}
+                      <div className="text-[11px] text-slate-400 font-medium text-center my-2 sm:my-2.5">
+                        Today, 10:42 AM
+                      </div>
+
+                      {/* Customer Message Bubble (Inbound) */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        className="max-w-md bg-slate-50 border border-slate-200/70 text-slate-800 text-xs sm:text-sm p-3.5 sm:p-4 rounded-2xl rounded-tl-sm leading-relaxed shadow-2xs whitespace-pre-line"
+                      >
+                        {currentConv.userMessage}
+                      </motion.div>
+
+                      {/* AI Agent Message Bubble (Outbound) */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 14, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ duration: 0.35, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                        className="mt-3 sm:mt-3.5 max-w-lg bg-emerald-50/70 border border-emerald-200/60 text-slate-800 text-xs sm:text-sm p-3.5 sm:p-4 rounded-2xl rounded-tr-sm leading-relaxed shadow-2xs"
+                      >
+                        <p>{currentConv.agentReply}</p>
+                        <div className="mt-2 text-[11px] font-medium text-emerald-700 flex items-center gap-1">
+                          <span>{currentConv.agentName} · 10:42 AM</span>
+                          <CheckCheck className="size-3.5 text-emerald-600 inline ml-0.5" />
+                        </div>
+                      </motion.div>
+
+                      {/* Additional Live User & Agent Replies if tested interactively */}
+                      {liveReplies
+                        .filter((r) => r.convId === currentConv.id)
+                        .map((r) => (
+                          <div
+                            key={r.id}
+                            className={`mt-2.5 max-w-md text-xs sm:text-sm p-3 rounded-2xl shadow-2xs leading-relaxed ${
+                              r.sender === 'user'
+                                ? 'ml-auto bg-blue-600 text-white rounded-tr-sm'
+                                : 'bg-emerald-50/80 border border-emerald-200/70 text-slate-800 rounded-tl-sm'
+                            }`}
+                          >
+                            <p>{r.text}</p>
+                          </div>
+                        ))}
+
+                      {/* Status Qualified Lead Banner */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.97 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: 0.2 }}
+                        className="mt-3 rounded-lg bg-blue-50/80 border border-blue-200/60 px-3 py-2 flex items-center gap-2 text-xs font-semibold text-blue-700"
+                      >
+                        <Check className="size-4 text-blue-600 shrink-0" />
+                        <span>{currentConv.leadStatus}</span>
+                      </motion.div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* Interactive Reply Box at Bottom */}
+                <form onSubmit={handleSendReply} className="mt-2 pt-2 border-t border-slate-100">
+                  <div className="rounded-xl border border-slate-200 bg-white p-1.5 flex items-center gap-2 shadow-2xs focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 transition-all">
+                    <input
+                      type="text"
+                      value={replyInput}
+                      onChange={(e) => setReplyInput(e.target.value)}
+                      placeholder="Reply to the conversation..."
+                      className="flex-1 bg-transparent text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none px-2 py-1"
+                    />
+                    <button
+                      type="submit"
+                      aria-label="Send reply"
+                      className="size-7 sm:size-8 rounded-lg bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white flex items-center justify-center shrink-0 transition-colors shadow-xs cursor-pointer"
+                    >
+                      <ArrowRight className="size-3.5 sm:size-4" />
+                    </button>
+                  </div>
+                </form>
+              </main>
+
+              {/* ── COLUMN 4: CUSTOMER CONTEXT (RIGHT SIDEBAR) ── */}
+              <aside className="w-60 lg:w-68 shrink-0 p-4 lg:p-4.5 flex flex-col justify-between bg-white select-none">
+                <div>
+                  {/* Context Header */}
+                  <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-3">
+                    CUSTOMER CONTEXT
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400 font-normal">Source</span>
-                    <span className="font-semibold text-slate-900 text-right">
-                      {currentConv.details.source}
-                    </span>
+                  {/* Sales-Ready Status Card */}
+                  <div className="rounded-xl bg-emerald-50/70 border border-emerald-200/60 p-3">
+                    <div className="flex items-center gap-2">
+                      <Check className="size-3.5 text-emerald-600 shrink-0" />
+                      <span className="text-xs font-bold text-emerald-900">
+                        Sales-ready conversation
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-emerald-700 pl-5.5 mt-0.5 font-medium">
+                      Qualified by {currentConv.agentName}
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400 font-normal">Owner</span>
-                    <span className="font-semibold text-slate-900 text-right">
-                      {currentConv.details.owner}
-                    </span>
+                  {/* Conversation Details Table */}
+                  <div className="mt-4">
+                    <h4 className="text-xs font-bold text-slate-900 mb-2">
+                      Conversation details
+                    </h4>
+
+                    <div className="space-y-2 text-xs">
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400 font-normal">Interest</span>
+                        <span className="font-semibold text-slate-900 text-right">
+                          {currentConv.details.interest}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400 font-normal">Team size</span>
+                        <span className="font-semibold text-slate-900 text-right">
+                          {currentConv.details.teamSize}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400 font-normal">Source</span>
+                        <span className="font-semibold text-slate-900 text-right">
+                          {currentConv.details.source}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400 font-normal">Owner</span>
+                        <span className="font-semibold text-slate-900 text-right">
+                          {currentConv.details.owner}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Next Step Action Card */}
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-              <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400 mb-1.5">
-                NEXT STEP
-              </div>
-              <div className="text-xs sm:text-sm font-bold text-slate-900">
-                {currentConv.nextStep}
-              </div>
-            </div>
-          </aside>
-        </>
-      )}
+                {/* Next Step Action Card */}
+                <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-2xs">
+                  <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400 mb-1">
+                    NEXT STEP
+                  </div>
+                  <div className="text-xs sm:text-sm font-bold text-slate-900">
+                    {currentConv.nextStep}
+                  </div>
+                </div>
+              </aside>
+            </>
+          )}
         </div>
       </div>
     </div>
