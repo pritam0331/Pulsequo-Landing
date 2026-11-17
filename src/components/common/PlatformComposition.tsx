@@ -59,7 +59,7 @@ const CONVERSATIONS: ConversationItem[] = [
     time: 'Now',
     channel: 'WhatsApp · Sales Inbox',
     channelType: 'whatsapp',
-    agentName: 'Relay AI',
+    agentName: 'PulseQuo AI',
     userMessage: "Hi! We're growing our sales team.\nCan you help me choose a plan?",
     agentReply:
       'Absolutely. I can help you find the right fit. How many people will be using the workspace, and what would you like to automate?',
@@ -79,7 +79,7 @@ const CONVERSATIONS: ConversationItem[] = [
     time: '2m',
     channel: 'WhatsApp · Support Inbox',
     channelType: 'whatsapp',
-    agentName: 'Relay AI',
+    agentName: 'PulseQuo AI',
     userMessage: 'Thanks for the quick response!\nCan I track delivery for order #8841?',
     agentReply:
       'Your order has been dispatched via Bluedart (AWB: BD-99201). Estimated delivery is tomorrow before 2:00 PM IST.',
@@ -99,7 +99,7 @@ const CONVERSATIONS: ConversationItem[] = [
     time: '8m',
     channel: 'Website Live Chat · Sales',
     channelType: 'chat',
-    agentName: 'Relay AI',
+    agentName: 'PulseQuo AI',
     userMessage: 'Tomorrow at 10 works for us. We need to evaluate SMPP routes and WhatsApp Cloud API throughput.',
     agentReply:
       'Calendar invite dispatched for 10:00 AM IST. Our telecom solutions architect Rahul will join the walkthrough.',
@@ -119,7 +119,7 @@ const CONVERSATIONS: ConversationItem[] = [
     time: '12m',
     channel: 'REST API · Developer Desk',
     channelType: 'chat',
-    agentName: 'Relay AI',
+    agentName: 'PulseQuo AI',
     userMessage: 'Can I connect my CRM? We use HubSpot and need bi-directional contact synchronization.',
     agentReply:
       'Yes! PulseQuo has native HubSpot and Salesforce bi-directional sync, plus Model Context Protocol (MCP) tool support.',
@@ -179,18 +179,6 @@ export function PlatformComposition() {
   return (
     <div className="w-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white shadow-2xl overflow-hidden ring-1 ring-slate-900/5 transition-all text-slate-900 font-sans">
       {/* ─────────────────────────────────────────────────────────────
-          TOP WORKSPACE BAR (Relay / Acme workspace · PRODUCT PREVIEW)
-         ───────────────────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-4 sm:px-6 py-2.5 sm:py-3 text-xs">
-        <span className="text-slate-500 font-medium tracking-tight">
-          Relay / Acme workspace
-        </span>
-        <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase font-mono">
-          PRODUCT PREVIEW
-        </span>
-      </div>
-
-      {/* ─────────────────────────────────────────────────────────────
           MAIN 4-COLUMN WORKSPACE CONTAINER
           Preserves the exact desktop layout with seamless horizontal scrolling on small screens
          ───────────────────────────────────────────────────────────── */}
@@ -206,7 +194,7 @@ export function PlatformComposition() {
 
               {/* Workspace Label */}
               <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mt-7 mb-2.5">
-                ACME WORKSPACE
+                WORKSPACE
               </div>
 
               {/* Navigation Items */}

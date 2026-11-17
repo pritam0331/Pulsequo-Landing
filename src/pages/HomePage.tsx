@@ -886,10 +886,6 @@ export function MarketingHomePage() {
               transition={{ duration: 0.6, delay: 0.1, ease: easeOutCurve }}
               className="lg:col-span-5 order-1 lg:order-2"
             >
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 font-mono block mb-2.5">
-                Visual Workflow Designer
-              </span>
-
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
                 Visual Flow Automation. Built for Scale.
               </h2>

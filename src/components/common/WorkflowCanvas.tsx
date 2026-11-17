@@ -11,18 +11,11 @@ interface WorkflowCanvasProps {
 export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowCanvasProps) {
   const content = (
     <div className="w-full">
-      {/* Header bar: Title on left, Active toggle on right */}
-      <div className="flex items-center justify-between border-b border-slate-200/80 pb-4 mb-6">
+      {/* Header bar: Title on left */}
+      <div className="border-b border-slate-200/80 pb-4 mb-6">
         <h4 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
           Lead qualification
         </h4>
-        <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200/70 shadow-2xs">
-          <span className="relative flex size-2 items-center justify-center">
-            <span className="size-2 rounded-xs bg-emerald-500 animate-ping absolute opacity-75" />
-            <span className="size-1.5 rounded-xs bg-emerald-600 relative" />
-          </span>
-          <span>Live Workflow Active</span>
-        </div>
       </div>
 
       {/* Visual Flow Tree Container */}
