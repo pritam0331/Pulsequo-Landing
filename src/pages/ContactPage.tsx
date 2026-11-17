@@ -8,6 +8,7 @@ import { SEO } from '../components/common/SEO'
 import { Breadcrumbs } from '../components/common/Breadcrumbs'
 import { ContactForm } from '../components/forms/ContactForm'
 import { ScrollReveal } from '../components/common/ScrollReveal'
+import { WhatsAppContactBanner } from '../components/common/WhatsAppContactBanner'
 import { siteConfig } from '../config/siteConfig'
 
 export function ContactPage() {
@@ -130,6 +131,13 @@ export function ContactPage() {
             {/* Right Form Column */}
             <ScrollReveal direction="right" delay={0.15} className="lg:col-span-7">
               <ContactForm />
+            </ScrollReveal>
+          </div>
+
+          {/* Featured WhatsApp Free Forever Plan & Contact Banner */}
+          <div className="mt-16 pt-16 border-t border-slate-100">
+            <ScrollReveal direction="up" delay={0.1}>
+              <WhatsAppContactBanner />
             </ScrollReveal>
           </div>
         </div>

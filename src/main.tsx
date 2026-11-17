@@ -29,6 +29,7 @@ import { DevelopersPage } from '@/pages/developers/DevelopersPage'
 import { ApiDocsPage } from '@/pages/developers/ApiDocsPage'
 import { WebhooksDocsPage } from '@/pages/developers/WebhooksDocsPage'
 import { BookDemoPage } from '@/pages/BookDemoPage'
+import { FreeTrialPage } from '@/pages/FreeTrialPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { RouteErrorBoundary } from '@/components/common/ErrorBoundary'
 import { TermsPage } from '@/pages/legal/TermsPage'
@@ -70,8 +71,11 @@ const router = createBrowserRouter([
       { path: '/developers', element: <DevelopersPage /> },
       { path: '/developers/api-documentation', element: <ApiDocsPage /> },
       { path: '/developers/webhooks', element: <WebhooksDocsPage /> },
-      // Demo Conversion
+      // Demo Conversion & Free Forever Offer
       { path: '/book-demo', element: <BookDemoPage /> },
+      { path: '/free-trial', element: <FreeTrialPage /> },
+      { path: '/signup', element: <FreeTrialPage /> },
+      { path: '/free-forever', element: <FreeTrialPage /> },
       // Legal & Compliance Pages
       { path: '/terms', element: <TermsPage /> },
       { path: '/terms-of-service', element: <TermsPage /> },

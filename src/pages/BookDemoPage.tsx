@@ -13,6 +13,7 @@ import { Breadcrumbs } from '../components/common/Breadcrumbs'
 import { DemoRequestForm } from '../components/forms/DemoRequestForm'
 import type { DemoFormData } from '../services/demoService'
 import { ScrollReveal } from '../components/common/ScrollReveal'
+import { WhatsAppContactBanner } from '../components/common/WhatsAppContactBanner'
 
 export function BookDemoPage() {
   const [searchParams] = useSearchParams()
@@ -131,6 +132,13 @@ export function BookDemoPage() {
               <DemoRequestForm initialProductInterest={productParam || 'Complete PulseQuo Platform'} />
             </ScrollReveal>
           </div>
+          </div>
+
+          {/* Or Self-Serve: WhatsApp Free Forever Plan & Contact Banner */}
+          <div className="mt-16 pt-16 border-t border-slate-100">
+            <ScrollReveal direction="up" delay={0.1}>
+              <WhatsAppContactBanner />
+            </ScrollReveal>
           </div>
         </div>
       </section>
