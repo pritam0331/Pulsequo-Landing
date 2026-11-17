@@ -324,61 +324,61 @@ export function MarketingHomePage() {
             description="Replace fragmented point solutions with an enterprise infrastructure engineered to connect every customer message directly to revenue and resolution."
           />
 
-          <div className="mt-16 grid grid-cols-1 lg:grid-cols-12 gap-7">
+          <div className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-5">
             {/* Bento Card 1: Communication Cloud (7 Columns) */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: 0.05, ease: easeOutCurve }}
-              className="lg:col-span-7 rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50/30 via-white to-slate-50 p-8 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-7 rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50/30 via-white to-slate-50 p-5 sm:p-6 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                <div className="mb-6">
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md shadow-blue-600/20">
-                    <MessageSquare className="size-6" />
+                <div className="mb-4">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm shadow-blue-600/20">
+                    <MessageSquare className="size-5" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight">Communication Cloud</h3>
-                <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                <h3 className="text-xl font-bold text-slate-900 tracking-tight">Communication Cloud</h3>
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                   Direct Meta WhatsApp Business API, carrier-grade SMS routing with TRAI DLT registration, voice calling, and a unified omnichannel inbox for your team.
                 </p>
 
                 {/* Architecture Spec Highlights */}
-                <div className="mt-6 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                <div className="mt-4 rounded-lg border border-slate-200 bg-white p-3 shadow-2xs">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-2.5">
                     <span className="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
                       <span className="size-2 rounded-xs bg-emerald-500" /> Carrier Connection Status
                     </span>
                     <span className="text-[11px] font-mono text-slate-500">Sub-second Routing</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-2 rounded-md bg-slate-50 border border-slate-100">
                       <span className="text-[10px] text-slate-400 block font-medium">Throughput</span>
                       <span className="font-mono font-bold text-slate-800 text-xs">250 msg/sec</span>
                     </div>
-                    <div className="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                    <div className="p-2 rounded-md bg-slate-50 border border-slate-100">
                       <span className="text-[10px] text-slate-400 block font-medium">Compliance</span>
                       <span className="font-mono font-bold text-blue-600 text-xs">DLT & V20 Verified</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-6 grid grid-cols-2 gap-3 text-xs font-medium text-slate-700">
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Meta Official Cloud API</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> TRAI DLT Compliant SMS</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Sub-second delivery DLR</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Pre-approved templates</div>
+                <div className="mt-4 grid grid-cols-2 gap-2 text-xs font-medium text-slate-700">
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Meta Official Cloud API</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> TRAI DLT Compliant SMS</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Sub-second delivery DLR</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Pre-approved templates</div>
                 </div>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-200/80">
+              <div className="mt-5 pt-4 border-t border-slate-200/80">
                 <Link
                   to="/products/communication-cloud"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700"
                 >
                   <span>View communication cloud specs</span>
-                  <ArrowRight className="size-4" />
+                  <ArrowRight className="size-3.5" />
                 </Link>
               </div>
             </motion.div>
@@ -389,49 +389,49 @@ export function MarketingHomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: 0.1, ease: easeOutCurve }}
-              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50/20 via-white to-slate-50 p-8 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50/20 via-white to-slate-50 p-5 sm:p-6 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                <div className="mb-6">
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md shadow-blue-600/20">
-                    <TrendingUp className="size-6" />
+                <div className="mb-4">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm shadow-blue-600/20">
+                    <TrendingUp className="size-5" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight">Sales CRM</h3>
-                <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                <h3 className="text-xl font-bold text-slate-900 tracking-tight">Sales CRM</h3>
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                   Turn chat interactions into closed revenue. Drag-and-drop visual Kanban pipelines, lead scoring, deal forecasts, and 1-click WhatsApp quotes.
                 </p>
 
                 {/* Pipeline Stages Mini Indicator */}
-                <div className="mt-6 space-y-2 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
+                <div className="mt-4 space-y-2 rounded-lg border border-slate-200 bg-white p-3 shadow-2xs">
                   <div className="flex justify-between text-xs font-bold text-slate-700">
                     <span>Active Pipeline</span>
                     <span className="text-blue-600 font-mono">₹1,842,000</span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
+                  <div className="grid grid-cols-3 gap-1.5 text-center text-[10px] font-bold">
                     <div className="bg-slate-100 p-1.5 rounded-md">New (18)</div>
                     <div className="bg-purple-50 text-purple-700 p-1.5 rounded-md border border-purple-200">Demo (7)</div>
                     <div className="bg-blue-50 text-blue-700 p-1.5 rounded-md border border-blue-200">Closing (4)</div>
                   </div>
-                  <div className="h-1.5 w-full rounded-xs bg-slate-100 overflow-hidden mt-3">
+                  <div className="h-1.5 w-full rounded-xs bg-slate-100 overflow-hidden mt-2">
                     <div className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-xs w-[78%]" />
                   </div>
                 </div>
 
-                <div className="mt-6 space-y-2 text-xs font-medium text-slate-700">
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Multi-channel lead capture</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Stagnant deal alerts</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> 1-click WhatsApp follow-ups</div>
+                <div className="mt-4 space-y-1.5 text-xs font-medium text-slate-700">
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Multi-channel lead capture</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Stagnant deal alerts</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> 1-click WhatsApp follow-ups</div>
                 </div>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-200/80">
+              <div className="mt-5 pt-4 border-t border-slate-200/80">
                 <Link
                   to="/products/sales-crm"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700"
                 >
                   <span>View sales CRM features</span>
-                  <ArrowRight className="size-4" />
+                  <ArrowRight className="size-3.5" />
                 </Link>
               </div>
             </motion.div>
@@ -442,49 +442,49 @@ export function MarketingHomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: 0.05, ease: easeOutCurve }}
-              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-blue-50/20 p-8 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-blue-50/20 p-5 sm:p-6 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                <div className="mb-6">
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-[#070d24] text-white shadow-md shadow-[#070d24]/20">
-                    <Headphones className="size-6" />
+                <div className="mb-4">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-[#070d24] text-white shadow-sm shadow-[#070d24]/20">
+                    <Headphones className="size-5" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight">Support CRM</h3>
-                <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                <h3 className="text-xl font-bold text-slate-900 tracking-tight">Support CRM</h3>
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                   Resolve tickets faster with shared queues, SLA breach countdown timers, automated knowledge bases, and intelligent agent routing.
                 </p>
 
                 {/* Support SLA Queue Mini Indicator */}
-                <div className="mt-6 space-y-2 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
+                <div className="mt-4 space-y-2 rounded-lg border border-slate-200 bg-white p-3 shadow-2xs">
                   <div className="flex justify-between text-xs font-bold text-slate-700">
                     <span>SLA Response Countdown</span>
                     <span className="text-blue-600 font-mono">03m : 18s left</span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
+                  <div className="grid grid-cols-3 gap-1.5 text-center text-[10px] font-bold">
                     <div className="bg-slate-100 p-1.5 rounded-md">Queued (9)</div>
                     <div className="bg-purple-50 text-purple-700 p-1.5 rounded-md border border-purple-200">Active (14)</div>
                     <div className="bg-blue-50 text-blue-700 p-1.5 rounded-md border border-blue-200">Resolved (52)</div>
                   </div>
-                  <div className="h-1.5 w-full rounded-xs bg-slate-100 overflow-hidden mt-3">
+                  <div className="h-1.5 w-full rounded-xs bg-slate-100 overflow-hidden mt-2">
                     <div className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-xs w-[92%]" />
                   </div>
                 </div>
 
-                <div className="mt-6 space-y-2 text-xs font-medium text-slate-700">
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Automated ticket creation from all channels</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Enforceable first-response & resolution SLAs</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Skill-based agent work distribution</div>
+                <div className="mt-4 space-y-1.5 text-xs font-medium text-slate-700">
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Automated ticket creation from all channels</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Enforceable first-response & resolution SLAs</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Skill-based agent work distribution</div>
                 </div>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-200/80">
+              <div className="mt-5 pt-4 border-t border-slate-200/80">
                 <Link
                   to="/products/support-crm"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700"
                 >
                   <span>View support CRM specs</span>
-                  <ArrowRight className="size-4" />
+                  <ArrowRight className="size-3.5" />
                 </Link>
               </div>
             </motion.div>
@@ -495,54 +495,54 @@ export function MarketingHomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: 0.1, ease: easeOutCurve }}
-              className="lg:col-span-7 rounded-2xl border border-slate-200 bg-gradient-to-br from-purple-50/30 via-white to-slate-50 p-8 shadow-xs hover:border-purple-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-7 rounded-2xl border border-slate-200 bg-gradient-to-br from-purple-50/30 via-white to-slate-50 p-5 sm:p-6 shadow-xs hover:border-purple-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                <div className="mb-6">
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-purple-600 text-white shadow-md shadow-purple-600/20">
-                    <Bot className="size-6" />
+                <div className="mb-4">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-purple-600 text-white shadow-sm shadow-purple-600/20">
+                    <Bot className="size-5" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight">AI & Automation</h3>
-                <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                <h3 className="text-xl font-bold text-slate-900 tracking-tight">AI & Automation</h3>
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                   Design complex multi-step customer journeys visually. Deploy autonomous AI agents grounded in enterprise knowledge bases with native Model Context Protocol (MCP) tool execution.
                 </p>
 
                 {/* Architecture Spec Highlights */}
-                <div className="mt-6 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
+                <div className="mt-4 rounded-lg border border-slate-200 bg-white p-3 shadow-2xs">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-2.5">
                     <span className="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
                       <span className="size-2 rounded-xs bg-purple-500" /> Autonomous Agent Engine
                     </span>
                     <span className="text-[11px] font-mono text-purple-600 font-semibold">Native MCP Standard</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-2 rounded-md bg-slate-50 border border-slate-100">
                       <span className="text-[10px] text-slate-400 block font-medium">Grounding</span>
                       <span className="font-mono font-bold text-slate-800 text-xs">Vector RAG + Docs</span>
                     </div>
-                    <div className="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                    <div className="p-2 rounded-md bg-slate-50 border border-slate-100">
                       <span className="text-[10px] text-slate-400 block font-medium">Execution</span>
                       <span className="font-mono font-bold text-emerald-600 text-xs">Zero-Hallucination Tools</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-6 grid grid-cols-2 gap-3 text-xs font-medium text-slate-700">
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Drag-and-drop conversational designer</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Enterprise RAG vector grounding</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Model Context Protocol (MCP) support</div>
-                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-emerald-600" /> Webhook triggers & drip sequences</div>
+                <div className="mt-4 grid grid-cols-2 gap-2 text-xs font-medium text-slate-700">
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Drag-and-drop conversational designer</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Enterprise RAG vector grounding</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Model Context Protocol (MCP) support</div>
+                  <div className="flex items-center gap-1.5"><CheckCircle2 className="size-3.5 text-emerald-600" /> Webhook triggers & drip sequences</div>
                 </div>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-200/80">
+              <div className="mt-5 pt-4 border-t border-slate-200/80">
                 <Link
                   to="/products/ai-automation"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-purple-600 hover:text-purple-700"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-purple-600 hover:text-purple-700"
                 >
                   <span>View AI & automation specs</span>
-                  <ArrowRight className="size-4" />
+                  <ArrowRight className="size-3.5" />
                 </Link>
               </div>
             </motion.div>
@@ -662,7 +662,7 @@ export function MarketingHomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
             {integrations.map((item, idx) => {
               const isPurple = item.accent === 'purple'
               const IconComponent = item.icon
@@ -671,23 +671,23 @@ export function MarketingHomePage() {
                 <Link
                   key={idx}
                   to={item.link}
-                  className="group flex flex-col p-4.5 rounded-xl bg-white border border-slate-200/90 hover:border-blue-500 hover:shadow-xs transition-all duration-200"
+                  className="group flex flex-col p-3.5 sm:p-4 rounded-xl bg-white border border-slate-200/90 hover:border-blue-500 hover:shadow-xs transition-all duration-200"
                 >
                   <div
-                    className={`size-10 rounded-lg flex items-center justify-center border transition-all duration-200 shadow-2xs ${
+                    className={`size-8.5 rounded-lg flex items-center justify-center border transition-all duration-200 shadow-2xs ${
                       isPurple
                         ? 'bg-purple-50/80 border-purple-200/80 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600'
                         : 'bg-blue-50/80 border-blue-200/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600'
                     }`}
                   >
-                    <IconComponent className="size-5" />
+                    <IconComponent className="size-4" />
                   </div>
 
-                  <h3 className="mt-4 text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight leading-snug">
+                  <h3 className="mt-3 text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight leading-snug">
                     {item.name}
                   </h3>
 
-                  <p className="mt-1 text-xs text-slate-500 font-medium">
+                  <p className="mt-0.5 text-[11px] text-slate-500 font-medium">
                     {item.tag}
                   </p>
                 </Link>
@@ -731,7 +731,7 @@ export function MarketingHomePage() {
             description="Discover how PulseQuo aligns specifically with your team’s KPIs and operational priorities."
           />
 
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {growthSolutions.map((sol, idx) => (
               <motion.div
                 key={idx}
@@ -739,18 +739,18 @@ export function MarketingHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.45, delay: idx * 0.05, ease: easeOutCurve }}
-                className="rounded-xl border border-slate-200 bg-white p-7 hover:border-slate-300 hover:shadow-xs transition-all duration-200 flex flex-col justify-between group"
+                className="rounded-xl border border-slate-200 bg-white p-5 sm:p-5.5 hover:border-slate-300 hover:shadow-xs transition-all duration-200 flex flex-col justify-between group"
               >
                 <div>
-                  <div className={`flex size-11 items-center justify-center rounded-lg ${sol.iconBg} mb-5`}>
-                    <sol.icon className="size-5" />
+                  <div className={`flex size-9 items-center justify-center rounded-lg ${sol.iconBg} mb-3.5`}>
+                    <sol.icon className="size-4.5" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">{sol.title}</h3>
-                  <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <h3 className="text-base font-bold text-slate-900">{sol.title}</h3>
+                  <p className="mt-1.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
                     {sol.description}
                   </p>
                 </div>
-                <Link to={sol.link} className={`mt-6 inline-flex items-center gap-1.5 text-xs font-semibold ${sol.textColor}`}>
+                <Link to={sol.link} className={`mt-4 inline-flex items-center gap-1.5 text-xs font-semibold ${sol.textColor}`}>
                   <span>{sol.linkText}</span> <ArrowRight className="size-3.5" />
                 </Link>
               </motion.div>
@@ -762,18 +762,18 @@ export function MarketingHomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.45, delay: 5 * 0.05, ease: easeOutCurve }}
-              className="rounded-xl border border-blue-950 bg-[#070d24] text-white p-7 flex flex-col justify-between shadow-sm"
+              className="rounded-xl border border-blue-950 bg-[#070d24] text-white p-5 sm:p-5.5 flex flex-col justify-between shadow-sm"
             >
               <div>
-                <span className="text-xs font-mono text-purple-400 font-semibold block mb-2">Custom Architecture</span>
-                <h3 className="text-xl font-bold text-white">Explore all solutions</h3>
-                <p className="mt-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <span className="text-xs font-mono text-purple-400 font-semibold block mb-1.5">Custom Architecture</span>
+                <h3 className="text-lg font-bold text-white">Explore all solutions</h3>
+                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
                   See how PulseQuo integrates with your specific industry stack, data warehouse, and technical compliance needs.
                 </p>
               </div>
               <Link
                 to="/solutions"
-                className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 hover:text-white transition-colors"
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 hover:text-white transition-colors"
               >
                 <span>Browse all use cases</span> <ArrowRight className="size-3.5" />
               </Link>
@@ -792,7 +792,7 @@ export function MarketingHomePage() {
             description="See how enterprise teams rely on PulseQuo every day to drive revenue and deliver stellar customer support."
           />
 
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
             {customerReviews.map((rev, i) => (
               <motion.div
                 key={i}
@@ -800,27 +800,27 @@ export function MarketingHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.45, delay: i * 0.08, ease: easeOutCurve }}
-                className="rounded-xl bg-white border border-slate-200 p-7 shadow-xs hover:border-slate-300 hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
+                className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs hover:border-slate-300 hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
               >
                 <div>
-                  <div className="mb-4">
+                  <div className="mb-2.5">
                     <span className="text-xs font-bold text-blue-600 font-mono bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-sm">
                       {rev.metric}
                     </span>
                   </div>
 
-                  <p className="text-sm text-slate-700 leading-relaxed italic">
+                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
                     “{rev.text}”
                   </p>
                 </div>
 
-                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center gap-3">
-                  <div className="size-10 rounded-lg bg-slate-900 text-white font-semibold text-xs flex items-center justify-center shadow-2xs">
+                <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center gap-2.5">
+                  <div className="size-8 rounded-lg bg-slate-900 text-white font-semibold text-xs flex items-center justify-center shadow-2xs">
                     {rev.avatar}
                   </div>
                   <div>
-                    <h5 className="text-sm font-bold text-slate-900">{rev.name}</h5>
-                    <p className="text-xs text-slate-500">{rev.role}</p>
+                    <h5 className="text-xs sm:text-sm font-bold text-slate-900">{rev.name}</h5>
+                    <p className="text-[11px] text-slate-500">{rev.role}</p>
                   </div>
                 </div>
               </motion.div>
