@@ -9,7 +9,7 @@ export const siteConfig = {
   altTagline: 'Connect, Communicate, Manage and Grow — All with PulseQuo.',
   description:
     'AI-powered business communication, CRM, customer engagement, and intelligent automation platform for high-growth teams and enterprises.',
-  
+
   // Environment-based URLs with safe production defaults
   marketingUrl: (import.meta.env.VITE_MARKETING_URL as string) || 'https://www.pulsequo.com',
   appUrl: (import.meta.env.VITE_APP_URL as string) || (import.meta.env.DEV ? '/app' : 'https://app.pulsequo.com'),
@@ -24,7 +24,7 @@ export const siteConfig = {
   salesEmail: 'sales@pulsequo.com',
   supportEmail: 'support@pulsequo.com',
   phonePlaceholder: '+91 (Business Inquiries · Connect with Sales)',
-  addressPlaceholder: 'PulseQuo Technologies · Bengaluru, Karnataka, India (Registered Office Placeholder)',
+  addressPlaceholder: 'PulseQuo AI Technologies PVT LTD.· Delhi, Delhi, India',
 
   // Social Links
   social: {
