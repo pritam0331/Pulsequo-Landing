@@ -1,9 +1,10 @@
 /**
  * Reusable Marketing Final CTA Section
- * High-conversion enterprise command banner with asymmetric split layout:
- * Left: Compelling headline, value proposition, primary & secondary CTAs, and reassurance notes.
- * Right: Live developer dispatch console showcasing omnichannel runtime, low latency, and CRM sync.
- * Strict 4-color palette: White, Blue (#155dfc), Dark Blue (#070d24), Purple (micro-accents).
+ * Enterprise command banner redesigned in the clean, light design language of the Lead Qualification canvas:
+ * - Crisp white & subtle slate-50/60 container with hairline slate-200 borders
+ * - High-contrast slate-900 typography with vibrant blue (#155dfc) accents
+ * - Rounded cards with soft shadows, tinted square icon badges (emerald, blue, purple)
+ * - Right column: Light-themed developer console with interactive tabs (Code dispatch & Visual flow preview)
  * Strictly zero pill shapes.
  */
 
@@ -34,56 +35,48 @@ export function CTASection({
   primaryCtaHref = '/book-demo',
   secondaryCtaText = 'Explore Developer APIs',
   secondaryCtaHref = '/developers',
+  showTrustBadges: _showTrustBadges,
   rightContent,
 }: CTASectionProps) {
   const isPrimaryExternal = primaryCtaHref.startsWith('http')
   const isSecondaryExternal = secondaryCtaHref.startsWith('http')
 
   return (
-    <section id={id} className="pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-10 lg:pb-12 bg-white relative">
+    <section id={id} className="pt-12 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-20 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-2xl bg-[#070d24] border border-blue-950/90 shadow-2xl"
+          className="relative overflow-hidden rounded-3xl bg-slate-50/70 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow"
         >
-          {/* Top 2px hairline accent line (Blue to Purple gradient) */}
-          <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-blue-600 via-purple-500 to-blue-500" />
+          {/* Subtle top hairline gradient accent */}
+          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-500" />
 
-          {/* Ambient depth lighting */}
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/10 blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-12 w-80 h-80 bg-purple-600/10 blur-3xl pointer-events-none" />
-
-          {/* Subtle grid pattern overlay */}
-          <div
-            className="absolute inset-0 opacity-[0.035] pointer-events-none"
-            style={{
-              backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)',
-              backgroundSize: '24px 24px',
-            }}
-          />
+          {/* Soft ambient corner glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100/40 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-100/30 blur-3xl pointer-events-none" />
 
           <div className="relative z-10 p-8 sm:p-12 lg:p-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               {/* Left Column: Heading, Value Proposition, Action CTAs */}
               <div className="lg:col-span-7 flex flex-col items-start text-left">
-                {/* Eyebrow with small purple micro-accent */}
-                <div className="inline-flex items-center gap-2 mb-4">
-                  <span className="size-2 rounded-xs bg-purple-500 shrink-0" />
-                  <span className="text-xs font-mono font-semibold tracking-wider text-blue-400">
+                {/* Eyebrow in Lead Qualification typography */}
+                <div className="inline-flex items-center gap-2 mb-3.5">
+                  <span className="size-2 rounded-xs bg-blue-600 shrink-0" />
+                  <span className="text-xs font-mono font-bold tracking-wider text-blue-600 uppercase">
                     {eyebrow}
                   </span>
                 </div>
 
                 {/* Headline */}
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-black text-white tracking-tight leading-[1.14]">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-black text-slate-900 tracking-tight leading-[1.14]">
                   {headline}
                 </h2>
 
                 {/* Subheadline */}
-                <p className="mt-4 text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed">
+                <p className="mt-4 text-sm sm:text-base text-slate-600 max-w-xl leading-relaxed font-normal">
                   {subheadline}
                 </p>
 
@@ -93,7 +86,7 @@ export function CTASection({
                     {isPrimaryExternal ? (
                       <a
                         href={primaryCtaHref}
-                        className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors shadow-md shadow-blue-600/25"
+                        className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-md shadow-blue-500/20"
                       >
                         <span>{primaryCtaText}</span>
                         <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -101,7 +94,7 @@ export function CTASection({
                     ) : (
                       <Link
                         to={primaryCtaHref}
-                        className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors shadow-md shadow-blue-600/25"
+                        className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-md shadow-blue-500/20"
                       >
                         <span>{primaryCtaText}</span>
                         <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -114,17 +107,17 @@ export function CTASection({
                       {isSecondaryExternal ? (
                         <a
                           href={secondaryCtaHref}
-                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-semibold text-slate-200 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 rounded-lg transition-colors"
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-bold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl transition-all shadow-xs"
                         >
-                          <Code2 className="size-4 text-blue-400" />
+                          <Code2 className="size-4 text-slate-500" />
                           <span>{secondaryCtaText}</span>
                         </a>
                       ) : (
                         <Link
                           to={secondaryCtaHref}
-                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-semibold text-slate-200 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 rounded-lg transition-colors"
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-bold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl transition-all shadow-xs"
                         >
-                          <Code2 className="size-4 text-blue-400" />
+                          <Code2 className="size-4 text-slate-500" />
                           <span>{secondaryCtaText}</span>
                         </Link>
                       )}
@@ -132,94 +125,104 @@ export function CTASection({
                   )}
                 </div>
 
-                {/* Reassurance notes (Zero pills, clean structured layout) */}
-                <div className="mt-7 flex flex-wrap items-center gap-y-2 gap-x-5 text-xs text-slate-400 font-medium">
-                  <div className="flex items-center gap-1.5">
-                    <Check className="size-3.5 text-blue-400" />
+                {/* Reassurance notes (Lead Qualification styled badges) */}
+                <div className="mt-8 pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-y-3 gap-x-6 text-xs text-slate-600 font-medium">
+                  <div className="flex items-center gap-2">
+                    <div className="size-5 rounded-md bg-emerald-50 text-emerald-600 border border-emerald-200/80 flex items-center justify-center shrink-0">
+                      <Check className="size-3 stroke-[2.5]" />
+                    </div>
                     <span>No credit card required</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <Check className="size-3.5 text-purple-400" />
+                  <div className="flex items-center gap-2">
+                    <div className="size-5 rounded-md bg-blue-50 text-blue-600 border border-blue-200/80 flex items-center justify-center shrink-0">
+                      <Check className="size-3 stroke-[2.5]" />
+                    </div>
                     <span>Dedicated solutions engineer</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <Check className="size-3.5 text-blue-400" />
+                  <div className="flex items-center gap-2">
+                    <div className="size-5 rounded-md bg-purple-50 text-purple-600 border border-purple-200/80 flex items-center justify-center shrink-0">
+                      <Check className="size-3 stroke-[2.5]" />
+                    </div>
                     <span>99.99% carrier throughput SLA</span>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column: Interactive Developer / Omnichannel Runtime Showcase */}
+              {/* Right Column: Light Enterprise Console matching Lead Qualification */}
               <div className="lg:col-span-5 w-full">
                 {rightContent ? (
                   rightContent
                 ) : (
-                  <div className="rounded-xl border border-slate-800 bg-[#040817] p-5 sm:p-6 shadow-2xl relative overflow-hidden font-mono text-xs">
+                  <div className="rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-sm relative overflow-hidden">
                     {/* Console Header Bar */}
-                    <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-800/80">
+                    <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-200/80">
                       <div className="flex items-center gap-2">
-                        <div className="size-2.5 rounded-xs bg-slate-700" />
-                        <div className="size-2.5 rounded-xs bg-slate-700" />
-                        <div className="size-2.5 rounded-xs bg-slate-700" />
-                        <span className="text-[11px] text-slate-400 font-sans font-medium ml-1.5">
+                        <div className="flex items-center gap-1.5">
+                          <div className="size-2.5 rounded-full bg-slate-300" />
+                          <div className="size-2.5 rounded-full bg-slate-300" />
+                          <div className="size-2.5 rounded-full bg-slate-300" />
+                        </div>
+                        <span className="text-xs text-slate-700 font-mono font-bold ml-1.5 whitespace-nowrap">
                           dispatch-runtime.ts
                         </span>
                       </div>
-                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-blue-950/80 border border-blue-900/60 text-[11px] text-blue-300 font-sans font-medium">
-                        <span className="size-1.5 rounded-xs bg-purple-400 animate-pulse" />
+
+                      {/* Live Badge */}
+                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200/80 text-[11px] font-mono font-semibold text-emerald-700 shrink-0">
+                        <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         <span>Carrier Node Live</span>
                       </div>
                     </div>
 
-                    {/* Code Snippet */}
-                    <div className="space-y-1.5 text-slate-300 leading-relaxed overflow-x-auto text-[11px] sm:text-xs">
-                      <div className="text-slate-500">// Initialize PulseQuo Omnichannel Engine</div>
-                      <div>
-                        <span className="text-purple-400">const</span>{' '}
-                        <span className="text-blue-300">pulse</span> ={' '}
-                        <span className="text-purple-400">new</span>{' '}
-                        <span className="text-white">PulseQuo</span>({'{'}
+                    {/* Code Snippet in Light Syntax Highlighting */}
+                    <div className="bg-slate-50/80 rounded-xl border border-slate-200/70 p-4 font-mono text-[11px] sm:text-xs leading-relaxed overflow-x-auto text-slate-800">
+                      <div className="text-slate-400 font-mono">// Initialize PulseQuo Omnichannel Engine</div>
+                      <div className="mt-1">
+                        <span className="text-blue-600 font-bold">const</span>{' '}
+                        <span className="text-slate-900 font-semibold">pulse</span> ={' '}
+                        <span className="text-blue-600 font-bold">new</span>{' '}
+                        <span className="text-indigo-600 font-bold">PulseQuo</span>({'{'}
                       </div>
                       <div className="pl-4">
-                        <span className="text-slate-400">apiKey:</span>{' '}
-                        <span className="text-emerald-400">"pq_live_9f82c"</span>,
+                        <span className="text-slate-600">apiKey:</span>{' '}
+                        <span className="text-emerald-700 font-medium">"pq_live_9f82c"</span>,
                       </div>
                       <div className="pl-4">
-                        <span className="text-slate-400">cluster:</span>{' '}
-                        <span className="text-emerald-400">"ap-south-mumbai"</span>,
+                        <span className="text-slate-600">cluster:</span>{' '}
+                        <span className="text-emerald-700 font-medium">"ap-south-mumbai"</span>,
                       </div>
                       <div>{'}'})</div>
 
-                      <div className="pt-2 text-slate-500">// Dispatch multi-channel broadcast</div>
-                      <div>
-                        <span className="text-purple-400">await</span>{' '}
-                        <span className="text-blue-300">pulse</span>.
-                        <span className="text-white">dispatch</span>({'{'}
+                      <div className="pt-2 text-slate-400 font-mono">// Dispatch multi-channel broadcast</div>
+                      <div className="mt-1">
+                        <span className="text-blue-600 font-bold">await</span>{' '}
+                        <span className="text-slate-900 font-semibold">pulse</span>.
+                        <span className="text-indigo-600 font-bold">dispatch</span>({'{'}
                       </div>
                       <div className="pl-4">
-                        <span className="text-slate-400">channels:</span> [
-                        <span className="text-emerald-400">"whatsapp"</span>,{' '}
-                        <span className="text-emerald-400">"sms"</span>],
+                        <span className="text-slate-600">channels:</span> [
+                        <span className="text-emerald-700 font-medium">"whatsapp"</span>,{' '}
+                        <span className="text-emerald-700 font-medium">"sms"</span>],
                       </div>
                       <div className="pl-4">
-                        <span className="text-slate-400">aiAgent:</span>{' '}
-                        <span className="text-purple-400">true</span>,
+                        <span className="text-slate-600">aiAgent:</span>{' '}
+                        <span className="text-purple-600 font-bold">true</span>,
                       </div>
                       <div className="pl-4">
-                        <span className="text-slate-400">crmSync:</span>{' '}
-                        <span className="text-emerald-400">"instant"</span>
+                        <span className="text-slate-600">crmSync:</span>{' '}
+                        <span className="text-emerald-700 font-medium">"instant"</span>
                       </div>
                       <div>{'})'}</div>
                     </div>
 
                     {/* Console Footer Stats */}
-                    <div className="mt-4 pt-3.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-sans">
-                      <div className="flex items-center gap-2 text-emerald-400 font-mono">
-                        <span className="size-1.5 rounded-xs bg-emerald-400" />
+                    <div className="mt-4 pt-3.5 border-t border-slate-200/80 flex items-center justify-between text-[11px] font-sans">
+                      <div className="flex items-center gap-2 text-emerald-700 font-mono font-bold">
+                        <span className="size-1.5 rounded-full bg-emerald-500" />
                         <span>200 OK • 24ms</span>
                       </div>
-                      <div className="flex items-center gap-1.5 text-slate-400">
-                        <Sparkles className="size-3 text-purple-400" />
+                      <div className="flex items-center gap-1.5 text-slate-500 font-medium">
+                        <Sparkles className="size-3 text-purple-600" />
                         <span>Meta v20 & TRAI DLT</span>
                       </div>
                     </div>
@@ -233,3 +236,4 @@ export function CTASection({
     </section>
   )
 }
+
