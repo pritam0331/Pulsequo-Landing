@@ -124,28 +124,28 @@ export function MarketingHomePage() {
       stat: '< 2s',
       label: 'AI Response Latency',
       sublabel: 'Grounded in enterprise docs',
-      color: 'bg-indigo-100/70 text-indigo-600',
+      color: 'bg-blue-100/70 text-blue-600',
     },
     {
       icon: TrendingUp,
       stat: '10x',
       label: 'Faster Sales Follow-up',
       sublabel: 'Instant WhatsApp conversion funnel',
-      color: 'bg-violet-100/70 text-violet-600',
+      color: 'bg-purple-100/70 text-purple-600',
     },
   ]
 
   const marqueeIntegrations = [
-    { name: 'WhatsApp Business API', tag: 'Meta Official', color: 'text-emerald-700 bg-emerald-50 border-emerald-200' },
+    { name: 'WhatsApp Business API', tag: 'Meta Official', color: 'text-purple-700 bg-purple-50 border-purple-200' },
     { name: 'Carrier SMS SMPP', tag: 'TRAI DLT Engine', color: 'text-blue-700 bg-blue-50 border-blue-200' },
-    { name: 'HubSpot CRM', tag: 'Bi-Directional', color: 'text-orange-700 bg-orange-50 border-orange-200' },
-    { name: 'Salesforce', tag: 'Live Sync', color: 'text-sky-700 bg-sky-50 border-sky-200' },
+    { name: 'HubSpot CRM', tag: 'Bi-Directional', color: 'text-purple-700 bg-purple-50 border-purple-200' },
+    { name: 'Salesforce', tag: 'Live Sync', color: 'text-blue-700 bg-blue-50 border-blue-200' },
     { name: 'Model Context Protocol', tag: 'Native MCP Standard', color: 'text-purple-700 bg-purple-50 border-purple-200' },
-    { name: 'HMAC Webhooks', tag: 'Signed Callbacks', color: 'text-indigo-700 bg-indigo-50 border-indigo-200' },
-    { name: 'Slack Connect', tag: 'Escalations', color: 'text-amber-700 bg-amber-50 border-amber-200' },
-    { name: 'Google Sheets & Drive', tag: 'Auto Export', color: 'text-emerald-800 bg-emerald-50 border-emerald-200' },
-    { name: 'RESTful Core API', tag: 'OpenAPI Spec', color: 'text-violet-700 bg-violet-50 border-violet-200' },
-    { name: 'Zapier Automation', tag: '5,000+ Apps', color: 'text-rose-700 bg-rose-50 border-rose-200' },
+    { name: 'HMAC Webhooks', tag: 'Signed Callbacks', color: 'text-blue-700 bg-blue-50 border-blue-200' },
+    { name: 'Slack Connect', tag: 'Escalations', color: 'text-purple-700 bg-purple-50 border-purple-200' },
+    { name: 'Google Sheets & Drive', tag: 'Auto Export', color: 'text-blue-700 bg-blue-50 border-blue-200' },
+    { name: 'RESTful Core API', tag: 'OpenAPI Spec', color: 'text-purple-700 bg-purple-50 border-purple-200' },
+    { name: 'Zapier Automation', tag: '5,000+ Apps', color: 'text-blue-700 bg-blue-50 border-blue-200' },
   ]
 
   const enterprisePillars = [
@@ -212,43 +212,43 @@ export function MarketingHomePage() {
     },
     {
       icon: Headphones,
-      iconBg: 'bg-violet-50 text-violet-600',
+      iconBg: 'bg-purple-50 text-purple-600',
       title: 'Support teams',
       description:
         'Consolidate multi-channel inquiries into a unified ticketing inbox, automate Tier-1 answers via AI agents, and enforce strict SLA timers.',
       link: '/solutions/customer-support',
       linkText: 'View support solution',
-      textColor: 'text-violet-600 hover:text-violet-700',
+      textColor: 'text-purple-600 hover:text-purple-700',
     },
     {
       icon: Sparkles,
-      iconBg: 'bg-indigo-50 text-indigo-600',
+      iconBg: 'bg-blue-50 text-blue-600',
       title: 'Marketing teams',
       description:
         'Broadcast pre-approved WhatsApp marketing templates and bulk promotional SMS with real-time delivery DLR telemetry and segment tagging.',
       link: '/solutions/marketing-teams',
       linkText: 'View marketing solution',
-      textColor: 'text-indigo-600 hover:text-indigo-700',
+      textColor: 'text-blue-600 hover:text-blue-700',
     },
     {
       icon: Rocket,
-      iconBg: 'bg-emerald-50 text-emerald-600',
+      iconBg: 'bg-purple-50 text-purple-600',
       title: 'Startups & scaleups',
       description:
         'Consolidate communication, CRM, and AI bots into one predictable monthly bill, automating customer acquisition without hiring large teams.',
       link: '/solutions/startups',
       linkText: 'View startup solution',
-      textColor: 'text-emerald-600 hover:text-emerald-700',
+      textColor: 'text-purple-600 hover:text-purple-700',
     },
     {
       icon: Building,
-      iconBg: 'bg-amber-50 text-amber-600',
+      iconBg: 'bg-blue-50 text-blue-600',
       title: 'Global enterprises',
       description:
         'High-throughput carrier routing, custom Model Context Protocol (MCP) server integrations, dedicated SLAs, and multi-tenant isolation.',
       link: '/solutions/enterprises',
       linkText: 'View enterprise solution',
-      textColor: 'text-amber-600 hover:text-amber-700',
+      textColor: 'text-blue-600 hover:text-blue-700',
     },
   ]
 
@@ -342,7 +342,7 @@ export function MarketingHomePage() {
               className="text-4xl xs:text-5xl sm:text-6xl lg:text-[68px] font-black text-slate-900 tracking-[-0.035em] leading-[1.08] max-w-4xl mx-auto"
             >
               One intelligent platform for{' '}
-              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
                 every customer conversation.
               </span>
             </motion.h1>
@@ -612,11 +612,11 @@ export function MarketingHomePage() {
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.55, delay: 0.12, ease: easeOutCurve }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-indigo-50/40 via-white to-slate-50 p-8 shadow-xs hover:border-indigo-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50/30 via-white to-slate-50 p-8 shadow-xs hover:border-blue-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="mb-6">
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-md shadow-indigo-600/20">
+                  <div className="flex size-12 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md shadow-blue-600/20">
                     <TrendingUp className="size-6" />
                   </div>
                 </div>
@@ -629,7 +629,7 @@ export function MarketingHomePage() {
                 <div className="mt-6 space-y-2 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
                   <div className="flex justify-between text-xs font-bold text-slate-700">
                     <span>Active Pipeline</span>
-                    <span className="text-indigo-600 font-mono">₹1,842,000</span>
+                    <span className="text-blue-600 font-mono">₹1,842,000</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
                     <motion.div
@@ -646,7 +646,7 @@ export function MarketingHomePage() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: 0.25 }}
-                      className="bg-indigo-50 text-indigo-700 p-1.5 rounded-md border border-indigo-200"
+                      className="bg-purple-50 text-purple-700 p-1.5 rounded-md border border-purple-200"
                     >
                       Demo (7)
                     </motion.div>
@@ -655,7 +655,7 @@ export function MarketingHomePage() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: 0.35 }}
-                      className="bg-emerald-50 text-emerald-700 p-1.5 rounded-md border border-emerald-200"
+                      className="bg-blue-50 text-blue-700 p-1.5 rounded-md border border-blue-200"
                     >
                       Closing (4)
                     </motion.div>
@@ -666,7 +666,7 @@ export function MarketingHomePage() {
                       whileInView={{ width: '78%' }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8, delay: 0.25, ease: easeOutCurve }}
-                      className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xs"
+                      className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-xs"
                     />
                   </div>
                 </div>
@@ -681,7 +681,7 @@ export function MarketingHomePage() {
               <div className="mt-8 pt-6 border-t border-slate-200/80">
                 <Link
                   to="/products/sales-crm"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700"
                 >
                   <span>View sales CRM features</span>
                   <ArrowRight className="size-4" />
@@ -696,11 +696,11 @@ export function MarketingHomePage() {
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.55, delay: 0.05, ease: easeOutCurve }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-violet-50/40 via-white to-slate-50 p-8 shadow-xs hover:border-violet-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-blue-50/20 p-8 shadow-xs hover:border-blue-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="mb-6">
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-violet-600 text-white shadow-md shadow-violet-600/20">
+                  <div className="flex size-12 items-center justify-center rounded-xl bg-[#070d24] text-white shadow-md shadow-[#070d24]/20">
                     <Headphones className="size-6" />
                   </div>
                 </div>
@@ -713,7 +713,7 @@ export function MarketingHomePage() {
                 <div className="mt-6 space-y-2 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
                   <div className="flex justify-between text-xs font-bold text-slate-700">
                     <span>SLA Response Countdown</span>
-                    <span className="text-violet-600 font-mono">03m : 18s left</span>
+                    <span className="text-blue-600 font-mono">03m : 18s left</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
                     <motion.div
@@ -730,7 +730,7 @@ export function MarketingHomePage() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: 0.25 }}
-                      className="bg-violet-50 text-violet-700 p-1.5 rounded-md border border-violet-200"
+                      className="bg-purple-50 text-purple-700 p-1.5 rounded-md border border-purple-200"
                     >
                       Active (14)
                     </motion.div>
@@ -739,7 +739,7 @@ export function MarketingHomePage() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: 0.35 }}
-                      className="bg-emerald-50 text-emerald-700 p-1.5 rounded-md border border-emerald-200"
+                      className="bg-blue-50 text-blue-700 p-1.5 rounded-md border border-blue-200"
                     >
                       Resolved (52)
                     </motion.div>
@@ -750,7 +750,7 @@ export function MarketingHomePage() {
                       whileInView={{ width: '92%' }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8, delay: 0.25, ease: easeOutCurve }}
-                      className="h-full bg-gradient-to-r from-violet-600 to-purple-600 rounded-xs"
+                      className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-xs"
                     />
                   </div>
                 </div>
@@ -765,7 +765,7 @@ export function MarketingHomePage() {
               <div className="mt-8 pt-6 border-t border-slate-200/80">
                 <Link
                   to="/products/support-crm"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-violet-600 hover:text-violet-700"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700"
                 >
                   <span>View support CRM specs</span>
                   <ArrowRight className="size-4" />

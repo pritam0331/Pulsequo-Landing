@@ -21,11 +21,11 @@ export function Logo({
   const content = (
     <div className={`flex items-center gap-3 select-none ${className}`}>
       {/* Official PulseQuo Brand Icon: Square without background or rounded corners */}
-      <div className="relative size-9 shrink-0 flex items-center justify-center">
+      <div className="relative size-9 shrink-0 flex items-center justify-center rounded-none bg-transparent">
         <img
-          src="/pulsequo-logo.png"
+          src="/pulsequo-icon.png"
           alt="PulseQuo"
-          className="size-full object-contain"
+          className="size-full object-contain rounded-none"
           loading="eager"
         />
       </div>

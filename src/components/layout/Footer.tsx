@@ -1,6 +1,6 @@
 /**
  * PulseQuo Global Marketing Footer
- * Professional SaaS footer with comprehensive product, solution, resource, and legal links.
+ * Professional SaaS footer with rich blue theme (dark blue background, blue interactive accents, and purple micro-elements).
  * All internal links smoothly take the user to the top of the page.
  */
 
@@ -30,7 +30,7 @@ function FooterLink({
       onClick={() => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }}
-      className={className || 'text-slate-600 hover:text-blue-600 transition-colors cursor-pointer'}
+      className={className || 'text-slate-300 hover:text-blue-400 transition-colors cursor-pointer'}
     >
       {children}
     </Link>
@@ -73,31 +73,35 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-white text-slate-600 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+    <footer className="bg-[#070d24] text-slate-300 border-t border-blue-950/80 relative overflow-hidden">
+      {/* Subtle background glow for depth */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/5 blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 xl:gap-12">
           {/* Column 1 & 2: Brand, Tagline, & Contact Details */}
           <div className="col-span-1 sm:col-span-2">
-            <Logo variant="light" showTagline={true} />
-            <p className="mt-4 text-sm text-slate-600 leading-relaxed max-w-sm">
+            <Logo variant="dark" showTagline={true} />
+            <p className="mt-4 text-sm text-slate-400 leading-relaxed max-w-sm">
               PulseQuo is the unified customer experience platform uniting omnichannel CPaaS messaging, sales CRM,
               customer support helpdesk, and AI automation into a single cohesive infrastructure.
             </p>
 
-            <div className="mt-6 space-y-2.5 text-xs text-slate-600">
+            <div className="mt-6 space-y-2.5 text-xs text-slate-300">
               <div className="flex items-center gap-2">
-                <Mail className="size-4 text-blue-600 shrink-0" />
-                <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-blue-600 text-slate-600 transition-colors">
+                <Mail className="size-4 text-blue-400 shrink-0" />
+                <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-blue-400 text-slate-300 transition-colors">
                   {siteConfig.contactEmail}
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="size-4 text-blue-600 shrink-0" />
-                <span>{siteConfig.phonePlaceholder}</span>
+                <Phone className="size-4 text-blue-400 shrink-0" />
+                <span className="text-slate-300">{siteConfig.phonePlaceholder}</span>
               </div>
               <div className="flex items-start gap-2">
-                <MapPin className="size-4 text-blue-600 shrink-0 mt-0.5" />
-                <span>{siteConfig.addressPlaceholder}</span>
+                <MapPin className="size-4 text-blue-400 shrink-0 mt-0.5" />
+                <span className="text-slate-300">{siteConfig.addressPlaceholder}</span>
               </div>
             </div>
 
@@ -107,7 +111,7 @@ export function Footer() {
                 href={siteConfig.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="size-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-400 hover:bg-blue-50/60 transition-colors"
+                className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
                 aria-label="PulseQuo on LinkedIn"
               >
                 <LinkedinIcon className="size-4" />
@@ -116,7 +120,7 @@ export function Footer() {
                 href={siteConfig.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="size-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-400 hover:bg-blue-50/60 transition-colors"
+                className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
                 aria-label="PulseQuo on Twitter"
               >
                 <TwitterIcon className="size-4" />
@@ -125,7 +129,7 @@ export function Footer() {
                 href={siteConfig.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="size-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-400 hover:bg-blue-50/60 transition-colors"
+                className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
                 aria-label="PulseQuo on GitHub"
               >
                 <GithubIcon className="size-4" />
@@ -134,7 +138,7 @@ export function Footer() {
                 href={siteConfig.social.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="size-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-400 hover:bg-blue-50/60 transition-colors"
+                className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
                 aria-label="PulseQuo on YouTube"
               >
                 <YoutubeIcon className="size-4" />
@@ -144,7 +148,7 @@ export function Footer() {
 
           {/* Column 3: Products */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Products</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-white">Products</p>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <FooterLink to="/products/communication-cloud">Communication Cloud</FooterLink>
@@ -169,7 +173,7 @@ export function Footer() {
 
           {/* Column 4: Solutions */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Solutions</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-white">Solutions</p>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <FooterLink to="/solutions/sales-teams">Sales Teams</FooterLink>
@@ -194,7 +198,7 @@ export function Footer() {
 
           {/* Column 5: Developers & Resources */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Resources</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-white">Resources</p>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <FooterLink to="/resources/blog">Blog & Articles</FooterLink>
@@ -219,8 +223,10 @@ export function Footer() {
                   href={siteConfig.statusPage}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-slate-600 hover:text-blue-600 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-slate-300 hover:text-blue-400 transition-colors"
                 >
+                  {/* Purple micro-dot status element */}
+                  <span className="size-1.5 rounded-xs bg-purple-400 shrink-0" />
                   <span>System Status</span>
                   <ExternalLink className="size-3 text-slate-400" />
                 </a>
@@ -230,7 +236,7 @@ export function Footer() {
 
           {/* Column 6: Company & Trust */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Company</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-white">Company</p>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <FooterLink to="/about">About PulseQuo</FooterLink>
@@ -238,7 +244,10 @@ export function Footer() {
               <li>
                 <FooterLink to="/careers">
                   <span>Careers</span>
-                  <span className="text-[10px] bg-blue-50 text-blue-700 border border-blue-200/80 px-1.5 py-0.5 rounded-sm ml-1 font-semibold">Hiring</span>
+                  {/* Purple small element badge */}
+                  <span className="text-[10px] bg-purple-900/60 text-purple-300 border border-purple-700/60 px-1.5 py-0.5 rounded-sm ml-1 font-semibold">
+                    Hiring
+                  </span>
                 </FooterLink>
               </li>
               <li>
@@ -250,7 +259,7 @@ export function Footer() {
               <li>
                 <a
                   href={siteConfig.appUrl.startsWith('http') ? `${siteConfig.appUrl}/login` : '/login'}
-                  className="text-slate-600 hover:text-blue-600 transition-colors"
+                  className="text-slate-300 hover:text-blue-400 transition-colors"
                 >
                   Customer Login
                 </a>
@@ -260,28 +269,28 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright, Compliance, Legal */}
-        <div className="mt-16 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="mt-16 pt-8 border-t border-blue-950/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="size-4 text-emerald-600 shrink-0" />
+            <ShieldCheck className="size-4 text-blue-400 shrink-0" />
             <span>
               &copy; {currentYear} PulseQuo Technologies. All rights reserved. One Platform. Complete Customer Experience.
             </span>
           </div>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <FooterLink to="/terms" className="text-slate-500 hover:text-blue-600 transition-colors">
+            <FooterLink to="/terms" className="text-slate-400 hover:text-blue-300 transition-colors">
               Terms of Service
             </FooterLink>
-            <FooterLink to="/privacy" className="text-slate-500 hover:text-blue-600 transition-colors">
+            <FooterLink to="/privacy" className="text-slate-400 hover:text-blue-300 transition-colors">
               Privacy Policy
             </FooterLink>
-            <FooterLink to="/trai-guidelines" className="text-slate-500 hover:text-blue-600 transition-colors">
+            <FooterLink to="/trai-guidelines" className="text-slate-400 hover:text-blue-300 transition-colors">
               TRAI Guidelines
             </FooterLink>
-            <FooterLink to="/trai-dlt-policy" className="text-slate-500 hover:text-blue-600 transition-colors">
+            <FooterLink to="/trai-dlt-policy" className="text-slate-400 hover:text-blue-300 transition-colors">
               TRAI DLT Policy
             </FooterLink>
-            <FooterLink to="/security-gdpr" className="text-slate-500 hover:text-blue-600 transition-colors">
+            <FooterLink to="/security-gdpr" className="text-slate-400 hover:text-blue-300 transition-colors">
               Security & GDPR
             </FooterLink>
           </div>
