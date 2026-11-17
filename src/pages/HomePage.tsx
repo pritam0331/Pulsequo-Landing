@@ -229,17 +229,6 @@ export function MarketingHomePage() {
         className="relative min-h-[calc(100vh-4.5rem)] flex flex-col justify-center items-center bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
       >
         <div className="relative max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto">
-          {/* Subtle Category Micro-Tag */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: easeOutCurve }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase mb-6 bg-blue-50 text-blue-700 border border-blue-200/90 shadow-2xs"
-          >
-            <span className="size-1.5 rounded-xs bg-blue-600 animate-pulse" />
-            <span>ENTERPRISE CUSTOMER EXPERIENCE PLATFORM</span>
-          </motion.div>
-
           {/* Main Command Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -619,11 +608,6 @@ export function MarketingHomePage() {
               transition={{ duration: 0.55, delay: 0.1, ease: easeOutCurve }}
               className="lg:col-span-5 order-1 lg:order-2"
             >
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase mb-3.5 bg-blue-50 text-blue-700 border border-blue-200/90 shadow-2xs">
-                <span className="size-1.5 rounded-xs bg-blue-500 animate-pulse" />
-                <span>WORKFLOW AUTOMATION</span>
-              </div>
-
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
                 Visual flow automation. Built for scale.
               </h2>
@@ -920,10 +904,9 @@ export function MarketingHomePage() {
               className="lg:col-span-7"
             >
               <div className="flex items-center justify-between mb-3 px-0.5">
-                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase bg-blue-50 text-blue-700 border border-blue-200/90 shadow-2xs">
-                  <span className="size-1.5 rounded-xs bg-blue-500 animate-pulse" />
-                  <span>Frequently Asked Questions</span>
-                </div>
+                <span className="text-xs font-mono font-bold tracking-wider text-slate-800 uppercase">
+                  Frequently Asked Questions
+                </span>
                 <span className="text-xs font-mono text-slate-500">Scroll to view all (8)</span>
               </div>
               <FAQAccordion items={generalFaqs} />

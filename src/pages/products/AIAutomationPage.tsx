@@ -20,7 +20,6 @@ import { Link } from 'react-router'
 import { motion, AnimatePresence } from 'motion/react'
 import {
   GitBranch,
-  Sparkles,
   Cpu,
   Workflow,
   Bot,
@@ -393,12 +392,6 @@ export function AIAutomationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Column: Headline, Narrative & Enterprise CTAs */}
             <div className="lg:col-span-7">
-              {/* Strict Non-Pill Micro Badge */}
-              <div className="inline-flex items-center gap-2 rounded-sm border border-blue-200/90 bg-blue-50/80 px-2.5 py-1 text-xs font-mono font-semibold tracking-wider text-blue-700 uppercase mb-6 shadow-2xs">
-                <Sparkles className="size-3.5 text-blue-600 shrink-0" />
-                <span>Enterprise AI & Automation Engine</span>
-              </div>
-
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
                 Autonomous AI & Visual Flows.{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700">
@@ -1207,10 +1200,6 @@ export function AIAutomationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left Column: Context & Support Link */}
             <div className="lg:col-span-5">
-              <span className="inline-flex items-center gap-1.5 rounded-sm bg-blue-50 border border-blue-200/80 px-2.5 py-1 text-xs font-mono font-semibold tracking-wider text-blue-700 uppercase mb-4">
-                AI &amp; AUTOMATION FAQS
-              </span>
-
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-[-0.03em] leading-tight">
                 AI &amp; Automation Questions Answered.
               </h2>
@@ -1239,7 +1228,7 @@ export function AIAutomationPage() {
             {/* Right Column: Scrollable Clamped Accordion with Header Tag on Top */}
             <div className="lg:col-span-7 flex flex-col">
               <div className="flex items-center justify-between pb-3 px-1">
-                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-600 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-sm">
+                <span className="text-xs font-mono font-bold tracking-wider text-slate-800 uppercase">
                   Frequently Asked Questions
                 </span>
                 <span className="text-xs text-slate-400 font-mono">

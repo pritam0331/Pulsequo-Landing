@@ -281,11 +281,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Column: Heading, Subheading & Quick Actions */}
             <div className="lg:col-span-6 flex flex-col items-start text-left">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold tracking-wider uppercase mb-4 bg-blue-50 text-blue-700 border border-blue-200/90 shadow-2xs">
-                <span className="size-1.5 rounded-xs bg-blue-600 animate-pulse" />
-                <span>EVENT-DRIVEN ENTERPRISE ARCHITECTURE</span>
-              </div>
-
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-black text-slate-900 tracking-[-0.035em] leading-[1.12]">
                 Real-Time Event Webhooks.{' '}
                 <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
