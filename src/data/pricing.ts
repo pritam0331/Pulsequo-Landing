@@ -1,174 +1,134 @@
 /**
  * PulseQuo Pricing Structure Data
- * Production-ready enterprise tiers with transparent feature matrices and Contact Sales / Custom Quote models.
+ * Production-ready tiered plans and comprehensive feature comparison matrix.
  */
 
-export interface PricingPlan {
-  id: string
+import { siteConfig } from '../config/siteConfig'
+
+export interface PricingPlanTier {
+  id: 'starter' | 'growth' | 'enterprise'
   name: string
-  category: string
   badge?: string
-  description: string
-  priceDisplay: string
-  priceSubtext: string
   popular?: boolean
+  targetAudience: string
+  monthlyRate: number | 'Custom'
+  annualRate: number | 'Custom'
+  discountText: string
   features: string[]
-  limitsInfo: string
   ctaText: string
   ctaHref: string
 }
 
-export const pricingPlans: PricingPlan[] = [
+export const pricingTiers: PricingPlanTier[] = [
   {
-    id: 'comm-cloud',
-    name: 'Communication Cloud',
-    category: 'CPaaS & Messaging',
-    badge: 'High Throughput',
-    description: 'For organizations needing carrier-grade WhatsApp Business API, SMS gateway, and unified omnichannel routing.',
-    priceDisplay: 'Tailored by Volume',
-    priceSubtext: 'Direct carrier pass-through rates + platform throughput fee',
+    id: 'starter',
+    name: 'Starter',
+    targetAudience: 'For small businesses getting started with omnichannel automation',
+    monthlyRate: 29,
+    annualRate: 23,
+    discountText: '20% discount applied',
     features: [
-      'Official WhatsApp Business Platform API access',
-      'DLT-compliant transactional & promotional SMS gateway',
-      'High-speed SMPP v3.4 connectivity support',
-      'Omnichannel team inbox with multi-agent assignment',
-      'Template manager & broadcast campaign scheduling',
-      'Real-time delivery receipts (DLR) & webhook callbacks',
-      'Interactive quick-replies, buttons, and media templates',
-      'Standard email & webhook technical support',
+      '1,000 conversations / month',
+      '1 WhatsApp Number',
+      'Basic Analytics & Reporting',
+      'Standard Email Support',
+      'Visual Chatbot Builder',
+      'Web Chat Widget',
     ],
-    limitsInfo: 'Custom throughput tier based on monthly message volume (OTPs, notifications, and marketing).',
-    ctaText: 'Get Volume Pricing',
-    ctaHref: '/book-demo?product=Communication+Cloud',
+    ctaText: 'Start Free Trial',
+    ctaHref: siteConfig.appUrl.startsWith('http')
+      ? `${siteConfig.appUrl}/signup?plan=starter`
+      : '/book-demo?plan=starter',
   },
   {
-    id: 'sales-crm',
-    name: 'Sales CRM',
-    category: 'Revenue & Pipeline',
-    badge: 'Deal Velocity',
-    description: 'For growing sales teams managing leads, pipeline stages, and multi-channel customer communications.',
-    priceDisplay: 'Contact Sales',
-    priceSubtext: 'Billed per seat / month with annual commitment discounts',
-    features: [
-      'Multi-source lead capture (WhatsApp, chat, forms, API)',
-      'Customizable sales pipeline Kanban stages',
-      'Centralized contact database with interaction history',
-      'Follow-up reminders and scheduled sales tasks',
-      'One-click WhatsApp & SMS communication from contact cards',
-      'Automated lead qualification and round-robin routing',
-      'Sales performance, conversion, and response time reports',
-      'HubSpot CRM bi-directional synchronization',
-    ],
-    limitsInfo: 'Tiered based on active sales rep seats and contact volume.',
-    ctaText: 'Talk to Sales',
-    ctaHref: '/book-demo?product=Sales+CRM',
-  },
-  {
-    id: 'support-crm',
-    name: 'Support CRM',
-    category: 'Customer Service',
-    badge: 'Omnichannel Helpdesk',
-    description: 'For customer service teams managing multi-channel inquiries, SLA compliance, and agent productivity.',
-    priceDisplay: 'Contact Sales',
-    priceSubtext: 'Flexible agent seat licensing with volume support',
-    features: [
-      'Multi-channel ticket creation from WhatsApp, web chat, and email',
-      'Configurable SLA policies for response and resolution times',
-      'Agent availability states, skill queues, and work distribution',
-      'Bot-to-human seamless conversation handoff',
-      'Internal notes and collaborative ticket mentions',
-      'Integrated knowledge base article repository',
-      'First Contact Resolution (FCR) and handle time analytics',
-      'Customer history timeline across past tickets',
-    ],
-    limitsInfo: 'Priced per support agent seat with unlimited customer ticket archiving.',
-    ctaText: 'Request Support Demo',
-    ctaHref: '/book-demo?product=Support+CRM',
-  },
-  {
-    id: 'unified-platform',
-    name: 'Unified Business Platform',
-    category: 'All-In-One Suite',
+    id: 'growth',
+    name: 'Growth',
     badge: 'Most Popular',
     popular: true,
-    description: 'The complete PulseQuo suite uniting Communication Cloud, Sales CRM, Support CRM, and AI & Automation.',
-    priceDisplay: 'Custom Enterprise Suite',
-    priceSubtext: 'Consolidated software licensing with priority onboarding',
+    targetAudience: 'For growing businesses expanding across multiple messaging channels',
+    monthlyRate: 79,
+    annualRate: 63,
+    discountText: 'Save 20%',
     features: [
-      'Everything in Communication Cloud, Sales CRM & Support CRM',
-      'Visual Flow Builder with drag-and-drop conversational branching',
-      'Autonomous AI conversational agents powered by Claude / OpenAI',
-      'Model Context Protocol (MCP) tool server connectivity',
-      'Document RAG knowledge grounding from company PDFs & docs',
-      'Automated cross-channel workflow triggers and webhooks',
-      'Shared team workspace with cross-departmental handoffs',
-      'Dedicated Customer Success Manager and onboarding engineer',
+      '5,000 conversations / month',
+      'WhatsApp + RCS + Web Chat',
+      'Advanced Analytics & Handoff',
+      'Priority 24/7 Support',
+      'Full API Access & Webhooks',
+      'HubSpot & Shopify Integrations',
+      'Unlimited Broadcast Campaigns',
     ],
-    limitsInfo: 'Custom package structured for high-growth businesses seeking total platform unification.',
-    ctaText: 'Request Platform Walkthrough',
-    ctaHref: '/book-demo?product=Complete+PulseQuo+Platform',
+    ctaText: 'Start Free Trial',
+    ctaHref: siteConfig.appUrl.startsWith('http')
+      ? `${siteConfig.appUrl}/signup?plan=growth`
+      : '/book-demo?plan=growth',
   },
   {
-    id: 'enterprise-custom',
-    name: 'Enterprise / Custom Deployment',
-    category: 'Bespoke Infrastructure',
-    badge: 'Dedicated SLA',
-    description: 'For large enterprises requiring dedicated infrastructure, customized carrier routes, and bespoke integrations.',
-    priceDisplay: 'Custom Contract',
-    priceSubtext: 'Dedicated infrastructure with enterprise SLA guarantees',
+    id: 'enterprise',
+    name: 'Enterprise',
+    badge: 'Custom Scale',
+    targetAudience: 'For large teams and enterprise organizations needing dedicated scale',
+    monthlyRate: 'Custom',
+    annualRate: 'Custom',
+    discountText: 'Tailored SLAs & Volume Discounts',
     features: [
-      'Dedicated tenant isolation or on-premises deployment options',
-      'Custom carrier trunk routing and direct operator agreements',
-      '99.95% uptime Service Level Agreement (SLA)',
-      'Custom Model Context Protocol (MCP) server development',
-      'Single Sign-On (SSO / SAML) and enterprise access audit logs',
-      'Strict data residency and compliance consulting',
-      '24/7 priority emergency telephone and Slack engineering support',
-      'Quarterly executive business reviews and roadmap prioritization',
+      'Unlimited Conversations',
+      'All Messaging Channels',
+      'Custom Integrations & APIs',
+      'Dedicated Account Manager',
+      'Custom SLA & Governance',
+      'Single Sign-On (SSO / SAML)',
+      'Onboarding & Training',
     ],
-    limitsInfo: 'Tailored to enterprise security, compliance, and multi-million message throughput demands.',
-    ctaText: 'Contact Enterprise Team',
+    ctaText: 'Contact Sales',
     ctaHref: '/contact',
   },
 ]
 
+export const pricingAdditionalSupport = {
+  headline: 'Not sure which plan is right for you?',
+  description:
+    'Book a free 1-on-1 demo with automation experts to build a custom plan tailored to business needs.',
+  phone: '+91 98765 43210',
+  email: 'support@chatsphere.com',
+  ctaText: 'Book a Demo',
+  ctaHref: '/book-demo',
+}
+
 export const pricingComparisonCategories = [
   {
-    category: 'Core Capabilities',
+    category: 'Messaging & Conversations',
     features: [
-      { name: 'Unified Omnichannel Inbox', comm: true, sales: true, support: true, unified: true, enterprise: true },
-      { name: 'Official WhatsApp Business API', comm: true, sales: 'Add-on', support: 'Add-on', unified: true, enterprise: true },
-      { name: 'DLT-Compliant SMS Gateway', comm: true, sales: 'Add-on', support: 'Add-on', unified: true, enterprise: true },
-      { name: 'Visual Flow Builder', comm: false, sales: false, support: false, unified: true, enterprise: true },
-      { name: 'AI Autonomous Agents & MCP', comm: false, sales: false, support: 'Tier-1 AI', unified: true, enterprise: true },
+      { name: 'Monthly Included Conversations', starter: '1,000', growth: '5,000', enterprise: 'Unlimited' },
+      { name: 'WhatsApp Business Numbers', starter: '1 Number', growth: 'Multiple Numbers', enterprise: 'Unlimited Trunks' },
+      { name: 'Supported Channels', starter: 'WhatsApp & Web Chat', growth: 'WhatsApp + RCS + Web Chat', enterprise: 'All Channels (WhatsApp, RCS, SMS, Voice)' },
+      { name: 'Broadcast & Outbound Campaigns', starter: 'Standard Queue', growth: 'Unlimited Campaigns', enterprise: 'High-Throughput Dedicated SMPP' },
     ],
   },
   {
-    category: 'Sales & Pipeline',
+    category: 'Automation & AI',
     features: [
-      { name: 'Custom Deal Pipelines', comm: false, sales: true, support: false, unified: true, enterprise: true },
-      { name: 'Automated Lead Qualification', comm: false, sales: true, support: false, unified: true, enterprise: true },
-      { name: 'Follow-up Task Scheduling', comm: false, sales: true, support: false, unified: true, enterprise: true },
-      { name: 'Sales Revenue Forecasting', comm: false, sales: true, support: false, unified: true, enterprise: true },
+      { name: 'Visual Chatbot Builder', starter: true, growth: true, enterprise: true },
+      { name: 'Web Chat Widget', starter: true, growth: true, enterprise: true },
+      { name: 'Bot-to-Human Live Handoff', starter: false, growth: true, enterprise: true },
+      { name: 'Model Context Protocol (MCP) AI Agents', starter: false, growth: 'Standard Tools', enterprise: 'Bespoke Tool Server Development' },
     ],
   },
   {
-    category: 'Customer Support',
+    category: 'APIs & Ecosystem Integrations',
     features: [
-      { name: 'Multi-Channel Ticketing', comm: false, sales: false, support: true, unified: true, enterprise: true },
-      { name: 'SLA Response & Resolution Timers', comm: false, sales: false, support: true, unified: true, enterprise: true },
-      { name: 'Agent Availability & Skill Routing', comm: false, sales: false, support: true, unified: true, enterprise: true },
-      { name: 'Knowledge Base Article Library', comm: false, sales: false, support: true, unified: true, enterprise: true },
+      { name: 'REST APIs & Real-Time Webhooks', starter: 'Basic Webhooks', growth: 'Full API Access', enterprise: 'Custom Integrations & Triggers' },
+      { name: 'HubSpot & Shopify Integrations', starter: false, growth: true, enterprise: true },
+      { name: 'Salesforce & Custom Enterprise ERPs', starter: false, growth: false, enterprise: true },
     ],
   },
   {
-    category: 'Security & Governance',
+    category: 'Support & Governance',
     features: [
-      { name: 'Role-Based Access Control (RBAC)', comm: true, sales: true, support: true, unified: true, enterprise: true },
-      { name: 'Two-Factor Authentication', comm: true, sales: true, support: true, unified: true, enterprise: true },
-      { name: 'HMAC Webhook Signatures', comm: true, sales: true, support: true, unified: true, enterprise: true },
-      { name: 'Single Sign-On (SAML / SSO)', comm: false, sales: false, support: false, unified: 'Available', enterprise: true },
-      { name: 'Dedicated Infrastructure', comm: false, sales: false, support: false, unified: false, enterprise: true },
+      { name: 'Support SLA & Response Time', starter: 'Standard Email (24-48h)', growth: 'Priority 24/7 Response', enterprise: 'Dedicated Account Manager & Custom SLA' },
+      { name: 'Single Sign-On (SSO / SAML)', starter: false, growth: false, enterprise: true },
+      { name: 'Dedicated Onboarding & Team Training', starter: false, growth: false, enterprise: true },
+      { name: 'Role-Based Access Control (RBAC)', starter: true, growth: true, enterprise: true },
     ],
   },
 ]
