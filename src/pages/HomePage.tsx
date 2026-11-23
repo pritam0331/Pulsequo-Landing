@@ -1,9 +1,18 @@
 /**
- * PulseQuo Marketing Home Page - Clean Enterprise Edition
+ * PulseQuo Marketing Home Page - High-Conversion Enterprise Edition
  * Route: /
- * Sections: Hero (flat crisp preview), Telemetry Bar, Product Engines Bento Grid,
- *           Visual Workflow Builder, Integrations & Ecosystem Grid, Solutions Navigator,
- *           Customer Impact Case Studies, FAQs, Final Closing CTA.
+ * Sections:
+ *   1. Hero Section with GPU Ambient Background, Staggered Fade-in, and Interactive Engine Connectors
+ *   2. Brand Marquee Carousel (Trusted by 500+ High-Growth Enterprises)
+ *   3. Platform Command Center Showcase & Live Telemetry
+ *   4. Four Synchronized Product Engines Bento Grid
+ *   5. Visual Flow Automation Showcase
+ *   6. Integrations & Ecosystem Infinite Carousel
+ *   7. Operational Solutions Navigator
+ *   8. Customer Impact & Verified Testimonials Carousel
+ *   9. Transparent Pricing Matrix
+ *  10. Two-Column Interactive FAQs
+ *  11. Final Closing Enterprise CTA
  */
 
 import { Link } from 'react-router'
@@ -20,21 +29,20 @@ import {
   Sparkles,
   Building,
   Rocket,
-  Radio,
-  Cloud,
-  Target,
-  KeyRound,
-  Hash,
-  FileSpreadsheet,
-  ShoppingBag,
-  Code2,
   MessageSquareText,
   GitBranch,
   Headset,
   Brain,
+  ShieldCheck,
+  Activity,
+  ChevronRight,
 } from 'lucide-react'
 import { SEO } from '../components/common/SEO'
 import { SectionHeading } from '../components/common/SectionHeading'
+import { BackgroundAnimation } from '../components/common/BackgroundAnimation'
+import { BrandCarousel } from '../components/common/BrandCarousel'
+import { TestimonialsCarousel } from '../components/common/TestimonialsCarousel'
+import { IntegrationsCarousel } from '../components/common/IntegrationsCarousel'
 import { PlatformComposition } from '../components/common/PlatformComposition'
 import { WorkflowCanvas } from '../components/common/WorkflowCanvas'
 import { CTASection } from '../components/common/CTASection'
@@ -50,101 +58,40 @@ export function MarketingHomePage() {
       stat: '99.99%',
       label: 'Carrier Uptime SLA',
       sublabel: 'Direct SMPP & Meta Cloud routes',
+      icon: ShieldCheck,
+      color: 'text-emerald-600',
+      bgColor: 'bg-emerald-50 border-emerald-200/80',
     },
     {
       stat: '45M+',
       label: 'Messages Dispatched',
       sublabel: 'Transactional OTPs & campaigns',
+      icon: Activity,
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-50 border-blue-200/80',
     },
     {
       stat: '< 2s',
       label: 'AI Response Latency',
       sublabel: 'Grounded in enterprise docs',
+      icon: Sparkles,
+      color: 'text-purple-600',
+      bgColor: 'bg-purple-50 border-purple-200/80',
     },
     {
       stat: '10x',
       label: 'Faster Sales Follow-up',
       sublabel: 'Instant WhatsApp conversion funnel',
-    },
-  ]
-
-  const integrations = [
-    {
-      name: 'WhatsApp Business API',
-      tag: 'Meta Official Partner',
-      icon: MessageSquare,
-      accent: 'blue',
-      link: '/products/communication-cloud',
-    },
-    {
-      name: 'Carrier SMS SMPP',
-      tag: 'TRAI DLT Engine',
-      icon: Radio,
-      accent: 'blue',
-      link: '/products/communication-cloud',
-    },
-    {
-      name: 'Salesforce CRM',
-      tag: 'Bi-Directional Sync',
-      icon: Cloud,
-      accent: 'blue',
-      link: '/integrations',
-    },
-    {
-      name: 'HubSpot',
-      tag: 'Automated Deals & Leads',
-      icon: Target,
-      accent: 'blue',
-      link: '/integrations',
-    },
-    {
-      name: 'Model Context Protocol',
-      tag: 'Native MCP Tools',
-      icon: Bot,
-      accent: 'purple',
-      link: '/products/ai-automation',
-    },
-    {
-      name: 'HMAC Webhooks',
-      tag: 'Signed Secure Callbacks',
-      icon: KeyRound,
-      accent: 'purple',
-      link: '/developers/webhooks',
-    },
-    {
-      name: 'Slack Connect',
-      tag: 'Internal Team Escalations',
-      icon: Hash,
-      accent: 'blue',
-      link: '/integrations',
-    },
-    {
-      name: 'Google Sheets & Drive',
-      tag: 'Real-Time Data Sync',
-      icon: FileSpreadsheet,
-      accent: 'blue',
-      link: '/integrations',
-    },
-    {
-      name: 'Shopify & WooCommerce',
-      tag: 'Order & Cart Sync',
-      icon: ShoppingBag,
-      accent: 'blue',
-      link: '/integrations',
-    },
-    {
-      name: 'RESTful Core API',
-      tag: 'OpenAPI 3.1 Spec',
-      icon: Code2,
-      accent: 'blue',
-      link: '/developers/api-documentation',
+      icon: Zap,
+      color: 'text-amber-500',
+      bgColor: 'bg-amber-50 border-amber-200/80',
     },
   ]
 
   const growthSolutions = [
     {
       icon: TrendingUp,
-      iconBg: 'bg-blue-50 text-blue-600',
+      iconBg: 'bg-blue-50 text-blue-600 border-blue-200/70',
       title: 'Sales teams',
       description:
         'Engage high-intent inbound prospects instantly on WhatsApp, qualify leads conversationally with AI, and accelerate deals across Kanban stages.',
@@ -154,7 +101,7 @@ export function MarketingHomePage() {
     },
     {
       icon: Headphones,
-      iconBg: 'bg-purple-50 text-purple-600',
+      iconBg: 'bg-purple-50 text-purple-600 border-purple-200/70',
       title: 'Support teams',
       description:
         'Consolidate multi-channel inquiries into a unified ticketing inbox, automate Tier-1 answers via AI agents, and enforce strict SLA timers.',
@@ -164,7 +111,7 @@ export function MarketingHomePage() {
     },
     {
       icon: Sparkles,
-      iconBg: 'bg-blue-50 text-blue-600',
+      iconBg: 'bg-blue-50 text-blue-600 border-blue-200/70',
       title: 'Marketing teams',
       description:
         'Broadcast pre-approved WhatsApp marketing templates and bulk promotional SMS with real-time delivery DLR telemetry and segment tagging.',
@@ -174,7 +121,7 @@ export function MarketingHomePage() {
     },
     {
       icon: Rocket,
-      iconBg: 'bg-purple-50 text-purple-600',
+      iconBg: 'bg-purple-50 text-purple-600 border-purple-200/70',
       title: 'Startups & scaleups',
       description:
         'Consolidate communication, CRM, and AI bots into one predictable monthly bill, automating customer acquisition without hiring large teams.',
@@ -184,37 +131,13 @@ export function MarketingHomePage() {
     },
     {
       icon: Building,
-      iconBg: 'bg-blue-50 text-blue-600',
+      iconBg: 'bg-blue-50 text-blue-600 border-blue-200/70',
       title: 'Global enterprises',
       description:
         'High-throughput carrier routing, custom Model Context Protocol (MCP) server integrations, dedicated SLAs, and multi-tenant isolation.',
       link: '/solutions/enterprises',
       linkText: 'View enterprise solution',
       textColor: 'text-blue-600 hover:text-blue-700',
-    },
-  ]
-
-  const customerReviews = [
-    {
-      name: 'Aditi Sharma',
-      role: 'Head of Growth · Apex Retail',
-      avatar: 'AS',
-      text: 'Switching to PulseQuo reduced our customer acquisition response time from 35 minutes down to 45 seconds on WhatsApp. Having our Sales CRM and WhatsApp in one screen is a game changer.',
-      metric: '+48% Conversion Rate',
-    },
-    {
-      name: 'Vikramaditya Roy',
-      role: 'VP Engineering · FinEdge Pay',
-      avatar: 'VR',
-      text: 'We dispatch over 2 million transactional OTPs every month. PulseQuo’s TRAI DLT compliance and SMPP routing give us an unbeatable 99.98% delivery receipt rate with zero headaches.',
-      metric: '99.98% DLR Reliability',
-    },
-    {
-      name: 'Pooja Venkatesh',
-      role: 'Chief Customer Officer · NovaHealth',
-      avatar: 'PV',
-      text: 'The AI agents handle 78% of tier-1 support tickets automatically, and when human handoff occurs, our agents have the complete conversational history right in front of them.',
-      metric: '78% Autonomous Deflection',
     },
   ]
 
@@ -227,31 +150,55 @@ export function MarketingHomePage() {
       />
 
       {/* ─────────────────────────────────────────────────────────────
-          1. HERO SECTION: FULL-VIEWPORT MAIN SCREEN ARCHITECTURE
+          1. HERO SECTION: AMBIENT LIGHTING & STAGGERED FADE-IN ENTRANCE
          ───────────────────────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative min-h-screen flex flex-col justify-center items-center bg-white px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-14 sm:pb-16 overflow-hidden"
+        className="relative min-h-[92vh] flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-14 sm:pb-16 overflow-hidden bg-white"
       >
-        <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto translate-y-2 sm:translate-y-4">
-          {/* Main Command Headline */}
+        {/* GPU Ambient Background with Floating Brand Orbs and Dot Grid */}
+        <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
+
+        <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center my-auto">
+          {/* Top Announcement Pill with Pulsing Status */}
+          <motion.div
+            initial={{ opacity: 0, y: -12, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.5, ease: easeOutCurve }}
+            className="mb-5 sm:mb-6 inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/90 shadow-2xs backdrop-blur-sm"
+          >
+            <span className="flex size-2 rounded-full bg-blue-600 animate-pulse" />
+            <span className="text-xs font-semibold text-slate-800">
+              PulseQuo Enterprise Engine v3.0
+            </span>
+            <span className="text-slate-300">|</span>
+            <Link
+              to="/products/ai-automation"
+              className="text-xs text-blue-600 font-semibold flex items-center gap-1 hover:underline"
+            >
+              <span>Model Context Protocol (MCP) Live</span>
+              <ChevronRight className="size-3" />
+            </Link>
+          </motion.div>
+
+          {/* Main Command Headline with Subtle Word Fade-In */}
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05, ease: easeOutCurve }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-[60px] xl:text-[66px] font-black tracking-[-0.035em] leading-[1.12] max-w-5xl mx-auto text-slate-900"
+            transition={{ duration: 0.55, delay: 0.06, ease: easeOutCurve }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[68px] font-black tracking-[-0.035em] leading-[1.12] max-w-5xl mx-auto text-slate-900"
           >
             <span className="block">One intelligent platform for</span>
-            <span className="block text-blue-600">
+            <span className="block bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
               every customer conversation.
             </span>
           </motion.h1>
 
           {/* Clear, Authoritative Subheadline */}
           <motion.p
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.12, ease: easeOutCurve }}
+            transition={{ duration: 0.55, delay: 0.12, ease: easeOutCurve }}
             className="mt-6 sm:mt-7 text-base sm:text-lg md:text-xl lg:text-[21px] text-slate-600 leading-relaxed max-w-3xl mx-auto font-normal text-balance"
           >
             Connect every message directly to revenue and resolution. PulseQuo unifies{' '}
@@ -261,94 +208,129 @@ export function MarketingHomePage() {
             <span className="text-slate-900 font-bold">autonomous AI agents</span> in a single synchronized workspace.
           </motion.p>
 
-          {/* Primary Action Buttons */}
+          {/* Primary Action Buttons with Glow Effects */}
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.18, ease: easeOutCurve }}
+            transition={{ duration: 0.55, delay: 0.18, ease: easeOutCurve }}
             className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto"
           >
             <Link
               to="/book-demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-md shadow-blue-500/20 active:scale-[0.99]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-md shadow-blue-500/25 active:scale-[0.99] group"
             >
               <CalendarCheck className="size-4.5" />
               <span>Book a personalized demo</span>
+              <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
 
             <a
               href="#platform-overview"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl transition-all shadow-xs active:scale-[0.99]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-bold text-slate-800 bg-white/90 hover:bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl transition-all shadow-xs active:scale-[0.99] backdrop-blur-xs"
             >
               <span>Explore the 4 engines</span>
-              <ArrowRight className="size-4.5 text-slate-400" />
+              <ArrowRight className="size-4 text-slate-400" />
             </a>
+          </motion.div>
+
+          {/* Quick Compliance Reassurance Strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.24, ease: easeOutCurve }}
+            className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500"
+          >
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="size-3.5 text-emerald-600" />
+              Meta Official Cloud Partner
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="size-3.5 text-emerald-600" />
+              TRAI DLT Registered
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="size-3.5 text-emerald-600" />
+              Sub-second Carrier Routing
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="size-3.5 text-emerald-600" />
+              Zero Hallucination Grounding
+            </span>
           </motion.div>
 
           {/* 4 Connected Platform Engines (Refined, Compact Aesthetic) */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25, ease: easeOutCurve }}
-            className="mt-8 sm:mt-10 flex items-center justify-center gap-1.5 sm:gap-2.5 select-none"
+            transition={{ duration: 0.5, delay: 0.3, ease: easeOutCurve }}
+            className="mt-8 sm:mt-10 flex items-center justify-center gap-1.5 sm:gap-2.5 select-none p-2 rounded-2xl bg-white/80 border border-slate-200/70 shadow-2xs backdrop-blur-xs"
           >
             {/* Engine 1: WhatsApp & SMS CPaaS */}
-            <div className="flex items-center justify-center p-1 text-slate-400 hover:text-blue-600 transition-colors" title="Official WhatsApp & SMS CPaaS">
-              <MessageSquareText className="size-5 sm:size-6" strokeWidth={1.5} />
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50/60 transition-all cursor-default" title="Official WhatsApp & SMS CPaaS">
+              <MessageSquareText className="size-4.5 sm:size-5 text-blue-600" strokeWidth={1.75} />
+              <span className="text-xs font-bold text-slate-800 hidden sm:inline">CPaaS</span>
             </div>
 
             {/* Dotted Connector 1 */}
-            <div className="relative w-8 sm:w-12 flex items-center justify-center">
+            <div className="relative w-7 sm:w-10 flex items-center justify-center">
               <div className="w-full border-b border-dotted border-slate-300" />
               <motion.div
-                animate={{ x: [-12, 12], opacity: [0, 1, 0] }}
+                animate={{ x: [-10, 10], opacity: [0, 1, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute size-1 sm:size-1.5 rounded-full bg-blue-500 shadow-xs shadow-blue-500/50"
+                className="absolute size-1.5 rounded-full bg-blue-500 shadow-xs shadow-blue-500/50"
               />
             </div>
 
             {/* Engine 2: Sales Pipelines */}
-            <div className="flex items-center justify-center p-1 text-slate-400 hover:text-blue-600 transition-colors" title="Sales Pipelines & Workflows">
-              <GitBranch className="size-5 sm:size-6" strokeWidth={1.5} />
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50/60 transition-all cursor-default" title="Sales Pipelines & Workflows">
+              <GitBranch className="size-4.5 sm:size-5 text-indigo-600" strokeWidth={1.75} />
+              <span className="text-xs font-bold text-slate-800 hidden sm:inline">Sales CRM</span>
             </div>
 
             {/* Dotted Connector 2 */}
-            <div className="relative w-8 sm:w-12 flex items-center justify-center">
+            <div className="relative w-7 sm:w-10 flex items-center justify-center">
               <div className="w-full border-b border-dotted border-slate-300" />
               <motion.div
-                animate={{ x: [-12, 12], opacity: [0, 1, 0] }}
+                animate={{ x: [-10, 10], opacity: [0, 1, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
-                className="absolute size-1 sm:size-1.5 rounded-full bg-blue-500 shadow-xs shadow-blue-500/50"
+                className="absolute size-1.5 rounded-full bg-blue-500 shadow-xs shadow-blue-500/50"
               />
             </div>
 
             {/* Engine 3: Support Helpdesk */}
-            <div className="flex items-center justify-center p-1 text-slate-400 hover:text-blue-600 transition-colors" title="Support Helpdesk">
-              <Headset className="size-5 sm:size-6" strokeWidth={1.5} />
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50/60 transition-all cursor-default" title="Support Helpdesk">
+              <Headset className="size-4.5 sm:size-5 text-blue-600" strokeWidth={1.75} />
+              <span className="text-xs font-bold text-slate-800 hidden sm:inline">Support</span>
             </div>
 
             {/* Dotted Connector 3 */}
-            <div className="relative w-8 sm:w-12 flex items-center justify-center">
+            <div className="relative w-7 sm:w-10 flex items-center justify-center">
               <div className="w-full border-b border-dotted border-slate-300" />
               <motion.div
-                animate={{ x: [-12, 12], opacity: [0, 1, 0] }}
+                animate={{ x: [-10, 10], opacity: [0, 1, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 1.4 }}
-                className="absolute size-1 sm:size-1.5 rounded-full bg-blue-500 shadow-xs shadow-blue-500/50"
+                className="absolute size-1.5 rounded-full bg-purple-500 shadow-xs shadow-purple-500/50"
               />
             </div>
 
             {/* Engine 4: Autonomous AI Agents */}
-            <div className="flex items-center justify-center p-1 text-slate-400 hover:text-purple-600 transition-colors" title="Autonomous AI Agents">
-              <Brain className="size-5 sm:size-6" strokeWidth={1.5} />
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-600 hover:text-purple-600 hover:bg-purple-50/60 transition-all cursor-default" title="Autonomous AI Agents">
+              <Brain className="size-4.5 sm:size-5 text-purple-600" strokeWidth={1.75} />
+              <span className="text-xs font-bold text-slate-800 hidden sm:inline">AI Agents</span>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. PLATFORM WORKSPACE SHOWCASE & TELEMETRY
+          2. BRAND MARQUEE CAROUSEL (TRUSTED BY 500+ ENTERPRISES)
          ───────────────────────────────────────────────────────────── */}
-      <section id="workspace-preview" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
+      <BrandCarousel />
+
+      {/* ─────────────────────────────────────────────────────────────
+          3. PLATFORM WORKSPACE SHOWCASE & LIVE TELEMETRY
+         ───────────────────────────────────────────────────────────── */}
+      <section id="workspace-preview" className="py-10 sm:py-14 lg:py-16 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="UNIFIED WORKSPACE"
@@ -357,30 +339,42 @@ export function MarketingHomePage() {
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6, ease: easeOutCurve }}
-            className="mt-6 sm:mt-8 relative w-full max-w-full overflow-hidden"
+            className="mt-8 sm:mt-10 relative w-full max-w-full overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-2 sm:p-3 shadow-lg shadow-slate-200/50"
           >
             <PlatformComposition />
           </motion.div>
 
           {/* Telemetry Strip inside the workspace showcase */}
-          <div id="telemetry" className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-slate-200/80">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          <div id="telemetry" className="mt-8 sm:mt-12 pt-8 sm:pt-10 border-t border-slate-200/80">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {achievements.map((item, idx) => (
-                <div key={idx} className="flex flex-col">
-                  <p className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-mono">
-                    {item.stat}
-                  </p>
-                  <p className="text-sm font-semibold text-slate-800 mt-1">
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.45, delay: idx * 0.08, ease: easeOutCurve }}
+                  className="flex flex-col p-4 sm:p-5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-slate-300 hover:shadow-xs transition-all"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-mono">
+                      {item.stat}
+                    </span>
+                    <div className={`p-2 rounded-lg border ${item.bgColor}`}>
+                      <item.icon className={`size-4.5 ${item.color}`} />
+                    </div>
+                  </div>
+                  <p className="text-sm font-bold text-slate-800 mt-1">
                     {item.label}
                   </p>
                   <p className="text-xs text-slate-500 mt-0.5">
                     {item.sublabel}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -388,9 +382,9 @@ export function MarketingHomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          3. PRODUCT ENGINES BENTO GRID
+          4. PRODUCT ENGINES BENTO GRID
          ───────────────────────────────────────────────────────────── */}
-      <section id="platform-overview" className="py-6 sm:py-8 lg:py-10 bg-white">
+      <section id="platform-overview" className="py-10 sm:py-14 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="CORE PRODUCT SUITE"
@@ -398,18 +392,18 @@ export function MarketingHomePage() {
             description="Replace fragmented point solutions with an enterprise infrastructure engineered to connect every customer message directly to revenue and resolution."
           />
 
-          <div className="mt-6 sm:mt-8 grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-5">
             {/* Bento Card 1: Communication Cloud (7 Columns) */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: 0.05, ease: easeOutCurve }}
-              className="lg:col-span-7 rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50/30 via-white to-slate-50 p-5 sm:p-6 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-7 rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50/30 via-white to-slate-50 p-5 sm:p-6 shadow-xs hover:border-blue-400 hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="mb-4">
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm shadow-blue-600/20">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm shadow-blue-600/20 group-hover:scale-105 transition-transform">
                     <MessageSquare className="size-5" />
                   </div>
                 </div>
@@ -422,7 +416,7 @@ export function MarketingHomePage() {
                 <div className="mt-4 rounded-lg border border-slate-200 bg-white p-3 shadow-2xs">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-2.5">
                     <span className="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
-                      <span className="size-2 rounded-xs bg-emerald-500" /> Carrier Connection Status
+                      <span className="size-2 rounded-xs bg-emerald-500 animate-pulse" /> Carrier Connection Status
                     </span>
                     <span className="text-[11px] font-mono text-slate-500">Sub-second Routing</span>
                   </div>
@@ -463,11 +457,11 @@ export function MarketingHomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: 0.1, ease: easeOutCurve }}
-              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50/20 via-white to-slate-50 p-5 sm:p-6 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50/20 via-white to-slate-50 p-5 sm:p-6 shadow-xs hover:border-blue-400 hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="mb-4">
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm shadow-blue-600/20">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-indigo-600 text-white shadow-sm shadow-indigo-600/20 group-hover:scale-105 transition-transform">
                     <TrendingUp className="size-5" />
                   </div>
                 </div>
@@ -488,7 +482,7 @@ export function MarketingHomePage() {
                     <div className="bg-blue-50 text-blue-700 p-1.5 rounded-md border border-blue-200">Closing (4)</div>
                   </div>
                   <div className="h-1.5 w-full rounded-xs bg-slate-100 overflow-hidden mt-2">
-                    <div className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-xs w-[78%]" />
+                    <div className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xs w-[78%]" />
                   </div>
                 </div>
 
@@ -516,11 +510,11 @@ export function MarketingHomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: 0.05, ease: easeOutCurve }}
-              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-blue-50/20 p-5 sm:p-6 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-5 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-blue-50/20 p-5 sm:p-6 shadow-xs hover:border-blue-400 hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="mb-4">
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-[#070d24] text-white shadow-sm shadow-[#070d24]/20">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-[#070d24] text-white shadow-sm shadow-[#070d24]/20 group-hover:scale-105 transition-transform">
                     <Headphones className="size-5" />
                   </div>
                 </div>
@@ -541,7 +535,7 @@ export function MarketingHomePage() {
                     <div className="bg-blue-50 text-blue-700 p-1.5 rounded-md border border-blue-200">Resolved (52)</div>
                   </div>
                   <div className="h-1.5 w-full rounded-xs bg-slate-100 overflow-hidden mt-2">
-                    <div className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-xs w-[92%]" />
+                    <div className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xs w-[92%]" />
                   </div>
                 </div>
 
@@ -569,11 +563,11 @@ export function MarketingHomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: 0.1, ease: easeOutCurve }}
-              className="lg:col-span-7 rounded-2xl border border-slate-200 bg-gradient-to-br from-purple-50/30 via-white to-slate-50 p-5 sm:p-6 shadow-xs hover:border-purple-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="lg:col-span-7 rounded-2xl border border-slate-200 bg-gradient-to-br from-purple-50/30 via-white to-slate-50 p-5 sm:p-6 shadow-xs hover:border-purple-400 hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="mb-4">
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-purple-600 text-white shadow-sm shadow-purple-600/20">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-purple-600 text-white shadow-sm shadow-purple-600/20 group-hover:scale-105 transition-transform">
                     <Bot className="size-5" />
                   </div>
                 </div>
@@ -586,7 +580,7 @@ export function MarketingHomePage() {
                 <div className="mt-4 rounded-lg border border-slate-200 bg-white p-3 shadow-2xs">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-2.5">
                     <span className="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
-                      <span className="size-2 rounded-xs bg-purple-500" /> Autonomous Agent Engine
+                      <span className="size-2 rounded-xs bg-purple-500 animate-pulse" /> Autonomous Agent Engine
                     </span>
                     <span className="text-[11px] font-mono text-purple-600 font-semibold">Native MCP Standard</span>
                   </div>
@@ -625,30 +619,35 @@ export function MarketingHomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          4. VISUAL WORKFLOW BUILDER SHOWCASE
+          5. VISUAL WORKFLOW BUILDER SHOWCASE
          ───────────────────────────────────────────────────────────── */}
-      <section id="workflows" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70 overflow-hidden">
+      <section id="workflows" className="py-10 sm:py-14 lg:py-16 bg-slate-50/70 border-y border-slate-200/80 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Column: Lead Qualification Workflow Canvas */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.55, ease: easeOutCurve }}
               className="lg:col-span-7 order-2 lg:order-1"
             >
-              <WorkflowCanvas className="bg-white shadow-sm border border-slate-200" />
+              <WorkflowCanvas className="bg-white shadow-md border border-slate-200" />
             </motion.div>
 
             {/* Right Column: Visual Flow Automation Details */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.55, delay: 0.1, ease: easeOutCurve }}
               className="lg:col-span-5 order-1 lg:order-2"
             >
+              <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
+                <Sparkles className="size-3 text-blue-600" />
+                <span>Zero-Code Journey Designer</span>
+              </div>
+
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
                 Visual flow automation. Built for scale.
               </h2>
@@ -684,7 +683,7 @@ export function MarketingHomePage() {
                 </div>
 
                 <div className="flex items-start gap-3.5">
-                  <div className="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5 border border-blue-100">
+                  <div className="size-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 border border-emerald-100">
                     <CheckCircle2 className="size-4" />
                   </div>
                   <div>
@@ -720,79 +719,32 @@ export function MarketingHomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          5. INTEGRATIONS & ECOSYSTEM GRID
+          6. INTEGRATIONS & ECOSYSTEM INFINITE CAROUSEL
          ───────────────────────────────────────────────────────────── */}
-      <section id="integrations" className="py-6 sm:py-8 lg:py-10 bg-white">
+      <section id="integrations" className="py-10 sm:py-14 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="INTEGRATIONS & ECOSYSTEM"
-            title="Connected with your existing enterprise stack"
+            title="Connected With Your Existing Enterprise Stack"
             description="Native bi-directional connectors, carrier SMPP bindings, and Model Context Protocol (MCP) tooling."
           />
 
-          <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
-            {integrations.map((item, idx) => {
-              const isPurple = item.accent === 'purple'
-              const IconComponent = item.icon
-
-              return (
-                <Link
-                  key={idx}
-                  to={item.link}
-                  className="group flex flex-col p-3.5 sm:p-4 rounded-xl bg-slate-50/60 border border-slate-200/90 hover:border-blue-500 hover:bg-white hover:shadow-xs transition-all duration-200"
-                >
-                  <div
-                    className={`size-8.5 rounded-lg flex items-center justify-center border transition-all duration-200 shadow-2xs ${
-                      isPurple
-                        ? 'bg-purple-50/80 border-purple-200/80 text-purple-600 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600'
-                        : 'bg-blue-50/80 border-blue-200/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600'
-                    }`}
-                  >
-                    <IconComponent className="size-4" />
-                  </div>
-
-                  <h3 className="mt-3 text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight leading-snug">
-                    {item.name}
-                  </h3>
-
-                  <p className="mt-0.5 text-[11px] text-slate-500 font-medium">
-                    {item.tag}
-                  </p>
-                </Link>
-              )
-            })}
-          </div>
-
-          {/* Ecosystem Trust & Spec Bar */}
-          <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-4.5 rounded-xl bg-slate-50/80 border border-slate-200/80 shadow-2xs">
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-600">
-              <span className="flex items-center gap-2">
-                <span className="size-2 rounded-xs bg-emerald-500 inline-block" />
-                <span className="font-bold text-slate-900">50+ Enterprise Connectors</span>
-              </span>
-              <span className="text-slate-300">·</span>
-              <span>Sub-120ms Event Relay</span>
-              <span className="text-slate-300 hidden md:inline">·</span>
-              <span className="hidden md:inline">OpenAPI 3.1 & SDKs</span>
-              <span className="text-slate-300 hidden lg:inline">·</span>
-              <span className="hidden lg:inline text-purple-700 font-semibold">Model Context Protocol</span>
-            </div>
-
-            <Link
-              to="/integrations"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
-            >
-              <span>Explore all integrations & developer specs</span>
-              <ArrowRight className="size-3.5" />
-            </Link>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.55, ease: easeOutCurve }}
+            className="mt-8 sm:mt-10"
+          >
+            <IntegrationsCarousel />
+          </motion.div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          6. SOLUTIONS BY TEAM & COMPANY STAGE
+          7. SOLUTIONS BY TEAM & COMPANY STAGE
          ───────────────────────────────────────────────────────────── */}
-      <section id="solutions" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
+      <section id="solutions" className="py-10 sm:py-14 lg:py-16 bg-slate-50/70 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="OPERATIONAL SOLUTIONS"
@@ -800,26 +752,28 @@ export function MarketingHomePage() {
             description="Discover how PulseQuo aligns specifically with your team’s KPIs and operational priorities."
           />
 
-          <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {growthSolutions.map((sol, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.45, delay: idx * 0.05, ease: easeOutCurve }}
-                className="rounded-xl border border-slate-200 bg-white p-5 sm:p-5.5 hover:border-slate-300 hover:shadow-xs transition-all duration-200 flex flex-col justify-between group"
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.45, delay: idx * 0.06, ease: easeOutCurve }}
+                className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 hover:border-blue-400 hover:shadow-sm transition-all duration-200 flex flex-col justify-between group"
               >
                 <div>
-                  <div className={`flex size-9 items-center justify-center rounded-lg ${sol.iconBg} mb-3.5`}>
+                  <div className={`flex size-9 items-center justify-center rounded-lg border ${sol.iconBg} mb-3.5 group-hover:scale-105 transition-transform`}>
                     <sol.icon className="size-4.5" />
                   </div>
-                  <h3 className="text-base font-bold text-slate-900">{sol.title}</h3>
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                    {sol.title}
+                  </h3>
                   <p className="mt-1.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
                     {sol.description}
                   </p>
                 </div>
-                <Link to={sol.link} className={`mt-4 inline-flex items-center gap-1.5 text-xs font-semibold ${sol.textColor}`}>
+                <Link to={sol.link} className={`mt-5 inline-flex items-center gap-1.5 text-xs font-semibold ${sol.textColor}`}>
                   <span>{sol.linkText}</span> <ArrowRight className="size-3.5" />
                 </Link>
               </motion.div>
@@ -829,20 +783,23 @@ export function MarketingHomePage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.45, delay: 5 * 0.05, ease: easeOutCurve }}
-              className="rounded-xl border border-blue-950 bg-[#070d24] text-white p-5 sm:p-5.5 flex flex-col justify-between shadow-sm"
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.45, delay: 5 * 0.06, ease: easeOutCurve }}
+              className="rounded-xl border border-blue-950 bg-[#070d24] text-white p-5 sm:p-6 flex flex-col justify-between shadow-sm relative overflow-hidden group"
             >
+              <div className="absolute top-0 right-0 size-32 bg-blue-600/10 rounded-full blur-2xl pointer-events-none" />
               <div>
                 <span className="text-xs font-mono text-purple-400 font-semibold block mb-1.5">Custom Architecture</span>
-                <h3 className="text-lg font-bold text-white">Explore all solutions</h3>
+                <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                  Explore all solutions
+                </h3>
                 <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
                   See how PulseQuo integrates with your specific industry stack, data warehouse, and technical compliance needs.
                 </p>
               </div>
               <Link
                 to="/solutions"
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 hover:text-white transition-colors"
+                className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 hover:text-white transition-colors"
               >
                 <span>Browse all use cases</span> <ArrowRight className="size-3.5" />
               </Link>
@@ -852,57 +809,32 @@ export function MarketingHomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          7. VERIFIED CUSTOMER IMPACT STORIES (NO STAR RATINGS)
+          8. VERIFIED CUSTOMER IMPACT TESTIMONIALS CAROUSEL
          ───────────────────────────────────────────────────────────── */}
-      <section id="reviews" className="py-6 sm:py-8 lg:py-10 bg-white">
+      <section id="reviews" className="py-10 sm:py-14 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="CUSTOMER STORIES"
-            title="Trusted by Fast-Growing Companies"
-            description="See how enterprise teams rely on PulseQuo every day to drive revenue and deliver stellar customer support."
+            badge="CUSTOMER STORIES & TESTIMONIALS"
+            title="Trusted by Fast-Growing Enterprise Leaders"
+            description="See how enterprise teams rely on PulseQuo every day to accelerate revenue and deliver stellar customer support."
           />
 
-          <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-            {customerReviews.map((rev, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.45, delay: i * 0.08, ease: easeOutCurve }}
-                className="rounded-xl bg-slate-50/60 border border-slate-200 p-5 shadow-xs hover:border-slate-300 hover:bg-white hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="mb-2.5">
-                    <span className="text-xs font-bold text-blue-600 font-mono bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-sm">
-                      {rev.metric}
-                    </span>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
-                    “{rev.text}”
-                  </p>
-                </div>
-
-                <div className="mt-4 pt-3.5 border-t border-slate-200/70 flex items-center gap-2.5">
-                  <div className="size-8 rounded-lg bg-slate-900 text-white font-semibold text-xs flex items-center justify-center shadow-2xs">
-                    {rev.avatar}
-                  </div>
-                  <div>
-                    <h5 className="text-xs sm:text-sm font-bold text-slate-900">{rev.name}</h5>
-                    <p className="text-[11px] text-slate-500">{rev.role}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.55, ease: easeOutCurve }}
+            className="mt-8 sm:mt-10"
+          >
+            <TestimonialsCarousel />
+          </motion.div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          8. TRANSPARENT PRICING PLANS
+          9. TRANSPARENT PRICING PLANS
          ───────────────────────────────────────────────────────────── */}
-      <section id="pricing" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
+      <section id="pricing" className="py-10 sm:py-14 lg:py-16 bg-slate-50/70 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="FLEXIBLE PRICING"
@@ -910,26 +842,35 @@ export function MarketingHomePage() {
             description="Predictable pricing with no hidden seat fees. Start with a 14-day free trial or contact us for bespoke enterprise clusters."
           />
 
-          <div className="mt-6 sm:mt-8">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.55, ease: easeOutCurve }}
+            className="mt-8 sm:mt-10"
+          >
             <PricingCards defaultAnnual={true} showAdditionalSupport={false} />
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          9. FREQUENTLY ASKED QUESTIONS (SPLIT TWO-COLUMN LAYOUT)
+          10. FREQUENTLY ASKED QUESTIONS (SPLIT TWO-COLUMN LAYOUT)
          ───────────────────────────────────────────────────────────── */}
-      <section id="faqs" className="py-6 sm:py-8 lg:py-10 bg-white">
+      <section id="faqs" className="py-10 sm:py-14 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left Column: Heading, Subhead & Contact Action */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, ease: easeOutCurve }}
               className="lg:col-span-5 lg:sticky lg:top-28"
             >
+              <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                <span>Frequently Asked Questions</span>
+              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
                 Everything you need to know
               </h2>
@@ -938,7 +879,7 @@ export function MarketingHomePage() {
               </p>
 
               {/* Consultation Card */}
-              <div className="mt-8 p-5 rounded-xl bg-white border border-slate-200 shadow-2xs">
+              <div className="mt-8 p-5 sm:p-6 rounded-xl bg-slate-50/80 border border-slate-200 shadow-2xs">
                 <h4 className="text-sm font-bold text-slate-900">Have questions about your setup?</h4>
                 <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
                   Our solution engineers can review your existing telecom routes, WhatsApp templates, and CRM integration requirements.
@@ -953,9 +894,9 @@ export function MarketingHomePage() {
               </div>
             </motion.div>
 
-            {/* Right Column: All FAQs in a Single Bordered Flexbox Container */}
+            {/* Right Column: All FAQs in a Single Bordered Container */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: 0.1, ease: easeOutCurve }}
@@ -974,7 +915,7 @@ export function MarketingHomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          9. FINAL HIGH-CONVERTING CLOSING CTA
+          11. FINAL HIGH-CONVERTING CLOSING CTA
          ───────────────────────────────────────────────────────────── */}
       <CTASection
         id="get-started"
