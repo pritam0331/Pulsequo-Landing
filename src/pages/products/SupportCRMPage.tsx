@@ -1,40 +1,131 @@
 /**
  * Product Detail Page: Customer Support CRM
  * Route: /products/support-crm
+ * Fully fledged Shiprocket-inspired landing page with Card Fanout, Brand Carousel, Testimonial Carousel, and Ambient Background.
  */
 
 import { Link } from 'react-router'
+import { motion } from 'motion/react'
 import {
-  Headphones,
   CheckCircle2,
   CalendarCheck,
   ArrowRight,
   Clock,
   Users,
+  Bot,
+  MessageSquare,
 } from 'lucide-react'
 import { SEO } from '../../components/common/SEO'
 import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { SectionHeading } from '../../components/common/SectionHeading'
+import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
+import { BrandCarousel } from '../../components/common/BrandCarousel'
+import { CardFanout, type FanoutCard } from '../../components/common/CardFanout'
+import { TestimonialsCarousel } from '../../components/common/TestimonialsCarousel'
 import { CTASection } from '../../components/common/CTASection'
 import { FAQAccordion } from '../../components/common/FAQAccordion'
-import { ScrollReveal, StaggerItem } from '../../components/common/ScrollReveal'
 import { productsData } from '../../data/products'
 import { siteConfig } from '../../config/siteConfig'
+
+const easeOutCurve = [0.22, 1, 0.36, 1] as const
+
+const supportFanoutCards: FanoutCard[] = [
+  {
+    id: 'sla-timer',
+    category: 'SLA Response Enforcement',
+    title: 'VIP Ticket · 03m 18s SLA Countdown',
+    subtitle: 'NovaHealth · Premium Patient Queue',
+    badge: 'Urgent SLA (15m)',
+    badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
+    icon: Clock,
+    iconColor: 'text-rose-600',
+    iconBg: 'bg-rose-50 border-rose-200',
+    description: 'Enforceable SLA timer countdown. Automatically escalates to tier-2 team lead if first response exceeds 15 minutes.',
+    metric: '< 45s',
+    metricLabel: 'First Response Time',
+    channel: 'Priority Helpdesk Queue',
+    channelIconColor: 'text-rose-500',
+    timestamp: 'Active now',
+    accentBorder: 'hover:border-rose-500',
+    gradientHeader: 'from-rose-600 to-amber-600',
+  },
+  {
+    id: 'ai-deflection',
+    category: 'Autonomous Ticket Deflection',
+    title: 'Tier-1 Support Sentinel Bot',
+    subtitle: 'Order Tracking & Return Request',
+    badge: '78% Autonomous',
+    badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
+    icon: Bot,
+    iconColor: 'text-purple-600',
+    iconBg: 'bg-purple-50 border-purple-200',
+    description: 'AI agent looked up courier tracking status via Bluedart API, generated instant return label, and closed inquiry with zero human agent workload.',
+    metric: '78%',
+    metricLabel: 'Autonomous Resolution',
+    channel: 'PulseQuo AI Support Bot',
+    channelIconColor: 'text-purple-500',
+    timestamp: '2m ago',
+    accentBorder: 'hover:border-purple-500',
+    gradientHeader: 'from-purple-600 to-indigo-600',
+  },
+  {
+    id: 'unified-inbox',
+    category: 'Omnichannel Ticket Consolidation',
+    title: 'Customer #9021 Continuous History',
+    subtitle: 'WhatsApp + Website Live Chat + Email',
+    badge: 'Single Thread',
+    badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+    icon: MessageSquare,
+    iconColor: 'text-blue-600',
+    iconBg: 'bg-blue-50 border-blue-200',
+    description: 'Agent has complete conversational timeline, purchase receipts, and past support tickets unified in one single screen.',
+    metric: '4.9 / 5',
+    metricLabel: 'Verified CSAT Score',
+    channel: 'Unified Support Console',
+    channelIconColor: 'text-blue-500',
+    timestamp: '10m ago',
+    accentBorder: 'hover:border-blue-500',
+    gradientHeader: 'from-blue-600 to-teal-600',
+  },
+  {
+    id: 'skill-routing',
+    category: 'Intelligent Agent Work Distribution',
+    title: 'Skill-Based Routing Engine',
+    subtitle: 'Technical Escalation · Kubernetes Pods',
+    badge: 'Assigned in 2s',
+    badgeColor: 'bg-violet-50 text-violet-700 border-violet-200',
+    icon: Users,
+    iconColor: 'text-violet-600',
+    iconBg: 'bg-violet-50 border-violet-200',
+    description: 'Matches incoming issue keywords with certified solution architects, preventing misrouted tickets and repetitive customer explanations.',
+    metric: '94%',
+    metricLabel: 'First Contact Resolution',
+    channel: 'Smart Router Engine',
+    channelIconColor: 'text-violet-500',
+    timestamp: '18m ago',
+    accentBorder: 'hover:border-violet-500',
+    gradientHeader: 'from-violet-600 to-purple-600',
+  },
+]
 
 export function SupportCRMPage() {
   const product = productsData['support-crm']
 
   return (
-    <div className="relative">
+    <div className="relative bg-white text-slate-900 selection:bg-violet-600 selection:text-white">
       <SEO
         title="Customer Support CRM · Omnichannel Ticketing & Helpdesk | PulseQuo"
         description="Deliver customer support that builds loyalty. Manage customer queries, support tickets, SLA alerts, and omnichannel conversations through one centralized support platform."
         canonicalPath="/products/support-crm"
       />
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-violet-50/70 via-white to-white pt-10 pb-20 sm:pt-16 sm:pb-28 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ─────────────────────────────────────────────────────────────
+          1. HERO SECTION: AMBIENT LIGHTING & TELEMETRY
+         ───────────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-white pt-10 pb-16 sm:pt-14 sm:pb-20 border-b border-slate-100">
+        <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs
             items={[
               { label: 'Products', href: '/#platform-overview' },
@@ -44,17 +135,25 @@ export function SupportCRMPage() {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <ScrollReveal direction="up" className="lg:col-span-7">
-              <span className="inline-flex items-center gap-1.5 rounded-md bg-violet-100/80 border border-violet-200 px-3 py-1 text-xs font-semibold text-violet-800 mb-6">
-                <Headphones className="size-3.5 text-violet-600" />
-                <span>Omnichannel Helpdesk & Ticket Lifecycle</span>
-              </span>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: easeOutCurve }}
+              className="lg:col-span-7"
+            >
+              <div className="inline-flex items-center gap-2 rounded-full bg-violet-50 border border-violet-200/90 px-3.5 py-1 text-xs font-semibold text-violet-800 mb-6 shadow-2xs">
+                <span className="flex size-2 rounded-full bg-violet-600 animate-pulse" />
+                <span>Omnichannel Helpdesk & Ticket SLA Engine</span>
+              </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.03em] leading-[1.08]">
-                Deliver customer support that drives resolution.
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
+                Deliver customer support that{' '}
+                <span className="bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-700 bg-clip-text text-transparent">
+                  drives resolution.
+                </span>
               </h1>
 
-              <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+              <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal">
                 Manage customer queries, support tickets, agents, and multi-channel conversations through one centralized
                 support platform. Enforce rigorous SLA standards, automate Tier-1 resolutions, and co-pilot agents with
                 intelligent knowledge bases.
@@ -63,7 +162,7 @@ export function SupportCRMPage() {
               <div className="mt-8 flex flex-col sm:flex-row items-center gap-3.5">
                 <Link
                   to="/book-demo?product=Support+CRM"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 rounded-lg transition-colors shadow-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 rounded-xl transition-all shadow-md shadow-violet-500/20"
                 >
                   <CalendarCheck className="size-4" />
                   <span>Request support CRM demo</span>
@@ -71,14 +170,14 @@ export function SupportCRMPage() {
 
                 <a
                   href={siteConfig.appUrl}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors shadow-2xs"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl transition-all shadow-2xs"
                 >
                   <span>Explore app</span>
                   <ArrowRight className="size-4" />
                 </a>
               </div>
 
-              <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-slate-200/80 pt-6 text-xs text-slate-600">
+              <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-slate-200/80 pt-6 text-xs font-medium text-slate-600">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
                   <span>SLA Response Timers</span>
@@ -92,240 +191,160 @@ export function SupportCRMPage() {
                   <span>Searchable Knowledge Base</span>
                 </div>
               </div>
-            </ScrollReveal>
+            </motion.div>
 
             {/* Support Helpdesk Mockup Preview */}
-            <ScrollReveal direction="left" delay={0.2} className="lg:col-span-5">
-              <div className="rounded-3xl border border-slate-800/80 bg-[#020618] p-6 text-white shadow-2xl">
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.55, delay: 0.15, ease: easeOutCurve }}
+              className="lg:col-span-5"
+            >
+              <div className="rounded-2xl border border-slate-800/80 bg-[#020618] p-6 text-white shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-indigo-500 to-rose-400" />
                 <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <span className="text-xs font-bold text-slate-200 font-mono">Live Ticket Queue</span>
-                  <span className="rounded-md bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 text-[10px] font-mono">
-                    SLA Compliance: 99.2%
+                  <div className="flex items-center gap-2">
+                    <span className="size-2 rounded-xs bg-rose-500 animate-pulse" />
+                    <span className="text-xs font-bold text-slate-200 font-mono">SLA Response Countdown</span>
+                  </div>
+                  <span className="rounded-md bg-rose-950/80 text-rose-300 px-2 py-0.5 text-xs font-mono font-bold border border-rose-800">
+                    03m : 18s left
                   </span>
                 </div>
 
-                <div className="mt-4 space-y-3 font-sans text-xs">
-                  <div className="rounded-xl bg-slate-900 border border-rose-900/60 p-3">
-                    <div className="flex justify-between items-center">
-                      <span className="font-mono text-blue-400">#TK-4092</span>
-                      <span className="rounded bg-rose-950 text-rose-300 border border-rose-800 px-1.5 py-0.5 text-[10px]">
-                        Urgent · WhatsApp
-                      </span>
+                <div className="mt-4 space-y-3 font-mono text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+                    <div className="flex justify-between items-center text-[11px] text-slate-400">
+                      <span>Ticket #4920 · WhatsApp</span>
+                      <span className="text-emerald-400 font-semibold">Active Agent: Sarah</span>
                     </div>
-                    <p className="mt-1.5 font-bold text-white">Payment confirmation webhook timeout</p>
-                    <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                      <span className="text-emerald-400 font-mono">FRT Target: 12 min left</span>
-                      <span>Assigned: Tier-2 Eng</span>
+                    <p className="mt-1 text-slate-200 font-sans text-xs">Order delayed in transit · Bluedart AWB BD-99201</p>
+                    <div className="mt-2.5 flex items-center justify-between text-[11px] text-slate-500 font-sans">
+                      <span>Customer: Vikramaditya Roy</span>
+                      <span className="text-violet-400">View Timeline →</span>
                     </div>
                   </div>
 
-                  <div className="rounded-xl bg-slate-900 border border-slate-800 p-3">
-                    <div className="flex justify-between items-center">
-                      <span className="font-mono text-blue-400">#TK-4089</span>
-                      <span className="rounded bg-blue-950 text-blue-300 border border-blue-800 px-1.5 py-0.5 text-[10px]">
-                        Normal · Live Chat
-                      </span>
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+                    <div className="flex justify-between items-center text-[11px] text-slate-400">
+                      <span>Ticket #4918 · Webhook Event</span>
+                      <span className="text-purple-400 font-semibold">AI Handled (1.2s)</span>
                     </div>
-                    <p className="mt-1.5 font-bold text-white">Updating team seat permissions</p>
-                    <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                      <span className="text-slate-300">Resolved by AI Assistant</span>
-                      <span className="text-emerald-400">CSAT: 5/5 ★</span>
+                    <p className="mt-1 text-slate-200 font-sans text-xs">Address update request · Validated and synced</p>
+                    <div className="mt-2.5 flex items-center justify-between text-[11px] text-slate-500 font-sans">
+                      <span>Customer: Aditi Sharma</span>
+                      <span className="text-emerald-400 font-mono">Status: Resolved</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-                  <span>Omnichannel Helpdesk Active</span>
-                  <span className="text-violet-400 font-mono">3 Agents Online</span>
+                <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+                  <span>Queued: 9 · Active: 14</span>
+                  <span className="text-emerald-400 font-bold">Resolved Today: 52</span>
                 </div>
               </div>
-            </ScrollReveal>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Modules */}
-      <section className="py-20 sm:py-28 bg-white">
+      {/* ─────────────────────────────────────────────────────────────
+          2. BRAND TRUST MARQUEE CAROUSEL
+         ───────────────────────────────────────────────────────────── */}
+      <BrandCarousel />
+
+      {/* ─────────────────────────────────────────────────────────────
+          3. SHIPROCKET-INSPIRED CARD FANOUT SHOWCASE
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="Helpdesk Capabilities"
-            title="Engineered for First-Contact Resolution"
-            description="Manage tickets, monitor team workloads, and empower agents with instant contextual intelligence."
+          <CardFanout
+            cards={supportFanoutCards}
+            headline="Omnichannel Support Tickets & SLA Workflows"
+            subheadline="Inspect how priority tickets, SLA countdowns, and automated deflection bots resolve inquiries faster while maintaining 4.9/5 CSAT scores."
+            badgeText="SHIPROCKET-INSPIRED SUPPORT HELPDESK"
           />
-
-          <div className="mt-16 space-y-16">
-            {/* A. Ticket Lifecycle */}
-            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
-              <div className="lg:col-span-5">
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 mb-4">
-                  <Headphones className="size-6" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900">Multi-Channel Ticket Lifecycle</h3>
-                <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  Automatically convert customer messages from WhatsApp, email, website chat widgets, and SMS into
-                  structured support tickets with custom categories, severity levels, and priority tags.
-                </p>
-              </div>
-
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Automatic Ticket Threading</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Customer follow-ups automatically attach to existing open tickets to prevent duplicate tickets.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Configurable Priorities</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Classify issues into Low, Medium, High, or Urgent with distinct escalation timers.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Skill-Based Work Queues</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Route technical bug reports to engineering and billing queries to finance automatically.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Audit Trail & Timeline</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Detailed chronological timeline of status transitions, agent reassignments, and notes.
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* B. SLA Management & Knowledge Base */}
-            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-100 pb-16">
-              <div className="lg:col-span-5">
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-4">
-                  <Clock className="size-6" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900">SLA Enforcement & Knowledge Base</h3>
-                <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  Establish contractual Service Level Agreements (SLAs) for First Response Time (FRT) and Resolution Time.
-                  Ground AI bots and human agents with searchable documentation to deflect repetitive questions.
-                </p>
-              </div>
-
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Target Response Timers</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Visual countdown badges warn agents before SLA deadlines breach contractual limits.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Markdown Knowledge Library</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Maintain FAQs, user manuals, and technical runbooks easily searchable by agents.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">AI Self-Service Deflection</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    AI bots answer standard inquiries using knowledge documentation without human agent intervention.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Internal Agent Playbooks</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Private internal documentation ensures consistent troubleshooting steps across team members.
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* C. Agent Collaboration & Customer History */}
-            <ScrollReveal direction="up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              <div className="lg:col-span-5">
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 mb-4">
-                  <Users className="size-6" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900">Agent Collaboration & History</h3>
-                <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  Support agents co-pilot with AI, consult colleagues via private internal notes, and inspect the
-                  customer’s comprehensive purchase and ticket history at a glance.
-                </p>
-              </div>
-
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Private Internal Notes</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Discuss complex issues and tag engineering teammates without exposing notes to customers.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Unified Customer History</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    See previous purchases, past tickets, and conversation transcripts on a single pane.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Agent Availability States</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Track Active, Away, and Offline statuses to prevent unassigned ticket backlogs.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200/80 p-5 bg-slate-50/50">
-                  <h4 className="text-sm font-bold text-slate-900">Support Productivity Telemetry</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Granular reporting on Average Handle Time (AHT) and First Contact Resolution (FCR).
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-20 bg-slate-50 border-y border-slate-200/80">
+      {/* ─────────────────────────────────────────────────────────────
+          4. CUSTOMER TESTIMONIALS CAROUSEL
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Measurable Support Outcomes"
-            title="Why Support Leaders Choose PulseQuo Helpdesk"
-            description="Lower resolution latency while building lasting customer relationships."
+            badge="PROVEN CUSTOMER SATISFACTION"
+            title="Trusted by World-Class Support Teams"
+            description="Achieve 78% autonomous deflection and sub-45s response latency across every channel."
           />
 
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.55, ease: easeOutCurve }}
+            className="mt-8 sm:mt-10"
+          >
+            <TestimonialsCarousel />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          5. BENEFITS MATRIX
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-white border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            badge="Tangible Business Impact"
+            title="Why Support Leaders Choose PulseQuo"
+            description="Eliminate ticket backlogs and empower support agents with synchronized intelligence."
+          />
+
+          <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {product.benefits.map((benefit, i) => (
-              <StaggerItem
+              <motion.div
                 key={i}
-                index={i}
-                className="rounded-2xl bg-white border border-slate-200/90 p-6 shadow-xs hover:border-violet-300 hover:shadow-md transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.45, delay: i * 0.08, ease: easeOutCurve }}
+                className="rounded-2xl bg-white border border-slate-200/90 p-6 shadow-xs hover:border-violet-400 hover:shadow-md transition-all"
               >
                 <CheckCircle2 className="size-6 text-violet-600 mb-4" />
                 <h4 className="text-base font-bold text-slate-900">{benefit.title}</h4>
-                <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">{benefit.description}</p>
-              </StaggerItem>
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">{benefit.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQs */}
-      <section className="py-20 bg-white">
+      {/* ─────────────────────────────────────────────────────────────
+          6. PRODUCT FAQS
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Helpdesk FAQs"
-            title="Customer Support CRM Questions Answered"
-            description="Details on ticket routing, SLA configurations, and bot-to-agent handover."
+            badge="Product FAQs"
+            title="Support CRM Questions Answered"
+            description="Common technical and implementation questions regarding ticketing channels and SLA timers."
           />
 
-          <div className="mt-12">
-            <FAQAccordion items={product.faqs.map((f, i) => ({ id: `support-faq-${i}`, ...f, category: 'CRM' }))} />
+          <div className="mt-10 sm:mt-12">
+            <FAQAccordion items={product.faqs.map((f, i) => ({ id: `support-faq-${i}`, ...f, category: 'CRM' as const }))} />
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ─────────────────────────────────────────────────────────────
+          7. CLOSING CTA
+         ───────────────────────────────────────────────────────────── */}
       <CTASection
-        headline="Ready to Upgrade Your Customer Support?"
-        subheadline="Schedule a demo of PulseQuo Customer Support CRM and see how multi-channel ticketing and SLA tracking can empower your support team."
-        primaryCtaText="Explore Support CRM"
-        secondaryCtaText="Book a Demo"
+        headline="Ready to Elevate Your Support Experience?"
+        subheadline="Centralize WhatsApp, live chat, and email tickets into a synchronized support workspace with strict SLA enforcement."
+        primaryCtaText="Get Started"
+        secondaryCtaText="Request Support Demo"
         secondaryCtaHref="/book-demo?product=Support+CRM"
       />
     </div>

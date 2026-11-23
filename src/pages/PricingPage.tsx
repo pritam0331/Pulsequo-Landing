@@ -3,7 +3,8 @@
  * Route: /pricing
  * Features modern tiered pricing cards (Starter, Growth, Enterprise),
  * interactive annual discount toggle (20% off), concierge support card,
- * detailed feature comparison matrix, and licensing FAQs.
+ * detailed feature comparison matrix, Brand Carousel, Testimonial Carousel,
+ * and licensing FAQs.
  */
 
 import { Fragment } from 'react'
@@ -11,14 +12,19 @@ import {
   Check,
   Minus,
 } from 'lucide-react'
+import { motion } from 'motion/react'
 import { SEO } from '../components/common/SEO'
 import { Breadcrumbs } from '../components/common/Breadcrumbs'
 import { SectionHeading } from '../components/common/SectionHeading'
+import { BackgroundAnimation } from '../components/common/BackgroundAnimation'
+import { BrandCarousel } from '../components/common/BrandCarousel'
+import { TestimonialsCarousel } from '../components/common/TestimonialsCarousel'
 import { CTASection } from '../components/common/CTASection'
 import { FAQAccordion } from '../components/common/FAQAccordion'
-import { ScrollReveal } from '../components/common/ScrollReveal'
 import { PricingCards } from '../components/pricing/PricingCards'
 import { pricingComparisonCategories } from '../data/pricing'
+
+const easeOutCurve = [0.22, 1, 0.36, 1] as const
 
 export function PricingPage() {
   const pricingFaqs = [
@@ -60,146 +66,188 @@ export function PricingPage() {
   ]
 
   return (
-    <div className="relative">
+    <div className="relative bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
       <SEO
         title="Pricing & Plans | PulseQuo Customer Experience Platform"
         description="Transparent pricing with Starter ($23/mo), Growth ($63/mo, Most Popular), and Enterprise custom tiers. Save 20% on annual billing."
         canonicalPath="/pricing"
       />
 
-      {/* Hero Header */}
-      <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
-        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      {/* ─────────────────────────────────────────────────────────────
+          1. HERO HEADER: AMBIENT LIGHTING & STAGGERED FADE-IN
+         ───────────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-white pt-10 pb-16 sm:pt-14 sm:pb-20 border-b border-slate-100">
+        <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <Breadcrumbs items={[{ label: 'Pricing' }]} className="justify-center mb-6" />
 
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-800 mb-6">
-            <span>Simple, Transparent Pricing</span>
-          </span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: easeOutCurve }}
+          >
+            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/90 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6 shadow-2xs">
+              <span className="flex size-2 rounded-full bg-blue-600 animate-pulse" />
+              <span>Predictable Pricing with Zero Hidden Seat Charges</span>
+            </div>
 
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Plans Built for Every Stage of Your Growth
-          </h1>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
+              Plans built for every stage of your{' '}
+              <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
+                growth.
+              </span>
+            </h1>
 
-          <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed">
-            From small business automation to multi-channel enterprise scale. Enjoy predictable pricing, instant sandbox
-            trials, and 20% savings on annual subscriptions.
-          </p>
-        </ScrollReveal>
+            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              From fast-growing commerce stores to multi-channel global enterprises. Enjoy predictable pricing, instant sandbox
+              trials, and 20% savings on annual subscriptions.
+            </p>
+          </motion.div>
+        </div>
       </section>
 
-      {/* Main Pricing Cards Section */}
-      <section className="py-8 sm:py-10 lg:py-12 bg-white">
+      {/* ─────────────────────────────────────────────────────────────
+          2. BRAND TRUST MARQUEE CAROUSEL
+         ───────────────────────────────────────────────────────────── */}
+      <BrandCarousel />
+
+      {/* ─────────────────────────────────────────────────────────────
+          3. MAIN PRICING CARDS SECTION
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <PricingCards defaultAnnual={true} />
         </div>
       </section>
 
-      {/* Feature Comparison Table */}
-      <section className="py-8 sm:py-10 lg:py-12 bg-slate-50 border-t border-slate-200/80">
-        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ─────────────────────────────────────────────────────────────
+          4. CUSTOMER TESTIMONIALS CAROUSEL
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-slate-50/70 border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Detailed Matrix"
-            title="Comprehensive Feature Comparison"
-            description="Compare detailed capabilities, limits, channels, and governance across Starter, Growth, and Enterprise."
+            badge="PROVEN VALUE"
+            title="Trusted by High-Growth Companies Worldwide"
+            description="See why leading brands choose PulseQuo over legacy point solutions."
           />
 
-          <div className="mt-8 flex justify-end md:hidden">
-            <span className="text-[11px] font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
-              👉 Swipe horizontally to compare all 3 plans
-            </span>
-          </div>
-
-          <div className="mt-4 md:mt-12 overflow-x-auto no-scrollbar">
-            <div className="min-w-[720px] rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-xs">
-              <table className="w-full text-left text-xs">
-                <thead>
-                  <tr className="border-b border-slate-200 bg-slate-100/70 text-slate-700 font-bold">
-                    <th className="p-4 sm:p-5 w-2/5 text-sm font-extrabold text-slate-900">Feature / Capability</th>
-                    <th className="p-4 sm:p-5 text-center text-sm font-bold text-slate-800">Starter</th>
-                    <th className="p-4 sm:p-5 text-center text-sm font-black bg-blue-50/80 text-blue-700 border-x border-blue-200/60">
-                      Growth (Popular)
-                    </th>
-                    <th className="p-4 sm:p-5 text-center text-sm font-bold text-slate-800">Enterprise</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 text-slate-700">
-                  {pricingComparisonCategories.map((group) => (
-                    <Fragment key={group.category}>
-                      <tr className="bg-slate-50/80 font-bold text-slate-900">
-                        <td colSpan={4} className="px-5 py-3 uppercase tracking-wider text-[11px] text-slate-500">
-                          {group.category}
-                        </td>
-                      </tr>
-                      {group.features.map((row) => (
-                        <tr key={row.name} className="hover:bg-slate-50/50 transition-colors">
-                          <td className="p-4 sm:px-5 font-medium text-slate-900">{row.name}</td>
-                          <td className="p-4 text-center">
-                            {typeof row.starter === 'boolean' ? (
-                              row.starter ? (
-                                <Check className="size-4 text-emerald-600 mx-auto" />
-                              ) : (
-                                <Minus className="size-4 text-slate-300 mx-auto" />
-                              )
-                            ) : (
-                              <span className="text-[11px] font-semibold text-slate-600">{row.starter}</span>
-                            )}
-                          </td>
-                          <td className="p-4 text-center bg-blue-50/40 border-x border-blue-100 font-semibold text-blue-900">
-                            {typeof row.growth === 'boolean' ? (
-                              row.growth ? (
-                                <Check className="size-4 text-blue-600 mx-auto font-bold" />
-                              ) : (
-                                <Minus className="size-4 text-slate-300 mx-auto" />
-                              )
-                            ) : (
-                              <span className="text-[11px] font-bold text-blue-700">{row.growth}</span>
-                            )}
-                          </td>
-                          <td className="p-4 text-center">
-                            {typeof row.enterprise === 'boolean' ? (
-                              row.enterprise ? (
-                                <Check className="size-4 text-emerald-600 mx-auto" />
-                              ) : (
-                                <Minus className="size-4 text-slate-300 mx-auto" />
-                              )
-                            ) : (
-                              <span className="text-[11px] font-semibold text-slate-800">{row.enterprise}</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </Fragment>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </ScrollReveal>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.55, ease: easeOutCurve }}
+            className="mt-8 sm:mt-10"
+          >
+            <TestimonialsCarousel />
+          </motion.div>
+        </div>
       </section>
 
-      {/* Pricing FAQs */}
-      <section className="py-8 sm:py-10 lg:py-12 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ─────────────────────────────────────────────────────────────
+          5. FEATURE COMPARISON TABLE
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-white border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Pricing FAQs"
-            title="Frequently Asked Questions About Plans"
-            description="Clear answers regarding billing, conversation quotas, channel additions, and enterprise SLAs."
+            badge="Detailed Comparison"
+            title="Compare Plan Features & Limits"
+            description="Everything included in our plans at a glance. No hidden surprises."
           />
 
-          <div className="mt-12">
+          <div className="mt-12 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs">
+            <table className="w-full text-left text-sm text-slate-700 min-w-[640px]">
+              <thead className="bg-slate-50/80 text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200">
+                <tr>
+                  <th className="py-4 px-6 w-2/5">Feature</th>
+                  <th className="py-4 px-6 text-center w-1/5">Starter</th>
+                  <th className="py-4 px-6 text-center w-1/5 text-blue-600 bg-blue-50/50">Growth (Most Popular)</th>
+                  <th className="py-4 px-6 text-center w-1/5">Enterprise</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {pricingComparisonCategories.map((category) => (
+                  <Fragment key={category.category}>
+                    <tr className="bg-slate-100/70 font-mono text-xs uppercase tracking-wider font-bold text-slate-700">
+                      <td colSpan={4} className="py-2.5 px-6">
+                        {category.category}
+                      </td>
+                    </tr>
+                    {category.features.map((feature) => (
+                      <tr key={feature.name} className="hover:bg-slate-50/50 transition-colors">
+                        <td className="py-3 px-6 font-medium text-slate-800 text-xs sm:text-sm">
+                          {feature.name}
+                        </td>
+                        <td className="py-3 px-6 text-center text-xs">
+                          {typeof feature.starter === 'boolean' ? (
+                            feature.starter ? (
+                              <Check className="size-4 text-emerald-600 mx-auto" />
+                            ) : (
+                              <Minus className="size-4 text-slate-300 mx-auto" />
+                            )
+                          ) : (
+                            <span className="font-mono text-slate-600">{feature.starter}</span>
+                          )}
+                        </td>
+                        <td className="py-3 px-6 text-center text-xs bg-blue-50/20 font-medium">
+                          {typeof feature.growth === 'boolean' ? (
+                            feature.growth ? (
+                              <Check className="size-4 text-emerald-600 mx-auto" />
+                            ) : (
+                              <Minus className="size-4 text-slate-300 mx-auto" />
+                            )
+                          ) : (
+                            <span className="font-mono text-blue-600 font-bold">{feature.growth}</span>
+                          )}
+                        </td>
+                        <td className="py-3 px-6 text-center text-xs">
+                          {typeof feature.enterprise === 'boolean' ? (
+                            feature.enterprise ? (
+                              <Check className="size-4 text-emerald-600 mx-auto" />
+                            ) : (
+                              <Minus className="size-4 text-slate-300 mx-auto" />
+                            )
+                          ) : (
+                            <span className="font-mono text-slate-800 font-bold">{feature.enterprise}</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </Fragment>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          6. PRICING FAQS
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-slate-50/70 border-b border-slate-200/80">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            badge="Frequently Asked Questions"
+            title="Common Pricing & Licensing Inquiries"
+            description="Have questions about trial limits, carrier pass-through rates, or team seats? Find clear answers below."
+          />
+
+          <div className="mt-10 sm:mt-12">
             <FAQAccordion items={pricingFaqs} />
           </div>
         </div>
       </section>
 
-      {/* Final Closing CTA */}
+      {/* ─────────────────────────────────────────────────────────────
+          7. CLOSING CTA
+         ───────────────────────────────────────────────────────────── */}
       <CTASection
-        headline="Ready to Accelerate Your Customer Experience?"
-        subheadline="Join forward-thinking businesses using PulseQuo to unify omnichannel messaging, automate sales pipelines, and scale customer support with AI."
-        primaryCtaText="Start Free Trial"
+        headline="Still Have Questions About Our Enterprise Tiers?"
+        subheadline="Our solutions architects can configure a custom quote based on your exact monthly message volume, carrier routes, and dedicated SLA needs."
+        primaryCtaText="Schedule a Consultation"
         primaryCtaHref="/book-demo"
-        secondaryCtaText="Contact Sales Team"
-        secondaryCtaHref="/contact"
+        secondaryCtaText="Explore Developer APIs"
+        secondaryCtaHref="/developers"
       />
     </div>
   )

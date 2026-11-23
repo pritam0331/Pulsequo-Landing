@@ -41,6 +41,7 @@ import { SEO } from '../components/common/SEO'
 import { SectionHeading } from '../components/common/SectionHeading'
 import { BackgroundAnimation } from '../components/common/BackgroundAnimation'
 import { BrandCarousel } from '../components/common/BrandCarousel'
+import { CardFanout } from '../components/common/CardFanout'
 import { TestimonialsCarousel } from '../components/common/TestimonialsCarousel'
 import { IntegrationsCarousel } from '../components/common/IntegrationsCarousel'
 import { PlatformComposition } from '../components/common/PlatformComposition'
@@ -378,6 +379,19 @@ export function MarketingHomePage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          3.5. SHIPROCKET-INSPIRED INTERACTIVE CARD FANOUT SHOWCASE
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <CardFanout
+            headline="Delivery Tracking, AI Bots & Sales CRM in One Synced Stack"
+            subheadline="Experience the power of unified omnichannel architecture. Hover or tap any card to inspect how WhatsApp alerts, autonomous bots, and carrier OTPs dispatch in real time."
+            badgeText="SHIPROCKET-INSPIRED DYNAMIC FANOUT"
+          />
         </div>
       </section>
 

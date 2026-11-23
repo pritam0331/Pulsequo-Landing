@@ -38,6 +38,7 @@ import {
   ExternalLink,
   MessageSquare,
   Activity,
+  Sparkles,
 } from 'lucide-react'
 import { SEO } from '../../components/common/SEO'
 import { Breadcrumbs } from '../../components/common/Breadcrumbs'
@@ -45,6 +46,9 @@ import { SectionHeading } from '../../components/common/SectionHeading'
 import { CTASection } from '../../components/common/CTASection'
 import { FAQAccordion } from '../../components/common/FAQAccordion'
 import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
+import { BrandCarousel } from '../../components/common/BrandCarousel'
+import { CardFanout, type FanoutCard } from '../../components/common/CardFanout'
+import { TestimonialsCarousel } from '../../components/common/TestimonialsCarousel'
 import { siteConfig } from '../../config/siteConfig'
 import type { FAQItem } from '../../data/faqs'
 
@@ -182,6 +186,85 @@ interface McpServerSpec {
     sampleOutput: Record<string, unknown>
   }[]
 }
+
+const aiFanoutCards: FanoutCard[] = [
+  {
+    id: 'ai-lead-mcp',
+    category: 'Autonomous Conversational AI',
+    title: 'Inbound Lead Qualified via MCP',
+    subtitle: 'Claude 3.5 Sonnet · Enterprise RAG',
+    badge: '89% Autonomous',
+    badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
+    icon: Bot,
+    iconColor: 'text-purple-600',
+    iconBg: 'bg-purple-50 border-purple-200',
+    description: 'Extracted buyer intent and budget (₹2.4L/mo) conversationally on WhatsApp. Executed MCP tool to reserve slot on Google Calendar.',
+    metric: '< 1.4s',
+    metricLabel: 'Response Latency',
+    channel: 'Gemini & Claude RAG',
+    channelIconColor: 'text-purple-500',
+    timestamp: 'Just now',
+    accentBorder: 'hover:border-purple-500',
+    gradientHeader: 'from-purple-600 to-indigo-600',
+  },
+  {
+    id: 'support-sentinel',
+    category: 'Tier-1 Ticket Deflection',
+    title: 'Order Status & Return Sentinel',
+    subtitle: 'Bluedart Logistics MCP Server',
+    badge: 'Zero Hallucination',
+    badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    icon: Sparkles,
+    iconColor: 'text-emerald-600',
+    iconBg: 'bg-emerald-50 border-emerald-200',
+    description: 'Safely fetched courier tracking details via mTLS MCP bridge without hallucinating data. Generated instant WhatsApp return label.',
+    metric: '78%',
+    metricLabel: 'Auto Deflection',
+    channel: 'Logistics MCP Tool',
+    channelIconColor: 'text-emerald-500',
+    timestamp: '2m ago',
+    accentBorder: 'hover:border-emerald-500',
+    gradientHeader: 'from-emerald-600 to-teal-600',
+  },
+  {
+    id: 'salesforce-sync',
+    category: 'CRM Tool Execution',
+    title: 'Bi-Directional Opportunity Sync',
+    subtitle: 'CreateDeal · opp_crm_44120',
+    badge: '201 Created',
+    badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+    icon: Code2,
+    iconColor: 'text-blue-600',
+    iconBg: 'bg-blue-50 border-blue-200',
+    description: 'Autonomous agent updated 14 fields in Salesforce CRM with contact phone, estimated seats, and conversational summary notes.',
+    metric: '100%',
+    metricLabel: 'Schema Verification',
+    channel: 'Salesforce MCP Bridge',
+    channelIconColor: 'text-blue-500',
+    timestamp: '5m ago',
+    accentBorder: 'hover:border-blue-500',
+    gradientHeader: 'from-blue-600 to-indigo-600',
+  },
+  {
+    id: 'visual-flow',
+    category: 'Deterministic Journey',
+    title: 'Visual Flow Runtime Engine',
+    subtitle: 'Multi-Branch Conditional Routing',
+    badge: 'Live Active',
+    badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
+    icon: GitBranch,
+    iconColor: 'text-amber-600',
+    iconBg: 'bg-amber-50 border-amber-200',
+    description: 'Drag-and-drop conversational designer compiled to deterministic JSON. Deploys seamlessly to WhatsApp, SMS, and website live chat.',
+    metric: '0 Sprints',
+    metricLabel: 'Engineering Cost',
+    channel: 'Visual Flow Designer',
+    channelIconColor: 'text-amber-500',
+    timestamp: '12m ago',
+    accentBorder: 'hover:border-amber-500',
+    gradientHeader: 'from-amber-500 to-rose-500',
+  },
+]
 
 const mcpServers: McpServerSpec[] = [
   {
@@ -593,6 +676,21 @@ export function AIAutomationPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Brand Trust Marquee Carousel */}
+      <BrandCarousel />
+
+      {/* Shiprocket-Inspired Card Fanout */}
+      <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <CardFanout
+            cards={aiFanoutCards}
+            headline="Autonomous AI Agents & MCP Tools in Motion"
+            subheadline="Inspect how enterprise Claude & OpenAI models query real CRM databases, execute sandbox tools, and resolve tickets with zero hallucinations."
+            badgeText="SHIPROCKET-INSPIRED AI AGENT FANOUT"
+          />
         </div>
       </section>
 
@@ -1190,6 +1288,27 @@ export function AIAutomationPage() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Verified Customer Testimonials Carousel */}
+      <section className="py-16 sm:py-20 bg-white border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            badge="VERIFIED CUSTOMER ROI"
+            title="Trusted for Autonomous Customer AI"
+            description="Leading companies achieve 78% autonomous deflection and sub-2s response latency with zero hallucinations."
+          />
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.55, ease: easeOutCurve }}
+            className="mt-8 sm:mt-10"
+          >
+            <TestimonialsCarousel />
+          </motion.div>
         </div>
       </section>
 
