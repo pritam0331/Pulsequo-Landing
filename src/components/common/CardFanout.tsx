@@ -114,6 +114,8 @@ interface CardFanoutProps {
   headline?: string
   subheadline?: string
   badgeText?: string
+  hideHeader?: boolean
+  compact?: boolean
 }
 
 export function CardFanout({
@@ -122,18 +124,20 @@ export function CardFanout({
   headline = 'Interactive Omnichannel Engine',
   subheadline = 'Hover or tap any card to inspect how WhatsApp, AI agents, carrier SMS, and CRM pipelines synchronize in real time.',
   badgeText = 'SHIPROCKET-INSPIRED DYNAMIC FANOUT',
+  hideHeader = false,
+  compact = false,
 }: CardFanoutProps) {
   const [isFanned, setIsFanned] = useState(true)
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
   const [selectedIdx, setSelectedIdx] = useState<number>(0)
 
   // Fanout rotational and translational calculations based on index
-  // 4 cards fanning out smoothly: angles -9, -3, 3, 9 degrees
+  // 4 cards fanning out smoothly
   const getFanoutTransform = (index: number, total: number, isHovered: boolean) => {
     if (!isFanned) {
       return {
         x: 0,
-        y: index * 6,
+        y: index * (compact ? 5 : 6),
         rotate: 0,
         scale: isHovered ? 1.03 : 1 - (total - index - 1) * 0.02,
         zIndex: isHovered ? 30 : index + 1,
@@ -142,16 +146,16 @@ export function CardFanout({
 
     const midpoint = (total - 1) / 2
     const offset = index - midpoint
-    const rotation = offset * 5.5 // degrees
-    const xOffset = offset * 68 // pixels spread
-    const yOffset = Math.abs(offset) * 8 // subtle curved fan arch
+    const rotation = offset * (compact ? 4.5 : 5.5) // degrees
+    const xOffset = offset * (compact ? 52 : 68) // pixels spread
+    const yOffset = Math.abs(offset) * (compact ? 6 : 8) // subtle curved fan arch
 
     if (isHovered) {
       return {
         x: xOffset,
-        y: -18,
+        y: compact ? -12 : -18,
         rotate: 0,
-        scale: 1.05,
+        scale: compact ? 1.03 : 1.05,
         zIndex: 40,
       }
     }
@@ -168,55 +172,91 @@ export function CardFanout({
   const activeCard = cards[selectedIdx] || cards[0]
 
   return (
-    <div className={`relative w-full max-w-6xl mx-auto ${className}`}>
+    <div className={`relative ${compact ? 'w-full max-w-xl mx-auto' : 'w-full max-w-6xl mx-auto'} ${className}`}>
       {/* Top Header & Interactive Fanout Controller */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 text-center sm:text-left">
-        <div>
-          <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-semibold">
+      {!hideHeader ? (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 text-center sm:text-left">
+          <div>
+            <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-semibold">
+              <Sparkles className="size-3 text-blue-600" />
+              <span>{badgeText}</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              {headline}
+            </h3>
+            <p className="mt-1 text-xs sm:text-sm text-slate-600 max-w-xl">
+              {subheadline}
+            </p>
+          </div>
+
+          {/* Fanout Toggle Pill */}
+          <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200/80 shadow-2xs shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsFanned(true)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                isFanned
+                  ? 'bg-white text-blue-600 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Layers className="size-3.5" />
+              <span>Fan Out Deck</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsFanned(false)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                !isFanned
+                  ? 'bg-white text-blue-600 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <span>Stacked</span>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex items-center justify-between mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-semibold">
             <Sparkles className="size-3 text-blue-600" />
             <span>{badgeText}</span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            {headline}
-          </h3>
-          <p className="mt-1 text-xs sm:text-sm text-slate-600 max-w-xl">
-            {subheadline}
-          </p>
-        </div>
 
-        {/* Fanout Toggle Pill */}
-        <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200/80 shadow-2xs">
-          <button
-            type="button"
-            onClick={() => setIsFanned(true)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-              isFanned
-                ? 'bg-white text-blue-600 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Layers className="size-3.5" />
-            <span>Fan Out Deck</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsFanned(false)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-              !isFanned
-                ? 'bg-white text-blue-600 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <span>Stacked</span>
-          </button>
+          {/* Fanout Toggle Pill */}
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200/80 shadow-2xs">
+            <button
+              type="button"
+              onClick={() => setIsFanned(true)}
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                isFanned
+                  ? 'bg-white text-blue-600 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Layers className="size-3" />
+              <span>Fan Out Deck</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsFanned(false)}
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                !isFanned
+                  ? 'bg-white text-blue-600 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <span>Stacked</span>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Fanout Stage Area */}
-      <div className="relative min-h-[380px] sm:min-h-[420px] flex items-center justify-center py-6 overflow-visible select-none">
+      <div className={`relative ${compact ? 'min-h-[350px] sm:min-h-[370px] py-2' : 'min-h-[380px] sm:min-h-[420px] py-6'} flex items-center justify-center overflow-visible select-none`}>
         {/* Glow backdrop behind cards */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-[80%] h-[260px] bg-gradient-to-r from-blue-400/10 via-indigo-400/10 to-purple-400/10 blur-3xl rounded-full" />
+          <div className="w-[85%] h-[240px] bg-gradient-to-r from-blue-400/10 via-purple-400/10 to-indigo-400/10 blur-3xl rounded-full" />
         </div>
 
         {/* Fanning Cards Container */}
@@ -239,7 +279,7 @@ export function CardFanout({
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 onClick={() => setSelectedIdx(idx)}
-                className={`absolute w-[300px] sm:w-[350px] rounded-2xl bg-white border cursor-pointer transition-shadow duration-300 overflow-hidden ${
+                className={`absolute ${compact ? 'w-[280px] sm:w-[320px]' : 'w-[300px] sm:w-[350px]'} rounded-2xl bg-white border cursor-pointer transition-shadow duration-300 overflow-hidden ${
                   isSelected
                     ? 'ring-2 ring-blue-600 border-blue-400 shadow-xl'
                     : 'border-slate-200/90 shadow-md hover:shadow-xl'
@@ -251,9 +291,9 @@ export function CardFanout({
                 {/* Header Gradient Top Stripe */}
                 <div className={`h-1.5 w-full bg-gradient-to-r ${card.gradientHeader}`} />
 
-                <div className="p-4 sm:p-5">
+                <div className={compact ? 'p-3.5 sm:p-4' : 'p-4 sm:p-5'}>
                   {/* Category & Status Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="flex items-center justify-between gap-2 mb-2.5">
                     <span className="text-[10px] font-mono font-bold tracking-wider text-slate-500 uppercase truncate">
                       {card.category}
                     </span>
@@ -265,11 +305,11 @@ export function CardFanout({
                   </div>
 
                   {/* Icon & Title */}
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-2.5">
                     <div
-                      className={`size-9 rounded-xl border flex items-center justify-center shrink-0 ${card.iconBg} ${card.iconColor}`}
+                      className={`${compact ? 'size-8' : 'size-9'} rounded-xl border flex items-center justify-center shrink-0 ${card.iconBg} ${card.iconColor}`}
                     >
-                      <CardIcon className="size-4.5" />
+                      <CardIcon className={compact ? 'size-4' : 'size-4.5'} />
                     </div>
                     <div className="min-w-0">
                       <h4 className="text-sm font-bold text-slate-900 leading-tight truncate">
@@ -282,12 +322,12 @@ export function CardFanout({
                   </div>
 
                   {/* Description Box */}
-                  <div className="mt-3.5 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600 leading-relaxed font-sans">
+                  <div className="mt-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600 leading-relaxed font-sans line-clamp-2">
                     {card.description}
                   </div>
 
                   {/* Footer Metric and Channel Tag */}
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
                     <div>
                       <span className="text-sm font-black font-mono text-slate-900 block leading-none">
                         {card.metric}
@@ -315,26 +355,26 @@ export function CardFanout({
       <AnimatePresence mode="wait">
         <motion.div
           key={activeCard.id}
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: compact ? 8 : 12 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
+          exit={{ opacity: 0, y: compact ? -8 : -12 }}
           transition={{ duration: 0.3 }}
-          className="mt-6 p-4 rounded-xl bg-slate-50/90 border border-slate-200/90 shadow-2xs flex flex-col md:flex-row items-center justify-between gap-4"
+          className={`${compact ? 'mt-3 p-3' : 'mt-6 p-4'} rounded-xl bg-slate-50/90 border border-slate-200/90 shadow-2xs flex flex-col ${compact ? 'sm:flex-row' : 'md:flex-row'} items-center justify-between gap-3 text-xs`}
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 min-w-0">
             <span className="size-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-            <div className="text-xs">
-              <span className="font-bold text-slate-900">Active Inspect: </span>
+            <div className="truncate">
+              <span className="font-bold text-slate-900">Active: </span>
               <span className="text-slate-600">{activeCard.title}</span>
-              <span className="text-slate-400 mx-2">·</span>
+              <span className="text-slate-400 mx-1.5">·</span>
               <span className="font-mono text-blue-600 font-semibold">{activeCard.channel}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 text-xs font-mono text-slate-500">
-            <span>Verified SLA: {activeCard.metric}</span>
+          <div className="flex items-center gap-3 font-mono text-slate-500 shrink-0 text-[11px]">
+            <span>SLA: {activeCard.metric}</span>
             <span className="text-slate-300">·</span>
-            <span>Status: {activeCard.badge}</span>
+            <span className="text-emerald-700 font-medium">{activeCard.badge}</span>
           </div>
         </motion.div>
       </AnimatePresence>

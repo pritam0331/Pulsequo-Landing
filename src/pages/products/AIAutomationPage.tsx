@@ -17,7 +17,7 @@
 
 import { useState } from 'react'
 import { Link } from 'react-router'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion } from 'motion/react'
 import {
   GitBranch,
   Cpu,
@@ -53,125 +53,6 @@ import { siteConfig } from '../../config/siteConfig'
 import type { FAQItem } from '../../data/faqs'
 
 const easeOutCurve = [0.22, 1, 0.36, 1] as const
-
-// Flow preset types for the interactive Flow Runtime Card in the Hero
-interface FlowPreset {
-  id: string
-  name: string
-  model: string
-  nodes: {
-    type: 'trigger' | 'rag' | 'mcp' | 'action'
-    category: string
-    title: string
-    status: string
-    statusColor: string
-    detail?: string
-  }[]
-  footerTag: string
-  executionTime: string
-}
-
-const flowPresets: FlowPreset[] = [
-  {
-    id: 'inbound-assistant',
-    name: 'Flow: Inbound Assistant',
-    model: 'Claude 3.5 / OpenAI',
-    footerTag: 'Visual Flow Engine',
-    executionTime: '1.4s Latency',
-    nodes: [
-      {
-        type: 'trigger',
-        category: 'Trigger Node',
-        title: 'Inbound WhatsApp Message',
-        status: 'Active',
-        statusColor: 'text-emerald-400',
-        detail: 'Event: message.received · Provider: Meta Cloud API',
-      },
-      {
-        type: 'rag',
-        category: 'Agent RAG Node',
-        title: 'Knowledge Document Lookup',
-        status: 'Grounding OK',
-        statusColor: 'text-purple-300',
-        detail: 'Match: Enterprise SLA Policy (Cosine 0.94)',
-      },
-      {
-        type: 'mcp',
-        category: 'MCP Tool Execution',
-        title: 'appointment-server: BookSlot',
-        status: 'Success (200)',
-        statusColor: 'text-emerald-300',
-        detail: 'Tool: book_calendar_slot · Output: 2026-11-20T14:30:00Z',
-      },
-    ],
-  },
-  {
-    id: 'lead-qualifier',
-    name: 'Flow: B2B Lead Qualifier',
-    model: 'Claude 3.5 Sonnet',
-    footerTag: 'Sales Pipeline Engine',
-    executionTime: '1.8s Latency',
-    nodes: [
-      {
-        type: 'trigger',
-        category: 'Trigger Node',
-        title: 'Website Inbound Chat / WhatsApp',
-        status: 'Active',
-        statusColor: 'text-emerald-400',
-        detail: 'Captured source: campaign_enterprise_q4',
-      },
-      {
-        type: 'rag',
-        category: 'Entity Extraction Node',
-        title: 'Intent & Budget Scoring (AI)',
-        status: 'Score: 94/100',
-        statusColor: 'text-purple-300',
-        detail: 'Extracted: 50+ seats · Budget: $25k+ · Ready: Immediate',
-      },
-      {
-        type: 'mcp',
-        category: 'MCP Tool Execution',
-        title: 'salesforce-crm: CreateDeal',
-        status: 'Success (201)',
-        statusColor: 'text-emerald-300',
-        detail: 'Deal ID: opp_8849102 · Stage: Discovery Scheduled',
-      },
-    ],
-  },
-  {
-    id: 'support-triage',
-    name: 'Flow: Support SLA Triage',
-    model: 'GPT-4o Enterprise',
-    footerTag: 'Support Helpdesk Engine',
-    executionTime: '0.9s Latency',
-    nodes: [
-      {
-        type: 'trigger',
-        category: 'Trigger Node',
-        title: 'High-Priority Support Ticket',
-        status: 'Active',
-        statusColor: 'text-emerald-400',
-        detail: 'Customer Tier: Tier-1 Enterprise · SLA Target: < 15m',
-      },
-      {
-        type: 'rag',
-        category: 'Agent RAG Node',
-        title: 'Engineering Runbook Match',
-        status: 'Grounding OK',
-        statusColor: 'text-purple-300',
-        detail: 'Doc: Webhook Retry & Idempotency Playbook',
-      },
-      {
-        type: 'action',
-        category: 'Deterministic Handoff',
-        title: 'dispatch: EscalationDesk',
-        status: 'Assigned',
-        statusColor: 'text-blue-300',
-        detail: 'Assigned to: Level-2 Solutions Engineer with full context',
-      },
-    ],
-  },
-]
 
 // MCP Server specifications for interactive tab switcher in Section 4
 interface McpServerSpec {
@@ -434,11 +315,9 @@ const aiFaqs: FAQItem[] = [
 ]
 
 export function AIAutomationPage() {
-  const [activeFlowIndex, setActiveFlowIndex] = useState(0)
   const [activeMcpIndex, setActiveMcpIndex] = useState(0)
   const [copiedMcpSchema, setCopiedMcpSchema] = useState(false)
 
-  const activeFlow = flowPresets[activeFlowIndex]
   const activeMcp = mcpServers[activeMcpIndex]
   const activeTool = activeMcp.tools[0]
 
@@ -474,9 +353,9 @@ export function AIAutomationPage() {
             className="mb-8"
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             {/* Left Column: Headline, Narrative & Enterprise CTAs */}
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-6 xl:col-span-6">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
                 Autonomous AI & Visual Flows.{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700">
@@ -531,149 +410,15 @@ export function AIAutomationPage() {
               </div>
             </div>
 
-            {/* Right Column: Elevated Interactive Flow Card (Matching User Screenshot) */}
-            <div className="lg:col-span-5">
-              <div className="relative">
-                {/* Subtle Ambient Glow */}
-                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-500/20 blur-xl opacity-60 pointer-events-none" />
-
-                {/* Main Dark Console Window */}
-                <div className="relative rounded-2xl border border-slate-800 bg-[#070d24] text-white shadow-2xl overflow-hidden">
-                  {/* Top Hairline Gradient Accent Line */}
-                  <div className="h-[2.5px] w-full bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-400" />
-
-                  {/* Window Titlebar */}
-                  <div className="px-4 py-3 border-b border-slate-800/90 flex items-center justify-between bg-[#040817]">
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1.5 mr-2">
-                        <span className="size-2.5 rounded-full bg-rose-500/80 inline-block" />
-                        <span className="size-2.5 rounded-full bg-amber-500/80 inline-block" />
-                        <span className="size-2.5 rounded-full bg-emerald-500/80 inline-block" />
-                      </div>
-                      <GitBranch className="size-4 text-purple-400 shrink-0" />
-                      <span className="text-xs font-bold text-slate-200 font-mono tracking-tight">
-                        {activeFlow.name}
-                      </span>
-                    </div>
-
-                    <span className="rounded-sm bg-purple-950/80 text-purple-300 border border-purple-800/80 px-2 py-0.5 text-[10px] font-mono font-semibold tracking-wide">
-                      Model: {activeFlow.model}
-                    </span>
-                  </div>
-
-                  {/* Flow Presets Selector Pills */}
-                  <div className="px-4 pt-3 pb-2 border-b border-slate-800/60 bg-[#060b1e] flex items-center gap-1.5 overflow-x-auto thin-scrollbar">
-                    {flowPresets.map((preset, idx) => (
-                      <button
-                        key={preset.id}
-                        type="button"
-                        onClick={() => setActiveFlowIndex(idx)}
-                        className={`text-[10px] font-mono font-medium px-2.5 py-1 rounded-sm transition-colors whitespace-nowrap cursor-pointer ${
-                          activeFlowIndex === idx
-                            ? 'bg-blue-600/30 text-blue-300 border border-blue-500/50'
-                            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent'
-                        }`}
-                      >
-                        {preset.name.replace('Flow: ', '')}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Flow Nodes Canvas Body */}
-                  <div className="p-4 sm:p-5 space-y-3 font-sans text-xs">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={activeFlow.id}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.25, ease: easeOutCurve }}
-                        className="space-y-2.5"
-                      >
-                        {activeFlow.nodes.map((node, nodeIdx) => (
-                          <div key={nodeIdx} className="space-y-2.5">
-                            {/* Visual Connecting Arrow between nodes */}
-                            {nodeIdx > 0 && (
-                              <div className="flex justify-center items-center py-0.5">
-                                <div className="relative flex flex-col items-center">
-                                  <div className="w-px h-3 bg-slate-700" />
-                                  <span className="text-slate-500 text-xs font-mono select-none">↓</span>
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Node Card */}
-                            <div
-                              className={`rounded-xl p-3.5 transition-all ${
-                                node.type === 'trigger'
-                                  ? 'bg-slate-900/90 border border-slate-800 hover:border-blue-500/50'
-                                  : node.type === 'rag'
-                                  ? 'bg-slate-900/90 border border-purple-900/60 hover:border-purple-500/50'
-                                  : node.type === 'mcp'
-                                  ? 'bg-slate-900/90 border border-emerald-900/60 hover:border-emerald-500/50'
-                                  : 'bg-slate-900/90 border border-blue-900/60 hover:border-blue-500/50'
-                              }`}
-                            >
-                              <div className="flex items-start justify-between gap-3">
-                                <div className="space-y-0.5">
-                                  <span
-                                    className={`text-[10px] font-bold font-mono tracking-wider uppercase block ${
-                                      node.type === 'trigger'
-                                        ? 'text-blue-400'
-                                        : node.type === 'rag'
-                                        ? 'text-purple-400'
-                                        : node.type === 'mcp'
-                                        ? 'text-emerald-400'
-                                        : 'text-blue-400'
-                                    }`}
-                                  >
-                                    {node.category}
-                                  </span>
-                                  <p className="text-white font-semibold text-xs sm:text-sm font-sans tracking-tight">
-                                    {node.title}
-                                  </p>
-                                  {node.detail && (
-                                    <p className="text-[11px] text-slate-400 font-mono pt-0.5">
-                                      {node.detail}
-                                    </p>
-                                  )}
-                                </div>
-
-                                <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
-                                  {node.status === 'Active' && (
-                                    <span className="relative flex size-2">
-                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                                      <span className="relative inline-flex rounded-full size-2 bg-emerald-500" />
-                                    </span>
-                                  )}
-                                  <span className={`text-[10px] font-mono font-semibold ${node.statusColor}`}>
-                                    {node.status}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </motion.div>
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Card Bottom Status Bar */}
-                  <div className="px-4 py-3 border-t border-slate-800/90 bg-[#040817] flex items-center justify-between text-[11px] text-slate-400 font-sans">
-                    <div className="flex items-center gap-2">
-                      <span className="size-1.5 rounded-full bg-emerald-400" />
-                      <span>{activeFlow.footerTag}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-slate-500 font-mono">Zero Code Needed</span>
-                      <span className="text-slate-700">·</span>
-                      <span className="text-purple-400 font-mono font-semibold">
-                        {activeFlow.executionTime}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {/* Right Column: Shiprocket-Inspired Fanout Deck (Replaces the dark console window) */}
+            <div className="lg:col-span-6 xl:col-span-6 relative">
+              <CardFanout
+                cards={aiFanoutCards}
+                badgeText="SHIPROCKET-INSPIRED AI AGENT FANOUT"
+                hideHeader={true}
+                compact={true}
+                className="max-w-full"
+              />
             </div>
           </div>
         </div>
@@ -681,18 +426,6 @@ export function AIAutomationPage() {
 
       {/* Brand Trust Marquee Carousel */}
       <BrandCarousel />
-
-      {/* Shiprocket-Inspired Card Fanout */}
-      <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <CardFanout
-            cards={aiFanoutCards}
-            headline="Autonomous AI Agents & MCP Tools in Motion"
-            subheadline="Inspect how enterprise Claude & OpenAI models query real CRM databases, execute sandbox tools, and resolve tickets with zero hallucinations."
-            badgeText="SHIPROCKET-INSPIRED AI AGENT FANOUT"
-          />
-        </div>
-      </section>
 
       {/* =========================================================================
           SECTION 2: AI TELEMETRY & SLA STRIP (#telemetry)
