@@ -79,7 +79,7 @@ export function PricingPage() {
       <section className="relative overflow-hidden bg-white pt-10 pb-16 sm:pt-14 sm:pb-20 border-b border-slate-100">
         <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Breadcrumbs items={[{ label: 'Pricing' }]} className="justify-center mb-6" />
 
           <motion.div
@@ -87,19 +87,24 @@ export function PricingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: easeOutCurve }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/90 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6 shadow-2xs">
-              <span className="flex size-2 rounded-full bg-blue-600 animate-pulse" />
-              <span>Predictable Pricing with Zero Hidden Seat Charges</span>
+            <div className="inline-flex items-center gap-2.5 text-xs font-mono font-bold uppercase tracking-wider text-blue-700 mb-6">
+              <motion.span
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.45, delay: 0.15, ease: easeOutCurve }}
+                className="h-[2px] w-6 rounded-full bg-blue-600 origin-left"
+              />
+              <span>Predictable Pricing · Zero Hidden Seat Charges</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
               Plans built for every stage of your{' '}
-              <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
+              <span className="text-gradient-hero">
                 growth.
               </span>
             </h1>
 
-            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-normal text-pretty">
               From fast-growing commerce stores to multi-channel global enterprises. Enjoy predictable pricing, instant sandbox
               trials, and 20% savings on annual subscriptions.
             </p>
@@ -127,7 +132,7 @@ export function PricingPage() {
       <section className="py-16 sm:py-20 bg-slate-50/70 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="PROVEN VALUE"
+            badge="Proven Value"
             title="Trusted by High-Growth Companies Worldwide"
             description="See why leading brands choose PulseQuo over legacy point solutions."
           />
@@ -155,8 +160,14 @@ export function PricingPage() {
             description="Everything included in our plans at a glance. No hidden surprises."
           />
 
-          <div className="mt-12 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs">
-            <table className="w-full text-left text-sm text-slate-700 min-w-[640px]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.55, ease: easeOutCurve }}
+            className="mt-12 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs"
+          >
+            <table className="w-full text-left text-sm text-slate-700 min-w-[640px] tabular-nums">
               <thead className="bg-slate-50/80 text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200">
                 <tr>
                   <th className="py-4 px-6 w-2/5">Feature</th>
@@ -217,7 +228,7 @@ export function PricingPage() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </motion.div>
         </div>
       </section>
 

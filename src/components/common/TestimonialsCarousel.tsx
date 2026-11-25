@@ -169,41 +169,68 @@ export function TestimonialsCarousel({ className = '' }: { className?: string })
   }
 
   return (
-    <div
-      className={`relative w-full max-w-5xl mx-auto ${className}`}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative w-full max-w-4xl mx-auto ${className}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Brand Tabs / Quick Selectors */}
-      <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 overflow-x-auto pb-2 scrollbar-none">
-        {TESTIMONIALS.map((item, idx) => {
-          const isActive = idx === currentIndex
-          return (
-            <button
-              key={item.id}
-              onClick={() => handleSelect(idx)}
-              className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap flex items-center gap-1.5 border ${
-                isActive
-                  ? 'bg-blue-600 text-white border-blue-600 shadow-xs scale-105'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              <span>{item.company}</span>
-              {isActive && (
-                <span className="size-1.5 rounded-full bg-white animate-pulse" />
-              )}
-            </button>
-          )
-        })}
+      {/* Brand Tabs / Segmented Switcher */}
+      <div className="flex justify-center mb-5 overflow-x-auto pb-1 no-scrollbar">
+        <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-slate-100/90 border border-slate-200/80">
+          {TESTIMONIALS.map((item, idx) => {
+            const isActive = idx === currentIndex
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => handleSelect(idx)}
+                className={`relative px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors duration-200 cursor-pointer whitespace-nowrap ${
+                  isActive
+                    ? 'text-white'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="testimonial-active-tab"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    className="absolute inset-0 rounded-lg bg-blue-600 shadow-sm"
+                  />
+                )}
+                <span className="relative z-10">{item.company}</span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
-      {/* Main Carousel Card Container */}
-      <div className="relative rounded-2xl bg-white border border-slate-200/90 shadow-sm overflow-hidden p-6 sm:p-8 md:p-10">
-        {/* Subtle top gradient accent */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600" />
+      {/* Compact Reviews Card Container */}
+      <div
+        data-cursor="glass"
+        className="group relative rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-sm hover:-translate-y-0.5 hover:border-blue-300/80 hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-200 overflow-hidden p-5 sm:p-6"
+      >
+        {/* Animated Autoplay Progress Bar */}
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-slate-100">
+          {!isPaused && (
+            <motion.div
+              key={`progress-${currentIndex}`}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 6.5, ease: 'linear' }}
+              className="h-full w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 origin-left"
+            />
+          )}
+          {isPaused && (
+            <div className="h-full w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600" />
+          )}
+        </div>
 
         {/* Ambient background watermark quote */}
-        <Quote className="absolute right-6 bottom-6 size-24 sm:size-32 text-slate-100/60 pointer-events-none -rotate-12" />
+        <Quote className="absolute right-4 bottom-4 size-16 sm:size-20 text-slate-100/70 pointer-events-none -rotate-12" />
 
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
@@ -213,144 +240,157 @@ export function TestimonialsCarousel({ className = '' }: { className?: string })
             initial="enter"
             animate="center"
             exit="exit"
-            className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center"
           >
-            {/* Left 7 cols: Quote, Stars, and Author */}
-            <div className="lg:col-span-7 flex flex-col justify-between">
+            {/* Left 8 cols: Quote, Stars, and Author */}
+            <div className="lg:col-span-8 flex flex-col justify-between">
               <div>
-                {/* 5-Star Rating & Industry Badge */}
-                <div className="flex flex-wrap items-center gap-2.5 mb-4">
+                {/* 5-Star Rating & Unboxed Industry Metadata */}
+                <div className="flex flex-wrap items-center gap-2 mb-3">
                   <div className="flex items-center gap-0.5 text-amber-400">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="size-4 fill-amber-400" />
+                      <Star key={i} className="size-3.5 fill-amber-400" />
                     ))}
                   </div>
-                  <span className="text-xs font-bold text-slate-700 font-mono">5.0</span>
-                  <span className="text-slate-300">•</span>
-                  <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                  <span className="text-xs font-bold text-slate-800 font-mono tabular-nums">5.0</span>
+                  <span className="text-slate-300">·</span>
+                  <span className="text-xs font-medium text-slate-500">
                     {activeTestimonial.industry}
                   </span>
                 </div>
 
-                {/* Testimonial Quote */}
-                <p className="text-base sm:text-lg md:text-xl font-normal text-slate-800 leading-relaxed italic">
+                {/* Compact Testimonial Quote */}
+                <p className="text-sm sm:text-base font-normal text-slate-800 leading-relaxed text-pretty">
                   “{activeTestimonial.quote}”
                 </p>
 
-                {/* Key Bullet Highlights */}
-                <div className="mt-5 flex flex-wrap gap-2 text-xs font-medium text-slate-600">
+                {/* Key Highlights (Clean Unboxed Inline Checklist) */}
+                <div className="mt-3.5 flex flex-wrap gap-x-4 gap-y-1.5 text-[11.5px] font-medium text-slate-600">
                   {activeTestimonial.highlights.map((highlight, idx) => (
                     <span
                       key={idx}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200/80 text-slate-700"
+                      className="inline-flex items-center gap-1.5 text-slate-700"
                     >
-                      <CheckCircle2 className="size-3.5 text-emerald-600" />
-                      {highlight}
+                      <CheckCircle2 className="size-3 text-emerald-600 shrink-0" />
+                      <span>{highlight}</span>
                     </span>
                   ))}
                 </div>
               </div>
 
               {/* Author Info */}
-              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="size-11 rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 text-white font-bold text-sm flex items-center justify-center shadow-xs">
+              <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="size-9 rounded-lg bg-gradient-to-br from-slate-900 to-slate-800 text-white font-bold text-xs flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform duration-200">
                     {activeTestimonial.avatar}
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <h4 className="text-sm sm:text-base font-bold text-slate-900">
+                      <h4 className="text-sm font-bold text-slate-900">
                         {activeTestimonial.name}
                       </h4>
                       {activeTestimonial.verified && (
                         <span title="Verified Customer">
-                          <CheckCircle2 className="size-4 text-blue-600" />
+                          <CheckCircle2 className="size-3.5 text-blue-600" />
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-[11.5px] text-slate-500">
                       {activeTestimonial.role} · <span className="font-semibold text-slate-700">{activeTestimonial.company}</span>
                     </p>
                   </div>
                 </div>
 
-                <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-400 font-mono">
-                  <Building2 className="size-3.5 text-slate-400" />
+                <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
+                  <Building2 className="size-3 text-slate-400" />
                   <span>Enterprise Client</span>
                 </div>
               </div>
             </div>
 
-            {/* Right 5 cols: Prominent Impact Metric Card */}
-            <div className="lg:col-span-5 flex flex-col justify-center">
-              <div className="p-6 sm:p-7 rounded-xl bg-gradient-to-br from-blue-50/70 via-slate-50 to-indigo-50/40 border border-blue-200/70 shadow-xs relative overflow-hidden">
-                <div className="absolute top-3 right-3 size-16 rounded-full bg-blue-500/10 blur-xl pointer-events-none" />
+            {/* Right 4 cols: Compact Impact Metric Card */}
+            <div className="lg:col-span-4 flex flex-col justify-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ y: -3, transition: { type: 'spring', stiffness: 360, damping: 24 } }}
+                transition={{ duration: 0.4, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="p-4 sm:p-5 rounded-xl bg-gradient-to-br from-blue-50/70 via-slate-50 to-indigo-50/40 border border-blue-200/70 hover:border-blue-300 shadow-xs relative overflow-hidden transition-colors"
+              >
+                <div className="absolute top-2 right-2 size-12 rounded-full bg-blue-500/10 blur-xl pointer-events-none" />
 
-                <span className="text-xs font-mono font-bold tracking-wider text-blue-600 uppercase flex items-center gap-1.5">
-                  <activeTestimonial.impactIcon className="size-4 text-blue-600" />
-                  Verified Business Impact
+                <span className="text-[11px] font-semibold text-blue-600 flex items-center gap-1.5">
+                  <activeTestimonial.impactIcon className="size-3.5 text-blue-600" />
+                  Verified Impact
                 </span>
 
-                <div className="mt-3">
-                  <span className="text-4xl sm:text-5xl font-black text-slate-900 font-mono tracking-tight block">
+                <div className="mt-2">
+                  <span className="text-3xl sm:text-4xl font-black text-slate-900 font-mono tabular-nums tracking-tight block">
                     {activeTestimonial.metric}
                   </span>
-                  <span className="text-sm font-semibold text-slate-700 mt-1 block">
+                  <span className="text-xs font-semibold text-slate-700 mt-0.5 block">
                     {activeTestimonial.metricLabel}
                   </span>
                 </div>
 
-                <p className="mt-4 text-xs text-slate-500 leading-relaxed pt-3 border-t border-slate-200/80">
-                  Measured across 90 days of production customer traffic using official PulseQuo CPaaS and CRM telemetry.
+                <p className="mt-3 text-[11px] text-slate-500 leading-relaxed pt-2.5 border-t border-slate-200/80">
+                  90-day production CPaaS & CRM telemetry.
                 </p>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* Navigation Controls Bar */}
-        <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+        {/* Compact Navigation Controls Bar */}
+        <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between">
           {/* Dot Indicators */}
           <div className="flex items-center gap-1.5">
             {TESTIMONIALS.map((_, idx) => (
               <button
                 key={idx}
+                type="button"
                 onClick={() => handleSelect(idx)}
                 aria-label={`Go to slide ${idx + 1}`}
-                className={`transition-all duration-200 cursor-pointer ${
+                className={`transition-all duration-300 cursor-pointer ${
                   idx === currentIndex
-                    ? 'w-6 h-2 bg-blue-600 rounded-full'
-                    : 'w-2 h-2 bg-slate-300 hover:bg-slate-400 rounded-full'
+                    ? 'w-6 h-1.5 bg-blue-600 rounded-full'
+                    : 'w-1.5 h-1.5 bg-slate-300 hover:bg-slate-400 rounded-full'
                 }`}
               />
             ))}
           </div>
 
           {/* Slide Counter & Buttons */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-slate-400">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[11px] font-mono tabular-nums text-slate-400">
               0{currentIndex + 1} / 0{TESTIMONIALS.length}
             </span>
 
             <div className="flex items-center gap-1.5">
-              <button
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.08, x: -1 }}
+                whileTap={{ scale: 0.92 }}
                 onClick={handlePrev}
                 aria-label="Previous testimonial"
-                className="size-8 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center text-slate-600 hover:text-slate-900 shadow-2xs transition-colors cursor-pointer active:scale-95"
+                className="size-7 rounded-lg border border-slate-200 bg-white hover:bg-blue-50 hover:border-blue-300 flex items-center justify-center text-slate-600 hover:text-blue-600 shadow-2xs transition-colors cursor-pointer"
               >
-                <ChevronLeft className="size-4" />
-              </button>
-              <button
+                <ChevronLeft className="size-3.5" />
+              </motion.button>
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.08, x: 1 }}
+                whileTap={{ scale: 0.92 }}
                 onClick={handleNext}
                 aria-label="Next testimonial"
-                className="size-8 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center text-slate-600 hover:text-slate-900 shadow-2xs transition-colors cursor-pointer active:scale-95"
+                className="size-7 rounded-lg border border-slate-200 bg-white hover:bg-blue-50 hover:border-blue-300 flex items-center justify-center text-slate-600 hover:text-blue-600 shadow-2xs transition-colors cursor-pointer"
               >
-                <ChevronRight className="size-4" />
-              </button>
+                <ChevronRight className="size-3.5" />
+              </motion.button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

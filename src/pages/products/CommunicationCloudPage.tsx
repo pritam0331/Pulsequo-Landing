@@ -1,7 +1,7 @@
 /**
  * Product Detail Page: Communication Cloud
  * Route: /products/communication-cloud
- * Fully fledged Shiprocket-inspired landing page with Card Fanout, Brand Carousel, Testimonial Carousel, and Ambient Background.
+ * Landing page with Card Fanout, Brand Carousel, Testimonial Carousel, and Ambient Background.
  */
 
 import { Link } from 'react-router'
@@ -14,7 +14,6 @@ import {
   Zap,
   Inbox,
   Radio,
-  Activity,
   Truck,
 } from 'lucide-react'
 import { SEO } from '../../components/common/SEO'
@@ -136,26 +135,28 @@ export function CommunicationCloudPage() {
             className="mb-8"
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: easeOutCurve }}
-              className="lg:col-span-7"
+              className="lg:col-span-6"
             >
-              <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/90 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6 shadow-2xs">
-                <span className="flex size-2 rounded-full bg-blue-600 animate-pulse" />
-                <span>Enterprise CPaaS & Official WhatsApp Cloud API</span>
+              <div className="inline-flex items-center gap-2.5 mb-5">
+                <span className="h-[2px] w-6 rounded-full bg-blue-600" />
+                <span className="text-xs font-semibold tracking-wide text-blue-600">
+                  Enterprise CPaaS & Official WhatsApp Cloud API
+                </span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
                 Every conversation on one{' '}
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
+                <span className="text-gradient-hero">
                   carrier-grade platform.
                 </span>
               </h1>
 
-              <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal">
+              <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal text-pretty">
                 Scale customer reach across official WhatsApp Business Platform, high-throughput SMS gateways, business
                 email, and voice. Centralize all customer dialogues into a unified omnichannel inbox with automated
                 channel routing.
@@ -164,7 +165,7 @@ export function CommunicationCloudPage() {
               <div className="mt-8 flex flex-col sm:flex-row items-center gap-3.5">
                 <Link
                   to="/book-demo?product=Communication+Cloud"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all shadow-md shadow-blue-500/20"
+                  className="btn-shine w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all shadow-md shadow-blue-500/20"
                 >
                   <CalendarCheck className="size-4" />
                   <span>Book communication demo</span>
@@ -195,64 +196,19 @@ export function CommunicationCloudPage() {
               </div>
             </motion.div>
 
-            {/* Visual Live Module Preview */}
+            {/* Right Column: Interactive Fanout Deck */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.55, delay: 0.15, ease: easeOutCurve }}
-              className="lg:col-span-5"
+              className="lg:col-span-6 relative"
             >
-              <div className="rounded-2xl border border-slate-800/80 bg-[#020618] p-6 text-white shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400" />
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="size-2 rounded-xs bg-emerald-400 animate-pulse" />
-                    <span className="text-xs font-bold text-slate-200 font-mono">CPaaS Gateway Monitor</span>
-                  </div>
-                  <span className="rounded-md bg-blue-900/60 text-blue-300 px-2 py-0.5 text-[10px] font-mono border border-blue-800">
-                    99.99% Uptime
-                  </span>
-                </div>
-
-                <div className="mt-5 space-y-3 font-mono text-xs">
-                  <div className="rounded-xl bg-slate-900/90 border border-slate-800 p-3.5 shadow-2xs">
-                    <div className="flex justify-between text-[11px] text-slate-400">
-                      <span>WhatsApp Business Platform</span>
-                      <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                        <span className="size-1.5 rounded-full bg-emerald-400" /> Connected
-                      </span>
-                    </div>
-                    <p className="mt-1.5 text-slate-200 font-sans text-xs">Broadcast campaign: 25,000 sent (98.4% DLR)</p>
-                  </div>
-
-                  <div className="rounded-xl bg-slate-900/90 border border-slate-800 p-3.5 shadow-2xs">
-                    <div className="flex justify-between text-[11px] text-slate-400">
-                      <span>SMPP v3.4 Carrier Trunk</span>
-                      <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                        <span className="size-1.5 rounded-full bg-emerald-400" /> Active Session
-                      </span>
-                    </div>
-                    <p className="mt-1.5 text-slate-200 font-sans text-xs">OTP Route: Sub-2.8s delivery latency</p>
-                  </div>
-
-                  <div className="rounded-xl bg-slate-900/90 border border-slate-800 p-3.5 shadow-2xs">
-                    <div className="flex justify-between text-[11px] text-slate-400">
-                      <span>DLT Entity Header Binding</span>
-                      <span className="text-blue-400 font-semibold">Verified</span>
-                    </div>
-                    <p className="mt-1.5 text-slate-200 font-sans text-xs">100% compliant with TRAI SMS regulations</p>
-                  </div>
-                </div>
-
-                <div className="mt-5 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-                  <span className="flex items-center gap-1.5 font-medium">
-                    <Activity className="size-3 text-emerald-400" /> Throughput: 250 msg/s
-                  </span>
-                  <Link to="/developers/api-documentation" className="text-blue-400 hover:underline">
-                    API Docs →
-                  </Link>
-                </div>
-              </div>
+              <CardFanout
+                cards={commFanoutCards}
+                hideHeader={true}
+                compact={true}
+                className="max-w-full"
+              />
             </motion.div>
           </div>
         </div>
@@ -262,20 +218,6 @@ export function CommunicationCloudPage() {
           2. BRAND TRUST MARQUEE CAROUSEL
          ───────────────────────────────────────────────────────────── */}
       <BrandCarousel />
-
-      {/* ─────────────────────────────────────────────────────────────
-          3. SHIPROCKET-INSPIRED CARD FANOUT SHOWCASE
-         ───────────────────────────────────────────────────────────── */}
-      <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <CardFanout
-            cards={commFanoutCards}
-            headline="Omnichannel CPaaS Dispatches in Motion"
-            subheadline="Inspect how shipment updates, bank OTPs, shared inboxes, and promotional broadcasts execute seamlessly with guaranteed delivery SLAs."
-            badgeText="SHIPROCKET-INSPIRED MULTI-CHANNEL FANOUT"
-          />
-        </div>
-      </section>
 
       {/* ─────────────────────────────────────────────────────────────
           4. DETAILED MODULES BREAKDOWN

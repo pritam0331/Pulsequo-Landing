@@ -1,7 +1,7 @@
 /**
  * Product Detail Page: Customer Support CRM
  * Route: /products/support-crm
- * Fully fledged Shiprocket-inspired landing page with Card Fanout, Brand Carousel, Testimonial Carousel, and Ambient Background.
+ * Landing page with Card Fanout, Brand Carousel, Testimonial Carousel, and Ambient Background.
  */
 
 import { Link } from 'react-router'
@@ -134,26 +134,28 @@ export function SupportCRMPage() {
             className="mb-8"
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: easeOutCurve }}
-              className="lg:col-span-7"
+              className="lg:col-span-6"
             >
-              <div className="inline-flex items-center gap-2 rounded-full bg-violet-50 border border-violet-200/90 px-3.5 py-1 text-xs font-semibold text-violet-800 mb-6 shadow-2xs">
-                <span className="flex size-2 rounded-full bg-violet-600 animate-pulse" />
-                <span>Omnichannel Helpdesk & Ticket SLA Engine</span>
+              <div className="inline-flex items-center gap-2.5 mb-5">
+                <span className="h-[2px] w-6 rounded-full bg-violet-600" />
+                <span className="text-xs font-semibold tracking-wide text-violet-600">
+                  Omnichannel Helpdesk & Ticket SLA Engine
+                </span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
                 Deliver customer support that{' '}
-                <span className="bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-700 bg-clip-text text-transparent">
+                <span className="text-gradient-hero">
                   drives resolution.
                 </span>
               </h1>
 
-              <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal">
+              <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal text-pretty">
                 Manage customer queries, support tickets, agents, and multi-channel conversations through one centralized
                 support platform. Enforce rigorous SLA standards, automate Tier-1 resolutions, and co-pilot agents with
                 intelligent knowledge bases.
@@ -162,7 +164,7 @@ export function SupportCRMPage() {
               <div className="mt-8 flex flex-col sm:flex-row items-center gap-3.5">
                 <Link
                   to="/book-demo?product=Support+CRM"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 rounded-xl transition-all shadow-md shadow-violet-500/20"
+                  className="btn-shine w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 rounded-xl transition-all shadow-md shadow-violet-500/20"
                 >
                   <CalendarCheck className="size-4" />
                   <span>Request support CRM demo</span>
@@ -193,56 +195,19 @@ export function SupportCRMPage() {
               </div>
             </motion.div>
 
-            {/* Support Helpdesk Mockup Preview */}
+            {/* Right Column: Interactive Fanout Deck */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.55, delay: 0.15, ease: easeOutCurve }}
-              className="lg:col-span-5"
+              className="lg:col-span-6 relative"
             >
-              <div className="rounded-2xl border border-slate-800/80 bg-[#020618] p-6 text-white shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-indigo-500 to-rose-400" />
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="size-2 rounded-xs bg-rose-500 animate-pulse" />
-                    <span className="text-xs font-bold text-slate-200 font-mono">SLA Response Countdown</span>
-                  </div>
-                  <span className="rounded-md bg-rose-950/80 text-rose-300 px-2 py-0.5 text-xs font-mono font-bold border border-rose-800">
-                    03m : 18s left
-                  </span>
-                </div>
-
-                <div className="mt-4 space-y-3 font-mono text-xs">
-                  <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-                    <div className="flex justify-between items-center text-[11px] text-slate-400">
-                      <span>Ticket #4920 · WhatsApp</span>
-                      <span className="text-emerald-400 font-semibold">Active Agent: Sarah</span>
-                    </div>
-                    <p className="mt-1 text-slate-200 font-sans text-xs">Order delayed in transit · Bluedart AWB BD-99201</p>
-                    <div className="mt-2.5 flex items-center justify-between text-[11px] text-slate-500 font-sans">
-                      <span>Customer: Vikramaditya Roy</span>
-                      <span className="text-violet-400">View Timeline →</span>
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-                    <div className="flex justify-between items-center text-[11px] text-slate-400">
-                      <span>Ticket #4918 · Webhook Event</span>
-                      <span className="text-purple-400 font-semibold">AI Handled (1.2s)</span>
-                    </div>
-                    <p className="mt-1 text-slate-200 font-sans text-xs">Address update request · Validated and synced</p>
-                    <div className="mt-2.5 flex items-center justify-between text-[11px] text-slate-500 font-sans">
-                      <span>Customer: Aditi Sharma</span>
-                      <span className="text-emerald-400 font-mono">Status: Resolved</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
-                  <span>Queued: 9 · Active: 14</span>
-                  <span className="text-emerald-400 font-bold">Resolved Today: 52</span>
-                </div>
-              </div>
+              <CardFanout
+                cards={supportFanoutCards}
+                hideHeader={true}
+                compact={true}
+                className="max-w-full"
+              />
             </motion.div>
           </div>
         </div>
@@ -252,20 +217,6 @@ export function SupportCRMPage() {
           2. BRAND TRUST MARQUEE CAROUSEL
          ───────────────────────────────────────────────────────────── */}
       <BrandCarousel />
-
-      {/* ─────────────────────────────────────────────────────────────
-          3. SHIPROCKET-INSPIRED CARD FANOUT SHOWCASE
-         ───────────────────────────────────────────────────────────── */}
-      <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <CardFanout
-            cards={supportFanoutCards}
-            headline="Omnichannel Support Tickets & SLA Workflows"
-            subheadline="Inspect how priority tickets, SLA countdowns, and automated deflection bots resolve inquiries faster while maintaining 4.9/5 CSAT scores."
-            badgeText="SHIPROCKET-INSPIRED SUPPORT HELPDESK"
-          />
-        </div>
-      </section>
 
       {/* ─────────────────────────────────────────────────────────────
           4. CUSTOMER TESTIMONIALS CAROUSEL

@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { motion } from 'motion/react'
 import {
   Truck,
   Bot,
   Radio,
   TrendingUp,
-  Layers,
-  Sparkles,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react'
+import { SplitReveal } from './SplitReveal'
 
 export interface FanoutCard {
   id: string
@@ -108,211 +109,180 @@ const DEFAULT_CARDS: FanoutCard[] = [
   },
 ]
 
+const AUTO_ADVANCE_MS = 3600
+
 interface CardFanoutProps {
   cards?: FanoutCard[]
   className?: string
   headline?: string
   subheadline?: string
-  badgeText?: string
   hideHeader?: boolean
   compact?: boolean
 }
 
+/**
+ * Queue Auto Carousel (replaces legacy fan-out deck)
+ * Cycles cards automatically through a depth-layered vertical queue.
+ * - Front card displays cleanly with zero rotated text overlap
+ * - Upcoming queued cards peek smoothly behind with stepped depth & scale
+ * - Auto-advances every 3.6s, pauses on hover, supports click-to-advance & prev/next controls
+ */
 export function CardFanout({
   cards = DEFAULT_CARDS,
   className = '',
   headline = 'Interactive Omnichannel Engine',
-  subheadline = 'Hover or tap any card to inspect how WhatsApp, AI agents, carrier SMS, and CRM pipelines synchronize in real time.',
-  badgeText = 'SHIPROCKET-INSPIRED DYNAMIC FANOUT',
+  subheadline = 'Watch live WhatsApp broadcasts, AI agents, carrier SMS, and CRM pipelines cycle in real time.',
   hideHeader = false,
   compact = false,
 }: CardFanoutProps) {
-  const [isFanned, setIsFanned] = useState(true)
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
-  const [selectedIdx, setSelectedIdx] = useState<number>(0)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
 
-  // Fanout rotational and translational calculations based on index
-  // 4 cards fanning out smoothly
-  const getFanoutTransform = (index: number, total: number, isHovered: boolean) => {
-    if (!isFanned) {
-      return {
-        x: 0,
-        y: index * (compact ? 5 : 6),
-        rotate: 0,
-        scale: isHovered ? 1.03 : 1 - (total - index - 1) * 0.02,
-        zIndex: isHovered ? 30 : index + 1,
-      }
-    }
+  const total = cards.length
 
-    const midpoint = (total - 1) / 2
-    const offset = index - midpoint
-    const rotation = offset * (compact ? 4.5 : 5.5) // degrees
-    const xOffset = offset * (compact ? 52 : 68) // pixels spread
-    const yOffset = Math.abs(offset) * (compact ? 6 : 8) // subtle curved fan arch
+  const goNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % total)
+  }, [total])
 
-    if (isHovered) {
-      return {
-        x: xOffset,
-        y: compact ? -12 : -18,
-        rotate: 0,
-        scale: compact ? 1.03 : 1.05,
-        zIndex: 40,
-      }
-    }
+  const goPrev = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + total) % total)
+  }, [total])
 
-    return {
-      x: xOffset,
-      y: yOffset,
-      rotate: rotation,
-      scale: 1,
-      zIndex: index + 1,
-    }
-  }
+  useEffect(() => {
+    if (isPaused || total <= 1) return
+    const timer = window.setInterval(goNext, AUTO_ADVANCE_MS)
+    return () => window.clearInterval(timer)
+  }, [isPaused, goNext, total])
 
-  const activeCard = cards[selectedIdx] || cards[0]
+  const nextCard = cards[(activeIndex + 1) % total]
 
   return (
-    <div className={`relative ${compact ? 'w-full max-w-xl mx-auto' : 'w-full max-w-6xl mx-auto'} ${className}`}>
-      {/* Top Header & Interactive Fanout Controller */}
-      {!hideHeader ? (
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 text-center sm:text-left">
-          <div>
-            <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-semibold">
-              <Sparkles className="size-3 text-blue-600" />
-              <span>{badgeText}</span>
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              {headline}
-            </h3>
-            <p className="mt-1 text-xs sm:text-sm text-slate-600 max-w-xl">
-              {subheadline}
-            </p>
-          </div>
-
-          {/* Fanout Toggle Pill */}
-          <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200/80 shadow-2xs shrink-0">
-            <button
-              type="button"
-              onClick={() => setIsFanned(true)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                isFanned
-                  ? 'bg-white text-blue-600 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <Layers className="size-3.5" />
-              <span>Fan Out Deck</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsFanned(false)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                !isFanned
-                  ? 'bg-white text-blue-600 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <span>Stacked</span>
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="flex items-center justify-between mb-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-semibold">
-            <Sparkles className="size-3 text-blue-600" />
-            <span>{badgeText}</span>
-          </div>
-
-          {/* Fanout Toggle Pill */}
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200/80 shadow-2xs">
-            <button
-              type="button"
-              onClick={() => setIsFanned(true)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                isFanned
-                  ? 'bg-white text-blue-600 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <Layers className="size-3" />
-              <span>Fan Out Deck</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsFanned(false)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                !isFanned
-                  ? 'bg-white text-blue-600 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <span>Stacked</span>
-            </button>
-          </div>
+    <div
+      className={`relative ${compact ? 'w-full max-w-md mx-auto' : 'w-full max-w-xl mx-auto'} ${className}`}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={headline}
+    >
+      {/* Optional Header */}
+      {!hideHeader && (
+        <div className="mb-8 text-center">
+          <SplitReveal
+            as="h3"
+            text={headline}
+            trigger="inView"
+            delay={0.04}
+            stagger={0.04}
+            duration={0.55}
+            className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight text-balance"
+          />
+          <p className="mt-1.5 text-xs sm:text-sm text-slate-600 max-w-xl mx-auto text-pretty">
+            {subheadline}
+          </p>
         </div>
       )}
 
-      {/* Main Fanout Stage Area */}
-      <div className={`relative ${compact ? 'min-h-[350px] sm:min-h-[370px] py-2' : 'min-h-[380px] sm:min-h-[420px] py-6'} flex items-center justify-center overflow-visible select-none`}>
-        {/* Glow backdrop behind cards */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-[85%] h-[240px] bg-gradient-to-r from-blue-400/10 via-purple-400/10 to-indigo-400/10 blur-3xl rounded-full" />
-        </div>
+      {/* Queue Auto Carousel Stage */}
+      <div className="relative pt-10 pb-2 select-none">
+        {/* Ambient soft glow backdrop */}
+        <motion.div
+          animate={{ scale: [1, 1.06, 1], opacity: [0.65, 0.95, 0.65] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute inset-x-4 top-6 bottom-6 bg-gradient-to-br from-blue-500/12 via-indigo-500/10 to-purple-500/12 blur-3xl rounded-full pointer-events-none"
+        />
 
-        {/* Fanning Cards Container */}
-        <div className="relative w-full max-w-md h-[340px] flex items-center justify-center">
+        {/* Depth-Stacked Queue Deck */}
+        <div className={`relative w-full ${compact ? 'h-[256px] sm:h-[268px]' : 'h-[276px] sm:h-[290px]'}`}>
           {cards.map((card, idx) => {
-            const isHovered = hoveredIdx === idx
-            const isSelected = selectedIdx === idx
+            // Queue position: 0 = active front card, 1 = next in queue, 2 = 2nd in queue, etc.
+            const queuePos = (idx - activeIndex + total) % total
+            const isFront = queuePos === 0
+            const visibleDepth = Math.min(queuePos, 3)
+            const isHidden = queuePos > 3
+
             const CardIcon = card.icon
-            const transform = getFanoutTransform(idx, cards.length, isHovered)
 
             return (
               <motion.div
                 key={card.id}
-                animate={transform}
+                layout={false}
+                animate={{
+                  y: isHidden ? -52 : -visibleDepth * 16,
+                  scale: isHidden ? 0.84 : 1 - visibleDepth * 0.05,
+                  opacity: isHidden ? 0 : isFront ? 1 : Math.max(0.28, 0.88 - visibleDepth * 0.24),
+                }}
+                whileHover={
+                  isFront
+                    ? { y: -4, transition: { type: 'spring', stiffness: 360, damping: 24 } }
+                    : !isHidden
+                      ? { y: -visibleDepth * 16 - 5, transition: { type: 'spring', stiffness: 360, damping: 24 } }
+                      : undefined
+                }
                 transition={{
                   type: 'spring',
                   stiffness: 260,
-                  damping: 22,
+                  damping: 26,
+                  mass: 0.9,
                 }}
-                onMouseEnter={() => setHoveredIdx(idx)}
-                onMouseLeave={() => setHoveredIdx(null)}
-                onClick={() => setSelectedIdx(idx)}
-                className={`absolute ${compact ? 'w-[280px] sm:w-[320px]' : 'w-[300px] sm:w-[350px]'} rounded-2xl bg-white border cursor-pointer transition-shadow duration-300 overflow-hidden ${
-                  isSelected
-                    ? 'ring-2 ring-blue-600 border-blue-400 shadow-xl'
-                    : 'border-slate-200/90 shadow-md hover:shadow-xl'
-                } ${card.accentBorder}`}
+                onClick={() => {
+                  if (isFront) {
+                    goNext()
+                  } else {
+                    setActiveIndex(idx)
+                  }
+                }}
+                data-cursor="glass"
                 style={{
-                  top: '10px',
+                  zIndex: 40 - queuePos * 10,
+                  pointerEvents: isHidden ? 'none' : 'auto',
+                  transformOrigin: 'top center',
                 }}
+                className={`group absolute inset-x-0 bottom-0 rounded-2xl bg-white/95 backdrop-blur-xs border overflow-hidden transition-shadow duration-300 cursor-pointer ${
+                  isFront
+                    ? 'border-blue-300/90 ring-1 ring-blue-600/12 shadow-2xl shadow-blue-950/10'
+                    : 'border-slate-200/90 shadow-md hover:border-blue-300/70'
+                }`}
               >
-                {/* Header Gradient Top Stripe */}
-                <div className={`h-1.5 w-full bg-gradient-to-r ${card.gradientHeader}`} />
+                {/* Top Gradient Accent Bar + Live Auto-Cycle Progress */}
+                <div className="relative h-1.5 w-full bg-slate-100 overflow-hidden">
+                  <div className={`absolute inset-0 bg-gradient-to-r ${card.gradientHeader} ${isFront ? 'opacity-25' : 'opacity-100'}`} />
+                  {isFront && !isPaused && (
+                    <motion.div
+                      key={`queue-progress-${activeIndex}`}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: AUTO_ADVANCE_MS / 1000, ease: 'linear' }}
+                      className={`absolute inset-0 bg-gradient-to-r ${card.gradientHeader} origin-left`}
+                    />
+                  )}
+                  {isFront && isPaused && (
+                    <div className={`absolute inset-0 bg-gradient-to-r ${card.gradientHeader}`} />
+                  )}
+                </div>
 
-                <div className={compact ? 'p-3.5 sm:p-4' : 'p-4 sm:p-5'}>
-                  {/* Category & Status Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-2.5">
-                    <span className="text-[10px] font-mono font-bold tracking-wider text-slate-500 uppercase truncate">
+                <div className={compact ? 'p-4 sm:p-5' : 'p-5 sm:p-6'}>
+                  {/* Category & Status Tag */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-[11px] font-medium text-slate-500 truncate">
                       {card.category}
                     </span>
                     <span
-                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border shrink-0 ${card.badgeColor}`}
+                      className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-sm border shrink-0 ${card.badgeColor}`}
                     >
                       {card.badge}
                     </span>
                   </div>
 
                   {/* Icon & Title */}
-                  <div className="flex items-start gap-2.5">
+                  <div className="flex items-start gap-3">
                     <div
-                      className={`${compact ? 'size-8' : 'size-9'} rounded-xl border flex items-center justify-center shrink-0 ${card.iconBg} ${card.iconColor}`}
+                      className={`${compact ? 'size-9' : 'size-10'} rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${card.iconBg} ${card.iconColor}`}
                     >
-                      <CardIcon className={compact ? 'size-4' : 'size-4.5'} />
+                      <CardIcon className={compact ? 'size-4.5' : 'size-5'} />
                     </div>
-                    <div className="min-w-0">
-                      <h4 className="text-sm font-bold text-slate-900 leading-tight truncate">
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-sm sm:text-[15px] font-bold text-slate-900 leading-tight truncate">
                         {card.title}
                       </h4>
                       <p className="text-xs text-slate-500 truncate mt-0.5 font-medium">
@@ -321,25 +291,25 @@ export function CardFanout({
                     </div>
                   </div>
 
-                  {/* Description Box */}
-                  <div className="mt-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600 leading-relaxed font-sans line-clamp-2">
+                  {/* Description */}
+                  <div className="mt-3 p-2.5 sm:p-3 rounded-xl bg-slate-50/90 border border-slate-100 text-xs text-slate-600 leading-relaxed line-clamp-2">
                     {card.description}
                   </div>
 
-                  {/* Footer Metric and Channel Tag */}
-                  <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
+                  {/* Footer Metric and Channel */}
+                  <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
                     <div>
-                      <span className="text-sm font-black font-mono text-slate-900 block leading-none">
+                      <span className="text-sm sm:text-base font-black font-mono tabular-nums text-slate-900 block leading-none">
                         {card.metric}
                       </span>
-                      <span className="text-[10px] font-medium text-slate-400 block mt-0.5">
+                      <span className="text-[10.5px] font-medium text-slate-500 block mt-0.5">
                         {card.metricLabel}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
-                      <span className={`size-1.5 rounded-full bg-current ${card.channelIconColor} animate-pulse`} />
-                      <span className="text-[11px] font-mono truncate max-w-[120px]">
+                    <div className="flex items-center gap-1.5 text-xs font-medium text-slate-600">
+                      <span className={`size-1.5 rounded-full bg-current ${card.channelIconColor}`} />
+                      <span className="text-[11px] font-mono truncate max-w-[140px]">
                         {card.channel}
                       </span>
                     </div>
@@ -349,35 +319,61 @@ export function CardFanout({
             )
           })}
         </div>
-      </div>
 
-      {/* Selected Card Live Inspection Bar */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeCard.id}
-          initial={{ opacity: 0, y: compact ? 8 : 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: compact ? -8 : -12 }}
-          transition={{ duration: 0.3 }}
-          className={`${compact ? 'mt-3 p-3' : 'mt-6 p-4'} rounded-xl bg-slate-50/90 border border-slate-200/90 shadow-2xs flex flex-col ${compact ? 'sm:flex-row' : 'md:flex-row'} items-center justify-between gap-3 text-xs`}
-        >
-          <div className="flex items-center gap-2.5 min-w-0">
-            <span className="size-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-            <div className="truncate">
-              <span className="font-bold text-slate-900">Active: </span>
-              <span className="text-slate-600">{activeCard.title}</span>
-              <span className="text-slate-400 mx-1.5">·</span>
-              <span className="font-mono text-blue-600 font-semibold">{activeCard.channel}</span>
+        {/* Compact Queue Controls & Up-Next Bar */}
+        <div className="mt-4 flex items-center justify-between gap-3 px-1">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-[11px] font-mono tabular-nums font-bold text-slate-400 shrink-0">
+              0{activeIndex + 1}/0{total}
+            </span>
+            <span className="text-slate-300 text-xs" aria-hidden="true">·</span>
+            <span className="text-[11px] text-slate-500 truncate">
+              Next: <span className="font-semibold text-slate-700">{nextCard?.category}</span>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-1">
+              {cards.map((c, idx) => (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => setActiveIndex(idx)}
+                  aria-label={`View ${c.title}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    idx === activeIndex
+                      ? 'w-5 bg-blue-600'
+                      : 'w-1.5 bg-slate-300 hover:bg-slate-400'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <div className="flex items-center gap-1 ml-1">
+              <motion.button
+                type="button"
+                onClick={goPrev}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
+                aria-label="Previous card in queue"
+                className="size-7 rounded-lg border border-slate-200/90 bg-white hover:bg-blue-50 hover:border-blue-300 text-slate-600 hover:text-blue-600 flex items-center justify-center shadow-2xs transition-colors cursor-pointer"
+              >
+                <ChevronLeft className="size-3.5" />
+              </motion.button>
+              <motion.button
+                type="button"
+                onClick={goNext}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
+                aria-label="Next card in queue"
+                className="size-7 rounded-lg border border-slate-200/90 bg-white hover:bg-blue-50 hover:border-blue-300 text-slate-600 hover:text-blue-600 flex items-center justify-center shadow-2xs transition-colors cursor-pointer"
+              >
+                <ChevronRight className="size-3.5" />
+              </motion.button>
             </div>
           </div>
-
-          <div className="flex items-center gap-3 font-mono text-slate-500 shrink-0 text-[11px]">
-            <span>SLA: {activeCard.metric}</span>
-            <span className="text-slate-300">·</span>
-            <span className="text-emerald-700 font-medium">{activeCard.badge}</span>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+        </div>
+      </div>
     </div>
   )
 }

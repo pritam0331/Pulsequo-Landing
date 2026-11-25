@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { motion, AnimatePresence } from 'motion/react'
 import {
   MessageSquare,
   Radio,
@@ -16,7 +17,6 @@ import {
   Database,
   Zap,
   ArrowRight,
-  Sparkles,
 } from 'lucide-react'
 
 interface IntegrationItem {
@@ -159,164 +159,201 @@ export function IntegrationsCarousel({ className = '' }: { className?: string })
     : ALL_INTEGRATIONS.filter(item => item.category === activeCategory)
 
   return (
-    <div className={`relative w-full ${className}`}>
-      {/* Category Filter Pills */}
-      <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-        {[
-          { key: 'all', label: 'All 50+ Integrations' },
-          { key: 'cpaas', label: 'CPaaS & Telecom' },
-          { key: 'crm', label: 'CRMs & Team Inboxes' },
-          { key: 'ai', label: 'AI & Developer APIs' },
-          { key: 'ecommerce', label: 'E-Commerce & Payments' },
-        ].map((tab) => {
-          const isActive = activeCategory === tab.key
-          return (
-            <button
-              key={tab.key}
-              onClick={() => setActiveCategory(tab.key as any)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer border ${
-                isActive
-                  ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              {tab.label}
-            </button>
-          )
-        })}
-      </div>
-
-      {activeCategory === 'all' ? (
-        /* Dual-Track Infinite Carousel */
-        <div className="space-y-4 relative overflow-hidden py-2">
-          {/* Gradient Edge Masks for Smooth Fade In/Out */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
-
-          {/* Track 1 (Left Scrolling) */}
-          <div className="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap py-1">
-            {marqueeTrack1.map((item, idx) => {
-              const Icon = item.icon
-              return (
-                <Link
-                  key={`t1-${item.name}-${idx}`}
-                  to={item.link}
-                  className="inline-flex items-center gap-3 mx-2.5 px-4 py-3 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-blue-500 hover:bg-white hover:shadow-xs transition-all duration-200 group"
-                >
-                  <div
-                    className={`size-8 rounded-lg flex items-center justify-center border shadow-2xs transition-colors ${
-                      item.accent === 'emerald'
-                        ? 'bg-emerald-50 border-emerald-200 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white'
-                        : item.accent === 'purple'
-                        ? 'bg-purple-50 border-purple-200 text-purple-600 group-hover:bg-purple-600 group-hover:text-white'
-                        : item.accent === 'amber'
-                        ? 'bg-amber-50 border-amber-200 text-amber-600 group-hover:bg-amber-500 group-hover:text-white'
-                        : 'bg-blue-50 border-blue-200 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
-                    }`}
-                  >
-                    <Icon className="size-4" />
-                  </div>
-                  <div className="text-left">
-                    <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors block">
-                      {item.name}
-                    </span>
-                    <span className="text-[10px] text-slate-400 font-medium block">
-                      {item.tag}
-                    </span>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-
-          {/* Track 2 (Right Scrolling - Reverse Marquee) */}
-          <div className="flex animate-marquee-reverse hover:[animation-play-state:paused] whitespace-nowrap py-1">
-            {marqueeTrack2.map((item, idx) => {
-              const Icon = item.icon
-              return (
-                <Link
-                  key={`t2-${item.name}-${idx}`}
-                  to={item.link}
-                  className="inline-flex items-center gap-3 mx-2.5 px-4 py-3 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-blue-500 hover:bg-white hover:shadow-xs transition-all duration-200 group"
-                >
-                  <div
-                    className={`size-8 rounded-lg flex items-center justify-center border shadow-2xs transition-colors ${
-                      item.accent === 'emerald'
-                        ? 'bg-emerald-50 border-emerald-200 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white'
-                        : item.accent === 'purple'
-                        ? 'bg-purple-50 border-purple-200 text-purple-600 group-hover:bg-purple-600 group-hover:text-white'
-                        : item.accent === 'amber'
-                        ? 'bg-amber-50 border-amber-200 text-amber-600 group-hover:bg-amber-500 group-hover:text-white'
-                        : 'bg-blue-50 border-blue-200 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
-                    }`}
-                  >
-                    <Icon className="size-4" />
-                  </div>
-                  <div className="text-left">
-                    <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors block">
-                      {item.name}
-                    </span>
-                    <span className="text-[10px] text-slate-400 font-medium block">
-                      {item.tag}
-                    </span>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      ) : (
-        /* Filtered Grid Display */
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
-          {filteredItems.map((item, idx) => {
-            const Icon = item.icon
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative w-full ${className}`}
+    >
+      {/* Category Segmented Filter Bar */}
+      <div className="flex justify-center mb-8 overflow-x-auto pb-1 no-scrollbar">
+        <div className="inline-flex flex-wrap sm:flex-nowrap items-center justify-center gap-1 p-1 rounded-xl bg-slate-100/90 border border-slate-200/80">
+          {[
+            { key: 'all', label: 'All 50+ Integrations' },
+            { key: 'cpaas', label: 'CPaaS & Telecom' },
+            { key: 'crm', label: 'CRMs & Team Inboxes' },
+            { key: 'ai', label: 'AI & Developer APIs' },
+            { key: 'ecommerce', label: 'E-Commerce & Payments' },
+          ].map((tab) => {
+            const isActive = activeCategory === tab.key
             return (
-              <Link
-                key={idx}
-                to={item.link}
-                className="group flex items-center gap-3 p-4 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-blue-500 hover:bg-white hover:shadow-xs transition-all duration-200"
+              <button
+                key={tab.key}
+                type="button"
+                onClick={() => setActiveCategory(tab.key as 'all' | 'cpaas' | 'crm' | 'ai' | 'ecommerce')}
+                className={`relative px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
+                  isActive
+                    ? 'text-white'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
               >
-                <div
-                  className={`size-9 rounded-lg flex items-center justify-center border shadow-2xs transition-colors ${
-                    item.accent === 'emerald'
-                      ? 'bg-emerald-50 border-emerald-200 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white'
-                      : item.accent === 'purple'
-                      ? 'bg-purple-50 border-purple-200 text-purple-600 group-hover:bg-purple-600 group-hover:text-white'
-                      : item.accent === 'amber'
-                      ? 'bg-amber-50 border-amber-200 text-amber-600 group-hover:bg-amber-500 group-hover:text-white'
-                      : 'bg-blue-50 border-blue-200 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
-                  }`}
-                >
-                  <Icon className="size-4.5" />
-                </div>
-                <div className="text-left">
-                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                    {item.name}
-                  </h4>
-                  <p className="text-[11px] text-slate-400 font-medium">
-                    {item.tag}
-                  </p>
-                </div>
-              </Link>
+                {isActive && (
+                  <motion.span
+                    layoutId="integrations-active-tab"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    className="absolute inset-0 rounded-lg bg-blue-600 shadow-sm"
+                  />
+                )}
+                <span className="relative z-10">{tab.label}</span>
+              </button>
             )
           })}
         </div>
-      )}
+      </div>
 
-      {/* Trust & Spec Bar */}
+      <AnimatePresence mode="wait">
+        {activeCategory === 'all' ? (
+          /* Dual-Track Infinite Carousel */
+          <motion.div
+            key="all-marquee"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="space-y-4 relative overflow-hidden py-2"
+          >
+            {/* Gradient Edge Masks for Smooth Fade In/Out */}
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
+
+            {/* Track 1 (Left Scrolling) */}
+            <div className="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap py-1">
+              {marqueeTrack1.map((item, idx) => {
+                const Icon = item.icon
+                return (
+                  <Link
+                    key={`t1-${item.name}-${idx}`}
+                    to={item.link}
+                    className="inline-flex items-center gap-3 mx-2.5 px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-200/90 hover:border-blue-500 hover:bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 group"
+                  >
+                    <div
+                      className={`size-8 rounded-lg flex items-center justify-center border shadow-2xs group-hover:scale-110 group-hover:-rotate-3 transition-all duration-200 ${
+                        item.accent === 'emerald'
+                          ? 'bg-emerald-50 border-emerald-200 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white'
+                          : item.accent === 'purple'
+                          ? 'bg-purple-50 border-purple-200 text-purple-600 group-hover:bg-purple-600 group-hover:text-white'
+                          : item.accent === 'amber'
+                          ? 'bg-amber-50 border-amber-200 text-amber-600 group-hover:bg-amber-500 group-hover:text-white'
+                          : 'bg-blue-50 border-blue-200 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
+                      }`}
+                    >
+                      <Icon className="size-4" />
+                    </div>
+                    <div className="text-left">
+                      <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors block">
+                        {item.name}
+                      </span>
+                      <span className="text-[10px] text-slate-500 font-medium block">
+                        {item.tag}
+                      </span>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* Track 2 (Right Scrolling - Reverse Marquee) */}
+            <div className="flex animate-marquee-reverse hover:[animation-play-state:paused] whitespace-nowrap py-1">
+              {marqueeTrack2.map((item, idx) => {
+                const Icon = item.icon
+                return (
+                  <Link
+                    key={`t2-${item.name}-${idx}`}
+                    to={item.link}
+                    className="inline-flex items-center gap-3 mx-2.5 px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-200/90 hover:border-blue-500 hover:bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 group"
+                  >
+                    <div
+                      className={`size-8 rounded-lg flex items-center justify-center border shadow-2xs group-hover:scale-110 group-hover:-rotate-3 transition-all duration-200 ${
+                        item.accent === 'emerald'
+                          ? 'bg-emerald-50 border-emerald-200 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white'
+                          : item.accent === 'purple'
+                          ? 'bg-purple-50 border-purple-200 text-purple-600 group-hover:bg-purple-600 group-hover:text-white'
+                          : item.accent === 'amber'
+                          ? 'bg-amber-50 border-amber-200 text-amber-600 group-hover:bg-amber-500 group-hover:text-white'
+                          : 'bg-blue-50 border-blue-200 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
+                      }`}
+                    >
+                      <Icon className="size-4" />
+                    </div>
+                    <div className="text-left">
+                      <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors block">
+                        {item.name}
+                      </span>
+                      <span className="text-[10px] text-slate-500 font-medium block">
+                        {item.tag}
+                      </span>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </motion.div>
+        ) : (
+          /* Filtered Grid Display */
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5"
+          >
+            {filteredItems.map((item, idx) => {
+              const Icon = item.icon
+              return (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.32, delay: idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -4, transition: { type: 'spring', stiffness: 360, damping: 24 } }}
+                >
+                  <Link
+                    to={item.link}
+                    className="group flex items-center gap-3 p-4 rounded-xl bg-slate-50/80 border border-slate-200/90 hover:border-blue-500 hover:bg-white hover:shadow-md transition-all duration-200"
+                  >
+                    <div
+                      className={`size-9 rounded-lg flex items-center justify-center border shadow-2xs group-hover:scale-110 group-hover:-rotate-3 transition-all duration-200 ${
+                        item.accent === 'emerald'
+                          ? 'bg-emerald-50 border-emerald-200 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white'
+                          : item.accent === 'purple'
+                          ? 'bg-purple-50 border-purple-200 text-purple-600 group-hover:bg-purple-600 group-hover:text-white'
+                          : item.accent === 'amber'
+                          ? 'bg-amber-50 border-amber-200 text-amber-600 group-hover:bg-amber-500 group-hover:text-white'
+                          : 'bg-blue-50 border-blue-200 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
+                      }`}
+                    >
+                      <Icon className="size-4.5" />
+                    </div>
+                    <div className="text-left">
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                        {item.name}
+                      </h4>
+                      <p className="text-[11px] text-slate-500 font-medium">
+                        {item.tag}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              )
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Clean Spec Bar */}
       <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl bg-slate-50/80 border border-slate-200/80 shadow-2xs">
-        <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-600">
-          <span className="flex items-center gap-1.5 font-bold text-slate-900">
-            <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 text-xs font-mono text-slate-600">
+          <span className="font-bold text-slate-900">
             50+ Enterprise Connectors
           </span>
           <span className="text-slate-300">·</span>
-          <span>Sub-120ms Event Relay</span>
+          <span className="tabular-nums">Sub-120ms Event Relay</span>
           <span className="text-slate-300 hidden md:inline">·</span>
           <span className="hidden md:inline">OpenAPI 3.1 & SDKs</span>
           <span className="text-slate-300 hidden lg:inline">·</span>
-          <span className="hidden lg:inline text-purple-700 font-semibold flex items-center gap-1">
-            <Sparkles className="size-3 text-purple-600" />
+          <span className="hidden lg:inline text-purple-700 font-semibold">
             Model Context Protocol
           </span>
         </div>
@@ -326,9 +363,9 @@ export function IntegrationsCarousel({ className = '' }: { className?: string })
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors group"
         >
           <span>Explore all integrations & specs</span>
-          <ArrowRight className="size-3.5 group-hover:translate-x-0.5 transition-transform" />
+          <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
-    </div>
+    </motion.div>
   )
 }

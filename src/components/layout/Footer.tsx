@@ -5,6 +5,7 @@
  */
 
 import { Link } from 'react-router'
+import { motion } from 'motion/react'
 import {
   Mail,
   MapPin,
@@ -74,11 +75,25 @@ export function Footer() {
 
   return (
     <footer className="bg-[#070d24] text-slate-300 border-t border-blue-950/80 relative overflow-hidden">
-      {/* Subtle background glow for depth */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/5 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/5 blur-3xl pointer-events-none" />
+      {/* Subtle animated ambient glows for depth */}
+      <motion.div
+        animate={{ x: [0, 30, 0], opacity: [0.06, 0.12, 0.06] }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600 blur-3xl pointer-events-none"
+      />
+      <motion.div
+        animate={{ x: [0, -30, 0], opacity: [0.05, 0.1, 0.05] }}
+        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600 blur-3xl pointer-events-none"
+      />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-8 sm:pb-10">
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-8 sm:pb-10"
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 xl:gap-10">
           {/* Column 1 & 2: Brand, Tagline, & Contact Details */}
           <div className="col-span-1 sm:col-span-2">
@@ -107,42 +122,26 @@ export function Footer() {
 
             {/* Social Links */}
             <div className="mt-4 flex items-center gap-2.5">
-              <a
-                href={siteConfig.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
-                aria-label="PulseQuo on LinkedIn"
-              >
-                <LinkedinIcon className="size-4" />
-              </a>
-              <a
-                href={siteConfig.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
-                aria-label="PulseQuo on Twitter"
-              >
-                <TwitterIcon className="size-4" />
-              </a>
-              <a
-                href={siteConfig.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
-                aria-label="PulseQuo on GitHub"
-              >
-                <GithubIcon className="size-4" />
-              </a>
-              <a
-                href={siteConfig.social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
-                aria-label="PulseQuo on YouTube"
-              >
-                <YoutubeIcon className="size-4" />
-              </a>
+              {[
+                { href: siteConfig.social.linkedin, label: 'PulseQuo on LinkedIn', Icon: LinkedinIcon },
+                { href: siteConfig.social.twitter, label: 'PulseQuo on Twitter', Icon: TwitterIcon },
+                { href: siteConfig.social.github, label: 'PulseQuo on GitHub', Icon: GithubIcon },
+                { href: siteConfig.social.youtube, label: 'PulseQuo on YouTube', Icon: YoutubeIcon },
+              ].map(({ href, label, Icon }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -2, scale: 1.08 }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+                  className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
+                  aria-label={label}
+                >
+                  <Icon className="size-4" />
+                </motion.a>
+              ))}
             </div>
           </div>
 
@@ -284,7 +283,7 @@ export function Footer() {
             </FooterLink>
           </div>
         </div>
-      </div>
+      </motion.div>
     </footer>
   )
 }

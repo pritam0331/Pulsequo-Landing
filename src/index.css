@@ -4,11 +4,8 @@
   --font-sans: "Plus Jakarta Sans", "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* Core 3-Color Palette Hierarchy */
-  --color-pq-primary: #ffffff;
-  --color-pq-secondary: #155dfc;
-  --color-pq-midnight: #020618;
-  --color-pq-dark: #020618;
+  /* Stretched Desktop Layout Container Widths */
+  --container-7xl: 105rem;
 
   /* Core 3-Color Palette Hierarchy */
   --color-pq-primary: #ffffff;
@@ -308,15 +305,42 @@
 }
 
 .text-gradient-hero {
-  background: linear-gradient(135deg, #2563eb 0%, #6366f1 50%, #8b5cf6 100%);
+  background: linear-gradient(120deg, #155dfc 0%, #4f46e5 45%, #7c3aed 75%, #155dfc 100%);
+  background-size: 220% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gradient-flow 7s ease-in-out infinite;
 }
 
 .text-gradient-purple {
   background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Primary CTA subtle sweep on hover */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.24) 48%,
+    transparent 76%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.btn-shine:hover::after {
+  transform: translateX(130%);
 }
 
 /* Hide scrollbar utility */
@@ -346,3 +370,284 @@
 .thin-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #94a3b8;
 }
+
+/* Hide native pointer only while custom triangular cursor is active (preserve text I-beam on inputs) */
+html.pq-custom-cursor,
+html.pq-custom-cursor * {
+  cursor: none !important;
+}
+
+html.pq-custom-cursor input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]),
+html.pq-custom-cursor textarea,
+html.pq-custom-cursor select,
+html.pq-custom-cursor [contenteditable="true"] {
+  cursor: text !important;
+}
+
+/* Triangular GPU-composited Custom Cursor & Scroll-Fade Effect */
+.pq-cursor-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pq-cursor-root[data-visible="true"] {
+  opacity: 1;
+}
+
+.pq-cursor-tracker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  will-change: transform;
+}
+
+/* Soft Scroll-Fade Edge Veils (fade in gently while scrolling) */
+.pq-scroll-fade-top,
+.pq-scroll-fade-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 76px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+}
+
+.pq-scroll-fade-top {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(241, 245, 249, 0.28) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.pq-scroll-fade-bottom {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(241, 245, 249, 0.32) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.pq-cursor-root[data-scrolling="true"] .pq-scroll-fade-top,
+.pq-cursor-root[data-scrolling="true"] .pq-scroll-fade-bottom {
+  opacity: 1;
+}
+
+/* Subtle Radial Glow Halo (blooms on buttons & glass-cards) */
+.pq-cursor-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 116px;
+  height: 116px;
+  margin-top: -54px;
+  margin-left: -54px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(21, 93, 252, 0.24) 0%,
+    rgba(99, 102, 241, 0.12) 38%,
+    rgba(21, 93, 252, 0) 70%
+  );
+  opacity: 0;
+  transform: scale(0.32);
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+/* Lead Sharp Triangular Cursor (tip aligned exactly at 0,0) */
+.pq-cursor-triangle-lead {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 22px;
+  height: 22px;
+  transform-origin: 2px 2px;
+  transform: scale(1);
+  opacity: 1;
+  filter: drop-shadow(0 2px 5px rgba(15, 23, 42, 0.22));
+  transition:
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 180ms ease;
+  will-change: transform, opacity;
+}
+
+.pq-cursor-triangle-lead polygon {
+  fill: #0f172a;
+  stroke: #ffffff;
+  transition: fill 180ms ease, stroke 180ms ease;
+}
+
+/* Trailing Outlined Triangle Echo */
+.pq-cursor-triangle-trail {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 28px;
+  height: 28px;
+  transform-origin: 3px 3px;
+  transform: scale(0.95);
+  opacity: 0.45;
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.pq-cursor-triangle-trail polygon {
+  stroke: rgba(21, 93, 252, 0.52);
+  fill: rgba(21, 93, 252, 0.05);
+  transition: stroke 180ms ease, fill 180ms ease;
+}
+
+/* Hovering Buttons & Interactive CTAs */
+.pq-cursor-root[data-mode="button"] .pq-cursor-glow {
+  opacity: 0.95;
+  transform: scale(0.78);
+}
+
+.pq-cursor-root[data-mode="button"] .pq-cursor-triangle-lead {
+  transform: scale(1.16) rotate(-5deg);
+  filter: drop-shadow(0 4px 10px rgba(21, 93, 252, 0.36));
+}
+
+.pq-cursor-root[data-mode="button"] .pq-cursor-triangle-lead polygon {
+  fill: #155dfc;
+  stroke: #ffffff;
+}
+
+.pq-cursor-root[data-mode="button"] .pq-cursor-triangle-trail {
+  opacity: 0.82;
+  transform: scale(1.28) rotate(-5deg);
+}
+
+.pq-cursor-root[data-mode="button"] .pq-cursor-triangle-trail polygon {
+  stroke: rgba(21, 93, 252, 0.72);
+  fill: rgba(21, 93, 252, 0.08);
+}
+
+/* Hovering Glass-Cards & Feature Surfaces */
+.pq-cursor-root[data-mode="card"] .pq-cursor-glow {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.pq-cursor-root[data-mode="card"] .pq-cursor-triangle-lead {
+  transform: scale(1.08);
+}
+
+.pq-cursor-root[data-mode="card"] .pq-cursor-triangle-lead polygon {
+  fill: #1d4ed8;
+  stroke: #ffffff;
+}
+
+.pq-cursor-root[data-mode="card"] .pq-cursor-triangle-trail {
+  opacity: 0.65;
+  transform: scale(1.18);
+}
+
+.pq-cursor-root[data-mode="card"] .pq-cursor-triangle-trail polygon {
+  stroke: rgba(79, 70, 229, 0.58);
+}
+
+/* Hovering Dark Glass / Midnight Cards */
+.pq-cursor-root[data-mode="card-dark"] .pq-cursor-glow {
+  opacity: 1;
+  transform: scale(1.1);
+  background: radial-gradient(
+    circle,
+    rgba(96, 165, 250, 0.36) 0%,
+    rgba(129, 140, 248, 0.18) 40%,
+    rgba(96, 165, 250, 0) 70%
+  );
+}
+
+.pq-cursor-root[data-mode="card-dark"] .pq-cursor-triangle-lead polygon {
+  fill: #ffffff;
+  stroke: #155dfc;
+}
+
+.pq-cursor-root[data-mode="card-dark"] .pq-cursor-triangle-trail {
+  opacity: 0.8;
+  transform: scale(1.18);
+}
+
+.pq-cursor-root[data-mode="card-dark"] .pq-cursor-triangle-trail polygon {
+  stroke: rgba(147, 197, 253, 0.78);
+  fill: rgba(96, 165, 250, 0.12);
+}
+
+/* Hovering Text Inputs (fade out custom triangle so native I-beam is clean) */
+.pq-cursor-root[data-mode="text"] .pq-cursor-triangle-lead,
+.pq-cursor-root[data-mode="text"] .pq-cursor-triangle-trail,
+.pq-cursor-root[data-mode="text"] .pq-cursor-glow {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+/* Smooth Fading Effect While Scrolling Mouse Wheel */
+.pq-cursor-root[data-scrolling="true"] .pq-cursor-triangle-lead {
+  opacity: 0.22;
+  transform: scale(0.84);
+}
+
+.pq-cursor-root[data-scrolling="true"] .pq-cursor-triangle-trail {
+  opacity: 0.08;
+  transform: scale(0.75);
+}
+
+.pq-cursor-root[data-scrolling="true"] .pq-cursor-glow {
+  opacity: 0.14;
+  transform: scale(0.5);
+}
+
+/* Tactile Click Compression */
+.pq-cursor-root[data-pressed="true"] .pq-cursor-triangle-lead {
+  transform: scale(0.84) rotate(-8deg);
+}
+
+.pq-cursor-root[data-pressed="true"] .pq-cursor-triangle-trail {
+  transform: scale(0.78);
+}
+
+.pq-cursor-root[data-pressed="true"] .pq-cursor-glow {
+  transform: scale(0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-delayed,
+  .animate-pulse-glow,
+  .animate-shimmer,
+  .animate-marquee,
+  .animate-marquee-slow,
+  .animate-marquee-reverse,
+  .animate-gradient-flow,
+  .text-gradient-hero {
+    animation: none !important;
+  }
+
+  .pq-cursor-root {
+    display: none !important;
+  }
+}
+
+
+

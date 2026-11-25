@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'motion/react'
-import { ShieldCheck, Sparkles } from 'lucide-react'
+import { ShieldCheck } from 'lucide-react'
 
 interface Brand {
   name: string
@@ -135,20 +135,20 @@ export function BrandCarousel({ className = '' }: { className?: string }) {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left"
         >
-          <div className="flex items-center gap-2">
-            <span className="flex size-2 rounded-full bg-blue-600 animate-pulse" />
+          <div className="flex items-center gap-2.5">
+            <span className="h-[2px] w-5 rounded-full bg-blue-600 shrink-0" />
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
               Trusted by 500+ High-Growth Enterprises & Leading Brands
             </span>
           </div>
 
           <div className="flex items-center gap-3 text-[11px] font-mono text-slate-500">
-            <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-sm font-semibold">
-              <ShieldCheck className="size-3 text-emerald-600" />
+            <span className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold">
+              <ShieldCheck className="size-3.5 text-emerald-600" />
               Meta Official Partner
             </span>
-            <span className="hidden md:inline-flex items-center gap-1 text-blue-700 bg-blue-50 border border-blue-200/80 px-2 py-0.5 rounded-sm font-semibold">
-              <Sparkles className="size-3 text-blue-600" />
+            <span className="hidden md:inline text-slate-300" aria-hidden="true">·</span>
+            <span className="hidden md:inline-flex items-center text-blue-700 font-semibold">
               TRAI DLT Verified
             </span>
           </div>
@@ -161,13 +161,14 @@ export function BrandCarousel({ className = '' }: { className?: string }) {
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent z-10" />
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-slate-50 via-slate-50/90 to-transparent z-10" />
 
-        <div className="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap py-1">
+        <div className="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap py-2">
           {marqueeItems.map((brand, idx) => (
             <div
               key={`${brand.name}-${idx}`}
-              className="inline-flex items-center gap-3.5 mx-3 px-4 py-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-blue-400 hover:shadow-xs transition-all duration-200 group cursor-default"
+              data-cursor="glass"
+              className="inline-flex items-center gap-3.5 mx-3 px-4 py-2.5 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/80 shadow-2xs hover:-translate-y-0.5 hover:border-blue-400/80 hover:shadow-md hover:shadow-blue-600/5 transition-all duration-200 group cursor-default"
             >
-              <div className="size-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+              <div className="size-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:scale-110 group-hover:-rotate-3 group-hover:bg-blue-50/50 transition-all duration-200">
                 {brand.logo}
               </div>
               <div className="text-left">
@@ -175,11 +176,12 @@ export function BrandCarousel({ className = '' }: { className?: string }) {
                   <span className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                     {brand.name}
                   </span>
-                  <span className="text-[10px] font-mono font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded-xs border border-emerald-100">
+                  <span className="text-slate-300 text-[10px]" aria-hidden="true">·</span>
+                  <span className="text-[10.5px] font-mono font-bold text-emerald-600 tabular-nums">
                     {brand.metric}
                   </span>
                 </div>
-                <span className="text-[11px] text-slate-400 font-medium block">
+                <span className="text-[11px] text-slate-500 font-medium block">
                   {brand.category}
                 </span>
               </div>

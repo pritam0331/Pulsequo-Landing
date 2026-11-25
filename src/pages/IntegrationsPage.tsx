@@ -1,7 +1,7 @@
 /**
  * Integrations Directory Page
  * Route: /integrations
- * Fully fledged Shiprocket-inspired landing page with Dual-Track Integrations Marquee,
+ * Landing page with Dual-Track Integrations Marquee,
  * Brand Carousel, Card Fanout, Testimonials Carousel, and Ambient Background.
  */
 
@@ -70,19 +70,21 @@ export function IntegrationsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: easeOutCurve }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/90 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6 shadow-2xs">
-              <span className="flex size-2 rounded-full bg-blue-600 animate-pulse" />
-              <span>50+ Verified Connectors & Open Standard Protocols</span>
+            <div className="inline-flex items-center gap-2.5 mb-5">
+              <span className="h-[2px] w-6 rounded-full bg-blue-600" />
+              <span className="text-xs font-semibold tracking-wide text-blue-600">
+                50+ Verified Connectors & Open Standard Protocols
+              </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
               Connect your existing stack to{' '}
-              <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
+              <span className="text-gradient-hero">
                 PulseQuo.
               </span>
             </h1>
 
-            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-normal text-pretty">
               Synchronize customer dialogues, automate database lookups via Model Context Protocol, and push events to
               your CRM in real-time with verified enterprise connectors.
             </p>
@@ -95,7 +97,7 @@ export function IntegrationsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search connectors, protocols, or tools..."
-                className="w-full rounded-2xl border border-slate-200 bg-white pl-11 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:outline-none shadow-sm"
+                className="w-full rounded-2xl border border-slate-200 bg-white pl-11 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:outline-none shadow-sm transition-shadow"
               />
             </div>
           </motion.div>
@@ -113,7 +115,7 @@ export function IntegrationsPage() {
       <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="LIVE CONNECTORS IN ACTION"
+            badge="Live Connectors in Action"
             title="Bi-Directional Ecosystem Stream"
             description="High-throughput sync across CPaaS carriers, enterprise CRMs, payment gateways, and Model Context Protocol servers."
           />
@@ -131,14 +133,13 @@ export function IntegrationsPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          4. SHIPROCKET-INSPIRED CARD FANOUT SHOWCASE
+          4. CARD FANOUT SHOWCASE
          ───────────────────────────────────────────────────────────── */}
       <section className="py-12 sm:py-16 bg-slate-50/70 border-b border-slate-200/80 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <CardFanout
             headline="Synchronized Enterprise Connectors"
             subheadline="See how events flow from Shopify checkout to WhatsApp shipping alerts, Salesforce deals, and autonomous support tickets."
-            badgeText="SHIPROCKET-STYLE ECOSYSTEM SYNC"
           />
         </div>
       </section>

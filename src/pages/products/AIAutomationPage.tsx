@@ -410,11 +410,10 @@ export function AIAutomationPage() {
               </div>
             </div>
 
-            {/* Right Column: Shiprocket-Inspired Fanout Deck (Replaces the dark console window) */}
+            {/* Right Column: Interactive Fanout Deck */}
             <div className="lg:col-span-6 xl:col-span-6 relative">
               <CardFanout
                 cards={aiFanoutCards}
-                badgeText="SHIPROCKET-INSPIRED AI AGENT FANOUT"
                 hideHeader={true}
                 compact={true}
                 className="max-w-full"

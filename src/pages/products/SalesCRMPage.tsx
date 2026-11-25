@@ -1,7 +1,7 @@
 /**
  * Product Detail Page: Sales CRM
  * Route: /products/sales-crm
- * Fully fledged Shiprocket-inspired landing page with Card Fanout, Brand Carousel, Testimonial Carousel, and Ambient Background.
+ * Landing page with Card Fanout, Brand Carousel, Testimonial Carousel, and Ambient Background.
  */
 
 import { Link } from 'react-router'
@@ -134,26 +134,28 @@ export function SalesCRMPage() {
             className="mb-8"
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: easeOutCurve }}
-              className="lg:col-span-7"
+              className="lg:col-span-6"
             >
-              <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 border border-indigo-200/90 px-3.5 py-1 text-xs font-semibold text-indigo-800 mb-6 shadow-2xs">
-                <span className="flex size-2 rounded-full bg-indigo-600 animate-pulse" />
-                <span>Conversational Sales CRM & Deal Pipelines</span>
+              <div className="inline-flex items-center gap-2.5 mb-5">
+                <span className="h-[2px] w-6 rounded-full bg-indigo-600" />
+                <span className="text-xs font-semibold tracking-wide text-indigo-600">
+                  Conversational Sales CRM & Deal Pipelines
+                </span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
                 Turn every conversation into{' '}
-                <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 bg-clip-text text-transparent">
+                <span className="text-gradient-hero">
                   closed revenue.
                 </span>
               </h1>
 
-              <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal">
+              <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal text-pretty">
                 Manage your entire sales journey from lead generation to deal closure with PulseQuo Sales CRM. Connect
                 inbound WhatsApp and website chats directly to custom deal stages, automate follow-up reminders, and
                 forecast pipeline revenue with confidence.
@@ -162,7 +164,7 @@ export function SalesCRMPage() {
               <div className="mt-8 flex flex-col sm:flex-row items-center gap-3.5">
                 <Link
                   to="/book-demo?product=Sales+CRM"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-xl transition-all shadow-md shadow-indigo-500/20"
+                  className="btn-shine w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-xl transition-all shadow-md shadow-indigo-500/20"
                 >
                   <CalendarCheck className="size-4" />
                   <span>Schedule sales CRM demo</span>
@@ -193,56 +195,19 @@ export function SalesCRMPage() {
               </div>
             </motion.div>
 
-            {/* Visual CRM Pipeline Preview Card */}
+            {/* Right Column: Interactive Fanout Deck */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.55, delay: 0.15, ease: easeOutCurve }}
-              className="lg:col-span-5"
+              className="lg:col-span-6 relative"
             >
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600" />
-                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="size-2 rounded-xs bg-indigo-600 animate-pulse" />
-                    <span className="text-xs font-bold text-slate-900 font-mono">Active Sales Pipeline</span>
-                  </div>
-                  <span className="rounded-md bg-indigo-50 text-indigo-700 px-2 py-0.5 text-xs font-mono font-bold border border-indigo-200">
-                    ₹1,842,000 Pipeline
-                  </span>
-                </div>
-
-                <div className="mt-4 space-y-3">
-                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
-                    <div className="flex justify-between items-center text-xs font-bold text-slate-800">
-                      <span>Apex Retail · Enterprise Tier</span>
-                      <span className="text-emerald-600 font-mono">₹450,000</span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 mt-1">Lead source: WhatsApp Inbound · In Demo stage</p>
-                    <div className="mt-2.5 flex items-center justify-between text-[11px]">
-                      <span className="text-slate-400">Owner: Sarah Jenkins</span>
-                      <span className="text-indigo-600 font-semibold">1-Click WhatsApp →</span>
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
-                    <div className="flex justify-between items-center text-xs font-bold text-slate-800">
-                      <span>FinEdge Pay · CPaaS Migration</span>
-                      <span className="text-emerald-600 font-mono">₹890,000</span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 mt-1">Lead source: Direct API docs · In Contract review</p>
-                    <div className="mt-2.5 flex items-center justify-between text-[11px]">
-                      <span className="text-slate-400">Owner: David Chen</span>
-                      <span className="text-indigo-600 font-semibold">Send Proposal →</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono">
-                  <span>Win Rate: 48.2%</span>
-                  <span className="text-indigo-600 font-semibold">Avg Cycle: 4.2 Days</span>
-                </div>
-              </div>
+              <CardFanout
+                cards={salesFanoutCards}
+                hideHeader={true}
+                compact={true}
+                className="max-w-full"
+              />
             </motion.div>
           </div>
         </div>
@@ -252,20 +217,6 @@ export function SalesCRMPage() {
           2. BRAND TRUST MARQUEE CAROUSEL
          ───────────────────────────────────────────────────────────── */}
       <BrandCarousel />
-
-      {/* ─────────────────────────────────────────────────────────────
-          3. SHIPROCKET-INSPIRED CARD FANOUT SHOWCASE
-         ───────────────────────────────────────────────────────────── */}
-      <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <CardFanout
-            cards={salesFanoutCards}
-            headline="Conversational Sales Deals in Motion"
-            subheadline="Inspect how leads captured on WhatsApp move instantly into custom Kanban stages, dispatch proposals, and trigger automated follow-ups."
-            badgeText="SHIPROCKET-INSPIRED CONVERSATIONAL CRM"
-          />
-        </div>
-      </section>
 
       {/* ─────────────────────────────────────────────────────────────
           4. CUSTOMER TESTIMONIALS CAROUSEL

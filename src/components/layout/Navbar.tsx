@@ -5,6 +5,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router'
+import { motion, AnimatePresence } from 'motion/react'
 import {
   ChevronDown,
   Menu,
@@ -87,18 +88,19 @@ export function Navbar() {
         className="sticky top-2.5 sm:top-3.5 z-40 w-full px-3 sm:px-6 lg:px-8 transition-all duration-300"
       >
         <div
-          className={`max-w-6xl mx-auto rounded-xl border transition-all duration-300 ${
+          data-cursor="glass"
+          className={`max-w-7xl mx-auto rounded-2xl border transition-all duration-300 ${
             isScrolled
-              ? 'bg-white/95 backdrop-blur-xl border-slate-300/90 shadow-md py-1.5 px-3 sm:px-4'
-              : 'bg-white/90 backdrop-blur-md border-slate-200/80 shadow-xs py-1.5 px-3 sm:px-4'
+              ? 'bg-white/95 backdrop-blur-xl border-slate-200/95 shadow-lg shadow-slate-900/5 py-1.5 px-3 sm:px-5'
+              : 'bg-white/88 backdrop-blur-md border-slate-200/75 shadow-xs py-1.5 px-3 sm:px-5'
           }`}
         >
-          <div className="flex items-center justify-between h-9 sm:h-10">
+          <div className="flex items-center justify-between gap-6 h-9 sm:h-10">
             {/* Brand Logo (Square Icon, No Background) */}
             <Logo size="sm" showTagline={false} />
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1" aria-label="Main Navigation">
+            <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
               {/* 1. Products Dropdown */}
               <div className="relative">
                 <button
@@ -123,8 +125,16 @@ export function Navbar() {
                   />
                 </button>
 
+                <AnimatePresence>
                 {productsOpen && (
-                  <div className="absolute left-0 mt-2 w-[360px] rounded-xl bg-white/95 backdrop-blur-xl p-2.5 shadow-xl ring-1 ring-slate-900/10 focus:outline-none transition-all animate-in fade-in-0 zoom-in-95 duration-200">
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                    data-cursor="glass"
+                    className="absolute left-0 mt-2.5 w-[360px] rounded-2xl bg-white/98 backdrop-blur-xl p-2.5 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-900/8 focus:outline-none"
+                  >
                     <div className="flex items-center justify-between px-2.5 py-1 border-b border-slate-100 mb-1.5">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                         Unified Engines
@@ -209,8 +219,9 @@ export function Navbar() {
                         </div>
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
+                </AnimatePresence>
               </div>
 
               {/* 2. Solutions Dropdown */}
@@ -237,8 +248,16 @@ export function Navbar() {
                   />
                 </button>
 
+                <AnimatePresence>
                 {solutionsOpen && (
-                  <div className="absolute left-0 mt-2 w-80 rounded-xl bg-white/95 backdrop-blur-xl p-2.5 shadow-xl ring-1 ring-slate-900/10 focus:outline-none animate-in fade-in-0 zoom-in-95 duration-200">
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                    data-cursor="glass"
+                    className="absolute left-0 mt-2.5 w-80 rounded-2xl bg-white/98 backdrop-blur-xl p-2.5 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-900/8 focus:outline-none"
+                  >
                     <div className="space-y-1">
                       <Link
                         to="/solutions"
@@ -313,8 +332,9 @@ export function Navbar() {
                         </div>
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
+                </AnimatePresence>
               </div>
 
               {/* 3. Integrations */}
@@ -355,8 +375,16 @@ export function Navbar() {
                   />
                 </button>
 
+                <AnimatePresence>
                 {resourcesOpen && (
-                  <div className="absolute left-0 mt-2 w-64 rounded-xl bg-white/95 backdrop-blur-xl p-2.5 shadow-xl ring-1 ring-slate-900/10 focus:outline-none animate-in fade-in-0 zoom-in-95 duration-200">
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                    data-cursor="glass"
+                    className="absolute left-0 mt-2.5 w-64 rounded-2xl bg-white/98 backdrop-blur-xl p-2.5 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-900/8 focus:outline-none"
+                  >
                     <div className="space-y-1">
                       <Link
                         to="/resources"
@@ -410,14 +438,15 @@ export function Navbar() {
                         </div>
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
+                </AnimatePresence>
               </div>
 
               {/* 5. Pricing */}
               <Link
                 to="/pricing"
-                className={`px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
+                className={`whitespace-nowrap shrink-0 px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
                   location.pathname === '/pricing'
                     ? 'text-blue-600 bg-blue-50/90'
                     : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
@@ -429,7 +458,7 @@ export function Navbar() {
               {/* 6. About Us */}
               <Link
                 to="/about"
-                className={`px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
+                className={`whitespace-nowrap shrink-0 px-2.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all ${
                   location.pathname === '/about'
                     ? 'text-blue-600 bg-blue-50/90'
                     : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
@@ -439,14 +468,15 @@ export function Navbar() {
               </Link>
             </nav>
 
-            {/* Desktop Action (Single Action: Book a Demo) */}
-            <div className="hidden lg:flex items-center gap-2">
+            {/* Desktop Action (Single Primary Action: Book a Demo) */}
+            <div className="hidden lg:flex items-center gap-2 shrink-0">
               <Link
                 to="/book-demo"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-xs"
+                className="group btn-shine whitespace-nowrap inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 hover:-translate-y-0.5 rounded-xl transition-all duration-200 shadow-sm shadow-blue-600/20 hover:shadow-md hover:shadow-blue-600/25"
               >
                 <CalendarCheck className="size-3.5" />
                 <span>Book a Demo</span>
+                <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
             </div>
 

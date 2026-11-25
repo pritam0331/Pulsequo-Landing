@@ -12,10 +12,13 @@ export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowC
   const content = (
     <div className="w-full">
       {/* Header bar: Title on left */}
-      <div className="border-b border-slate-200/80 pb-4 mb-6">
+      <div className="border-b border-slate-200/80 pb-4 mb-6 flex items-center justify-between">
         <h4 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
           Lead qualification
         </h4>
+        <span className="text-xs font-mono text-slate-500">
+          3-step live flow
+        </span>
       </div>
 
       {/* Visual Flow Tree Container */}
@@ -26,15 +29,15 @@ export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowC
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.5, ease: easeOutCurve }}
-          whileHover={{ y: -3, scale: 1.01, transition: { duration: 0.15 } }}
-          className="max-w-md mx-auto bg-white rounded-xl border border-slate-200/90 shadow-xs p-4 flex items-center gap-3.5 hover:border-emerald-300 hover:shadow-sm transition-all"
+          whileHover={{ y: -4, scale: 1.015, transition: { type: 'spring', stiffness: 360, damping: 22 } }}
+          className="max-w-md mx-auto bg-white rounded-xl border border-slate-200/90 shadow-xs p-4 flex items-center gap-3.5 hover:border-emerald-400 hover:shadow-md hover:shadow-emerald-500/10 transition-colors"
         >
           <div className="size-11 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100">
             <MessageSquare className="size-5" />
           </div>
-          <div>
-            <span className="text-[10px] font-bold tracking-wider uppercase text-slate-400 block font-mono">
-              TRIGGER
+          <div className="min-w-0">
+            <span className="text-[11px] font-semibold text-emerald-700 block">
+              Trigger · WhatsApp
             </span>
             <span className="text-sm font-bold text-slate-900 block mt-0.5">
               New WhatsApp message
@@ -43,18 +46,18 @@ export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowC
         </motion.div>
 
         {/* Connector 1: Vertical down line with animated traveling pulse packet */}
-        <div className="relative w-0.5 h-7 mx-auto overflow-hidden bg-slate-200 my-0.5">
+        <div className="relative w-0.5 h-8 mx-auto overflow-hidden bg-slate-200 my-0.5">
           <motion.div
             initial={{ scaleY: 0, opacity: 0 }}
             whileInView={{ scaleY: 1, opacity: 1 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.35, delay: 0.2, ease: easeOutCurve }}
-            className="w-full h-full bg-blue-500 origin-top"
+            className="w-full h-full bg-blue-400/70 origin-top"
           />
           <motion.div
-            animate={{ y: [-10, 32] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
-            className="absolute top-0 left-0 w-full h-3 bg-gradient-to-b from-transparent via-white to-blue-200"
+            animate={{ y: [-12, 36] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+            className="absolute top-0 left-0 w-full h-4 bg-gradient-to-b from-transparent via-blue-600 to-cyan-300"
           />
         </div>
 
@@ -63,16 +66,20 @@ export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowC
           initial={{ opacity: 0, y: -12, scale: 0.96 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.5, delay: 0.35, ease: easeOutCurve }}
-          whileHover={{ y: -3, scale: 1.01, transition: { duration: 0.15 } }}
-          className="max-w-md mx-auto bg-white rounded-xl border-2 border-blue-500/80 shadow-md shadow-blue-500/10 p-4 flex items-center gap-3.5 hover:border-blue-600 transition-all"
+          transition={{ duration: 0.5, delay: 0.32, ease: easeOutCurve }}
+          whileHover={{ y: -4, scale: 1.015, transition: { type: 'spring', stiffness: 360, damping: 22 } }}
+          className="relative max-w-md mx-auto bg-white rounded-xl border-2 border-blue-500/85 shadow-md shadow-blue-500/10 p-4 flex items-center gap-3.5 hover:border-blue-600 transition-colors"
         >
-          <div className="size-11 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
+          <motion.div
+            animate={{ opacity: [0.35, 0.75, 0.35], scale: [1, 1.06, 1] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+            className="size-11 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100"
+          >
             <Sparkles className="size-5" />
-          </div>
-          <div>
-            <span className="text-[10px] font-bold tracking-wider uppercase text-blue-600 block font-mono">
-              AI AGENT
+          </motion.div>
+          <div className="min-w-0">
+            <span className="text-[11px] font-semibold text-blue-600 block">
+              AI Agent · Gemini Engine
             </span>
             <span className="text-sm font-bold text-slate-900 block mt-0.5">
               Understand & qualify
@@ -83,33 +90,62 @@ export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowC
           </div>
         </motion.div>
 
-        {/* Connector 2: Branching T-Junction with Labels and animated pulse */}
+        {/* Connector 2: Branching T-Junction with animated packets into both legs */}
         <motion.div
-          initial={{ opacity: 0, scaleX: 0.8 }}
+          initial={{ opacity: 0, scaleX: 0.85 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.35, delay: 0.5, ease: easeOutCurve }}
-          className="relative max-w-lg mx-auto h-11 my-0.5"
+          transition={{ duration: 0.4, delay: 0.48, ease: easeOutCurve }}
+          className="relative max-w-lg mx-auto h-12 my-0.5"
         >
           {/* Vertical drop from AI agent */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-4.5 bg-blue-400" />
-          
-          {/* Horizontal crossbar connecting the two branches */}
-          <div className="absolute top-4.5 left-[25%] right-[25%] h-0.5 bg-blue-400" />
-          
-          {/* Left vertical drop to Sales */}
-          <div className="absolute top-4.5 left-[25%] -translate-x-1/2 w-0.5 h-6.5 bg-blue-400" />
-          
-          {/* Right vertical drop to Support */}
-          <div className="absolute top-4.5 right-[25%] translate-x-1/2 w-0.5 h-6.5 bg-blue-400" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-5 bg-blue-300 overflow-hidden">
+            <motion.div
+              animate={{ y: [-10, 22] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'linear', delay: 0.4 }}
+              className="w-full h-3 bg-gradient-to-b from-transparent via-blue-600 to-cyan-300"
+            />
+          </div>
 
-          {/* Left Branch Label: Sales enquiry */}
-          <span className="absolute top-0 left-[10%] sm:left-[14%] text-[11px] font-medium text-slate-500 select-none">
+          {/* Horizontal crossbar connecting the two branches */}
+          <div className="absolute top-5 left-[25%] right-[25%] h-0.5 bg-blue-300 overflow-hidden">
+            <motion.div
+              animate={{ x: ['50%', '-100%'] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', delay: 0.7 }}
+              className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-l from-transparent via-blue-600 to-cyan-300"
+            />
+            <motion.div
+              animate={{ x: ['50%', '200%'] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', delay: 0.7 }}
+              className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-transparent via-blue-600 to-cyan-300"
+            />
+          </div>
+
+          {/* Left vertical drop to Sales */}
+          <div className="absolute top-5 left-[25%] -translate-x-1/2 w-0.5 h-7 bg-blue-300 overflow-hidden">
+            <motion.div
+              animate={{ y: [-12, 30] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', delay: 1.1 }}
+              className="w-full h-3.5 bg-gradient-to-b from-transparent via-blue-600 to-cyan-300"
+            />
+          </div>
+
+          {/* Right vertical drop to Support */}
+          <div className="absolute top-5 right-[25%] translate-x-1/2 w-0.5 h-7 bg-blue-300 overflow-hidden">
+            <motion.div
+              animate={{ y: [-12, 30] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', delay: 1.35 }}
+              className="w-full h-3.5 bg-gradient-to-b from-transparent via-purple-600 to-blue-400"
+            />
+          </div>
+
+          {/* Left Branch Label */}
+          <span className="absolute top-0.5 left-[8%] sm:left-[12%] text-[11px] font-medium text-slate-500 select-none">
             Sales enquiry
           </span>
 
-          {/* Right Branch Label: Needs help */}
-          <span className="absolute top-0 right-[10%] sm:right-[14%] text-[11px] font-medium text-slate-500 select-none">
+          {/* Right Branch Label */}
+          <span className="absolute top-0.5 right-[8%] sm:right-[12%] text-[11px] font-medium text-slate-500 select-none">
             Needs help
           </span>
         </motion.div>
@@ -121,9 +157,9 @@ export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowC
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, delay: 0.65, ease: easeOutCurve }}
-            whileHover={{ y: -3, scale: 1.015, transition: { duration: 0.15 } }}
-            className="bg-white rounded-xl border border-slate-200/90 p-4 shadow-xs hover:border-blue-400 hover:shadow-sm transition-all"
+            transition={{ duration: 0.5, delay: 0.6, ease: easeOutCurve }}
+            whileHover={{ y: -4, scale: 1.02, transition: { type: 'spring', stiffness: 360, damping: 22 } }}
+            className="bg-white rounded-xl border border-slate-200/90 p-4 shadow-xs hover:border-blue-400 hover:shadow-md hover:shadow-blue-500/10 transition-colors"
           >
             <div className="flex items-center gap-2 text-blue-600">
               <ArrowUpRight className="size-5 shrink-0" />
@@ -139,11 +175,11 @@ export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowC
             initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, delay: 0.75, ease: easeOutCurve }}
-            whileHover={{ y: -3, scale: 1.015, transition: { duration: 0.15 } }}
-            className="bg-white rounded-xl border border-slate-200/90 p-4 shadow-xs hover:border-blue-400 hover:shadow-sm transition-all"
+            transition={{ duration: 0.5, delay: 0.7, ease: easeOutCurve }}
+            whileHover={{ y: -4, scale: 1.02, transition: { type: 'spring', stiffness: 360, damping: 22 } }}
+            className="bg-white rounded-xl border border-slate-200/90 p-4 shadow-xs hover:border-purple-400 hover:shadow-md hover:shadow-purple-500/10 transition-colors"
           >
-            <div className="flex items-center gap-2 text-blue-600">
+            <div className="flex items-center gap-2 text-purple-600">
               <Headphones className="size-5 shrink-0" />
               <span className="text-sm font-bold text-slate-900">Route to support</span>
             </div>
@@ -159,7 +195,7 @@ export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowC
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.9 }}
+        transition={{ duration: 0.5, delay: 0.85 }}
         className="text-xs sm:text-sm font-medium text-slate-500 text-center mt-6"
       >
         Your logic. Your customer journey.
@@ -173,7 +209,7 @@ export function WorkflowCanvas({ className = '', showWrapper = true }: WorkflowC
 
   return (
     <div
-      className={`rounded-2xl sm:rounded-3xl bg-slate-50/70 border border-slate-200/80 p-6 sm:p-8 shadow-sm ${className}`}
+      className={`rounded-2xl sm:rounded-3xl bg-slate-50/80 border border-slate-200/80 p-6 sm:p-8 shadow-sm ${className}`}
     >
       {content}
     </div>

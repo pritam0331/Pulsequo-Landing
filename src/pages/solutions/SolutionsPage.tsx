@@ -1,7 +1,7 @@
 /**
  * Solutions Overview Page
  * Route: /solutions
- * Fully fledged Shiprocket-inspired landing page with Card Fanout, Brand Carousel, Testimonial Carousel, and Ambient Background.
+ * Landing page with Card Fanout, Brand Carousel, Testimonial Carousel, and Ambient Background.
  */
 
 import { Link } from 'react-router'
@@ -61,19 +61,21 @@ export function SolutionsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: easeOutCurve }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/90 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6 shadow-2xs">
-              <span className="flex size-2 rounded-full bg-blue-600 animate-pulse" />
-              <span>Tailored Operational Solutions for Every Team</span>
+            <div className="inline-flex items-center gap-2.5 mb-5">
+              <span className="h-[2px] w-6 rounded-full bg-blue-600" />
+              <span className="text-xs font-semibold tracking-wide text-blue-600">
+                Tailored Operational Solutions for Every Team
+              </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
               Engineered for your team's{' '}
-              <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
+              <span className="text-gradient-hero">
                 specific operational goals.
               </span>
             </h1>
 
-            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-normal text-pretty">
               Whether accelerating sales pipeline velocity, resolving support tickets faster, or broadcasting compliant
               WhatsApp campaigns, PulseQuo adapts to your exact operational requirements.
             </p>
@@ -81,7 +83,7 @@ export function SolutionsPage() {
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
               <Link
                 to="/book-demo"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all shadow-md shadow-blue-500/20"
+                className="btn-shine w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all shadow-md shadow-blue-500/20"
               >
                 <CalendarCheck className="size-4" />
                 <span>Book a Personalized Demo</span>
@@ -104,14 +106,13 @@ export function SolutionsPage() {
       <BrandCarousel />
 
       {/* ─────────────────────────────────────────────────────────────
-          3. SHIPROCKET-INSPIRED CARD FANOUT SHOWCASE
+          3. CARD FANOUT SHOWCASE
          ───────────────────────────────────────────────────────────── */}
       <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <CardFanout
             headline="Tailored Workflows Across All Departments"
             subheadline="Explore how sales, support, marketing, and operations coordinate around single customer identities."
-            badgeText="SHIPROCKET-INSPIRED CROSS-FUNCTIONAL FANOUT"
           />
         </div>
       </section>
