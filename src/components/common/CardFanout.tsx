@@ -158,7 +158,7 @@ export function CardFanout({
 
   return (
     <div
-      className={`relative ${compact ? 'w-full max-w-md mx-auto' : 'w-full max-w-xl mx-auto'} ${className}`}
+      className={`relative ${compact ? 'w-full max-w-lg mx-auto' : 'w-full max-w-xl mx-auto'} ${className}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       role="region"
@@ -184,16 +184,19 @@ export function CardFanout({
       )}
 
       {/* Queue Auto Carousel Stage */}
-      <div className="relative pt-10 pb-2 select-none">
-        {/* Ambient soft glow backdrop */}
-        <motion.div
-          animate={{ scale: [1, 1.06, 1], opacity: [0.65, 0.95, 0.65] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute inset-x-4 top-6 bottom-6 bg-gradient-to-br from-blue-500/12 via-indigo-500/10 to-purple-500/12 blur-3xl rounded-full pointer-events-none"
+      <div className="relative pt-10 sm:pt-12 pb-2 select-none">
+        {/* Ambient soft glow backdrop (zero-blur radial gradient for smooth scrolling) */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-2 bottom-2 rounded-full pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse 72% 62% at 50% 54%, rgba(37, 99, 235, 0.13) 0%, rgba(99, 102, 241, 0.08) 45%, transparent 78%)',
+          }}
         />
 
-        {/* Depth-Stacked Queue Deck */}
-        <div className={`relative w-full ${compact ? 'h-[256px] sm:h-[268px]' : 'h-[276px] sm:h-[290px]'}`}>
+        {/* Depth-Stacked Queue Deck (taller stacked cards) */}
+        <div className={`relative w-full ${compact ? 'h-[304px] sm:h-[348px]' : 'h-[316px] sm:h-[364px]'}`}>
           {cards.map((card, idx) => {
             // Queue position: 0 = active front card, 1 = next in queue, 2 = 2nd in queue, etc.
             const queuePos = (idx - activeIndex + total) % total
@@ -208,15 +211,15 @@ export function CardFanout({
                 key={card.id}
                 layout={false}
                 animate={{
-                  y: isHidden ? -52 : -visibleDepth * 16,
-                  scale: isHidden ? 0.84 : 1 - visibleDepth * 0.05,
-                  opacity: isHidden ? 0 : isFront ? 1 : Math.max(0.28, 0.88 - visibleDepth * 0.24),
+                  y: isHidden ? -56 : -visibleDepth * 18,
+                  scale: isHidden ? 0.84 : 1 - visibleDepth * 0.048,
+                  opacity: isHidden ? 0 : isFront ? 1 : Math.max(0.3, 0.88 - visibleDepth * 0.22),
                 }}
                 whileHover={
                   isFront
                     ? { y: -4, transition: { type: 'spring', stiffness: 360, damping: 24 } }
                     : !isHidden
-                      ? { y: -visibleDepth * 16 - 5, transition: { type: 'spring', stiffness: 360, damping: 24 } }
+                      ? { y: -visibleDepth * 18 - 5, transition: { type: 'spring', stiffness: 360, damping: 24 } }
                       : undefined
                 }
                 transition={{
@@ -238,14 +241,16 @@ export function CardFanout({
                   pointerEvents: isHidden ? 'none' : 'auto',
                   transformOrigin: 'top center',
                 }}
-                className={`group absolute inset-x-0 bottom-0 rounded-2xl bg-white/95 backdrop-blur-xs border overflow-hidden transition-shadow duration-300 cursor-pointer ${
+                className={`group absolute inset-x-0 bottom-0 flex flex-col justify-between ${
+                  compact ? 'min-h-[250px] sm:min-h-[292px]' : 'min-h-[262px] sm:min-h-[308px]'
+                } rounded-2xl bg-white border overflow-hidden transition-shadow duration-300 cursor-pointer ${
                   isFront
                     ? 'border-blue-300/90 ring-1 ring-blue-600/12 shadow-2xl shadow-blue-950/10'
                     : 'border-slate-200/90 shadow-md hover:border-blue-300/70'
                 }`}
               >
                 {/* Top Gradient Accent Bar + Live Auto-Cycle Progress */}
-                <div className="relative h-1.5 w-full bg-slate-100 overflow-hidden">
+                <div className="relative h-1.5 w-full bg-slate-100 overflow-hidden shrink-0">
                   <div className={`absolute inset-0 bg-gradient-to-r ${card.gradientHeader} ${isFront ? 'opacity-25' : 'opacity-100'}`} />
                   {isFront && !isPaused && (
                     <motion.div
@@ -261,48 +266,54 @@ export function CardFanout({
                   )}
                 </div>
 
-                <div className={compact ? 'p-4 sm:p-5' : 'p-5 sm:p-6'}>
-                  {/* Category & Status Tag */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-[11px] font-medium text-slate-500 truncate">
-                      {card.category}
-                    </span>
-                    <span
-                      className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-sm border shrink-0 ${card.badgeColor}`}
-                    >
-                      {card.badge}
-                    </span>
-                  </div>
-
-                  {/* Icon & Title */}
-                  <div className="flex items-start gap-3">
-                    <div
-                      className={`${compact ? 'size-9' : 'size-10'} rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${card.iconBg} ${card.iconColor}`}
-                    >
-                      <CardIcon className={compact ? 'size-4.5' : 'size-5'} />
+                <div className={`flex flex-col flex-1 justify-between ${compact ? 'p-4 sm:p-6' : 'p-5 sm:p-6'}`}>
+                  <div>
+                    {/* Category & Status Tag */}
+                    <div className="flex items-center justify-between gap-2 mb-3.5">
+                      <span className="text-[11px] font-medium text-slate-500 truncate">
+                        {card.category}
+                      </span>
+                      <span
+                        className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-sm border shrink-0 ${card.badgeColor}`}
+                      >
+                        {card.badge}
+                      </span>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <h4 className="text-sm sm:text-[15px] font-bold text-slate-900 leading-tight truncate">
-                        {card.title}
-                      </h4>
-                      <p className="text-xs text-slate-500 truncate mt-0.5 font-medium">
-                        {card.subtitle}
-                      </p>
-                    </div>
-                  </div>
 
-                  {/* Description */}
-                  <div className="mt-3 p-2.5 sm:p-3 rounded-xl bg-slate-50/90 border border-slate-100 text-xs text-slate-600 leading-relaxed line-clamp-2">
-                    {card.description}
+                    {/* Icon & Title */}
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="size-9 sm:size-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${card.iconBg} ${card.iconColor}"
+                        style={{ display: 'none' }}
+                      />
+                      <div
+                        className={`size-9 sm:size-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${card.iconBg} ${card.iconColor}`}
+                      >
+                        <CardIcon className="size-4.5 sm:size-5" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h4 className="text-sm sm:text-base font-bold text-slate-900 leading-tight truncate">
+                          {card.title}
+                        </h4>
+                        <p className="text-xs text-slate-500 truncate mt-0.5 font-medium">
+                          {card.subtitle}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <div className="mt-3.5 sm:mt-4 p-3 sm:p-3.5 rounded-xl bg-slate-50/90 border border-slate-100 text-xs sm:text-[13px] text-slate-600 leading-relaxed line-clamp-3">
+                      {card.description}
+                    </div>
                   </div>
 
                   {/* Footer Metric and Channel */}
-                  <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
                     <div>
-                      <span className="text-sm sm:text-base font-black font-mono tabular-nums text-slate-900 block leading-none">
+                      <span className="text-base sm:text-lg font-black font-mono tabular-nums text-slate-900 block leading-none">
                         {card.metric}
                       </span>
-                      <span className="text-[10.5px] font-medium text-slate-500 block mt-0.5">
+                      <span className="text-[10.5px] font-medium text-slate-500 block mt-1">
                         {card.metricLabel}
                       </span>
                     </div>

@@ -123,9 +123,9 @@ export function BrandCarousel({ className = '' }: { className?: string }) {
   const marqueeItems = [...BRANDS, ...BRANDS]
 
   return (
-    <section className={`relative py-8 sm:py-10 bg-slate-50/60 border-y border-slate-200/70 overflow-hidden select-none ${className}`}>
+    <section className={`relative py-10 sm:py-12 section-fade-tint overflow-hidden select-none ${className}`}>
       {/* Background ambient gradient glow */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-50/40 via-transparent to-transparent opacity-60" />
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-50/45 via-transparent to-transparent opacity-70" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
         <motion.div
@@ -155,12 +155,14 @@ export function BrandCarousel({ className = '' }: { className?: string }) {
         </motion.div>
       </div>
 
-      {/* Infinite Carousel Container with Left/Right Fade-in Masks */}
-      <div className="relative w-full overflow-hidden">
-        {/* Left & Right gradient masks for smooth fade in/out */}
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent z-10" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-slate-50 via-slate-50/90 to-transparent z-10" />
-
+      {/* Infinite Carousel Container with Smooth Alpha-Fade Edge Masks */}
+      <div
+        className="relative w-full overflow-hidden"
+        style={{
+          maskImage: 'linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%)',
+        }}
+      >
         <div className="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap py-2">
           {marqueeItems.map((brand, idx) => (
             <div

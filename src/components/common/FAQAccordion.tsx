@@ -32,9 +32,9 @@ export function FAQAccordion({
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       data-cursor="glass"
-      className={`flex flex-col rounded-2xl border border-slate-200 hover:border-blue-300/70 bg-white/95 backdrop-blur-xs shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden ${className}`}
+      className={`w-full flex flex-col rounded-2xl border border-slate-200 hover:border-blue-300/70 bg-white shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden ${className}`}
     >
-      <div className={`overflow-y-auto divide-y divide-slate-200/80 thin-scrollbar ${maxHeight}`}>
+      <div className={`w-full overflow-y-auto divide-y divide-slate-200/80 thin-scrollbar ${maxHeight}`}>
         {items.map((item, idx) => {
           const isOpen = openIndex === idx
           return (
@@ -49,7 +49,7 @@ export function FAQAccordion({
               <button
                 type="button"
                 onClick={() => toggle(idx)}
-                className="flex w-full items-center justify-between gap-4 py-4 px-5 sm:py-4.5 sm:px-6 text-left cursor-pointer group focus:outline-none"
+                className="flex w-full items-center justify-between gap-4 py-5 px-6 sm:px-8 text-left cursor-pointer group focus:outline-none"
                 aria-expanded={isOpen}
               >
                 <span className={`text-sm sm:text-base font-bold transition-all duration-200 leading-snug group-hover:translate-x-0.5 ${isOpen ? 'text-blue-600' : 'text-slate-900 group-hover:text-blue-600'}`}>
@@ -73,7 +73,7 @@ export function FAQAccordion({
                     transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <div className="px-5 sm:px-6 pb-5 pt-2 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+                    <div className="px-6 sm:px-8 pb-5 pt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
                       <p>{item.answer}</p>
                     </div>
                   </motion.div>

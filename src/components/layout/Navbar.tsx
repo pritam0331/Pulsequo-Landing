@@ -583,9 +583,9 @@ export function Navbar() {
 
                   <Link
                     to="/products/support-crm"
-                    className="flex items-start gap-3 p-3 rounded-2xl bg-blue-50/60 border border-blue-100 hover:bg-blue-100/70 transition-colors"
+                    className="flex items-start gap-3 p-3 rounded-2xl bg-violet-50/60 border border-violet-100 hover:bg-violet-100/70 transition-colors"
                   >
-                    <div className="size-9 rounded-xl bg-[#070d24] text-white flex items-center justify-center shrink-0">
+                    <div className="size-9 rounded-xl bg-violet-600 text-white flex items-center justify-center shrink-0">
                       <Headphones className="size-5" />
                     </div>
                     <div>

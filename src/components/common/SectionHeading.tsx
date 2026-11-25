@@ -1,6 +1,6 @@
 /**
  * Section Heading Component
- * Consistent typography for marketing page sections with badge, title, and description.
+ * Clean typography for marketing page sections with SplitReveal headline and description.
  */
 
 import { motion } from 'motion/react'
@@ -16,7 +16,6 @@ interface SectionHeadingProps {
 }
 
 export function SectionHeading({
-  badge,
   title,
   description,
   align = 'center',
@@ -29,7 +28,7 @@ export function SectionHeading({
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
+      viewport={{ once: true, amount: 0.2 }}
       variants={{
         hidden: {},
         visible: {
@@ -40,49 +39,13 @@ export function SectionHeading({
         isCenter ? 'mx-auto text-center' : 'text-left'
       } ${className}`}
     >
-      {badge && (
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 10 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-            },
-          }}
-          className={`inline-flex items-center gap-2.5 mb-3 ${
-            isCenter ? 'justify-center' : 'justify-start'
-          }`}
-        >
-          <motion.span
-            variants={{
-              hidden: { scaleX: 0 },
-              visible: {
-                scaleX: 1,
-                transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-              },
-            }}
-            className={`h-[2px] w-6 rounded-full origin-left ${
-              dark ? 'bg-blue-400' : 'bg-blue-600'
-            }`}
-          />
-          <span
-            className={`text-xs font-semibold tracking-wide ${
-              dark ? 'text-blue-400' : 'text-blue-600'
-            }`}
-          >
-            {badge}
-          </span>
-        </motion.div>
-      )}
-
       <SplitReveal
         as="h2"
         text={title}
         trigger="inView"
-        delay={0.06}
-        stagger={0.04}
-        duration={0.55}
+        delay={0.04}
+        stagger={0.035}
+        duration={0.5}
         className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.12] text-balance ${
           dark ? 'text-white' : 'text-slate-900'
         }`}
@@ -91,11 +54,11 @@ export function SectionHeading({
       {description && (
         <motion.p
           variants={{
-            hidden: { opacity: 0, y: 14 },
+            hidden: { opacity: 0, y: 12 },
             visible: {
               opacity: 1,
               y: 0,
-              transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+              transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
             },
           }}
           className={`mt-4 text-base sm:text-lg leading-relaxed font-normal text-pretty ${
@@ -108,4 +71,3 @@ export function SectionHeading({
     </motion.div>
   )
 }
-

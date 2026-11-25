@@ -48,8 +48,25 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    overscroll-behavior-y: none;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 
   html,
@@ -343,6 +360,56 @@
   transform: translateX(130%);
 }
 
+/* Seamless Faded Section Transitions (replaces hard horizontal border lines) */
+main section {
+  border-top-width: 0 !important;
+  border-bottom-width: 0 !important;
+}
+
+.section-fade-tint {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    rgba(248, 250, 252, 0.88) 52px,
+    rgba(248, 250, 252, 0.88) calc(100% - 52px),
+    #ffffff 100%
+  );
+}
+
+.section-fade-white {
+  position: relative;
+  background-color: #ffffff;
+}
+
+.section-fade-white::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  pointer-events: none;
+  background: radial-gradient(
+    55% 100% at 50% 0%,
+    rgba(226, 232, 240, 0.32) 0%,
+    rgba(241, 245, 249, 0.12) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.fade-divider-x {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(203, 213, 225, 0.55) 22%,
+    rgba(203, 213, 225, 0.55) 78%,
+    transparent 100%
+  );
+}
+
 /* Hide scrollbar utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -371,20 +438,22 @@
   background-color: #94a3b8;
 }
 
-/* Hide native pointer only while custom triangular cursor is active (preserve text I-beam on inputs) */
-html.pq-custom-cursor,
-html.pq-custom-cursor * {
+/* Hide native pointer ONLY inside Hero section while hero cursor is active */
+html.pq-hero-cursor-active [data-cursor-zone="hero"],
+html.pq-hero-cursor-active [data-cursor-zone="hero"] *,
+html.pq-hero-cursor-active main section:first-of-type,
+html.pq-hero-cursor-active main section:first-of-type * {
   cursor: none !important;
 }
 
-html.pq-custom-cursor input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]),
-html.pq-custom-cursor textarea,
-html.pq-custom-cursor select,
-html.pq-custom-cursor [contenteditable="true"] {
+html.pq-hero-cursor-active input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]),
+html.pq-hero-cursor-active textarea,
+html.pq-hero-cursor-active select,
+html.pq-hero-cursor-active [contenteditable="true"] {
   cursor: text !important;
 }
 
-/* Triangular GPU-composited Custom Cursor & Scroll-Fade Effect */
+/* Redesigned Luminous Hero-Only Cursor System */
 .pq-cursor-root {
   position: fixed;
   inset: 0;
@@ -392,7 +461,7 @@ html.pq-custom-cursor [contenteditable="true"] {
   pointer-events: none;
   overflow: hidden;
   opacity: 0;
-  transition: opacity 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pq-cursor-root[data-visible="true"] {
@@ -408,226 +477,172 @@ html.pq-custom-cursor [contenteditable="true"] {
   will-change: transform;
 }
 
-/* Soft Scroll-Fade Edge Veils (fade in gently while scrolling) */
-.pq-scroll-fade-top,
-.pq-scroll-fade-bottom {
+/* Fluid Multi-Node Luminous Cursor Trail Dots */
+.pq-hero-trail-dot {
   position: fixed;
-  left: 0;
-  right: 0;
-  height: 76px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity;
-}
-
-.pq-scroll-fade-top {
   top: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.72) 0%,
-    rgba(241, 245, 249, 0.28) 45%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  left: 0;
+  width: 9px;
+  height: 9px;
+  margin-top: -4.5px;
+  margin-left: -4.5px;
+  border-radius: 9999px;
+  pointer-events: none;
+  box-shadow: 0 0 10px currentColor;
+  will-change: transform, opacity;
+  transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.pq-scroll-fade-bottom {
-  bottom: 0;
-  background: linear-gradient(
-    to top,
-    rgba(255, 255, 255, 0.78) 0%,
-    rgba(241, 245, 249, 0.32) 45%,
-    rgba(255, 255, 255, 0) 100%
-  );
+.pq-cursor-root[data-mode="text"] .pq-hero-trail-dot,
+.pq-cursor-root[data-scrolling="true"] .pq-hero-trail-dot {
+  opacity: 0 !important;
 }
 
-.pq-cursor-root[data-scrolling="true"] .pq-scroll-fade-top,
-.pq-cursor-root[data-scrolling="true"] .pq-scroll-fade-bottom {
-  opacity: 1;
-}
-
-/* Subtle Radial Glow Halo (blooms on buttons & glass-cards) */
-.pq-cursor-glow {
+/* Soft Multi-Hue Ambient Hero Spotlight (Zero Blur Filter Cost) */
+.pq-hero-spotlight {
   position: absolute;
   top: 0;
   left: 0;
-  width: 116px;
-  height: 116px;
-  margin-top: -54px;
-  margin-left: -54px;
+  width: 240px;
+  height: 240px;
+  margin-top: -120px;
+  margin-left: -120px;
   border-radius: 9999px;
   background: radial-gradient(
     circle,
-    rgba(21, 93, 252, 0.24) 0%,
-    rgba(99, 102, 241, 0.12) 38%,
-    rgba(21, 93, 252, 0) 70%
+    rgba(21, 93, 252, 0.16) 0%,
+    rgba(99, 102, 241, 0.09) 34%,
+    rgba(139, 92, 246, 0.04) 56%,
+    transparent 74%
   );
-  opacity: 0;
-  transform: scale(0.32);
+  opacity: 0.9;
+  transform: scale(0.92);
   transition:
-    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
-/* Lead Sharp Triangular Cursor (tip aligned exactly at 0,0) */
-.pq-cursor-triangle-lead {
+/* Sleek Elastic Orbital Halo Ring */
+.pq-hero-ring {
   position: absolute;
-  top: -2px;
-  left: -2px;
-  width: 22px;
-  height: 22px;
-  transform-origin: 2px 2px;
-  transform: scale(1);
-  opacity: 1;
-  filter: drop-shadow(0 2px 5px rgba(15, 23, 42, 0.22));
-  transition:
-    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 260ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 180ms ease;
-  will-change: transform, opacity;
-}
-
-.pq-cursor-triangle-lead polygon {
-  fill: #0f172a;
-  stroke: #ffffff;
-  transition: fill 180ms ease, stroke 180ms ease;
-}
-
-/* Trailing Outlined Triangle Echo */
-.pq-cursor-triangle-trail {
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  width: 28px;
-  height: 28px;
-  transform-origin: 3px 3px;
-  transform: scale(0.95);
-  opacity: 0.45;
-  transition:
-    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 260ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
-}
-
-.pq-cursor-triangle-trail polygon {
-  stroke: rgba(21, 93, 252, 0.52);
-  fill: rgba(21, 93, 252, 0.05);
-  transition: stroke 180ms ease, fill 180ms ease;
-}
-
-/* Hovering Buttons & Interactive CTAs */
-.pq-cursor-root[data-mode="button"] .pq-cursor-glow {
-  opacity: 0.95;
-  transform: scale(0.78);
-}
-
-.pq-cursor-root[data-mode="button"] .pq-cursor-triangle-lead {
-  transform: scale(1.16) rotate(-5deg);
-  filter: drop-shadow(0 4px 10px rgba(21, 93, 252, 0.36));
-}
-
-.pq-cursor-root[data-mode="button"] .pq-cursor-triangle-lead polygon {
-  fill: #155dfc;
-  stroke: #ffffff;
-}
-
-.pq-cursor-root[data-mode="button"] .pq-cursor-triangle-trail {
-  opacity: 0.82;
-  transform: scale(1.28) rotate(-5deg);
-}
-
-.pq-cursor-root[data-mode="button"] .pq-cursor-triangle-trail polygon {
-  stroke: rgba(21, 93, 252, 0.72);
-  fill: rgba(21, 93, 252, 0.08);
-}
-
-/* Hovering Glass-Cards & Feature Surfaces */
-.pq-cursor-root[data-mode="card"] .pq-cursor-glow {
-  opacity: 1;
-  transform: scale(1.06);
-}
-
-.pq-cursor-root[data-mode="card"] .pq-cursor-triangle-lead {
-  transform: scale(1.08);
-}
-
-.pq-cursor-root[data-mode="card"] .pq-cursor-triangle-lead polygon {
-  fill: #1d4ed8;
-  stroke: #ffffff;
-}
-
-.pq-cursor-root[data-mode="card"] .pq-cursor-triangle-trail {
-  opacity: 0.65;
-  transform: scale(1.18);
-}
-
-.pq-cursor-root[data-mode="card"] .pq-cursor-triangle-trail polygon {
-  stroke: rgba(79, 70, 229, 0.58);
-}
-
-/* Hovering Dark Glass / Midnight Cards */
-.pq-cursor-root[data-mode="card-dark"] .pq-cursor-glow {
-  opacity: 1;
-  transform: scale(1.1);
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  margin-top: -17px;
+  margin-left: -17px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(21, 93, 252, 0.55);
   background: radial-gradient(
     circle,
-    rgba(96, 165, 250, 0.36) 0%,
-    rgba(129, 140, 248, 0.18) 40%,
-    rgba(96, 165, 250, 0) 70%
+    rgba(21, 93, 252, 0.08) 0%,
+    rgba(124, 58, 237, 0.04) 60%,
+    transparent 100%
   );
+  box-shadow: 0 0 18px rgba(21, 93, 252, 0.16);
+  transform: scale(1);
+  opacity: 0.9;
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease,
+    background 200ms ease;
+  will-change: transform, opacity;
 }
 
-.pq-cursor-root[data-mode="card-dark"] .pq-cursor-triangle-lead polygon {
-  fill: #ffffff;
-  stroke: #155dfc;
+/* Precision Glowing Center Core */
+.pq-hero-core {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  margin-left: -4px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #155dfc 0%, #7c3aed 100%);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.92),
+    0 0 12px rgba(21, 93, 252, 0.55);
+  transform: scale(1);
+  opacity: 1;
+  transition:
+    transform 160ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
 }
 
-.pq-cursor-root[data-mode="card-dark"] .pq-cursor-triangle-trail {
-  opacity: 0.8;
+/* Hovering Hero Buttons & CTAs */
+.pq-cursor-root[data-mode="button"] .pq-hero-spotlight {
   transform: scale(1.18);
+  opacity: 1;
 }
 
-.pq-cursor-root[data-mode="card-dark"] .pq-cursor-triangle-trail polygon {
-  stroke: rgba(147, 197, 253, 0.78);
-  fill: rgba(96, 165, 250, 0.12);
+.pq-cursor-root[data-mode="button"] .pq-hero-ring {
+  transform: scale(1.52);
+  border-color: rgba(21, 93, 252, 0.85);
+  background: rgba(21, 93, 252, 0.1);
 }
 
-/* Hovering Text Inputs (fade out custom triangle so native I-beam is clean) */
-.pq-cursor-root[data-mode="text"] .pq-cursor-triangle-lead,
-.pq-cursor-root[data-mode="text"] .pq-cursor-triangle-trail,
-.pq-cursor-root[data-mode="text"] .pq-cursor-glow {
-  opacity: 0;
-  transform: scale(0.6);
-}
-
-/* Smooth Fading Effect While Scrolling Mouse Wheel */
-.pq-cursor-root[data-scrolling="true"] .pq-cursor-triangle-lead {
-  opacity: 0.22;
-  transform: scale(0.84);
-}
-
-.pq-cursor-root[data-scrolling="true"] .pq-cursor-triangle-trail {
-  opacity: 0.08;
+.pq-cursor-root[data-mode="button"] .pq-hero-core {
   transform: scale(0.75);
 }
 
-.pq-cursor-root[data-scrolling="true"] .pq-cursor-glow {
-  opacity: 0.14;
+/* Hovering Hero Interactive Cards */
+.pq-cursor-root[data-mode="card"] .pq-hero-spotlight {
+  transform: scale(1.3);
+  opacity: 1;
+}
+
+.pq-cursor-root[data-mode="card"] .pq-hero-ring {
+  transform: scale(1.35);
+  border-color: rgba(124, 58, 237, 0.72);
+  background: rgba(124, 58, 237, 0.08);
+}
+
+.pq-cursor-root[data-mode="card-dark"] .pq-hero-ring {
+  transform: scale(1.35);
+  border-color: rgba(147, 197, 253, 0.88);
+  background: rgba(96, 165, 250, 0.14);
+}
+
+.pq-cursor-root[data-mode="card-dark"] .pq-hero-core {
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(147, 197, 253, 0.8);
+}
+
+/* Text Input Restoration */
+.pq-cursor-root[data-mode="text"] .pq-hero-core,
+.pq-cursor-root[data-mode="text"] .pq-hero-ring,
+.pq-cursor-root[data-mode="text"] .pq-hero-spotlight {
+  opacity: 0;
   transform: scale(0.5);
 }
 
-/* Tactile Click Compression */
-.pq-cursor-root[data-pressed="true"] .pq-cursor-triangle-lead {
-  transform: scale(0.84) rotate(-8deg);
+/* Gentle Fade While Scrolling */
+.pq-cursor-root[data-scrolling="true"] .pq-hero-core {
+  opacity: 0.25;
+  transform: scale(0.8);
 }
 
-.pq-cursor-root[data-pressed="true"] .pq-cursor-triangle-trail {
+.pq-cursor-root[data-scrolling="true"] .pq-hero-ring {
+  opacity: 0.18;
   transform: scale(0.78);
 }
 
-.pq-cursor-root[data-pressed="true"] .pq-cursor-glow {
-  transform: scale(0.6);
+.pq-cursor-root[data-scrolling="true"] .pq-hero-spotlight {
+  opacity: 0.22;
+  transform: scale(0.7);
+}
+
+/* Click Press Feedback */
+.pq-cursor-root[data-pressed="true"] .pq-hero-ring {
+  transform: scale(0.82);
+}
+
+.pq-cursor-root[data-pressed="true"] .pq-hero-core {
+  transform: scale(1.35);
 }
 
 @media (prefers-reduced-motion: reduce) {

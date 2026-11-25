@@ -10,7 +10,6 @@ import {
   Mail,
   MapPin,
   ShieldCheck,
-  ExternalLink,
   Phone,
 } from 'lucide-react'
 import { Logo } from './Logo'
@@ -75,53 +74,57 @@ export function Footer() {
 
   return (
     <footer className="bg-[#070d24] text-slate-300 border-t border-blue-950/80 relative overflow-hidden">
-      {/* Subtle animated ambient glows for depth */}
-      <motion.div
-        animate={{ x: [0, 30, 0], opacity: [0.06, 0.12, 0.06] }}
-        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600 blur-3xl pointer-events-none"
+      {/* Subtle GPU-friendly radial glows (zero blur filter overhead) */}
+      <div
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(37,99,235,0.14) 0%, transparent 70%)',
+        }}
+        className="absolute -top-24 left-1/4 w-[480px] h-[480px] pointer-events-none"
       />
-      <motion.div
-        animate={{ x: [0, -30, 0], opacity: [0.05, 0.1, 0.05] }}
-        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600 blur-3xl pointer-events-none"
+      <div
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%)',
+        }}
+        className="absolute -bottom-24 right-1/4 w-[480px] h-[480px] pointer-events-none"
       />
 
       <motion.div
-        initial={{ opacity: 0, y: 18 }}
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-8 sm:pb-10"
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-7 sm:pt-8 pb-5 sm:pb-6"
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 xl:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 xl:gap-7">
           {/* Column 1 & 2: Brand, Tagline, & Contact Details */}
           <div className="col-span-1 sm:col-span-2">
-            <Logo variant="dark" showTagline={true} />
-            <p className="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
+            <Logo variant="dark" size="sm" showTagline={true} />
+            <p className="mt-2 text-xs text-slate-400 leading-relaxed max-w-sm">
               PulseQuo is the unified customer experience platform uniting omnichannel CPaaS messaging, sales CRM,
               customer support helpdesk, and AI automation into a single cohesive infrastructure.
             </p>
 
-            <div className="mt-4 space-y-2 text-xs text-slate-300">
-              <div className="flex items-center gap-2">
-                <Mail className="size-4 text-blue-400 shrink-0" />
-                <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-blue-400 text-slate-300 transition-colors">
-                  {siteConfig.contactEmail}
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="size-4 text-blue-400 shrink-0" />
-                <span className="text-slate-300">{siteConfig.phonePlaceholder}</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <MapPin className="size-4 text-blue-400 shrink-0 mt-0.5" />
-                <span className="text-slate-300">{siteConfig.addressPlaceholder}</span>
-              </div>
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-[11.5px] text-slate-300">
+              <a href={`mailto:${siteConfig.contactEmail}`} className="inline-flex items-center gap-1.5 hover:text-blue-400 transition-colors">
+                <Mail className="size-3.5 text-blue-400 shrink-0" />
+                <span>{siteConfig.contactEmail}</span>
+              </a>
+              <span className="inline-flex items-center gap-1.5">
+                <Phone className="size-3.5 text-blue-400 shrink-0" />
+                <span>{siteConfig.phonePlaceholder}</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <MapPin className="size-3.5 text-blue-400 shrink-0" />
+                <span>{siteConfig.addressPlaceholder}</span>
+              </span>
             </div>
 
             {/* Social Links */}
-            <div className="mt-4 flex items-center gap-2.5">
+            <div className="mt-3 flex items-center gap-2">
               {[
                 { href: siteConfig.social.linkedin, label: 'PulseQuo on LinkedIn', Icon: LinkedinIcon },
                 { href: siteConfig.social.twitter, label: 'PulseQuo on Twitter', Icon: TwitterIcon },
@@ -136,10 +139,10 @@ export function Footer() {
                   whileHover={{ y: -2, scale: 1.08 }}
                   whileTap={{ scale: 0.94 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-                  className="size-8 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
+                  className="size-7 rounded-lg bg-blue-950/70 border border-blue-900/50 flex items-center justify-center text-blue-300 hover:text-white hover:bg-blue-600 hover:border-blue-500 transition-colors"
                   aria-label={label}
                 >
-                  <Icon className="size-4" />
+                  <Icon className="size-3.5" />
                 </motion.a>
               ))}
             </div>
@@ -147,8 +150,8 @@ export function Footer() {
 
           {/* Column 3: Products */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-white">Products</p>
-            <ul className="mt-3 space-y-2 text-xs sm:text-sm">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-white">Products</p>
+            <ul className="mt-2 space-y-1.5 text-xs">
               <li>
                 <FooterLink to="/products/communication-cloud">Communication Cloud</FooterLink>
               </li>
@@ -172,8 +175,8 @@ export function Footer() {
 
           {/* Column 4: Solutions */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-white">Solutions</p>
-            <ul className="mt-3 space-y-2 text-xs sm:text-sm">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-white">Solutions</p>
+            <ul className="mt-2 space-y-1.5 text-xs">
               <li>
                 <FooterLink to="/solutions/sales-teams">Sales Teams</FooterLink>
               </li>
@@ -197,8 +200,8 @@ export function Footer() {
 
           {/* Column 5: Developers & Resources */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-white">Resources</p>
-            <ul className="mt-3 space-y-2 text-xs sm:text-sm">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-white">Resources</p>
+            <ul className="mt-2 space-y-1.5 text-xs">
               <li>
                 <FooterLink to="/resources/blog">Blog & Articles</FooterLink>
               </li>
@@ -214,33 +217,19 @@ export function Footer() {
               <li>
                 <FooterLink to="/developers/webhooks">Webhooks & Events</FooterLink>
               </li>
-              <li>
-                <a
-                  href={siteConfig.statusPage}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-slate-300 hover:text-blue-400 transition-colors"
-                >
-                  {/* Purple micro-dot status element */}
-                  <span className="size-1.5 rounded-xs bg-purple-400 shrink-0" />
-                  <span>System Status</span>
-                  <ExternalLink className="size-3 text-slate-400" />
-                </a>
-              </li>
             </ul>
           </div>
 
           {/* Column 6: Company & Trust */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-white">Company</p>
-            <ul className="mt-3 space-y-2 text-xs sm:text-sm">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-white">Company</p>
+            <ul className="mt-2 space-y-1.5 text-xs">
               <li>
                 <FooterLink to="/about">About PulseQuo</FooterLink>
               </li>
               <li>
                 <FooterLink to="/careers">
                   <span>Careers</span>
-                  {/* Purple small element badge */}
                   <span className="text-[10px] bg-purple-900/60 text-purple-300 border border-purple-700/60 px-1.5 py-0.5 rounded-sm ml-1 font-semibold">
                     Hiring
                   </span>
@@ -256,16 +245,16 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright, Compliance, Legal */}
-        <div className="mt-10 sm:mt-12 pt-6 border-t border-blue-950/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        {/* Compact Bottom Bar: Copyright, Compliance, Legal */}
+        <div className="mt-6 pt-4 border-t border-blue-950/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11.5px] text-slate-400">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="size-4 text-blue-400 shrink-0" />
+            <ShieldCheck className="size-3.5 text-blue-400 shrink-0" />
             <span>
               &copy; {currentYear} PulseQuo Technologies. All rights reserved. One Platform. Complete Customer Experience.
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5">
             <FooterLink to="/terms" className="text-slate-400 hover:text-blue-300 transition-colors">
               Terms of Service
             </FooterLink>

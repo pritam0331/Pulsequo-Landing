@@ -61,25 +61,17 @@ export function CTASection({
   }
 
   return (
-    <section id={id} className="py-12 sm:py-16 lg:py-20 bg-white relative">
+    <section id={id} className="py-12 sm:py-16 lg:py-20 section-fade-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Heading, Value Proposition, Action CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.18 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-7 flex flex-col items-start text-left"
           >
-            {/* Clean Unboxed Kicker */}
-            <div className="inline-flex items-center gap-2.5 mb-3.5">
-              <span className="h-[2px] w-6 rounded-full bg-blue-600 shrink-0" />
-              <span className="text-xs font-semibold tracking-wide text-blue-600">
-                {eyebrow}
-              </span>
-            </div>
-
             {/* Headline with SplitReveal */}
             <SplitReveal
               as="h2"
@@ -170,90 +162,159 @@ export function CTASection({
             {rightContent ? (
               rightContent
             ) : (
-              <div
-                data-cursor="glass"
-                className="rounded-2xl border border-slate-200/90 bg-white/95 backdrop-blur-sm p-5 sm:p-6 shadow-sm hover:shadow-xl hover:border-blue-300/90 transition-all duration-200 relative overflow-hidden group"
-              >
-                {/* Console Header Bar */}
-                <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-200/80">
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1.5">
-                      <div className="size-2.5 rounded-full bg-slate-300" />
-                      <div className="size-2.5 rounded-full bg-slate-300" />
-                      <div className="size-2.5 rounded-full bg-slate-300" />
+              <div className="relative group">
+                {/* Ambient Website-Theme Blue/Indigo/Violet Halo */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-2 rounded-3xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background:
+                      'radial-gradient(circle at 18% 20%, rgba(21,93,252,0.16), transparent 55%), radial-gradient(circle at 84% 80%, rgba(124,58,237,0.16), transparent 55%), radial-gradient(circle at 75% 15%, rgba(16,185,129,0.12), transparent 50%)',
+                  }}
+                />
+
+                <div
+                  data-cursor="glass"
+                  className="relative rounded-2xl border border-blue-200/80 bg-white text-slate-900 shadow-xl shadow-blue-950/8 hover:border-blue-400/80 hover:shadow-2xl hover:shadow-blue-950/12 transition-all duration-300 overflow-hidden"
+                >
+                  {/* Vibrant Brand-Theme Top Gradient Bar */}
+                  <div className="h-1.5 w-full bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500" />
+
+                  {/* Console Header Bar */}
+                  <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-blue-50/90 via-indigo-50/70 to-purple-50/80 border-b border-blue-100/90">
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-1.5">
+                        <div className="size-2.5 rounded-full bg-rose-400" />
+                        <div className="size-2.5 rounded-full bg-amber-400" />
+                        <div className="size-2.5 rounded-full bg-emerald-400" />
+                      </div>
+                      <div className="ml-1 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-white border border-blue-200/80 shadow-2xs">
+                        <Code2 className="size-3.5 text-blue-600" />
+                        <span className="text-xs text-slate-800 font-mono font-bold whitespace-nowrap">
+                          dispatch-runtime.ts
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-xs text-slate-700 font-mono font-bold ml-1.5 whitespace-nowrap">
-                      dispatch-runtime.ts
+
+                    {/* Working Copy Button */}
+                    <button
+                      type="button"
+                      onClick={handleCopy}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-blue-600 border border-blue-200/90 hover:border-blue-600 text-[11px] font-mono font-semibold text-blue-700 hover:text-white shadow-2xs transition-colors cursor-pointer shrink-0"
+                    >
+                      {copied ? (
+                        <>
+                          <Check className="size-3 text-emerald-500" />
+                          <span className="text-emerald-600">Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="size-3" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Light Brand-Theme Colorful Syntax Canvas */}
+                  <div className="p-4 sm:p-5 bg-white">
+                    <div className="bg-gradient-to-br from-slate-50/95 via-blue-50/35 to-indigo-50/45 rounded-xl border border-blue-100/90 p-4 font-mono text-[11.5px] sm:text-xs leading-relaxed overflow-x-auto">
+                      <div className="flex gap-3">
+                        <span className="select-none text-slate-400 text-right w-4">1</span>
+                        <div>
+                          <span className="text-blue-600 font-bold">const</span>{' '}
+                          <span className="text-slate-900 font-semibold">pulse</span>{' '}
+                          <span className="text-rose-500 font-semibold">=</span>{' '}
+                          <span className="text-blue-600 font-bold">new</span>{' '}
+                          <span className="text-purple-600 font-bold">PulseQuo</span>
+                          <span className="text-indigo-500 font-semibold">{'({'}</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="select-none text-slate-400 text-right w-4">2</span>
+                        <div className="pl-4">
+                          <span className="text-indigo-700 font-medium">apiKey</span>
+                          <span className="text-slate-400">:</span>{' '}
+                          <span className="text-emerald-600 font-semibold">&quot;pq_live_9f82c&quot;</span>
+                          <span className="text-slate-400">,</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="select-none text-slate-400 text-right w-4">3</span>
+                        <div className="pl-4">
+                          <span className="text-indigo-700 font-medium">cluster</span>
+                          <span className="text-slate-400">:</span>{' '}
+                          <span className="text-emerald-600 font-semibold">&quot;ap-south-mumbai&quot;</span>
+                          <span className="text-slate-400">,</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="select-none text-slate-400 text-right w-4">4</span>
+                        <div className="text-indigo-500 font-semibold">{'})'}</div>
+                      </div>
+
+                      <div className="flex gap-3 mt-2.5">
+                        <span className="select-none text-slate-400 text-right w-4">5</span>
+                        <div>
+                          <span className="text-purple-600 font-bold">await</span>{' '}
+                          <span className="text-slate-900 font-semibold">pulse</span>
+                          <span className="text-slate-400">.</span>
+                          <span className="text-blue-600 font-bold">dispatch</span>
+                          <span className="text-indigo-500 font-semibold">{'({'}</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="select-none text-slate-400 text-right w-4">6</span>
+                        <div className="pl-4">
+                          <span className="text-indigo-700 font-medium">channels</span>
+                          <span className="text-slate-400">:</span>{' '}
+                          <span className="text-purple-500 font-semibold">[</span>
+                          <span className="text-emerald-600 font-semibold">&quot;whatsapp&quot;</span>
+                          <span className="text-slate-400">,</span>{' '}
+                          <span className="text-teal-600 font-semibold">&quot;sms&quot;</span>
+                          <span className="text-purple-500 font-semibold">]</span>
+                          <span className="text-slate-400">,</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="select-none text-slate-400 text-right w-4">7</span>
+                        <div className="pl-4">
+                          <span className="text-indigo-700 font-medium">aiAgent</span>
+                          <span className="text-slate-400">:</span>{' '}
+                          <span className="text-fuchsia-600 font-bold">true</span>
+                          <span className="text-slate-400">,</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="select-none text-slate-400 text-right w-4">8</span>
+                        <div className="pl-4">
+                          <span className="text-indigo-700 font-medium">crmSync</span>
+                          <span className="text-slate-400">:</span>{' '}
+                          <span className="text-amber-600 font-semibold">&quot;instant&quot;</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <span className="select-none text-slate-400 text-right w-4">9</span>
+                        <div className="text-indigo-500 font-semibold">{'})'}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Crisp Colorful Light Status Footer */}
+                  <div className="px-5 py-3 bg-gradient-to-r from-blue-50/70 via-white to-purple-50/70 border-t border-blue-100/80 flex items-center justify-between gap-2 text-[11px] font-mono">
+                    <span className="inline-flex items-center gap-2 text-emerald-700 font-bold tabular-nums">
+                      <span className="size-2 rounded-full bg-emerald-500" />
+                      <span>200 OK · 24ms</span>
                     </span>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-sm bg-blue-50 text-blue-700 border border-blue-200/80 font-semibold">
+                        Meta v20
+                      </span>
+                      <span className="px-2 py-0.5 rounded-sm bg-purple-50 text-purple-700 border border-purple-200/80 font-semibold">
+                        TRAI DLT
+                      </span>
+                    </div>
                   </div>
-
-                  {/* Working Copy Button */}
-                  <button
-                    type="button"
-                    onClick={handleCopy}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 hover:bg-blue-50 border border-slate-200/80 hover:border-blue-200 text-[11px] font-mono font-semibold text-slate-600 hover:text-blue-700 transition-colors cursor-pointer shrink-0"
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="size-3 text-emerald-600" />
-                        <span className="text-emerald-700">Copied</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="size-3" />
-                        <span>Copy</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                {/* Code Snippet in Light Syntax Highlighting */}
-                <div className="bg-slate-50/90 rounded-xl border border-slate-200/70 p-4 font-mono text-[11px] sm:text-xs leading-relaxed overflow-x-auto text-slate-800">
-                  <div className="mt-0.5">
-                    <span className="text-blue-600 font-bold">const</span>{' '}
-                    <span className="text-slate-900 font-semibold">pulse</span> ={' '}
-                    <span className="text-blue-600 font-bold">new</span>{' '}
-                    <span className="text-indigo-600 font-bold">PulseQuo</span>({'{'}
-                  </div>
-                  <div className="pl-4">
-                    <span className="text-slate-600">apiKey:</span>{' '}
-                    <span className="text-emerald-700 font-medium">"pq_live_9f82c"</span>,
-                  </div>
-                  <div className="pl-4">
-                    <span className="text-slate-600">cluster:</span>{' '}
-                    <span className="text-emerald-700 font-medium">"ap-south-mumbai"</span>,
-                  </div>
-                  <div>{'}'})</div>
-
-                  <div className="mt-3">
-                    <span className="text-blue-600 font-bold">await</span>{' '}
-                    <span className="text-slate-900 font-semibold">pulse</span>.
-                    <span className="text-indigo-600 font-bold">dispatch</span>({'{'}
-                  </div>
-                  <div className="pl-4">
-                    <span className="text-slate-600">channels:</span> [
-                    <span className="text-emerald-700 font-medium">"whatsapp"</span>,{' '}
-                    <span className="text-emerald-700 font-medium">"sms"</span>],
-                  </div>
-                  <div className="pl-4">
-                    <span className="text-slate-600">aiAgent:</span>{' '}
-                    <span className="text-purple-600 font-bold">true</span>,
-                  </div>
-                  <div className="pl-4">
-                    <span className="text-slate-600">crmSync:</span>{' '}
-                    <span className="text-emerald-700 font-medium">"instant"</span>
-                  </div>
-                  <div>{'})'}</div>
-                </div>
-
-                {/* Console Footer Stats */}
-                <div className="mt-4 pt-3.5 border-t border-slate-200/80 flex items-center justify-between text-[11px] font-mono">
-                  <span className="text-emerald-700 font-semibold tabular-nums">
-                    200 OK · 24ms
-                  </span>
-                  <span className="text-slate-500 font-medium">
-                    Meta v20 · TRAI DLT
-                  </span>
                 </div>
               </div>
             )}

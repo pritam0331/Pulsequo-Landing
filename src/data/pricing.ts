@@ -3,8 +3,6 @@
  * Production-ready tiered plans and comprehensive feature comparison matrix.
  */
 
-import { siteConfig } from '../config/siteConfig'
-
 export interface PricingPlanTier {
   id: 'starter' | 'growth' | 'enterprise'
   name: string
@@ -36,9 +34,7 @@ export const pricingTiers: PricingPlanTier[] = [
       'Web Chat Widget',
     ],
     ctaText: 'Start Free Trial',
-    ctaHref: siteConfig.appUrl.startsWith('http')
-      ? `${siteConfig.appUrl}/signup?plan=starter`
-      : '/book-demo?plan=starter',
+    ctaHref: '/book-demo?plan=starter',
   },
   {
     id: 'growth',
@@ -59,9 +55,7 @@ export const pricingTiers: PricingPlanTier[] = [
       'Unlimited Broadcast Campaigns',
     ],
     ctaText: 'Start Free Trial',
-    ctaHref: siteConfig.appUrl.startsWith('http')
-      ? `${siteConfig.appUrl}/signup?plan=growth`
-      : '/book-demo?plan=growth',
+    ctaHref: '/book-demo?plan=growth',
   },
   {
     id: 'enterprise',
@@ -80,8 +74,8 @@ export const pricingTiers: PricingPlanTier[] = [
       'Single Sign-On (SSO / SAML)',
       'Onboarding & Training',
     ],
-    ctaText: 'Contact Sales',
-    ctaHref: '/contact',
+    ctaText: 'Book Enterprise Demo',
+    ctaHref: '/book-demo?plan=enterprise',
   },
 ]
 

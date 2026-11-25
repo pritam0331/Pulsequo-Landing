@@ -130,7 +130,20 @@ export function Card3DCarousel({
 }: Card3DCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [stepX, setStepX] = useState(265)
   const total = cards.length
+
+  useEffect(() => {
+    const computeStep = () => {
+      const w = window.innerWidth
+      if (w < 640) setStepX(150)
+      else if (w < 1024) setStepX(215)
+      else setStepX(265)
+    }
+    computeStep()
+    window.addEventListener('resize', computeStep, { passive: true })
+    return () => window.removeEventListener('resize', computeStep)
+  }, [])
 
   const goNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % total)
@@ -173,7 +186,7 @@ export function Card3DCarousel({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="mb-8 sm:mb-10 text-center max-w-3xl mx-auto"
+        className="mb-6 sm:mb-10 text-center max-w-3xl mx-auto"
       >
         <SplitReveal
           as="h2"
@@ -182,9 +195,9 @@ export function Card3DCarousel({
           delay={0.04}
           stagger={0.038}
           duration={0.55}
-          className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight text-balance"
+          className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight text-balance"
         />
-        <p className="mt-2.5 text-sm sm:text-base text-slate-600 leading-relaxed text-pretty">
+        <p className="mt-2 text-xs sm:text-base text-slate-600 leading-relaxed text-pretty">
           {subheadline}
         </p>
       </motion.div>
@@ -199,9 +212,9 @@ export function Card3DCarousel({
           whileHover={{ scale: 1.08, x: -2 }}
           whileTap={{ scale: 0.92 }}
           transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-          className="absolute left-1 sm:left-4 lg:left-8 z-40 size-10 sm:size-12 rounded-xl bg-white/95 hover:bg-blue-600 text-slate-700 hover:text-white border border-slate-200/90 hover:border-blue-600 shadow-lg flex items-center justify-center transition-colors cursor-pointer backdrop-blur-sm"
+          className="absolute left-0 sm:left-4 lg:left-8 z-40 size-9 sm:size-11 rounded-xl bg-white hover:bg-blue-600 text-slate-700 hover:text-white border border-slate-200/90 hover:border-blue-600 shadow-lg flex items-center justify-center transition-colors cursor-pointer"
         >
-          <ChevronLeft className="size-5 sm:size-6" />
+          <ChevronLeft className="size-4 sm:size-5" />
         </motion.button>
 
         {/* 3D Viewport with Horizontal Swipe Support */}
@@ -210,20 +223,21 @@ export function Card3DCarousel({
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.12}
           onDragEnd={(_, info) => {
-            if (info.offset.x < -45) goNext()
-            else if (info.offset.x > 45) goPrev()
+            if (info.offset.x < -40) goNext()
+            else if (info.offset.x > 40) goPrev()
           }}
-          className="relative w-full h-[340px] sm:h-[370px] flex items-center justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
+          className="relative w-full h-[296px] sm:h-[360px] flex items-center justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
           style={{ perspective: '1200px' }}
         >
-          {/* Subtle animated ambient radial glow */}
-          <motion.div
-            animate={{ scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          >
-            <div className="w-[65%] h-[220px] bg-gradient-to-r from-blue-400/14 via-purple-400/14 to-indigo-400/14 blur-3xl rounded-full" />
-          </motion.div>
+          {/* Lightweight zero-blur radial glow */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(ellipse 52% 52% at 50% 50%, rgba(37, 99, 235, 0.11) 0%, rgba(124, 58, 237, 0.07) 45%, transparent 76%)',
+            }}
+          />
 
           <div
             className="relative w-full h-full flex items-center justify-center"
@@ -236,11 +250,11 @@ export function Card3DCarousel({
               const isVisible = absOffset <= 2
               const CardIcon = card.icon
 
-              const xShift = offset * 265
+              const xShift = offset * stepX
               const zShift = -absOffset * 130
               const rotateY = offset * -25
-              const scale = isCenter ? 1 : absOffset === 1 ? 0.88 : 0.74
-              const opacity = !isVisible ? 0 : isCenter ? 1 : absOffset === 1 ? 0.85 : 0.42
+              const scale = isCenter ? 1 : absOffset === 1 ? 0.86 : 0.72
+              const opacity = !isVisible ? 0 : isCenter ? 1 : absOffset === 1 ? 0.85 : 0.38
 
               return (
                 <motion.div
@@ -274,7 +288,7 @@ export function Card3DCarousel({
                     pointerEvents: isVisible ? 'auto' : 'none',
                   }}
                   data-cursor="glass"
-                  className={`group absolute w-[280px] sm:w-[360px] lg:w-[410px] rounded-2xl bg-white/95 backdrop-blur-xs border overflow-hidden transition-all duration-300 ${
+                  className={`group absolute w-[248px] sm:w-[350px] lg:w-[410px] rounded-2xl bg-white border overflow-hidden transition-shadow duration-300 ${
                     isCenter
                       ? 'border-blue-400/90 ring-2 ring-blue-600/15 shadow-2xl shadow-blue-900/12 cursor-default'
                       : 'border-slate-200/90 shadow-lg hover:shadow-xl hover:border-blue-300/80 cursor-pointer'
@@ -283,55 +297,55 @@ export function Card3DCarousel({
                   {/* Top Gradient Accent Bar */}
                   <div className={`h-1.5 w-full bg-gradient-to-r ${card.gradientHeader}`} />
 
-                  <div className="p-5 sm:p-6">
+                  <div className="p-4 sm:p-6">
                     {/* Category & Status */}
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="text-[11px] font-medium text-slate-500 truncate">
+                    <div className="flex items-center justify-between gap-2 mb-2.5 sm:mb-3">
+                      <span className="text-[10.5px] sm:text-[11px] font-medium text-slate-500 truncate">
                         {card.category}
                       </span>
                       <span
-                        className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-sm border shrink-0 ${card.badgeColor}`}
+                        className={`text-[9.5px] sm:text-[10px] font-mono font-semibold px-1.5 sm:px-2 py-0.5 rounded-sm border shrink-0 ${card.badgeColor}`}
                       >
                         {card.badge}
                       </span>
                     </div>
 
                     {/* Icon & Title */}
-                    <div className="flex items-start gap-3">
+                    <div className="flex items-start gap-2.5 sm:gap-3">
                       <div
-                        className={`size-10 rounded-xl border flex items-center justify-center shrink-0 ${card.iconBg} ${card.iconColor}`}
+                        className={`size-8 sm:size-10 rounded-xl border flex items-center justify-center shrink-0 ${card.iconBg} ${card.iconColor}`}
                       >
-                        <CardIcon className="size-5" />
+                        <CardIcon className="size-4 sm:size-5" />
                       </div>
                       <div className="min-w-0">
-                        <h4 className="text-sm sm:text-base font-bold text-slate-900 leading-tight truncate">
+                        <h4 className="text-xs sm:text-base font-bold text-slate-900 leading-tight truncate">
                           {card.title}
                         </h4>
-                        <p className="text-xs text-slate-500 truncate mt-0.5 font-medium">
+                        <p className="text-[11px] sm:text-xs text-slate-500 truncate mt-0.5 font-medium">
                           {card.subtitle}
                         </p>
                       </div>
                     </div>
 
                     {/* Description */}
-                    <div className="mt-4 p-3 rounded-xl bg-slate-50/90 border border-slate-100 text-xs sm:text-[13px] text-slate-600 leading-relaxed line-clamp-2">
+                    <div className="mt-3 sm:mt-4 p-2.5 sm:p-3 rounded-xl bg-slate-50/90 border border-slate-100 text-[11.5px] sm:text-[13px] text-slate-600 leading-relaxed line-clamp-2">
                       {card.description}
                     </div>
 
                     {/* Footer Metric & Channel */}
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex items-center justify-between gap-2 sm:gap-3">
                       <div>
-                        <span className="text-base font-black font-mono tabular-nums text-slate-900 block leading-none">
+                        <span className="text-sm sm:text-base font-black font-mono tabular-nums text-slate-900 block leading-none">
                           {card.metric}
                         </span>
-                        <span className="text-[11px] font-medium text-slate-400 block mt-1">
+                        <span className="text-[10px] sm:text-[11px] font-medium text-slate-400 block mt-0.5 sm:mt-1">
                           {card.metricLabel}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-xs font-medium text-slate-600">
-                        <span className={`size-1.5 rounded-full bg-current ${card.channelIconColor}`} />
-                        <span className="text-[11px] font-mono truncate max-w-[148px]">
+                      <div className="flex items-center gap-1.5 text-xs font-medium text-slate-600 min-w-0">
+                        <span className={`size-1.5 rounded-full bg-current shrink-0 ${card.channelIconColor}`} />
+                        <span className="text-[10.5px] sm:text-[11px] font-mono truncate max-w-[115px] sm:max-w-[148px]">
                           {card.channel}
                         </span>
                       </div>
@@ -351,9 +365,9 @@ export function Card3DCarousel({
           whileHover={{ scale: 1.08, x: 2 }}
           whileTap={{ scale: 0.92 }}
           transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-          className="absolute right-1 sm:right-4 lg:right-8 z-40 size-10 sm:size-12 rounded-xl bg-white/95 hover:bg-blue-600 text-slate-700 hover:text-white border border-slate-200/90 hover:border-blue-600 shadow-lg flex items-center justify-center transition-colors cursor-pointer backdrop-blur-sm"
+          className="absolute right-0 sm:right-4 lg:right-8 z-40 size-9 sm:size-11 rounded-xl bg-white hover:bg-blue-600 text-slate-700 hover:text-white border border-slate-200/90 hover:border-blue-600 shadow-lg flex items-center justify-center transition-colors cursor-pointer"
         >
-          <ChevronRight className="size-5 sm:size-6" />
+          <ChevronRight className="size-4 sm:size-5" />
         </motion.button>
       </div>
 

@@ -123,7 +123,10 @@ export function CommunicationCloudPage() {
       {/* ─────────────────────────────────────────────────────────────
           1. HERO SECTION: AMBIENT LIGHTING & TELEMETRY
          ───────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-white pt-10 pb-16 sm:pt-14 sm:pb-20 border-b border-slate-100">
+      <section
+        data-cursor-zone="hero"
+        className="relative overflow-hidden bg-white pt-10 pb-16 sm:pt-14 sm:pb-20"
+      >
         <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -142,13 +145,6 @@ export function CommunicationCloudPage() {
               transition={{ duration: 0.55, ease: easeOutCurve }}
               className="lg:col-span-6"
             >
-              <div className="inline-flex items-center gap-2.5 mb-5">
-                <span className="h-[2px] w-6 rounded-full bg-blue-600" />
-                <span className="text-xs font-semibold tracking-wide text-blue-600">
-                  Enterprise CPaaS & Official WhatsApp Cloud API
-                </span>
-              </div>
-
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
                 Every conversation on one{' '}
                 <span className="text-gradient-hero">
@@ -196,7 +192,7 @@ export function CommunicationCloudPage() {
               </div>
             </motion.div>
 
-            {/* Right Column: Interactive Fanout Deck */}
+            {/* Right Column: Queue Auto Carousel */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
@@ -207,7 +203,6 @@ export function CommunicationCloudPage() {
                 cards={commFanoutCards}
                 hideHeader={true}
                 compact={true}
-                className="max-w-full"
               />
             </motion.div>
           </div>
@@ -222,185 +217,200 @@ export function CommunicationCloudPage() {
       {/* ─────────────────────────────────────────────────────────────
           4. DETAILED MODULES BREAKDOWN
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-slate-50/70 border-b border-slate-200/80">
+      <section className="py-12 sm:py-16 section-fade-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Architecture Modules"
             title="Comprehensive Multi-Channel Infrastructure"
             description="Built to handle high-concurrency enterprise messaging across all primary customer communication touchpoints."
           />
 
-          <div className="mt-12 sm:mt-16 space-y-12 sm:space-y-16">
+          <div className="mt-12 space-y-12">
             {/* Module 1: WhatsApp Business API */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, ease: easeOutCurve }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-200/80 pb-12 sm:pb-16"
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, ease: easeOutCurve }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
             >
               <div className="lg:col-span-5">
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 mb-4 border border-emerald-200">
-                  <MessageSquare className="size-6" />
+                <div className="flex size-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 mb-4 border border-emerald-200/80">
+                  <MessageSquare className="size-5" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900">WhatsApp Business API</h3>
                 <p className="mt-3 text-sm text-slate-600 leading-relaxed font-normal">
                   Official WhatsApp Business Platform connectivity. Send verified green-badge messages, broadcast
                   pre-approved marketing templates, dispatch interactive quick-reply buttons, and provide 24/7 care.
                 </p>
-                <div className="mt-6 flex flex-wrap gap-2 text-xs">
-                  <span className="rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 px-2.5 py-1 font-semibold">
-                    Meta Cloud API Verified
-                  </span>
-                  <span className="rounded-lg bg-white border border-slate-200 text-slate-700 px-2.5 py-1 font-medium">
-                    Template Manager
-                  </span>
-                  <span className="rounded-lg bg-white border border-slate-200 text-slate-700 px-2.5 py-1 font-medium">
-                    24h Care Window
-                  </span>
+                <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs font-medium text-slate-500">
+                  <span className="text-emerald-700 font-semibold">Meta Cloud API Verified</span>
+                  <span className="text-slate-300" aria-hidden="true">·</span>
+                  <span>Template Manager</span>
+                  <span className="text-slate-300" aria-hidden="true">·</span>
+                  <span>24h Care Window</span>
                 </div>
               </div>
 
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-emerald-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Interactive Templates</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Rich media cards, CTA buttons, quick replies, list pickers, and product catalogs.
-                  </p>
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-emerald-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Interactive Templates</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Rich media cards, CTA buttons, quick replies, list pickers, and product catalogs.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-emerald-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Broadcast Campaigns</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Filter customer segments and broadcast pre-approved promotional or utility templates.
-                  </p>
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-emerald-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Broadcast Campaigns</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Filter customer segments and broadcast pre-approved promotional or utility templates.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-emerald-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Delivery & Read Webhooks</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Real-time status tracking for sent, delivered, read, and failed events with error diagnostics.
-                  </p>
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-emerald-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Delivery & Read Webhooks</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Real-time status tracking for sent, delivered, read, and failed events with error diagnostics.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-emerald-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Multi-Account Management</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Manage multiple phone numbers and brands from one unified enterprise admin console.
-                  </p>
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-emerald-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Multi-Account Management</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Manage multiple phone numbers and brands from one unified enterprise admin console.
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
 
+            <div className="fade-divider-x" />
+
             {/* Module 2: SMS Gateway & DLT */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, ease: easeOutCurve }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-slate-200/80 pb-12 sm:pb-16"
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, ease: easeOutCurve }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
             >
               <div className="lg:col-span-5">
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-4 border border-blue-200">
-                  <Zap className="size-6" />
+                <div className="flex size-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 mb-4 border border-blue-200/80">
+                  <Zap className="size-5" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900">SMS Gateway & DLT Compliance</h3>
                 <p className="mt-3 text-sm text-slate-600 leading-relaxed font-normal">
                   Carrier-grade SMS routing for transactional alerts, high-speed OTP authentication, and marketing
                   broadcasts with strict Telecom Regulatory Authority of India (TRAI) DLT compliance.
                 </p>
-                <div className="mt-6 flex flex-wrap gap-2 text-xs">
-                  <span className="rounded-lg bg-blue-50 text-blue-800 border border-blue-200/80 px-2.5 py-1 font-semibold">
-                    DLT Entity & Header Binding
-                  </span>
-                  <span className="rounded-lg bg-white border border-slate-200 text-slate-700 px-2.5 py-1 font-medium">
-                    SMPP v3.4 Support
-                  </span>
-                  <span className="rounded-lg bg-white border border-slate-200 text-slate-700 px-2.5 py-1 font-medium">
-                    Sub-second OTP Latency
-                  </span>
+                <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs font-medium text-slate-500">
+                  <span className="text-blue-700 font-semibold">DLT Entity & Header Binding</span>
+                  <span className="text-slate-300" aria-hidden="true">·</span>
+                  <span>SMPP v3.4 Support</span>
+                  <span className="text-slate-300" aria-hidden="true">·</span>
+                  <span>Sub-second OTP Latency</span>
                 </div>
               </div>
 
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-blue-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Transactional & OTP Routes</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Prioritized carrier paths engineered for security codes, bank alerts, and 2FA authentication.
-                  </p>
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-blue-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Transactional & OTP Routes</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Prioritized carrier paths engineered for security codes, bank alerts, and 2FA authentication.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-blue-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Promotional Bulk SMS</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Time-window restricted broadcasts complying with DND (Do Not Disturb) telecom regulations.
-                  </p>
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-blue-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Promotional Bulk SMS</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Time-window restricted broadcasts complying with DND (Do Not Disturb) telecom regulations.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-blue-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">DLT Template Matching</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Pre-validates template IDs and dynamic text variables before submission to carrier switches.
-                  </p>
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-blue-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">DLT Template Matching</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Pre-validates template IDs and dynamic text variables before submission to carrier switches.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-blue-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Direct SMPP Sessions</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Connect high-volume internal applications directly via Short Message Peer-to-Peer protocol.
-                  </p>
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-blue-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Direct SMPP Sessions</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Connect high-volume internal applications directly via Short Message Peer-to-Peer protocol.
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
 
+            <div className="fade-divider-x" />
+
             {/* Module 3: Omnichannel Team Inbox */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, ease: easeOutCurve }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, ease: easeOutCurve }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
             >
               <div className="lg:col-span-5">
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-4 border border-indigo-200">
-                  <Inbox className="size-6" />
+                <div className="flex size-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 mb-4 border border-indigo-200/80">
+                  <Inbox className="size-5" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900">Omnichannel Team Inbox</h3>
                 <p className="mt-3 text-sm text-slate-600 leading-relaxed font-normal">
                   Consolidate customer dialogues from WhatsApp, live chat, SMS, and email into a collaborative shared
                   workspace with automated assignment and internal notes.
                 </p>
-                <div className="mt-6 flex flex-wrap gap-2 text-xs">
-                  <span className="rounded-lg bg-indigo-50 text-indigo-800 border border-indigo-200/80 px-2.5 py-1 font-semibold">
-                    Multi-Agent Workspace
-                  </span>
-                  <span className="rounded-lg bg-white border border-slate-200 text-slate-700 px-2.5 py-1 font-medium">
-                    Round-Robin Assignment
-                  </span>
-                  <span className="rounded-lg bg-white border border-slate-200 text-slate-700 px-2.5 py-1 font-medium">
-                    Private Internal Notes
-                  </span>
+                <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs font-medium text-slate-500">
+                  <span className="text-indigo-700 font-semibold">Multi-Agent Workspace</span>
+                  <span className="text-slate-300" aria-hidden="true">·</span>
+                  <span>Round-Robin Assignment</span>
+                  <span className="text-slate-300" aria-hidden="true">·</span>
+                  <span>Private Internal Notes</span>
                 </div>
               </div>
 
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-indigo-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Unified Conversation History</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    View previous messages across all connected channels in one single continuous thread.
-                  </p>
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-indigo-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Unified Conversation History</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      View previous messages across all connected channels in one single continuous thread.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-indigo-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Agent Routing Rules</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Route incoming inquiries based on agent skills, department queues, or round-robin rotation.
-                  </p>
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-indigo-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Agent Routing Rules</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Route incoming inquiries based on agent skills, department queues, or round-robin rotation.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-indigo-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Canned Snippets & Macros</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    Insert pre-written standard responses with keyboard shortcuts to maintain brand consistency.
-                  </p>
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-indigo-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Canned Snippets & Macros</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      Insert pre-written standard responses with keyboard shortcuts to maintain brand consistency.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-indigo-300 transition-all">
-                  <h4 className="text-sm font-bold text-slate-900">Bot-to-Human Handover</h4>
-                  <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    AI bots escalate complex conversations to human agents instantly with full context preserved.
-                  </p>
+                <div data-cursor="glass" className="h-full min-h-[152px] flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:-translate-y-1 hover:border-indigo-300 hover:shadow-md transition-all duration-200">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900">Bot-to-Human Handover</h4>
+                    <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                      AI bots escalate complex conversations to human agents instantly with full context preserved.
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -411,19 +421,18 @@ export function CommunicationCloudPage() {
       {/* ─────────────────────────────────────────────────────────────
           5. CUSTOMER TESTIMONIALS CAROUSEL
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white border-b border-slate-200/80">
+      <section className="py-12 sm:py-16 section-fade-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="VERIFIED CUSTOMER FEEDBACK"
             title="Trusted for Critical Customer Communications"
             description="Leading companies achieve 99.98% delivery receipts and sub-second SLAs on PulseQuo."
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.55, ease: easeOutCurve }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.5, ease: easeOutCurve }}
             className="mt-8 sm:mt-10"
           >
             <TestimonialsCarousel />
@@ -432,29 +441,35 @@ export function CommunicationCloudPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          6. BENEFITS MATRIX
+          6. BENEFITS MATRIX (UNIFORM PRODUCT CARD SIZING)
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-slate-50/70 border-b border-slate-200/80">
+      <section className="py-12 sm:py-16 section-fade-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Tangible Business Impact"
             title="Why Leading Brands Trust PulseQuo Communication Cloud"
             description="Proven advantages of unifying multi-channel customer messaging."
           />
 
-          <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
             {product.benefits.map((benefit, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.45, delay: i * 0.08, ease: easeOutCurve }}
-                className="rounded-2xl bg-white border border-slate-200/90 p-6 shadow-xs hover:border-blue-400 hover:shadow-md transition-all"
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.45, delay: i * 0.06, ease: easeOutCurve }}
+                whileHover={{ y: -5, transition: { type: 'spring', stiffness: 350, damping: 24 } }}
+                data-cursor="glass"
+                className="group relative overflow-hidden h-full min-h-[212px] flex flex-col justify-between rounded-2xl bg-white border border-slate-200/90 p-6 shadow-2xs hover:border-blue-400 hover:shadow-lg hover:shadow-blue-950/5 transition-all duration-200"
               >
-                <CheckCircle2 className="size-6 text-blue-600 mb-4" />
-                <h4 className="text-base font-bold text-slate-900">{benefit.title}</h4>
-                <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">{benefit.description}</p>
+                <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-blue-600 to-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <div>
+                  <div className="size-10 rounded-xl bg-blue-50 text-blue-600 border border-blue-200/80 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                    <CheckCircle2 className="size-5" />
+                  </div>
+                  <h4 className="text-base font-bold text-slate-900">{benefit.title}</h4>
+                  <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">{benefit.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -462,12 +477,11 @@ export function CommunicationCloudPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          7. PRODUCT FAQS
+          7. PRODUCT FAQS (STRETCHED FULL WIDTH)
          ───────────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white border-b border-slate-200/80">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 section-fade-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Product FAQs"
             title="Communication Cloud Questions Answered"
             description="Common technical and implementation questions regarding WhatsApp Business and SMS gateways."
           />

@@ -16,7 +16,6 @@ import {
   CreditCard,
   Database,
   Zap,
-  ArrowRight,
 } from 'lucide-react'
 
 interface IntegrationItem {
@@ -341,31 +340,6 @@ export function IntegrationsCarousel({ className = '' }: { className?: string })
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Clean Spec Bar */}
-      <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl bg-slate-50/80 border border-slate-200/80 shadow-2xs">
-        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 text-xs font-mono text-slate-600">
-          <span className="font-bold text-slate-900">
-            50+ Enterprise Connectors
-          </span>
-          <span className="text-slate-300">·</span>
-          <span className="tabular-nums">Sub-120ms Event Relay</span>
-          <span className="text-slate-300 hidden md:inline">·</span>
-          <span className="hidden md:inline">OpenAPI 3.1 & SDKs</span>
-          <span className="text-slate-300 hidden lg:inline">·</span>
-          <span className="hidden lg:inline text-purple-700 font-semibold">
-            Model Context Protocol
-          </span>
-        </div>
-
-        <Link
-          to="/integrations"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors group"
-        >
-          <span>Explore all integrations & specs</span>
-          <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </div>
     </motion.div>
   )
 }
