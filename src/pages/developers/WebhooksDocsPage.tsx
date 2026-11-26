@@ -1,14 +1,3 @@
-/**
- * Webhooks Documentation & Developer Reference Page
- * Route: /developers/webhooks
- * Section-based architecture matching PulseQuo enterprise design standards:
- * - White / Slate alternating sections with crisp hairline borders
- * - Developer command console matching the homepage UI
- * - Interactive multi-language HMAC verification playground
- * - Interactive event catalog with instant JSON payload inspector
- * - Zero pill shapes, strict 4-color palette
- */
-
 import { useState } from 'react'
 import {
   ShieldCheck,
@@ -26,6 +15,7 @@ import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { SectionHeading } from '../../components/common/SectionHeading'
 import { CTASection } from '../../components/common/CTASection'
 import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
+import { indexBy } from '../../lib/dsa'
 
 interface WebhookEventItem {
   id: string
@@ -141,13 +131,15 @@ const webhookEvents: WebhookEventItem[] = [
   },
 ]
 
+const WEBHOOK_EVENT_BY_ID = indexBy(webhookEvents, (e) => e.id)
+
 export function WebhooksDocsPage() {
   const [selectedEventId, setSelectedEventId] = useState<string>('lead-created')
   const [activeCodeLang, setActiveCodeLang] = useState<'node' | 'python' | 'go' | 'curl'>('node')
   const [copiedPayload, setCopiedPayload] = useState(false)
   const [copiedCode, setCopiedCode] = useState(false)
 
-  const activeEvent = webhookEvents.find((e) => e.id === selectedEventId) || webhookEvents[0]
+  const activeEvent = WEBHOOK_EVENT_BY_ID.get(selectedEventId) ?? webhookEvents[0]
 
   const codeSnippets = {
     node: `// Node.js (Express) - Cryptographic HMAC SHA-256 Verification
@@ -262,9 +254,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
         canonicalPath="/developers/webhooks"
       />
 
-      {/* ─────────────────────────────────────────────────────────────
-          1. HERO SECTION: FULL-VIEWPORT DEVELOPER COMMAND RUNTIME
-         ───────────────────────────────────────────────────────────── */}
       <section
         id="hero"
         className="relative bg-white pt-8 sm:pt-12 pb-16 sm:pb-20 overflow-hidden"
@@ -281,12 +270,11 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left Column: Heading, Subheading & Quick Actions */}
             <div className="lg:col-span-6 flex flex-col items-start text-left">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-black text-slate-900 tracking-[-0.035em] leading-[1.12]">
+              <h1 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-slate-900 tracking-[-0.03em] leading-[1.16] text-balance">
                 Real-Time Event Webhooks.{' '}
                 <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
-                  Instant, Signed & Scalable.
+                  Instant, Signed &amp; Scalable.
                 </span>
               </h1>
 
@@ -294,7 +282,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                 Stream live customer lifecycle events directly to your backend, data warehouse, or CRM. Built with sub-120ms relay latency, automated exponential backoff retries, and cryptographic HMAC SHA-256 verification.
               </p>
 
-              {/* Action Buttons */}
               <div className="mt-7 flex flex-wrap items-center gap-3 w-full sm:w-auto">
                 <a
                   href="#events"
@@ -303,7 +290,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                   <Code2 className="size-4" />
                   <span>Explore 5 core events</span>
                 </a>
-
                 <a
                   href="#security"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 rounded-lg transition-colors shadow-2xs"
@@ -313,7 +299,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                 </a>
               </div>
 
-              {/* Trust Specs */}
               <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono text-slate-500">
                 <span className="flex items-center gap-1.5">
                   <span className="size-1.5 rounded-xs bg-emerald-500" /> Sub-120ms Relay
@@ -329,17 +314,12 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
               </div>
             </div>
 
-            {/* Right Column: Dark Command Console (Matching Homepage UI Design) */}
             <div className="lg:col-span-6">
               <div className="relative rounded-2xl bg-[#070d24] border border-blue-950/90 shadow-2xl overflow-hidden">
-                {/* 2px hairline top accent line */}
                 <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-blue-600 via-purple-500 to-blue-500" />
-
-                {/* Subtle ambient lighting */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-3xl pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-600/10 blur-3xl pointer-events-none" />
 
-                {/* Titlebar */}
                 <div className="flex items-center justify-between px-4 py-3 border-b border-blue-950/80 bg-[#070d24]/90 backdrop-blur-xs">
                   <div className="flex items-center gap-2">
                     <span className="size-2.5 rounded-full bg-red-500/80" />
@@ -347,24 +327,31 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                     <span className="size-2.5 rounded-full bg-emerald-500/80" />
                     <span className="ml-2 font-mono text-xs text-slate-400">webhook-dispatcher.ts</span>
                   </div>
-
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-blue-950 text-blue-300 border border-blue-800/60 font-mono text-[11px] font-semibold">
                     <span className="size-1.5 rounded-xs bg-emerald-400" />
                     HTTP 200 OK
                   </span>
                 </div>
 
-                {/* Code Terminal Output */}
                 <div className="p-4 sm:p-5 font-mono text-xs text-slate-300 leading-relaxed overflow-x-auto space-y-2">
                   <p className="text-slate-500">// Inbound HTTP POST callback from PulseQuo Event Engine</p>
-                  <p className="text-purple-400">POST <span className="text-slate-200">/api/v1/customer-callbacks</span> HTTP/1.1</p>
-                  <p className="text-slate-400">Host: <span className="text-slate-200">api.enterprise.com</span></p>
-                  <p className="text-slate-400">Content-Type: <span className="text-slate-200">application/json</span></p>
-                  <p className="text-slate-400">X-PulseQuo-Signature: <span className="text-emerald-400">8f9b4c03847291a0...</span></p>
-                  <p className="text-slate-400">X-PulseQuo-Event: <span className="text-blue-400">lead.created</span></p>
+                  <p className="text-purple-400">
+                    POST <span className="text-slate-200">/api/v1/customer-callbacks</span> HTTP/1.1
+                  </p>
+                  <p className="text-slate-400">
+                    Host: <span className="text-slate-200">api.enterprise.com</span>
+                  </p>
+                  <p className="text-slate-400">
+                    Content-Type: <span className="text-slate-200">application/json</span>
+                  </p>
+                  <p className="text-slate-400">
+                    X-PulseQuo-Signature: <span className="text-emerald-400">8f9b4c03847291a0...</span>
+                  </p>
+                  <p className="text-slate-400">
+                    X-PulseQuo-Event: <span className="text-blue-400">lead.created</span>
+                  </p>
                   <div className="pt-2 border-t border-blue-950/70 text-slate-300">
-                    <pre className="text-[11px] text-blue-100/90 leading-tight">
-{`{
+                    <pre className="text-[11px] text-blue-100/90 leading-tight">{`{
   "event": "lead.created",
   "eventId": "evt_98f4a12c",
   "timestamp": "2026-11-17T09:30:15.000Z",
@@ -376,12 +363,10 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
     "intent": "Enterprise CPaaS & WhatsApp API",
     "qualificationScore": 94
   }
-}`}
-                    </pre>
+}`}</pre>
                   </div>
                 </div>
 
-                {/* Bottom Status Bar */}
                 <div className="px-4 py-2.5 border-t border-blue-950/80 bg-[#040817] flex items-center justify-between text-[11px] font-mono text-slate-400">
                   <span className="flex items-center gap-1.5">
                     <span className="size-1.5 rounded-xs bg-emerald-400" /> Verified in 1.4ms
@@ -394,9 +379,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          2. ENTERPRISE TELEMETRY & RELIABILITY STRIP
-         ───────────────────────────────────────────────────────────── */}
       <section id="telemetry" className="py-8 sm:py-10 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -435,9 +417,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          3. HMAC SHA-256 SECURITY & VERIFICATION PLAYGROUND
-         ───────────────────────────────────────────────────────────── */}
       <section id="security" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
@@ -447,7 +426,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
           />
 
           <div className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Left Column: Security Protocol Architecture */}
             <div className="lg:col-span-5 space-y-4">
               <div className="p-5 rounded-xl border border-slate-200 bg-slate-50/50 shadow-2xs">
                 <div className="flex items-center gap-2.5 text-slate-900 font-bold text-sm">
@@ -457,7 +435,11 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                   <span>1. X-PulseQuo-Signature Header</span>
                 </div>
                 <p className="mt-2 text-xs text-slate-600 leading-relaxed font-normal">
-                  Each HTTP request includes a hexadecimal SHA-256 hash in the <code className="font-mono text-xs bg-slate-200/70 text-slate-800 px-1 py-0.5 rounded-sm">X-PulseQuo-Signature</code> header.
+                  Each HTTP request includes a hexadecimal SHA-256 hash in the{' '}
+                  <code className="font-mono text-xs bg-slate-200/70 text-slate-800 px-1 py-0.5 rounded-sm">
+                    X-PulseQuo-Signature
+                  </code>{' '}
+                  header.
                 </p>
               </div>
 
@@ -481,20 +463,23 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                   <span>3. Constant-Time Equality</span>
                 </div>
                 <p className="mt-2 text-xs text-slate-600 leading-relaxed font-normal">
-                  Always use constant-time comparison methods (<code className="font-mono text-xs bg-slate-200/70 text-slate-800 px-1 py-0.5 rounded-sm">timingSafeEqual</code> or <code className="font-mono text-xs bg-slate-200/70 text-slate-800 px-1 py-0.5 rounded-sm">compare_digest</code>) to eliminate timing attacks.
+                  Always use constant-time comparison methods (
+                  <code className="font-mono text-xs bg-slate-200/70 text-slate-800 px-1 py-0.5 rounded-sm">
+                    timingSafeEqual
+                  </code>{' '}
+                  or{' '}
+                  <code className="font-mono text-xs bg-slate-200/70 text-slate-800 px-1 py-0.5 rounded-sm">
+                    compare_digest
+                  </code>
+                  ) to eliminate timing attacks.
                 </p>
               </div>
             </div>
 
-            {/* Right Column: Code Console with Multi-Language Tabs */}
             <div className="lg:col-span-7">
               <div className="rounded-2xl bg-[#070d24] border border-blue-950/90 shadow-2xl overflow-hidden">
-                {/* 2px hairline gradient border */}
                 <div className="h-[2px] bg-gradient-to-r from-blue-600 via-purple-500 to-blue-500" />
-
-                {/* Header & Tabs */}
                 <div className="flex items-center justify-between px-4 py-2.5 border-b border-blue-950/80 bg-[#070d24]">
-                  {/* Language Selector Buttons */}
                   <div className="flex items-center gap-1.5">
                     {(['node', 'python', 'go', 'curl'] as const).map((lang) => (
                       <button
@@ -511,8 +496,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                       </button>
                     ))}
                   </div>
-
-                  {/* Copy Button */}
                   <button
                     type="button"
                     onClick={handleCopyCode}
@@ -532,12 +515,10 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                   </button>
                 </div>
 
-                {/* Code Window */}
                 <div className="p-4 sm:p-5 font-mono text-xs text-slate-200 leading-relaxed overflow-x-auto max-h-[380px] thin-scrollbar">
                   <pre>{codeSnippets[activeCodeLang]}</pre>
                 </div>
 
-                {/* Footer specs */}
                 <div className="px-4 py-2.5 border-t border-blue-950/80 bg-[#040817] flex items-center justify-between text-[11px] font-mono text-slate-400">
                   <span>Cryptographic Standard: RFC 2104</span>
                   <span className="text-emerald-400">Ready for Production</span>
@@ -548,9 +529,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          4. INTERACTIVE EVENT CATALOG & LIVE PAYLOAD INSPECTOR
-         ───────────────────────────────────────────────────────────── */}
       <section id="events" className="py-6 sm:py-8 lg:py-10 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
@@ -560,7 +538,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
           />
 
           <div className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Left Column: Event Selector Cards */}
             <div className="lg:col-span-5 space-y-2.5">
               {webhookEvents.map((item) => {
                 const isSelected = selectedEventId === item.id
@@ -584,35 +561,32 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                         {item.category}
                       </span>
                     </div>
-
                     <p className="mt-1.5 text-xs text-slate-600 leading-relaxed font-normal">
                       {item.description}
                     </p>
-
                     <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
                       <span>Trigger: {item.trigger.slice(0, 36)}...</span>
-                      <span className="text-blue-600 font-semibold">{isSelected ? 'Active Schema →' : 'View →'}</span>
+                      <span className="text-blue-600 font-semibold">
+                        {isSelected ? 'Active Schema →' : 'View →'}
+                      </span>
                     </div>
                   </button>
                 )
               })}
             </div>
 
-            {/* Right Column: Dark IDE Payload Viewer */}
             <div className="lg:col-span-7 sticky top-24">
               <div className="rounded-2xl bg-[#070d24] border border-blue-950/90 shadow-2xl overflow-hidden">
-                {/* 2px hairline gradient border */}
                 <div className="h-[2px] bg-gradient-to-r from-blue-600 via-purple-500 to-blue-500" />
-
-                {/* Header with Title and Copy */}
                 <div className="flex items-center justify-between px-4 py-3 border-b border-blue-950/80 bg-[#070d24]">
                   <div className="flex items-center gap-2">
                     <span className="size-2.5 rounded-full bg-red-500/80" />
                     <span className="size-2.5 rounded-full bg-yellow-500/80" />
                     <span className="size-2.5 rounded-full bg-emerald-500/80" />
-                    <span className="ml-2 font-mono text-xs text-slate-300 font-bold">{activeEvent.event}.json</span>
+                    <span className="ml-2 font-mono text-xs text-slate-300 font-bold">
+                      {activeEvent.event}.json
+                    </span>
                   </div>
-
                   <button
                     type="button"
                     onClick={handleCopyPayload}
@@ -632,12 +606,10 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                   </button>
                 </div>
 
-                {/* JSON Payload Display */}
                 <div className="p-4 sm:p-5 font-mono text-xs text-blue-100/90 leading-relaxed overflow-x-auto max-h-[460px] thin-scrollbar">
                   <pre>{JSON.stringify(activeEvent.payload, null, 2)}</pre>
                 </div>
 
-                {/* Trigger metadata footer */}
                 <div className="px-4 py-3 border-t border-blue-950/80 bg-[#040817] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-slate-400">
                   <span className="flex items-center gap-1.5 text-slate-300">
                     <Zap className="size-3.5 text-blue-400" />
@@ -651,9 +623,6 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          5. FAULT TOLERANCE & RETRY INFRASTRUCTURE
-         ───────────────────────────────────────────────────────────── */}
       <section id="retries" className="py-6 sm:py-8 lg:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
@@ -711,16 +680,13 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          6. CLOSING DEVELOPER CTA SECTION
-         ───────────────────────────────────────────────────────────── */}
       <CTASection
         id="get-started"
         eyebrow="DEVELOPER RUNTIME INTEGRATION"
         headline="Ready to Connect PulseQuo Webhooks to Your Stack?"
         subheadline="Create your free developer sandbox, generate your webhook signing secret, and start streaming live customer events in minutes."
         primaryCtaText="Get Free API Keys"
-        primaryCtaHref="/free-trial"
+        primaryCtaHref="/book-demo"
         secondaryCtaText="View OpenAPI 3.1 Specs"
         secondaryCtaHref="/developers/api-documentation"
         showTrustBadges={false}

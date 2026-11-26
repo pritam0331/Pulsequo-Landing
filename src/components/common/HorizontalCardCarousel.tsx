@@ -6,6 +6,11 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import {
+  HorizontalCarouselSkeleton,
+  useCardHydration,
+  type HorizontalSkeletonVariant,
+} from './CardSkeleton'
 
 interface HorizontalCardCarouselProps {
   children: React.ReactNode
@@ -18,6 +23,14 @@ interface HorizontalCardCarouselProps {
   desktopGridClassName?: string
   /** Optional header label on the left of the caret controls */
   counterLabel?: string
+  /** Dimension-matched skeleton card preset rendered during content hydration */
+  skeletonVariant?: HorizontalSkeletonVariant
+  /** Render dark skeleton surfaces for dark sections */
+  skeletonDark?: boolean
+  /** Explicit external loading override */
+  isLoading?: boolean
+  /** Disable built-in hydration skeleton when parent container already wraps a skeleton */
+  disableSkeleton?: boolean
 }
 
 export function HorizontalCardCarousel({
@@ -28,11 +41,18 @@ export function HorizontalCardCarousel({
   mode = 'always',
   desktopGridClassName = 'lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible',
   counterLabel,
+  skeletonVariant = 'benefit',
+  skeletonDark = false,
+  isLoading,
+  disableSkeleton = false,
 }: HorizontalCardCarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
   const [activeIndex, setActiveIndex] = useState(0)
+
+  const isHydrated = useCardHydration(disableSkeleton ? 0 : 200)
+  const showSkeleton = !disableSkeleton && (isLoading ?? !isHydrated)
 
   const childArray = React.Children.toArray(children)
   const total = itemCount ?? childArray.length
@@ -53,6 +73,7 @@ export function HorizontalCardCarousel({
   }, [total])
 
   useEffect(() => {
+    if (showSkeleton) return
     updateScrollState()
     const el = trackRef.current
     if (!el) return
@@ -62,7 +83,7 @@ export function HorizontalCardCarousel({
       el.removeEventListener('scroll', updateScrollState)
       window.removeEventListener('resize', updateScrollState)
     }
-  }, [updateScrollState, total])
+  }, [updateScrollState, total, showSkeleton])
 
   const scrollByStep = (direction: -1 | 1) => {
     const el = trackRef.current
@@ -82,6 +103,21 @@ export function HorizontalCardCarousel({
   }
 
   const controlsVisibility = mode === 'mobile' ? 'flex lg:hidden' : 'flex'
+
+  if (showSkeleton) {
+    return (
+      <div aria-busy="true" aria-label={`Loading ${ariaLabel}`}>
+        <HorizontalCarouselSkeleton
+          count={total || 4}
+          mode={mode}
+          desktopGridClassName={desktopGridClassName}
+          variant={skeletonVariant}
+          dark={skeletonDark}
+          className={className}
+        />
+      </div>
+    )
+  }
 
   return (
     <div
@@ -136,14 +172,12 @@ export function HorizontalCardCarousel({
         </div>
       )}
 
-      {/* Horizontal Scroll-Snap Track */}
       <div
         ref={trackRef}
-        data-lenis-prevent
         className={
           mode === 'mobile'
-            ? `flex gap-3.5 sm:gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-2 -mx-1 px-1 items-stretch ${desktopGridClassName} lg:pb-0 lg:mx-0 lg:px-0`
-            : 'flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-2 -mx-1 px-1 items-stretch'
+            ? `flex gap-3.5 sm:gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pt-2 pb-3 -mt-2 -mx-1 px-1 items-stretch ${desktopGridClassName} lg:pt-0 lg:pb-0 lg:mt-0 lg:mx-0 lg:px-0`
+            : 'flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pt-2 pb-3 -mt-2 -mx-1 px-1 items-stretch'
         }
       >
         {children}

@@ -24,7 +24,7 @@ export const pricingTiers: PricingPlanTier[] = [
     targetAudience: 'For small businesses getting started with omnichannel automation',
     monthlyRate: 29,
     annualRate: 23,
-    discountText: '20% discount applied',
+    discountText: 'Save 20%',
     features: [
       '1,000 conversations / month',
       '1 WhatsApp Number',
@@ -84,7 +84,7 @@ export const pricingAdditionalSupport = {
   description:
     'Book a free 1-on-1 demo with automation experts to build a custom plan tailored to business needs.',
   phone: '+91 98765 43210',
-  email: 'support@chatsphere.com',
+  email: 'support@pulsequo.com',
   ctaText: 'Book a Demo',
   ctaHref: '/book-demo',
 }

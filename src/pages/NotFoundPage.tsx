@@ -5,7 +5,6 @@
 import { Link } from 'react-router'
 import { Home } from 'lucide-react'
 import { SEO } from '../components/common/SEO'
-import { siteConfig } from '../config/siteConfig'
 import { ScrollReveal } from '../components/common/ScrollReveal'
 
 export function NotFoundPage() {
@@ -29,12 +28,12 @@ export function NotFoundPage() {
               <Home className="size-4" />
               <span>Return Home</span>
             </Link>
-            <a
-              href={siteConfig.appUrl}
+            <Link
+              to="/book-demo"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
             >
-              <span>Open Application</span>
-            </a>
+              <span>Book a Demo</span>
+            </Link>
           </div>
 
           <div className="mt-12 pt-6 border-t border-slate-200 text-xs text-slate-500">

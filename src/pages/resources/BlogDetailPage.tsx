@@ -1,8 +1,3 @@
-/**
- * Blog Detail Page
- * Route: /resources/blog/:slug
- */
-
 import { useParams, Link } from 'react-router'
 import { Clock, ArrowLeft, ArrowRight } from 'lucide-react'
 import { SEO } from '../../components/common/SEO'
@@ -10,10 +5,13 @@ import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { CTASection } from '../../components/common/CTASection'
 import { blogPosts } from '../../data/resources'
 import { ScrollReveal } from '../../components/common/ScrollReveal'
+import { indexBy } from '../../lib/dsa'
+
+const BLOG_BY_SLUG = indexBy(blogPosts, (p) => p.slug)
 
 export function BlogDetailPage() {
   const { slug } = useParams<{ slug: string }>()
-  const post = blogPosts.find((p) => p.slug === slug)
+  const post = slug ? BLOG_BY_SLUG.get(slug) : undefined
 
   if (!post) {
     return (

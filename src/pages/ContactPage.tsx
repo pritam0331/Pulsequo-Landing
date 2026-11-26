@@ -6,9 +6,9 @@
 import { Mail, Phone, MapPin, Clock, MessageSquare, ShieldCheck } from 'lucide-react'
 import { SEO } from '../components/common/SEO'
 import { Breadcrumbs } from '../components/common/Breadcrumbs'
+import { BackgroundAnimation } from '../components/common/BackgroundAnimation'
 import { ContactForm } from '../components/forms/ContactForm'
 import { ScrollReveal } from '../components/common/ScrollReveal'
-import { WhatsAppContactBanner } from '../components/common/WhatsAppContactBanner'
 import { siteConfig } from '../config/siteConfig'
 
 export function ContactPage() {
@@ -21,26 +21,27 @@ export function ContactPage() {
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
-        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <section
+        data-cursor-zone="hero"
+        className="relative overflow-hidden bg-white pt-10 pb-14 sm:pt-14 sm:pb-18"
+      >
+        <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
+
+        <ScrollReveal direction="up" className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Breadcrumbs items={[{ label: 'Contact Us' }]} className="justify-center mb-6" />
 
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-800 mb-6">
-            <span>Direct Channels</span>
-          </span>
-
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            We're Here to Help Your Team Scale
+          <h1 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-black text-slate-900 tracking-[-0.03em] leading-[1.16] text-balance">
+            We&apos;re Here to Help Your Team Scale
           </h1>
 
-          <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto text-pretty">
             Reach out for enterprise pricing, technical architecture inquiries, custom MCP tool integrations, or partnership opportunities.
           </p>
         </ScrollReveal>
       </section>
 
       {/* Contact Content */}
-      <section className="py-20 bg-white">
+      <section className="py-14 sm:py-18 section-fade-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left Info Column */}
@@ -107,14 +108,14 @@ export function ContactPage() {
                 <div className="flex items-start gap-3">
                   <MapPin className="size-4 text-slate-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-semibold text-slate-900 block">Registered Office (Placeholder)</span>
+                    <span className="font-semibold text-slate-900 block">Registered Office</span>
                     <span>{siteConfig.addressPlaceholder}</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Phone className="size-4 text-slate-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-semibold text-slate-900 block">Phone Desk (Placeholder)</span>
+                    <span className="font-semibold text-slate-900 block">Phone Desk</span>
                     <span>{siteConfig.phonePlaceholder}</span>
                   </div>
                 </div>
@@ -131,13 +132,6 @@ export function ContactPage() {
             {/* Right Form Column */}
             <ScrollReveal direction="right" delay={0.15} className="lg:col-span-7">
               <ContactForm />
-            </ScrollReveal>
-          </div>
-
-          {/* Featured WhatsApp Free Forever Plan & Contact Banner */}
-          <div className="mt-16 pt-16 border-t border-slate-100">
-            <ScrollReveal direction="up" delay={0.1}>
-              <WhatsAppContactBanner />
             </ScrollReveal>
           </div>
         </div>

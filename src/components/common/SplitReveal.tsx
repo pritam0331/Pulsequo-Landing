@@ -66,7 +66,7 @@ export function SplitReveal({
 
   const tokenVariants = {
     hidden: {
-      y: '115%',
+      y: '35%',
       opacity: 0,
     },
     visible: {
@@ -85,7 +85,7 @@ export function SplitReveal({
       : {
           initial: 'hidden' as const,
           whileInView: 'visible' as const,
-          viewport: { once: true, margin: '-48px' },
+          viewport: { once: true, amount: 'some' as const },
         }
 
   return (
@@ -100,18 +100,16 @@ export function SplitReveal({
         const displayToken = splitBy === 'chars' && token === ' ' ? '\u00A0' : token
 
         return (
-          <span
-            key={`${token}-${idx}`}
-            aria-hidden="true"
-            className="inline-block overflow-hidden align-top pb-[0.12em] -mb-[0.12em]"
-          >
-            <motion.span
-              variants={tokenVariants}
-              className={`inline-block will-change-transform ${tokenClassName}`}
-            >
-              {displayToken}
-            </motion.span>
-            {splitBy === 'words' && !isLast ? '\u00A0' : ''}
+          <span key={`${token}-${idx}`} aria-hidden="true" className="inline">
+            <span className="inline-block overflow-y-clip overflow-x-visible align-baseline pt-[0.08em] -mt-[0.08em] pb-[0.22em] -mb-[0.22em]">
+              <motion.span
+                variants={tokenVariants}
+                className={`inline-block will-change-transform ${tokenClassName}`}
+              >
+                {displayToken}
+              </motion.span>
+            </span>
+            {splitBy === 'words' && !isLast ? ' ' : ''}
           </span>
         )
       })}

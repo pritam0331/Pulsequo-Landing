@@ -9,6 +9,7 @@ import {
   ChevronRight,
 } from 'lucide-react'
 import { SplitReveal } from './SplitReveal'
+import { CardFanoutSkeleton, useCardHydration } from './CardSkeleton'
 
 export interface FanoutCard {
   id: string
@@ -118,6 +119,7 @@ interface CardFanoutProps {
   subheadline?: string
   hideHeader?: boolean
   compact?: boolean
+  isLoading?: boolean
 }
 
 /**
@@ -134,9 +136,12 @@ export function CardFanout({
   subheadline = 'Watch live WhatsApp broadcasts, AI agents, carrier SMS, and CRM pipelines cycle in real time.',
   hideHeader = false,
   compact = false,
+  isLoading,
 }: CardFanoutProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const isHydrated = useCardHydration(200)
+  const showSkeleton = isLoading ?? !isHydrated
 
   const total = cards.length
 
@@ -149,12 +154,24 @@ export function CardFanout({
   }, [total])
 
   useEffect(() => {
-    if (isPaused || total <= 1) return
+    if (showSkeleton || isPaused || total <= 1) return
     const timer = window.setInterval(goNext, AUTO_ADVANCE_MS)
     return () => window.clearInterval(timer)
-  }, [isPaused, goNext, total])
+  }, [showSkeleton, isPaused, goNext, total])
 
   const nextCard = cards[(activeIndex + 1) % total]
+
+  if (showSkeleton) {
+    return (
+      <div aria-busy="true" aria-label={`Loading ${headline}`}>
+        <CardFanoutSkeleton
+          compact={compact}
+          hideHeader={hideHeader}
+          className={className}
+        />
+      </div>
+    )
+  }
 
   return (
     <div
@@ -175,7 +192,7 @@ export function CardFanout({
             delay={0.04}
             stagger={0.04}
             duration={0.55}
-            className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight text-balance"
+            className="text-3xl sm:text-4xl font-bold text-black tracking-[-0.02em] leading-[1.18] text-balance"
           />
           <p className="mt-1.5 text-xs sm:text-sm text-slate-600 max-w-xl mx-auto text-pretty">
             {subheadline}
@@ -184,7 +201,7 @@ export function CardFanout({
       )}
 
       {/* Queue Auto Carousel Stage */}
-      <div className="relative pt-10 sm:pt-12 pb-2 select-none">
+      <div className="relative pt-12 sm:pt-14 pb-2 select-none">
         {/* Ambient soft glow backdrop (zero-blur radial gradient for smooth scrolling) */}
         <div
           aria-hidden="true"
@@ -195,8 +212,8 @@ export function CardFanout({
           }}
         />
 
-        {/* Depth-Stacked Queue Deck (taller stacked cards) */}
-        <div className={`relative w-full ${compact ? 'h-[304px] sm:h-[348px]' : 'h-[316px] sm:h-[364px]'}`}>
+        {/* Depth-Stacked Queue Deck (tall stacked cards with full headroom and zero text clipping) */}
+        <div className={`relative w-full ${compact ? 'h-[388px] sm:h-[404px]' : 'h-[404px] sm:h-[420px]'}`}>
           {cards.map((card, idx) => {
             // Queue position: 0 = active front card, 1 = next in queue, 2 = 2nd in queue, etc.
             const queuePos = (idx - activeIndex + total) % total
@@ -211,15 +228,15 @@ export function CardFanout({
                 key={card.id}
                 layout={false}
                 animate={{
-                  y: isHidden ? -56 : -visibleDepth * 18,
-                  scale: isHidden ? 0.84 : 1 - visibleDepth * 0.048,
-                  opacity: isHidden ? 0 : isFront ? 1 : Math.max(0.3, 0.88 - visibleDepth * 0.22),
+                  y: isHidden ? -58 : -visibleDepth * 16,
+                  scale: isHidden ? 0.85 : 1 - visibleDepth * 0.045,
+                  opacity: isHidden ? 0 : 1,
                 }}
                 whileHover={
                   isFront
                     ? { y: -4, transition: { type: 'spring', stiffness: 360, damping: 24 } }
                     : !isHidden
-                      ? { y: -visibleDepth * 18 - 5, transition: { type: 'spring', stiffness: 360, damping: 24 } }
+                      ? { y: -visibleDepth * 16 - 5, transition: { type: 'spring', stiffness: 360, damping: 24 } }
                       : undefined
                 }
                 transition={{
@@ -242,16 +259,20 @@ export function CardFanout({
                   transformOrigin: 'top center',
                 }}
                 className={`group absolute inset-x-0 bottom-0 flex flex-col justify-between ${
-                  compact ? 'min-h-[250px] sm:min-h-[292px]' : 'min-h-[262px] sm:min-h-[308px]'
+                  compact ? 'min-h-[322px] sm:min-h-[344px]' : 'min-h-[336px] sm:min-h-[358px]'
                 } rounded-2xl bg-white border overflow-hidden transition-shadow duration-300 cursor-pointer ${
                   isFront
                     ? 'border-blue-300/90 ring-1 ring-blue-600/12 shadow-2xl shadow-blue-950/10'
-                    : 'border-slate-200/90 shadow-md hover:border-blue-300/70'
+                    : 'border-slate-200/95 shadow-md hover:border-blue-300/70'
                 }`}
               >
                 {/* Top Gradient Accent Bar + Live Auto-Cycle Progress */}
                 <div className="relative h-1.5 w-full bg-slate-100 overflow-hidden shrink-0">
-                  <div className={`absolute inset-0 bg-gradient-to-r ${card.gradientHeader} ${isFront ? 'opacity-25' : 'opacity-100'}`} />
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r ${card.gradientHeader} ${
+                      isFront ? 'opacity-25' : visibleDepth === 1 ? 'opacity-85' : visibleDepth === 2 ? 'opacity-65' : 'opacity-45'
+                    }`}
+                  />
                   {isFront && !isPaused && (
                     <motion.div
                       key={`queue-progress-${activeIndex}`}
@@ -266,7 +287,11 @@ export function CardFanout({
                   )}
                 </div>
 
-                <div className={`flex flex-col flex-1 justify-between ${compact ? 'p-4 sm:p-6' : 'p-5 sm:p-6'}`}>
+                <div
+                  className={`flex flex-col flex-1 justify-between transition-opacity duration-200 ${
+                    compact ? 'p-4 sm:p-6' : 'p-5 sm:p-6'
+                  } ${isFront ? 'opacity-100' : 'opacity-0 select-none'}`}
+                >
                   <div>
                     {/* Category & Status Tag */}
                     <div className="flex items-center justify-between gap-2 mb-3.5">
@@ -274,7 +299,7 @@ export function CardFanout({
                         {card.category}
                       </span>
                       <span
-                        className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-sm border shrink-0 ${card.badgeColor}`}
+                        className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-sm border shrink-0 whitespace-nowrap ${card.badgeColor}`}
                       >
                         {card.badge}
                       </span>
@@ -283,26 +308,22 @@ export function CardFanout({
                     {/* Icon & Title */}
                     <div className="flex items-start gap-3">
                       <div
-                        className="size-9 sm:size-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${card.iconBg} ${card.iconColor}"
-                        style={{ display: 'none' }}
-                      />
-                      <div
                         className={`size-9 sm:size-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${card.iconBg} ${card.iconColor}`}
                       >
                         <CardIcon className="size-4.5 sm:size-5" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h4 className="text-sm sm:text-base font-bold text-slate-900 leading-tight truncate">
+                        <h4 className="text-sm sm:text-base font-bold text-slate-900 leading-snug">
                           {card.title}
                         </h4>
-                        <p className="text-xs text-slate-500 truncate mt-0.5 font-medium">
+                        <p className="text-xs text-slate-500 mt-0.5 font-medium leading-snug">
                           {card.subtitle}
                         </p>
                       </div>
                     </div>
 
-                    {/* Description */}
-                    <div className="mt-3.5 sm:mt-4 p-3 sm:p-3.5 rounded-xl bg-slate-50/90 border border-slate-100 text-xs sm:text-[13px] text-slate-600 leading-relaxed line-clamp-3">
+                    {/* Description (Full text visible without clipping) */}
+                    <div className="mt-4 p-3.5 sm:p-4 rounded-xl bg-slate-50/90 border border-slate-100 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
                       {card.description}
                     </div>
                   </div>
@@ -318,9 +339,9 @@ export function CardFanout({
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-xs font-medium text-slate-600">
-                      <span className={`size-1.5 rounded-full bg-current ${card.channelIconColor}`} />
-                      <span className="text-[11px] font-mono truncate max-w-[140px]">
+                    <div className="flex items-center gap-1.5 text-xs font-medium text-slate-600 min-w-0">
+                      <span className={`size-1.5 rounded-full bg-current shrink-0 ${card.channelIconColor}`} />
+                      <span className="text-[11px] font-mono truncate max-w-[150px]">
                         {card.channel}
                       </span>
                     </div>

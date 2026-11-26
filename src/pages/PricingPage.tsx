@@ -1,70 +1,59 @@
-/**
- * Pricing Page Component
- * Route: /pricing
- * Features modern tiered pricing cards (Starter, Growth, Enterprise),
- * interactive annual discount toggle (20% off), concierge support card,
- * detailed feature comparison matrix, Brand Carousel, Testimonial Carousel,
- * and licensing FAQs.
- */
-
 import { Fragment } from 'react'
-import {
-  Check,
-  Minus,
-} from 'lucide-react'
 import { motion } from 'motion/react'
+import { Check, Minus } from 'lucide-react'
 import { SEO } from '../components/common/SEO'
 import { Breadcrumbs } from '../components/common/Breadcrumbs'
-import { SectionHeading } from '../components/common/SectionHeading'
 import { BackgroundAnimation } from '../components/common/BackgroundAnimation'
+import { SectionHeading } from '../components/common/SectionHeading'
 import { BrandCarousel } from '../components/common/BrandCarousel'
-import { TestimonialsCarousel } from '../components/common/TestimonialsCarousel'
-import { CTASection } from '../components/common/CTASection'
-import { FAQAccordion } from '../components/common/FAQAccordion'
 import { PricingCards } from '../components/pricing/PricingCards'
+import { TestimonialsCarousel } from '../components/common/TestimonialsCarousel'
+import { FAQAccordion } from '../components/common/FAQAccordion'
+import { CTASection } from '../components/common/CTASection'
 import { pricingComparisonCategories } from '../data/pricing'
+import type { FAQItem } from '../data/faqs'
 
 const easeOutCurve = [0.22, 1, 0.36, 1] as const
 
-export function PricingPage() {
-  const pricingFaqs = [
-    {
-      id: 'pricing-faq-1',
-      category: 'Platform' as const,
-      question: 'How does the 20% Annual Billing discount work?',
-      answer:
-        'When you select Annual Billing, a 20% discount is automatically applied to both the Starter ($23/month billed annually) and Growth ($63/month billed annually) plans. You receive full enterprise features with significant annual savings.',
-    },
-    {
-      id: 'pricing-faq-2',
-      category: 'Platform' as const,
-      question: 'What happens if we exceed our monthly conversation limit?',
-      answer:
-        'Starter includes 1,000 conversations/month, while Growth includes 5,000 conversations/month. If your inbound volume increases, additional conversations continue uninterrupted at transparent carrier pass-through rates, or you can seamlessly upgrade to Enterprise for unlimited volume.',
-    },
-    {
-      id: 'pricing-faq-3',
-      category: 'Platform' as const,
-      question: 'Can we connect our existing business phone number for WhatsApp and RCS?',
-      answer:
-        'Yes. You can onboard your existing corporate numbers onto the official WhatsApp Business Platform without downtime. We handle verification, display name approval, and DLT registration.',
-    },
-    {
-      id: 'pricing-faq-4',
-      category: 'Platform' as const,
-      question: 'Can we upgrade or change plans at any time?',
-      answer:
-        'Yes! You can instantly upgrade between Starter, Growth, and Enterprise directly from your console. Upgrades take effect immediately with prorated billing.',
-    },
-    {
-      id: 'pricing-faq-5',
-      category: 'Platform' as const,
-      question: 'What is included with the Free Trial?',
-      answer:
-        'Both Starter and Growth offer a full-featured trial with instant sandbox activation, visual flow builder access, web chat widget embedding, and sample messaging throughput. No credit card is required to begin.',
-    },
-  ]
+const pricingFaqs: FAQItem[] = [
+  {
+    id: 'pricing-faq-1',
+    category: 'Platform',
+    question: 'How does the 20% Annual Billing discount work?',
+    answer:
+      'When you select Annual Billing, a 20% discount is automatically applied to both the Starter ($23/month billed annually) and Growth ($63/month billed annually) plans. You receive full enterprise features with significant annual savings.',
+  },
+  {
+    id: 'pricing-faq-2',
+    category: 'Platform',
+    question: 'What happens if we exceed our monthly conversation limit?',
+    answer:
+      'Starter includes 1,000 conversations/month, while Growth includes 5,000 conversations/month. If your inbound volume increases, additional conversations continue uninterrupted at transparent carrier pass-through rates, or you can seamlessly upgrade to Enterprise for unlimited volume.',
+  },
+  {
+    id: 'pricing-faq-3',
+    category: 'Platform',
+    question: 'Can we connect our existing business phone number for WhatsApp and RCS?',
+    answer:
+      'Yes. You can onboard your existing corporate numbers onto the official WhatsApp Business Platform without downtime. We handle verification, display name approval, and DLT registration.',
+  },
+  {
+    id: 'pricing-faq-4',
+    category: 'Platform',
+    question: 'Can we upgrade or change plans at any time?',
+    answer:
+      'Yes! You can instantly upgrade between Starter, Growth, and Enterprise directly from your console. Upgrades take effect immediately with prorated billing.',
+  },
+  {
+    id: 'pricing-faq-5',
+    category: 'Platform',
+    question: 'What is included with the Free Trial?',
+    answer:
+      'Both Starter and Growth offer a full-featured trial with instant sandbox activation, visual flow builder access, web chat widget embedding, and sample messaging throughput. No credit card is required to begin.',
+  },
+]
 
+export function PricingPage() {
   return (
     <div className="relative bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
       <SEO
@@ -72,14 +61,13 @@ export function PricingPage() {
         description="Transparent pricing with Starter ($23/mo), Growth ($63/mo, Most Popular), and Enterprise custom tiers. Save 20% on annual billing."
         canonicalPath="/pricing"
       />
-
-      {/* ─────────────────────────────────────────────────────────────
-          1. HERO HEADER: AMBIENT LIGHTING & STAGGERED FADE-IN
-         ───────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-white pt-10 pb-16 sm:pt-14 sm:pb-20 border-b border-slate-100">
+      <section
+        data-cursor-zone="hero"
+        className="relative overflow-hidden bg-white pt-10 pb-14 sm:pt-14 sm:pb-18"
+      >
         <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
 
-        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Breadcrumbs items={[{ label: 'Pricing' }]} className="justify-center mb-6" />
 
           <motion.div
@@ -87,24 +75,14 @@ export function PricingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: easeOutCurve }}
           >
-            <div className="inline-flex items-center gap-2.5 text-xs font-mono font-bold uppercase tracking-wider text-blue-700 mb-6">
-              <motion.span
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.45, delay: 0.15, ease: easeOutCurve }}
-                className="h-[2px] w-6 rounded-full bg-blue-600 origin-left"
-              />
-              <span>Predictable Pricing · Zero Hidden Seat Charges</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
+            <h1 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-black text-slate-900 tracking-[-0.03em] leading-[1.16] text-balance">
               Plans built for every stage of your{' '}
               <span className="text-gradient-hero">
                 growth.
               </span>
             </h1>
 
-            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-normal text-pretty">
+            <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto text-pretty">
               From fast-growing commerce stores to multi-channel global enterprises. Enjoy predictable pricing, instant sandbox
               trials, and 20% savings on annual subscriptions.
             </p>
@@ -112,27 +90,17 @@ export function PricingPage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          2. BRAND TRUST MARQUEE CAROUSEL
-         ───────────────────────────────────────────────────────────── */}
       <BrandCarousel />
 
-      {/* ─────────────────────────────────────────────────────────────
-          3. MAIN PRICING CARDS SECTION
-         ───────────────────────────────────────────────────────────── */}
-      <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80">
+      <section className="py-12 sm:py-16 section-fade-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <PricingCards defaultAnnual={true} />
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          4. CUSTOMER TESTIMONIALS CAROUSEL
-         ───────────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-slate-50/70 border-b border-slate-200/80">
+      <section className="py-14 sm:py-18 section-fade-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Proven Value"
             title="Trusted by High-Growth Companies Worldwide"
             description="See why leading brands choose PulseQuo over legacy point solutions."
           />
@@ -149,13 +117,9 @@ export function PricingPage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          5. FEATURE COMPARISON TABLE
-         ───────────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white border-b border-slate-200/80">
+      <section className="py-14 sm:py-18 section-fade-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Detailed Comparison"
             title="Compare Plan Features & Limits"
             description="Everything included in our plans at a glance. No hidden surprises."
           />
@@ -165,7 +129,7 @@ export function PricingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.55, ease: easeOutCurve }}
-            className="mt-12 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs"
+            className="mt-10 sm:mt-12 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs"
           >
             <table className="w-full text-left text-sm text-slate-700 min-w-[640px] tabular-nums">
               <thead className="bg-slate-50/80 text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200">
@@ -232,26 +196,19 @@ export function PricingPage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          6. PRICING FAQS
-         ───────────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-slate-50/70 border-b border-slate-200/80">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-14 sm:py-18 section-fade-tint">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Frequently Asked Questions"
             title="Common Pricing & Licensing Inquiries"
             description="Have questions about trial limits, carrier pass-through rates, or team seats? Find clear answers below."
           />
 
-          <div className="mt-10 sm:mt-12">
+          <div className="mt-10 sm:mt-12 w-full">
             <FAQAccordion items={pricingFaqs} />
           </div>
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          7. CLOSING CTA
-         ───────────────────────────────────────────────────────────── */}
       <CTASection
         headline="Still Have Questions About Our Enterprise Tiers?"
         subheadline="Our solutions architects can configure a custom quote based on your exact monthly message volume, carrier routes, and dedicated SLA needs."

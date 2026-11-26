@@ -1,14 +1,4 @@
-/**
- * PulseQuo Platform Workspace Preview
- * Responsive CSS Grid implementation across mobile, tablet, laptop, and wide desktop:
- * - Team Inbox (Omnichannel WhatsApp & SMS conversations + AI qualification + Customer context)
- * - AI Agents (Autonomous Agent management, Model Context Protocol tools, and live simulation)
- * - Workflows (Interactive visual workflow canvas)
- * - Analytics (CPaaS throughput telemetry, delivery receipt rates, and AI deflection metrics)
- * - Contacts (Enterprise CRM directory with search, filtering, and instant chat linking)
- */
-
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import {
   MessageSquare,
@@ -22,7 +12,9 @@ import {
   ArrowRight,
   Bot,
 } from 'lucide-react'
+import { indexBy, IndexedSearch } from '../../lib/dsa'
 import { WorkflowCanvas } from './WorkflowCanvas'
+import { PlatformCompositionSkeleton, useCardHydration } from './CardSkeleton'
 
 function WhatsAppIcon({ className = 'size-4' }: { className?: string }) {
   return (
@@ -146,54 +138,61 @@ const NAV_ITEMS: Array<{ id: NavSection; label: string; icon: React.ElementType 
   { id: 'contacts', label: 'Contacts', icon: LayoutGrid },
 ]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 1. DEDICATED AI AGENTS VIEW (Responsive CSS Grid)
-// ─────────────────────────────────────────────────────────────────────────────
+const CONVERSATION_BY_ID = indexBy(CONVERSATIONS, (c) => c.id)
+const CONVERSATION_SEARCH = new IndexedSearch(
+  CONVERSATIONS,
+  (c) => `${c.title} ${c.preview} ${c.channel}`
+)
+
+const AGENTS = [
+  {
+    id: 'lead-qualifier',
+    name: 'Inbound Lead Qualifier',
+    channel: 'WhatsApp Business API',
+    status: 'Active',
+    deflection: '89% Qualified',
+    model: 'Gemini 2.5 Flash',
+    tools: 'MCP · Salesforce CRM Sync',
+    ragDocs: 'Sales_Playbook_v4.pdf',
+    latency: '24ms',
+    totalChats: '14,290',
+  },
+  {
+    id: 'support-sentinel',
+    name: 'Tier-1 Support Sentinel',
+    channel: 'Omnichannel (SMS + WhatsApp)',
+    status: 'Active',
+    deflection: '78% Autonomous',
+    model: 'Gemini 2.5 Pro',
+    tools: 'MCP · Jira & Zendesk Bridge',
+    ragDocs: 'Product_Knowledge_Base_2026',
+    latency: '36ms',
+    totalChats: '32,150',
+  },
+  {
+    id: 'order-tracker',
+    name: 'Order & Logistics Bot',
+    channel: 'Direct Carrier SMPP',
+    status: 'Active',
+    deflection: '94% Automated',
+    model: 'Gemini 2.5 Flash',
+    tools: 'Bluedart & Delhivery Webhooks',
+    ragDocs: 'Shipping_Policies.json',
+    latency: '18ms',
+    totalChats: '9,840',
+  },
+] as const
+
+const AGENT_BY_ID = indexBy(AGENTS, (a) => a.id)
+
+type AgentId = (typeof AGENTS)[number]['id']
+
 function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) => void }) {
-  const [selectedAgent, setSelectedAgent] = useState('lead-qualifier')
+  const [selectedAgent, setSelectedAgent] = useState<AgentId>('lead-qualifier')
   const [testPrompt, setTestPrompt] = useState('')
   const [simulatedReply, setSimulatedReply] = useState<string | null>(null)
 
-  const agents = [
-    {
-      id: 'lead-qualifier',
-      name: 'Inbound Lead Qualifier',
-      channel: 'WhatsApp Business API',
-      status: 'Active',
-      deflection: '89% Qualified',
-      model: 'Gemini 2.5 Flash',
-      tools: 'MCP · Salesforce CRM Sync',
-      ragDocs: 'Sales_Playbook_v4.pdf',
-      latency: '24ms',
-      totalChats: '14,290',
-    },
-    {
-      id: 'support-sentinel',
-      name: 'Tier-1 Support Sentinel',
-      channel: 'Omnichannel (SMS + WhatsApp)',
-      status: 'Active',
-      deflection: '78% Autonomous',
-      model: 'Gemini 2.5 Pro',
-      tools: 'MCP · Jira & Zendesk Bridge',
-      ragDocs: 'Product_Knowledge_Base_2026',
-      latency: '36ms',
-      totalChats: '32,150',
-    },
-    {
-      id: 'order-tracker',
-      name: 'Order & Logistics Bot',
-      channel: 'Direct Carrier SMPP',
-      status: 'Active',
-      deflection: '94% Automated',
-      model: 'Gemini 2.5 Flash',
-      tools: 'Bluedart & Delhivery Webhooks',
-      ragDocs: 'Shipping_Policies.json',
-      latency: '18ms',
-      totalChats: '9,840',
-    },
-  ]
-
-  const active = agents.find((a) => a.id === selectedAgent) || agents[0]
+  const active = AGENT_BY_ID.get(selectedAgent) ?? AGENTS[0]
 
   const handleSimulate = (e: React.FormEvent) => {
     e.preventDefault()
@@ -204,19 +203,18 @@ function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) =>
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12 bg-slate-50/40 select-none min-h-[460px]">
-      {/* Left List of Agents */}
-      <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-slate-100 bg-white p-4 flex flex-col justify-between gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-12 bg-slate-50/40 select-none lg:h-[380px] overflow-hidden">
+      <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-slate-100 bg-white p-3.5 flex flex-col justify-between gap-2 overflow-y-auto thin-scrollbar">
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold text-slate-900">Autonomous Agents</span>
+          <div className="flex items-center justify-between mb-2.5">
+            <span className="text-xs font-bold text-black">Autonomous Agents</span>
             <span className="text-[10px] font-mono font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-xs border border-emerald-200">
               3 Active
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 gap-2">
-            {agents.map((ag) => {
+            {AGENTS.map((ag) => {
               const isSelected = ag.id === selectedAgent
               return (
                 <button
@@ -226,7 +224,7 @@ function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) =>
                     setSelectedAgent(ag.id)
                     setSimulatedReply(null)
                   }}
-                  className={`w-full text-left p-3 rounded-lg border transition-all cursor-pointer ${
+                  className={`w-full text-left p-2.5 rounded-lg border transition-all cursor-pointer ${
                     isSelected
                       ? 'bg-blue-50/80 border-blue-200 text-blue-900 shadow-2xs'
                       : 'bg-white hover:bg-slate-50 border-slate-200/70 text-slate-700'
@@ -246,16 +244,14 @@ function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) =>
           </div>
         </div>
 
-        <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+        <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
           <span>MCP Tools Connected</span>
           <span className="font-mono text-purple-600 font-bold">12 Tools</span>
         </div>
       </div>
 
-      {/* Right Agent Workspace Details & Simulator */}
-      <div className="md:col-span-8 p-4 sm:p-5 flex flex-col justify-between gap-4">
+      <div className="md:col-span-8 p-3.5 sm:p-4 flex flex-col justify-between gap-2.5 overflow-y-auto thin-scrollbar">
         <div>
-          {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-200/80">
             <div className="min-w-0">
               <div className="flex items-center gap-2">
@@ -278,8 +274,7 @@ function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) =>
             </button>
           </div>
 
-          {/* Telemetry 3-Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 my-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 my-3.5">
             <div className="p-3 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
               <span className="text-[10px] text-slate-400 font-medium block">Total Handled</span>
               <span className="text-sm font-bold font-mono text-slate-900">{active.totalChats}</span>
@@ -294,7 +289,6 @@ function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) =>
             </div>
           </div>
 
-          {/* Execution Architecture Box */}
           <div className="rounded-lg border border-slate-200/80 bg-white p-3.5 text-xs shadow-2xs space-y-2">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px]">
               <span className="text-slate-500 font-medium">Model Context Protocol (MCP) Bindings:</span>
@@ -307,7 +301,6 @@ function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) =>
           </div>
         </div>
 
-        {/* Interactive Simulation Console */}
         <div>
           {simulatedReply && (
             <div className="mb-2.5 p-3 rounded-lg bg-purple-50/70 border border-purple-200/70 text-xs text-purple-950 font-mono leading-relaxed">
@@ -338,27 +331,23 @@ function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) =>
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 2. DEDICATED ANALYTICS & TELEMETRY VIEW (Responsive CSS Grid)
-// ─────────────────────────────────────────────────────────────────────────────
 function AnalyticsView() {
   const [timeRange, setTimeRange] = useState<'today' | '7d' | '30d'>('today')
 
   return (
-    <div className="p-4 sm:p-5 bg-slate-50/40 select-none min-h-[460px] flex flex-col justify-between">
-      <div>
-        {/* Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-200/80 mb-4">
-          <div>
+    <div className="p-3.5 sm:p-4 bg-slate-50/40 select-none lg:h-[380px] overflow-hidden flex flex-col justify-between">
+      <div className="flex flex-col h-full justify-between gap-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-200/80 shrink-0">
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
               <BarChart3 className="size-4 text-blue-600 shrink-0" />
-              <h3 className="text-sm font-bold text-slate-900">Platform Analytics & CPaaS Telemetry</h3>
+              <h3 className="text-sm font-bold text-black truncate">Platform Analytics &amp; CPaaS Telemetry</h3>
             </div>
-            <p className="text-[11px] text-slate-500 mt-0.5">
+            <p className="text-[11px] text-slate-500 mt-0.5 truncate">
               Real-time carrier throughput, delivery rates, and AI deflection metrics
             </p>
           </div>
-          <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-md text-[11px] font-semibold text-slate-600 self-start sm:self-auto">
+          <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-md text-[11px] font-semibold text-slate-600 self-start sm:self-auto shrink-0">
             {(['today', '7d', '30d'] as const).map((t) => (
               <button
                 key={t}
@@ -374,50 +363,47 @@ function AnalyticsView() {
           </div>
         </div>
 
-        {/* 4 Stat Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 mb-4">
-          <div className="p-3 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
-            <span className="text-[10px] text-slate-400 font-medium block">Total Messages</span>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 shrink-0">
+          <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+            <span className="text-[10px] text-slate-400 font-medium block truncate">Total Messages</span>
             <div className="flex items-baseline gap-1.5 mt-0.5">
-              <span className="text-sm font-bold font-mono text-slate-900">1,284,920</span>
+              <span className="text-sm font-bold font-mono text-black">1,284,920</span>
               <span className="text-[10px] font-mono font-bold text-emerald-600">+14%</span>
             </div>
-            <span className="text-[10px] text-slate-400">WhatsApp & SMS</span>
+            <span className="text-[10px] text-slate-400 block truncate">WhatsApp &amp; SMS</span>
           </div>
-
-          <div className="p-3 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
-            <span className="text-[10px] text-slate-400 font-medium block">Delivery SLA (DLR)</span>
+          <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+            <span className="text-[10px] text-slate-400 font-medium block truncate">Delivery SLA (DLR)</span>
             <div className="flex items-baseline gap-1.5 mt-0.5">
               <span className="text-sm font-bold font-mono text-blue-600">99.98%</span>
               <span className="text-[10px] font-mono font-bold text-emerald-600">DLT</span>
             </div>
-            <span className="text-[10px] text-slate-400">Sub-second receipt</span>
+            <span className="text-[10px] text-slate-400 block truncate">Sub-second receipt</span>
           </div>
-
-          <div className="p-3 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
-            <span className="text-[10px] text-slate-400 font-medium block">Autonomous Deflection</span>
+          <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+            <span className="text-[10px] text-slate-400 font-medium block truncate">Autonomous Deflection</span>
             <div className="flex items-baseline gap-1.5 mt-0.5">
               <span className="text-sm font-bold font-mono text-purple-600">78.4%</span>
               <span className="text-[10px] font-mono font-bold text-purple-600">AI</span>
             </div>
-            <span className="text-[10px] text-slate-400">Tier-1 auto-resolved</span>
+            <span className="text-[10px] text-slate-400 block truncate">Tier-1 auto-resolved</span>
           </div>
-
-          <div className="p-3 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
-            <span className="text-[10px] text-slate-400 font-medium block">Avg Response Latency</span>
+          <div className="p-2.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+            <span className="text-[10px] text-slate-400 font-medium block truncate">Avg Response Latency</span>
             <div className="flex items-baseline gap-1.5 mt-0.5">
               <span className="text-sm font-bold font-mono text-emerald-600">28ms</span>
               <span className="text-[10px] font-mono font-bold text-emerald-600">Edge</span>
             </div>
-            <span className="text-[10px] text-slate-400">Mumbai Node Active</span>
+            <span className="text-[10px] text-slate-400 block truncate">Mumbai Node Active</span>
           </div>
         </div>
 
-        {/* Channels Breakdown & SLA Health */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
-          <div className="p-4 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
-            <span className="text-xs font-bold text-slate-900 block mb-3">Omnichannel Throughput Breakdown</span>
-            <div className="space-y-2.5 text-xs">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 flex-1 min-h-0">
+          <div className="p-3.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs flex flex-col justify-between">
+            <span className="text-xs font-bold text-black block mb-2">
+              Omnichannel Throughput Breakdown
+            </span>
+            <div className="space-y-2 text-xs">
               <div>
                 <div className="flex justify-between gap-2 text-[11px] mb-1 font-medium text-slate-700">
                   <span className="truncate">WhatsApp Business API (Meta v20)</span>
@@ -427,7 +413,6 @@ function AnalyticsView() {
                   <div className="h-full bg-blue-600 rounded-xs w-[64%]" />
                 </div>
               </div>
-
               <div>
                 <div className="flex justify-between gap-2 text-[11px] mb-1 font-medium text-slate-700">
                   <span className="truncate">Carrier SMS (Direct SMPP Routes)</span>
@@ -437,10 +422,9 @@ function AnalyticsView() {
                   <div className="h-full bg-indigo-600 rounded-xs w-[26%]" />
                 </div>
               </div>
-
               <div>
                 <div className="flex justify-between gap-2 text-[11px] mb-1 font-medium text-slate-700">
-                  <span className="truncate">Website Live Chat & Voice</span>
+                  <span className="truncate">Website Live Chat &amp; Voice</span>
                   <span className="font-mono text-purple-600 font-bold shrink-0">10% · 128k</span>
                 </div>
                 <div className="h-1.5 rounded-xs bg-slate-100 overflow-hidden">
@@ -450,19 +434,21 @@ function AnalyticsView() {
             </div>
           </div>
 
-          <div className="p-4 rounded-lg bg-white border border-slate-200/80 shadow-2xs flex flex-col justify-between">
-            <span className="text-xs font-bold text-slate-900 block mb-3">CRM Revenue Pipeline Acceleration</span>
-            <div className="space-y-2 text-xs">
-              <div className="flex items-center justify-between gap-2 p-2 rounded-md bg-slate-50 border border-slate-100">
-                <span className="text-[11px] text-slate-600">Influenced Revenue Pipeline</span>
-                <span className="font-mono font-bold text-slate-900 shrink-0">₹4,820,000</span>
+          <div className="p-3.5 rounded-lg bg-white border border-slate-200/80 shadow-2xs flex flex-col justify-between">
+            <span className="text-xs font-bold text-black block mb-2">
+              CRM Revenue Pipeline Acceleration
+            </span>
+            <div className="space-y-1.5 text-xs">
+              <div className="flex items-center justify-between gap-2 px-2.5 py-2 rounded-md bg-slate-50 border border-slate-100">
+                <span className="text-[11px] text-slate-600 truncate">Influenced Revenue Pipeline</span>
+                <span className="font-mono font-bold text-black shrink-0">₹4,820,000</span>
               </div>
-              <div className="flex items-center justify-between gap-2 p-2 rounded-md bg-slate-50 border border-slate-100">
-                <span className="text-[11px] text-slate-600">Conversion Rate from WhatsApp</span>
+              <div className="flex items-center justify-between gap-2 px-2.5 py-2 rounded-md bg-slate-50 border border-slate-100">
+                <span className="text-[11px] text-slate-600 truncate">Conversion Rate from WhatsApp</span>
                 <span className="font-mono font-bold text-emerald-600 shrink-0">38.4%</span>
               </div>
-              <div className="flex items-center justify-between gap-2 p-2 rounded-md bg-slate-50 border border-slate-100">
-                <span className="text-[11px] text-slate-600">SLA Breach Incidents (24h)</span>
+              <div className="flex items-center justify-between gap-2 px-2.5 py-2 rounded-md bg-slate-50 border border-slate-100">
+                <span className="text-[11px] text-slate-600 truncate">SLA Breach Incidents (24h)</span>
                 <span className="font-mono font-bold text-emerald-600 shrink-0">0 (100% On-Time)</span>
               </div>
             </div>
@@ -473,75 +459,88 @@ function AnalyticsView() {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 3. DEDICATED CONTACTS & CRM DIRECTORY VIEW (Responsive Layout)
-// ─────────────────────────────────────────────────────────────────────────────
+interface DemoContact {
+  id: string
+  name: string
+  company: string
+  phone: string
+  channel: string
+  stage: string
+  stageColor: string
+  owner: string
+  dealValue: string
+  segment: 'leads' | 'clients'
+}
+
+const DEMO_CONTACTS: DemoContact[] = [
+  {
+    id: 'sales-enquiry',
+    name: 'Aditi Sharma',
+    company: 'FinEdge Technologies',
+    phone: '+91 98201 44821',
+    channel: 'WhatsApp',
+    stage: 'Qualified Lead',
+    stageColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    owner: 'PulseQuo AI',
+    dealValue: '₹240,000',
+    segment: 'leads',
+  },
+  {
+    id: 'order-update',
+    name: 'Karan Mehra',
+    company: 'RetailHub Express',
+    phone: '+91 99302 11982',
+    channel: 'WhatsApp',
+    stage: 'Support Active',
+    stageColor: 'bg-blue-50 text-blue-700 border-blue-200',
+    owner: 'Support Desk',
+    dealValue: '₹180,000',
+    segment: 'clients',
+  },
+  {
+    id: 'demo-request',
+    name: 'Sneha Patel',
+    company: 'Zenith Logistics',
+    phone: '+91 97110 55291',
+    channel: 'Web Chat',
+    stage: 'Demo Booked',
+    stageColor: 'bg-purple-50 text-purple-700 border-purple-200',
+    owner: 'Sales Team',
+    dealValue: '₹520,000',
+    segment: 'leads',
+  },
+  {
+    id: 'enterprise-lead',
+    name: 'Vikram Joshi',
+    company: 'OmniPay Global',
+    phone: '+91 98401 22910',
+    channel: 'Carrier SMS',
+    stage: 'Proposal Sent',
+    stageColor: 'bg-blue-50 text-blue-700 border-blue-200',
+    owner: 'PulseQuo AI',
+    dealValue: '₹1,200,000',
+    segment: 'clients',
+  },
+]
+
+const CONTACT_SEARCH = new IndexedSearch(
+  DEMO_CONTACTS,
+  (c) => `${c.name} ${c.company} ${c.phone}`,
+  (c) => c.segment
+)
+
 function ContactsView({ onSelectContact }: { onSelectContact: (convId: string) => void }) {
   const [filter, setFilter] = useState<'all' | 'leads' | 'clients'>('all')
   const [searchTerm, setSearchTerm] = useState('')
 
-  const contacts = [
-    {
-      id: 'sales-enquiry',
-      name: 'Aditi Sharma',
-      company: 'FinEdge Technologies',
-      phone: '+91 98201 44821',
-      channel: 'WhatsApp',
-      stage: 'Qualified Lead',
-      stageColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-      owner: 'PulseQuo AI',
-      dealValue: '₹240,000',
-    },
-    {
-      id: 'order-update',
-      name: 'Karan Mehra',
-      company: 'RetailHub Express',
-      phone: '+91 99302 11982',
-      channel: 'WhatsApp',
-      stage: 'Support Active',
-      stageColor: 'bg-blue-50 text-blue-700 border-blue-200',
-      owner: 'Support Desk',
-      dealValue: '₹180,000',
-    },
-    {
-      id: 'demo-request',
-      name: 'Sneha Patel',
-      company: 'Zenith Logistics',
-      phone: '+91 97110 55291',
-      channel: 'Web Chat',
-      stage: 'Demo Booked',
-      stageColor: 'bg-purple-50 text-purple-700 border-purple-200',
-      owner: 'Sales Team',
-      dealValue: '₹520,000',
-    },
-    {
-      id: 'enterprise-lead',
-      name: 'Vikram Joshi',
-      company: 'OmniPay Global',
-      phone: '+91 98401 22910',
-      channel: 'Carrier SMS',
-      stage: 'Proposal Sent',
-      stageColor: 'bg-blue-50 text-blue-700 border-blue-200',
-      owner: 'PulseQuo AI',
-      dealValue: '₹1,200,000',
-    },
-  ]
-
-  const filtered = contacts.filter((c) => {
-    const matchesSearch =
-      c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.phone.includes(searchTerm)
-    if (!matchesSearch) return false
-    if (filter === 'leads') return c.stage.includes('Lead') || c.stage.includes('Demo')
-    if (filter === 'clients') return c.stage.includes('Support') || c.stage.includes('Proposal')
-    return true
-  })
+  const filtered = useMemo(
+    () => CONTACT_SEARCH.query(searchTerm, filter === 'all' ? 'All' : filter),
+    [searchTerm, filter]
+  )
 
   return (
-    <div className="flex flex-col bg-white select-none min-h-[460px]">
-      {/* Top Filter and Search Bar */}
-      <div className="p-3.5 sm:p-4 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+    <div className="flex flex-col bg-white select-none lg:h-[380px] overflow-hidden">
+      <div className="p-3 sm:p-3.5 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-2 shrink-0">
         <div className="relative flex-1 max-w-md">
           <Search className="size-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -584,12 +583,11 @@ function ContactsView({ onSelectContact }: { onSelectContact: (convId: string) =
         </div>
       </div>
 
-      {/* Contacts Table List */}
-      <div className="divide-y divide-slate-100">
+      <div className="divide-y divide-slate-100 overflow-y-auto thin-scrollbar flex-1">
         {filtered.map((item) => (
           <div
             key={item.id}
-            className="p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/70 transition-colors"
+            className="px-3.5 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-slate-50/70 transition-colors"
           >
             <div className="flex items-center gap-3 min-w-0">
               <div className="size-9 rounded-lg bg-slate-900 text-white font-bold text-xs flex items-center justify-center shrink-0">
@@ -629,59 +627,71 @@ function ContactsView({ onSelectContact }: { onSelectContact: (convId: string) =
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// MAIN PLATFORM COMPOSITION COMPONENT (Fully Responsive CSS Grid Architecture)
-// ─────────────────────────────────────────────────────────────────────────────
-export function PlatformComposition() {
+interface LiveReply {
+  id: string
+  text: string
+  sender: 'user' | 'agent'
+}
+
+export function PlatformComposition({ isLoading }: { isLoading?: boolean } = {}) {
   const [activeNav, setActiveNav] = useState<NavSection>('inbox')
   const [activeInboxTab, setActiveInboxTab] = useState<'open' | 'assigned'>('open')
   const [mobilePane, setMobilePane] = useState<MobileInboxPane>('chat')
   const [selectedConvId, setSelectedConvId] = useState<string>('sales-enquiry')
   const [searchQuery, setSearchQuery] = useState('')
   const [replyInput, setReplyInput] = useState('')
-  const [liveReplies, setLiveReplies] = useState<
-    Array<{ id: string; convId: string; text: string; sender: 'user' | 'agent' }>
-  >([])
+  const [repliesByConv, setRepliesByConv] = useState<Record<string, LiveReply[]>>({})
+  const isHydrated = useCardHydration(200)
+  const showSkeleton = isLoading ?? !isHydrated
 
-  const currentConv = CONVERSATIONS.find((c) => c.id === selectedConvId) || CONVERSATIONS[0]
+  const currentConv = CONVERSATION_BY_ID.get(selectedConvId) ?? CONVERSATIONS[0]
+  const currentReplies = repliesByConv[currentConv.id] ?? []
 
   const handleSendReply = (e?: React.FormEvent) => {
     if (e) e.preventDefault()
-    if (!replyInput.trim()) return
+    const trimmed = replyInput.trim()
+    if (!trimmed) return
 
-    const newReply = {
-      id: `rep-${Date.now()}`,
-      convId: currentConv.id,
-      text: replyInput,
-      sender: 'user' as const,
-    }
+    const convId = currentConv.id
+    const newReply: LiveReply = { id: `rep-${Date.now()}`, text: trimmed, sender: 'user' }
 
-    setLiveReplies((prev) => [...prev, newReply])
+    setRepliesByConv((prev) => ({
+      ...prev,
+      [convId]: [...(prev[convId] ?? []), newReply],
+    }))
     setReplyInput('')
 
-    setTimeout(() => {
-      const autoReply = {
+    window.setTimeout(() => {
+      const autoReply: LiveReply = {
         id: `agent-${Date.now()}`,
-        convId: currentConv.id,
         text: 'Got it! I have updated your workspace record and notified the account lead.',
-        sender: 'agent' as const,
+        sender: 'agent',
       }
-      setLiveReplies((prev) => [...prev, autoReply])
+      setRepliesByConv((prev) => ({
+        ...prev,
+        [convId]: [...(prev[convId] ?? []), autoReply],
+      }))
     }, 850)
   }
 
-  const filteredConversations = CONVERSATIONS.filter(
-    (c) =>
-      c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.preview.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredConversations = useMemo(
+    () => CONVERSATION_SEARCH.query(searchQuery),
+    [searchQuery]
   )
 
+  if (showSkeleton) {
+    return (
+      <div aria-busy="true" aria-label="Loading PulseQuo command center workspace">
+        <PlatformCompositionSkeleton />
+      </div>
+    )
+  }
+
   return (
-    <div className="w-full rounded-2xl border border-slate-200/90 bg-white shadow-xl overflow-hidden ring-1 ring-slate-900/5 text-slate-900 font-sans text-left">
-      {/* ── MOBILE & TABLET TOP WORKSPACE BAR (< lg) ── */}
-      <div className="lg:hidden border-b border-slate-100 bg-white px-3.5 py-3">
-        <div className="flex items-center justify-between gap-2 mb-2.5">
-          <span className="text-base font-black text-slate-900 tracking-tight">PulseQuo</span>
+    <div className="w-full rounded-xl border border-slate-200/90 bg-white shadow-lg overflow-hidden ring-1 ring-slate-900/5 text-slate-900 font-sans text-left">
+      <div className="lg:hidden border-b border-slate-100 bg-white px-3 py-2.5">
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <span className="text-sm font-black text-slate-900 tracking-tight">PulseQuo</span>
           <span className="text-[10px] font-mono text-slate-400 font-medium">Enterprise v20</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5">
@@ -693,7 +703,7 @@ export function PlatformComposition() {
                 key={item.id}
                 type="button"
                 onClick={() => setActiveNav(item.id)}
-                className={`flex items-center justify-center sm:justify-start gap-2 px-2.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                className={`flex items-center justify-center sm:justify-start gap-1.5 px-2 py-1.5 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer ${
                   isActive
                     ? 'bg-blue-50 text-blue-600 border border-blue-200/80'
                     : 'text-slate-600 hover:bg-slate-50 border border-slate-100'
@@ -707,13 +717,11 @@ export function PlatformComposition() {
         </div>
       </div>
 
-      {/* ── DESKTOP 12-COLUMN RESPONSIVE GRID SHELL ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 lg:min-h-[500px]">
-        {/* ── COLUMN 1: DESKTOP LEFT NAVIGATION SIDEBAR (lg+) ── */}
-        <aside className="hidden lg:flex lg:col-span-2 p-4 xl:p-5 flex-col justify-between bg-white border-r border-slate-100 select-none">
+      <div className="grid grid-cols-1 lg:grid-cols-12 lg:h-[380px]">
+        <aside className="hidden lg:flex lg:col-span-2 p-3 flex-col justify-between bg-white border-r border-slate-100 select-none">
           <div>
-            <div className="text-xl font-black text-slate-900 tracking-tight">PulseQuo</div>
-            <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mt-5 mb-2.5">
+            <div className="text-sm font-black text-black tracking-tight px-1">PulseQuo</div>
+            <div className="text-[9px] font-bold tracking-widest text-slate-400 uppercase mt-3 mb-2 px-1">
               WORKSPACE
             </div>
 
@@ -726,13 +734,13 @@ export function PlatformComposition() {
                     key={item.id}
                     type="button"
                     onClick={() => setActiveNav(item.id)}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-colors cursor-pointer ${
+                    className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[11.5px] transition-colors cursor-pointer ${
                       isActive
                         ? 'bg-blue-50/90 text-blue-600 font-semibold shadow-2xs'
-                        : 'text-slate-600 font-medium hover:text-slate-900 hover:bg-slate-50'
+                        : 'text-slate-600 font-medium hover:text-black hover:bg-slate-50'
                     }`}
                   >
-                    <Icon className={`size-4 shrink-0 ${isActive ? 'text-blue-600' : 'text-slate-400'}`} />
+                    <Icon className={`size-3.5 shrink-0 ${isActive ? 'text-blue-600' : 'text-slate-400'}`} />
                     <span className="truncate">{item.label}</span>
                   </button>
                 )
@@ -740,17 +748,15 @@ export function PlatformComposition() {
             </nav>
           </div>
 
-          <div className="pt-4 border-t border-slate-100">
-            <span className="text-[11px] text-slate-400 font-medium">PulseQuo Enterprise v20</span>
+          <div className="pt-2.5 border-t border-slate-100 px-1">
+            <span className="text-[10px] text-slate-400 font-medium">Enterprise v20</span>
           </div>
         </aside>
 
-        {/* ── MAIN WORKSPACE STAGE (10 cols on desktop, full width on mobile/tablet) ── */}
-        <div className="lg:col-span-10 min-w-0">
-          {/* 2. WORKFLOWS VIEW */}
+        <div className="lg:col-span-10 min-w-0 lg:h-[380px] overflow-hidden">
           {activeNav === 'workflows' && (
-            <div className="bg-slate-50/50 p-4 sm:p-6 lg:p-8 flex items-center justify-center min-h-[460px] h-full">
-              <WorkflowCanvas showWrapper={true} className="max-w-3xl w-full bg-white shadow-xs" />
+            <div className="bg-slate-50/50 p-3 flex items-center justify-center lg:h-[380px] overflow-y-auto thin-scrollbar">
+              <WorkflowCanvas showWrapper={true} className="max-w-2xl w-full bg-white shadow-xs" />
             </div>
           )}
 
@@ -813,39 +819,33 @@ export function PlatformComposition() {
                 </button>
               </div>
 
-              {/* 3-Pane Responsive Grid:
-                  - Mobile (< md): shows active mobilePane full-width
-                  - Tablet (md to < xl): 5-col conversation list + 7-col chat, CRM Context spans full width below
-                  - Desktop (xl+): 3-col conversation list + 6-col chat + 3-col CRM Context side-by-side
-              */}
-              <div className="grid grid-cols-1 md:grid-cols-12 flex-1">
-                {/* ── PANE A: CONVERSATION LIST ── */}
+              <div className="grid grid-cols-1 md:grid-cols-12 flex-1 min-h-0">
                 <section
                   className={`${
                     mobilePane === 'list' ? 'flex' : 'hidden md:flex'
-                  } md:col-span-5 xl:col-span-3 p-4 flex-col bg-white border-b md:border-b-0 md:border-r border-slate-100 select-none min-w-0`}
+                  } md:col-span-4 xl:col-span-3 p-2.5 flex-col bg-white border-b md:border-b-0 md:border-r border-slate-100 select-none min-w-0 min-h-0`}
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-sm font-bold text-slate-900">Team inbox</h3>
-                    <span className="text-xs font-semibold text-slate-400">(12)</span>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <h3 className="text-xs font-bold text-slate-900">Team inbox</h3>
+                    <span className="text-[11px] font-semibold text-slate-400">(12)</span>
                   </div>
 
-                  <div className="relative mb-3">
-                    <Search className="size-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <div className="relative mb-1.5">
+                    <Search className="size-3 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Search conversations"
-                      className="w-full rounded-lg bg-slate-50/80 border border-slate-200/70 pl-8 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-all shadow-2xs"
+                      placeholder="Search..."
+                      className="w-full rounded-lg bg-slate-50/80 border border-slate-200/70 pl-7 pr-2.5 py-1 text-[11px] text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-all shadow-2xs"
                     />
                   </div>
 
-                  <div className="flex items-center gap-5 border-b border-slate-100 text-xs mb-2.5">
+                  <div className="flex items-center gap-4 border-b border-slate-100 text-[11px] mb-1.5">
                     <button
                       type="button"
                       onClick={() => setActiveInboxTab('open')}
-                      className={`relative pb-2 cursor-pointer transition-colors ${
+                      className={`relative pb-1 cursor-pointer transition-colors ${
                         activeInboxTab === 'open'
                           ? 'font-bold text-blue-600'
                           : 'text-slate-500 hover:text-slate-800'
@@ -860,20 +860,20 @@ export function PlatformComposition() {
                     <button
                       type="button"
                       onClick={() => setActiveInboxTab('assigned')}
-                      className={`relative pb-2 cursor-pointer transition-colors ${
+                      className={`relative pb-1 cursor-pointer transition-colors ${
                         activeInboxTab === 'assigned'
                           ? 'font-bold text-blue-600'
                           : 'text-slate-500 hover:text-slate-800'
                       }`}
                     >
-                      <span>Assigned to me</span>
+                      <span>Assigned</span>
                       {activeInboxTab === 'assigned' && (
                         <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-xs" />
                       )}
                     </button>
                   </div>
 
-                  <div className="space-y-1.5 overflow-y-auto flex-1 pr-0.5">
+                  <div className="space-y-1 overflow-y-auto thin-scrollbar flex-1 pr-0.5">
                     {filteredConversations.map((conv) => {
                       const isSelected = conv.id === selectedConvId
                       return (
@@ -884,157 +884,135 @@ export function PlatformComposition() {
                             setSelectedConvId(conv.id)
                             setMobilePane('chat')
                           }}
-                          className={`w-full text-left p-2.5 rounded-lg cursor-pointer transition-all ${
+                          className={`w-full text-left px-2 py-1.5 rounded-lg cursor-pointer transition-all ${
                             isSelected
                               ? 'bg-slate-50 border border-slate-200/80 shadow-2xs'
                               : 'hover:bg-slate-50/60 border border-transparent'
                           }`}
                         >
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="font-semibold text-xs text-slate-900 truncate">{conv.title}</span>
-                            <span className="text-[11px] text-slate-400 font-normal shrink-0">{conv.time}</span>
+                          <div className="flex items-center justify-between gap-1.5">
+                            <span className="font-semibold text-[11px] text-slate-900 truncate">{conv.title}</span>
+                            <span className="text-[10px] text-slate-400 font-normal shrink-0">{conv.time}</span>
                           </div>
-                          <p className="mt-0.5 text-xs text-slate-500 truncate">{conv.preview}</p>
+                          <p className="mt-0.5 text-[10.5px] text-slate-500 truncate">{conv.preview}</p>
                         </button>
                       )
                     })}
                   </div>
                 </section>
 
-                {/* ── PANE B: MAIN CHAT VIEW ── */}
                 <section
                   className={`${
                     mobilePane === 'chat' ? 'flex' : 'hidden md:flex'
-                  } md:col-span-7 xl:col-span-6 p-4 sm:p-5 flex-col justify-between bg-white xl:border-r border-slate-100 min-w-0`}
+                  } md:col-span-8 xl:col-span-6 p-2.5 sm:p-3 flex-col justify-between bg-white xl:border-r border-slate-100 min-w-0 min-h-0`}
                 >
-                  <div className="flex-1 flex flex-col">
-                    <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                      <div className="min-w-0">
-                        <h3 className="text-sm lg:text-base font-bold text-slate-900 leading-none truncate">
+                  <div className="flex-1 flex flex-col min-h-0">
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-100 shrink-0">
+                      <div className="min-w-0 flex items-center gap-2.5">
+                        <h3 className="text-xs font-bold text-slate-900 leading-none truncate">
                           {currentConv.title}
                         </h3>
-                        <div className="flex items-center gap-1.5 mt-1.5 text-xs text-slate-500 font-medium">
-                          <WhatsAppIcon className="size-3.5 shrink-0" />
+                        <span className="text-slate-300">·</span>
+                        <div className="flex items-center gap-1 text-[11px] text-slate-500 font-medium min-w-0">
+                          <WhatsAppIcon className="size-3 shrink-0" />
                           <span className="truncate">{currentConv.channel}</span>
                         </div>
                       </div>
+                      <span className="text-[10px] text-slate-400 font-medium shrink-0">Today, 10:42 AM</span>
                     </div>
 
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={currentConv.id}
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                        className="py-2 flex-1"
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                        className="py-2 flex-1 overflow-y-auto thin-scrollbar space-y-1.5"
                       >
-                        <div className="text-[11px] text-slate-400 font-medium text-center my-2">
-                          Today, 10:42 AM
+                        <div className="max-w-lg bg-slate-50 border border-slate-200/70 text-slate-800 text-[11.5px] px-2.5 py-2 rounded-xl rounded-tl-sm leading-snug shadow-2xs whitespace-pre-line">
+                          {currentConv.userMessage}
                         </div>
 
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="max-w-lg bg-slate-50 border border-slate-200/70 text-slate-800 text-xs sm:text-sm p-3.5 sm:p-4 rounded-2xl rounded-tl-sm leading-relaxed shadow-2xs whitespace-pre-line"
-                        >
-                          {currentConv.userMessage}
-                        </motion.div>
-
-                        <motion.div
-                          initial={{ opacity: 0, y: 12 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3, delay: 0.1 }}
-                          className="mt-3 max-w-xl bg-emerald-50/70 border border-emerald-200/60 text-slate-800 text-xs sm:text-sm p-3.5 sm:p-4 rounded-2xl rounded-tr-sm leading-relaxed shadow-2xs"
-                        >
+                        <div className="max-w-xl bg-emerald-50/70 border border-emerald-200/60 text-slate-800 text-[11.5px] px-2.5 py-2 rounded-xl rounded-tr-sm leading-snug shadow-2xs">
                           <p>{currentConv.agentReply}</p>
-                          <div className="mt-2 text-[11px] font-medium text-emerald-700 flex items-center gap-1">
+                          <div className="mt-1 text-[10px] font-medium text-emerald-700 flex items-center gap-1">
                             <span>{currentConv.agentName} · 10:42 AM</span>
-                            <CheckCheck className="size-3.5 text-emerald-600 inline ml-0.5" />
+                            <CheckCheck className="size-3 text-emerald-600 inline ml-0.5" />
                           </div>
-                        </motion.div>
+                        </div>
 
-                        {liveReplies
-                          .filter((r) => r.convId === currentConv.id)
-                          .map((r) => (
-                            <div
-                              key={r.id}
-                              className={`mt-2.5 max-w-md text-xs sm:text-sm p-3 rounded-2xl shadow-2xs leading-relaxed ${
-                                r.sender === 'user'
-                                  ? 'ml-auto bg-blue-600 text-white rounded-tr-sm'
-                                  : 'bg-emerald-50/80 border border-emerald-200/70 text-slate-800 rounded-tl-sm'
-                              }`}
-                            >
-                              <p>{r.text}</p>
-                            </div>
-                          ))}
+                        {currentReplies.map((r) => (
+                          <div
+                            key={r.id}
+                            className={`max-w-md text-[11.5px] px-2.5 py-1.5 rounded-xl shadow-2xs leading-snug ${
+                              r.sender === 'user'
+                                ? 'ml-auto bg-blue-600 text-white rounded-tr-sm'
+                                : 'bg-emerald-50/80 border border-emerald-200/70 text-slate-800 rounded-tl-sm'
+                            }`}
+                          >
+                            <p>{r.text}</p>
+                          </div>
+                        ))}
 
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.25, delay: 0.15 }}
-                          className="mt-3.5 rounded-lg bg-blue-50/80 border border-blue-200/60 px-3 py-2 flex items-center gap-2 text-xs font-semibold text-blue-700"
-                        >
-                          <Check className="size-4 text-blue-600 shrink-0" />
-                          <span>{currentConv.leadStatus}</span>
-                        </motion.div>
+                        <div className="rounded-lg bg-blue-50/80 border border-blue-200/60 px-2.5 py-1 flex items-center gap-1.5 text-[10.5px] font-semibold text-blue-700">
+                          <Check className="size-3 text-blue-600 shrink-0" />
+                          <span className="truncate">{currentConv.leadStatus}</span>
+                        </div>
                       </motion.div>
                     </AnimatePresence>
                   </div>
 
-                  {/* Reply Input */}
-                  <form onSubmit={handleSendReply} className="mt-3 pt-3 border-t border-slate-100">
-                    <div className="rounded-xl border border-slate-200 bg-white p-1.5 flex items-center gap-2 shadow-2xs focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 transition-all">
+                  <form onSubmit={handleSendReply} className="mt-1.5 pt-2 border-t border-slate-100 shrink-0">
+                    <div className="rounded-lg border border-slate-200 bg-white p-1 flex items-center gap-1.5 shadow-2xs focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 transition-all">
                       <input
                         type="text"
                         value={replyInput}
                         onChange={(e) => setReplyInput(e.target.value)}
                         placeholder="Reply to the conversation..."
-                        className="flex-1 min-w-0 bg-transparent text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none px-2 py-1"
+                        className="flex-1 min-w-0 bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none px-2 py-0.5"
                       />
                       <button
                         type="submit"
                         aria-label="Send reply"
-                        className="size-8 rounded-lg bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white flex items-center justify-center shrink-0 transition-colors shadow-xs cursor-pointer"
+                        className="size-6 rounded-md bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white flex items-center justify-center shrink-0 transition-colors shadow-xs cursor-pointer"
                       >
-                        <ArrowRight className="size-4" />
+                        <ArrowRight className="size-3.5" />
                       </button>
                     </div>
                   </form>
                 </section>
 
-                {/* ── PANE C: CUSTOMER CONTEXT (RIGHT SIDEBAR on xl+, Bottom Summary Grid on md-lg) ── */}
                 <aside
                   className={`${
                     mobilePane === 'context' ? 'flex' : 'hidden md:flex'
-                  } md:col-span-12 xl:col-span-3 p-4 sm:p-5 flex-col justify-between gap-4 bg-slate-50/30 xl:bg-white border-t xl:border-t-0 border-slate-100 select-none min-w-0`}
+                  } md:col-span-12 xl:col-span-3 p-2.5 flex-col justify-between gap-2 bg-slate-50/30 xl:bg-white border-t xl:border-t-0 border-slate-100 select-none min-w-0 min-h-0`}
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-2">
                     <div>
-                      <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-2.5">
+                      <div className="text-[9px] font-bold tracking-widest text-slate-400 uppercase mb-1">
                         CUSTOMER CONTEXT
                       </div>
-                      <div className="rounded-xl bg-emerald-50/70 border border-emerald-200/60 p-3">
-                        <div className="flex items-center gap-2">
-                          <Check className="size-3.5 text-emerald-600 shrink-0" />
-                          <span className="text-xs font-bold text-emerald-900">Sales-ready conversation</span>
+                      <div className="rounded-lg bg-emerald-50/70 border border-emerald-200/60 px-2.5 py-1.5">
+                        <div className="flex items-center gap-1.5">
+                          <Check className="size-3 text-emerald-600 shrink-0" />
+                          <span className="text-[11px] font-bold text-emerald-900">Sales-ready</span>
                         </div>
-                        <div className="text-[11px] text-emerald-700 pl-5.5 mt-0.5 font-medium">
+                        <div className="text-[10px] text-emerald-700 pl-4.5 font-medium">
                           Qualified by {currentConv.agentName}
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="text-xs font-bold text-slate-900 mb-2.5">Conversation details</h4>
-                      <div className="space-y-2 text-xs">
+                      <h4 className="text-[10.5px] font-bold text-slate-900 mb-1">Details</h4>
+                      <div className="space-y-1 text-[10.5px]">
                         <div className="flex items-center justify-between gap-2">
                           <span className="text-slate-400">Interest</span>
                           <span className="font-semibold text-slate-900 text-right">{currentConv.details.interest}</span>
                         </div>
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-slate-400">Team size</span>
+                          <span className="text-slate-400">Team</span>
                           <span className="font-semibold text-slate-900 text-right">{currentConv.details.teamSize}</span>
                         </div>
                         <div className="flex items-center justify-between gap-2">
@@ -1049,11 +1027,11 @@ export function PlatformComposition() {
                     </div>
                   </div>
 
-                  <div className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-2xs">
-                    <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400 mb-1">
+                  <div className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 shadow-2xs">
+                    <div className="text-[9px] font-bold tracking-wider uppercase text-slate-400">
                       NEXT STEP
                     </div>
-                    <div className="text-xs sm:text-sm font-bold text-slate-900">{currentConv.nextStep}</div>
+                    <div className="text-[11px] font-bold text-slate-900">{currentConv.nextStep}</div>
                   </div>
                 </aside>
               </div>

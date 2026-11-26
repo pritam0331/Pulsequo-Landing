@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import type { FanoutCard } from './CardFanout'
 import { SplitReveal } from './SplitReveal'
+import { Card3DCarouselSkeleton, useCardHydration } from './CardSkeleton'
 
 const DEFAULT_3D_CARDS: FanoutCard[] = [
   {
@@ -120,6 +121,7 @@ interface Card3DCarouselProps {
   headline?: string
   subheadline?: string
   className?: string
+  isLoading?: boolean
 }
 
 export function Card3DCarousel({
@@ -127,18 +129,21 @@ export function Card3DCarousel({
   headline = 'Delivery Tracking, AI Bots & Sales CRM in One Synced Stack',
   subheadline = 'Experience the power of unified omnichannel architecture. Browse how WhatsApp alerts, autonomous bots, and carrier OTPs dispatch in real time.',
   className = '',
+  isLoading,
 }: Card3DCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [stepX, setStepX] = useState(265)
+  const isHydrated = useCardHydration(200)
+  const showSkeleton = isLoading ?? !isHydrated
   const total = cards.length
 
   useEffect(() => {
     const computeStep = () => {
       const w = window.innerWidth
-      if (w < 640) setStepX(150)
-      else if (w < 1024) setStepX(215)
-      else setStepX(265)
+      if (w < 640) setStepX(168)
+      else if (w < 1024) setStepX(230)
+      else setStepX(285)
     }
     computeStep()
     window.addEventListener('resize', computeStep, { passive: true })
@@ -154,16 +159,28 @@ export function Card3DCarousel({
   }, [total])
 
   useEffect(() => {
-    if (isPaused) return
+    if (showSkeleton || isPaused) return
     const timer = setInterval(goNext, 5000)
     return () => clearInterval(timer)
-  }, [isPaused, goNext])
+  }, [showSkeleton, isPaused, goNext])
 
   const getRelativeOffset = (index: number) => {
     let diff = index - activeIndex
     if (diff > total / 2) diff -= total
     if (diff < -total / 2) diff += total
     return diff
+  }
+
+  if (showSkeleton) {
+    return (
+      <div aria-busy="true" aria-label={`Loading ${headline}`}>
+        <Card3DCarouselSkeleton
+          headline={headline}
+          subheadline={subheadline}
+          className={className}
+        />
+      </div>
+    )
   }
 
   return (
@@ -181,26 +198,20 @@ export function Card3DCarousel({
       aria-label={headline}
     >
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 18 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="mb-6 sm:mb-10 text-center max-w-3xl mx-auto"
-      >
+      <div className="mb-5 sm:mb-8 text-center max-w-4xl mx-auto">
         <SplitReveal
           as="h2"
           text={headline}
           trigger="inView"
-          delay={0.04}
-          stagger={0.038}
-          duration={0.55}
-          className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight text-balance"
+          delay={0.03}
+          stagger={0.035}
+          duration={0.5}
+          className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-black tracking-[-0.02em] leading-[1.18] text-balance"
         />
-        <p className="mt-2 text-xs sm:text-base text-slate-600 leading-relaxed text-pretty">
+        <p className="mt-2.5 max-w-2xl mx-auto text-sm sm:text-base text-slate-600 leading-relaxed text-pretty">
           {subheadline}
         </p>
-      </motion.div>
+      </div>
 
       {/* 3D Perspective Stage with Left & Right Carets */}
       <div className="relative flex items-center justify-center">
@@ -226,7 +237,7 @@ export function Card3DCarousel({
             if (info.offset.x < -40) goNext()
             else if (info.offset.x > 40) goPrev()
           }}
-          className="relative w-full h-[296px] sm:h-[360px] flex items-center justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
+          className="relative w-full h-[380px] sm:h-[420px] flex items-center justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
           style={{ perspective: '1200px' }}
         >
           {/* Lightweight zero-blur radial glow */}
@@ -252,9 +263,9 @@ export function Card3DCarousel({
 
               const xShift = offset * stepX
               const zShift = -absOffset * 130
-              const rotateY = offset * -25
+              const rotateY = offset * -24
               const scale = isCenter ? 1 : absOffset === 1 ? 0.86 : 0.72
-              const opacity = !isVisible ? 0 : isCenter ? 1 : absOffset === 1 ? 0.85 : 0.38
+              const opacity = !isVisible ? 0 : isCenter ? 1 : absOffset === 1 ? 0.88 : 0.42
 
               return (
                 <motion.div
@@ -269,7 +280,7 @@ export function Card3DCarousel({
                   }}
                   whileHover={
                     isCenter
-                      ? { y: -6, scale: 1.02 }
+                      ? { y: -6, scale: 1.015 }
                       : isVisible
                         ? { y: 0, scale: scale + 0.03 }
                         : undefined
@@ -288,64 +299,66 @@ export function Card3DCarousel({
                     pointerEvents: isVisible ? 'auto' : 'none',
                   }}
                   data-cursor="glass"
-                  className={`group absolute w-[248px] sm:w-[350px] lg:w-[410px] rounded-2xl bg-white border overflow-hidden transition-shadow duration-300 ${
+                  className={`group absolute w-[280px] sm:w-[376px] lg:w-[436px] min-h-[322px] sm:min-h-[354px] flex flex-col justify-between rounded-2xl bg-white border overflow-hidden transition-shadow duration-300 ${
                     isCenter
                       ? 'border-blue-400/90 ring-2 ring-blue-600/15 shadow-2xl shadow-blue-900/12 cursor-default'
                       : 'border-slate-200/90 shadow-lg hover:shadow-xl hover:border-blue-300/80 cursor-pointer'
                   }`}
                 >
                   {/* Top Gradient Accent Bar */}
-                  <div className={`h-1.5 w-full bg-gradient-to-r ${card.gradientHeader}`} />
+                  <div className={`h-1.5 w-full bg-gradient-to-r ${card.gradientHeader} shrink-0`} />
 
-                  <div className="p-4 sm:p-6">
-                    {/* Category & Status */}
-                    <div className="flex items-center justify-between gap-2 mb-2.5 sm:mb-3">
-                      <span className="text-[10.5px] sm:text-[11px] font-medium text-slate-500 truncate">
-                        {card.category}
-                      </span>
-                      <span
-                        className={`text-[9.5px] sm:text-[10px] font-mono font-semibold px-1.5 sm:px-2 py-0.5 rounded-sm border shrink-0 ${card.badgeColor}`}
-                      >
-                        {card.badge}
-                      </span>
-                    </div>
-
-                    {/* Icon & Title */}
-                    <div className="flex items-start gap-2.5 sm:gap-3">
-                      <div
-                        className={`size-8 sm:size-10 rounded-xl border flex items-center justify-center shrink-0 ${card.iconBg} ${card.iconColor}`}
-                      >
-                        <CardIcon className="size-4 sm:size-5" />
+                  <div className="p-4 sm:p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                      {/* Category & Status */}
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="text-[10.5px] sm:text-[11px] font-medium text-slate-500 truncate">
+                          {card.category}
+                        </span>
+                        <span
+                          className={`text-[9.5px] sm:text-[10px] font-mono font-semibold px-1.5 sm:px-2 py-0.5 rounded-sm border shrink-0 whitespace-nowrap ${card.badgeColor}`}
+                        >
+                          {card.badge}
+                        </span>
                       </div>
-                      <div className="min-w-0">
-                        <h4 className="text-xs sm:text-base font-bold text-slate-900 leading-tight truncate">
-                          {card.title}
-                        </h4>
-                        <p className="text-[11px] sm:text-xs text-slate-500 truncate mt-0.5 font-medium">
-                          {card.subtitle}
-                        </p>
-                      </div>
-                    </div>
 
-                    {/* Description */}
-                    <div className="mt-3 sm:mt-4 p-2.5 sm:p-3 rounded-xl bg-slate-50/90 border border-slate-100 text-[11.5px] sm:text-[13px] text-slate-600 leading-relaxed line-clamp-2">
-                      {card.description}
+                      {/* Icon & Title */}
+                      <div className="flex items-start gap-2.5 sm:gap-3">
+                        <div
+                          className={`size-8 sm:size-10 rounded-xl border flex items-center justify-center shrink-0 ${card.iconBg} ${card.iconColor}`}
+                        >
+                          <CardIcon className="size-4 sm:size-5" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="text-xs sm:text-base font-bold text-slate-900 leading-snug">
+                            {card.title}
+                          </h4>
+                          <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 font-medium leading-snug">
+                            {card.subtitle}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Full Unclipped Description */}
+                      <div className="mt-3.5 sm:mt-4 p-3 sm:p-3.5 rounded-xl bg-slate-50/90 border border-slate-100 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                        {card.description}
+                      </div>
                     </div>
 
                     {/* Footer Metric & Channel */}
-                    <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex items-center justify-between gap-2 sm:gap-3">
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2 sm:gap-3">
                       <div>
                         <span className="text-sm sm:text-base font-black font-mono tabular-nums text-slate-900 block leading-none">
                           {card.metric}
                         </span>
-                        <span className="text-[10px] sm:text-[11px] font-medium text-slate-400 block mt-0.5 sm:mt-1">
+                        <span className="text-[10px] sm:text-[11px] font-medium text-slate-500 block mt-0.5 sm:mt-1">
                           {card.metricLabel}
                         </span>
                       </div>
 
                       <div className="flex items-center gap-1.5 text-xs font-medium text-slate-600 min-w-0">
                         <span className={`size-1.5 rounded-full bg-current shrink-0 ${card.channelIconColor}`} />
-                        <span className="text-[10.5px] sm:text-[11px] font-mono truncate max-w-[115px] sm:max-w-[148px]">
+                        <span className="text-[10.5px] sm:text-[11px] font-mono truncate max-w-[125px] sm:max-w-[160px]">
                           {card.channel}
                         </span>
                       </div>

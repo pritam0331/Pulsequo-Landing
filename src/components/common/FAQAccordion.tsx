@@ -1,8 +1,3 @@
-/**
- * FAQ Accordion Component
- * Accessible expand/collapse for frequently asked questions with smooth animation and modern styling.
- */
-
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { ChevronDown } from 'lucide-react'
@@ -17,7 +12,7 @@ interface FAQAccordionProps {
 export function FAQAccordion({
   items,
   className = '',
-  maxHeight = 'max-h-[380px] sm:max-h-[420px]',
+  maxHeight = 'max-h-[420px] sm:max-h-[480px]',
 }: FAQAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
@@ -44,23 +39,23 @@ export function FAQAccordion({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: Math.min(idx * 0.04, 0.24), ease: [0.22, 1, 0.36, 1] }}
-              className={`transition-colors duration-200 ${isOpen ? 'bg-slate-50/60' : 'hover:bg-blue-50/30'}`}
+              className={`transition-colors duration-200 ${isOpen ? 'bg-slate-50/70' : 'hover:bg-blue-50/30'}`}
             >
               <button
                 type="button"
                 onClick={() => toggle(idx)}
-                className="flex w-full items-center justify-between gap-4 py-5 px-6 sm:px-8 text-left cursor-pointer group focus:outline-none"
+                className="flex w-full items-center justify-between gap-3 sm:gap-4 py-3.5 px-4 sm:py-5 sm:px-7 text-left cursor-pointer group focus:outline-none"
                 aria-expanded={isOpen}
               >
-                <span className={`text-sm sm:text-base font-bold transition-all duration-200 leading-snug group-hover:translate-x-0.5 ${isOpen ? 'text-blue-600' : 'text-slate-900 group-hover:text-blue-600'}`}>
+                <span className={`text-xs sm:text-base font-bold transition-all duration-200 leading-snug group-hover:translate-x-0.5 ${isOpen ? 'text-blue-600' : 'text-slate-900 group-hover:text-blue-600'}`}>
                   {item.question}
                 </span>
                 <motion.div
                   animate={{ rotate: isOpen ? 180 : 0 }}
                   transition={{ type: 'spring', stiffness: 320, damping: 24 }}
-                  className={`size-8 rounded-lg flex items-center justify-center shrink-0 transition-all duration-200 group-hover:scale-105 ${isOpen ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600'}`}
+                  className={`size-7 sm:size-8 rounded-lg flex items-center justify-center shrink-0 transition-all duration-200 group-hover:scale-105 ${isOpen ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600'}`}
                 >
-                  <ChevronDown className="size-4" />
+                  <ChevronDown className="size-3.5 sm:size-4" />
                 </motion.div>
               </button>
 
@@ -73,7 +68,7 @@ export function FAQAccordion({
                     transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 sm:px-8 pb-5 pt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+                    <div className="px-4 sm:px-7 pb-4 sm:pb-5 pt-2 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
                       <p>{item.answer}</p>
                     </div>
                   </motion.div>

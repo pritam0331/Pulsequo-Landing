@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 type CursorMode = 'idle' | 'button' | 'card' | 'card-dark' | 'text'
 
-const TRAIL_COUNT = 10
+const TRAIL_COUNT = 22
 
 const TEXT_INPUT_SELECTOR =
   'input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]), textarea, select, [contenteditable="true"]'
@@ -25,31 +25,45 @@ function isInsideHeroZone(target: EventTarget | null): boolean {
   return section === firstSection
 }
 
+// Deep website-palette dark tones: Dark Navy (#070d24) → Deep Royal Blue (#155dfc / #1d4ed8) → Deep Indigo/Violet (#312e81 / #4c1d95)
 const TRAIL_COLORS = [
+  '#070d24',
+  '#08102d',
+  '#0a153a',
+  '#0d1c4b',
+  '#102460',
+  '#132e7a',
+  '#153996',
+  '#1548bd',
   '#155dfc',
-  '#2563eb',
-  '#3b82f6',
-  '#4f46e5',
-  '#5b4be7',
-  '#6366f1',
-  '#7c3aed',
-  '#8b5cf6',
-  '#9333ea',
-  '#a855f7',
+  '#1d4ed8',
+  '#1e40af',
+  '#22389c',
+  '#28338f',
+  '#2f2e86',
+  '#3730a3',
+  '#3b2a96',
+  '#43258c',
+  '#4c1d95',
+  '#451a86',
+  '#3b1775',
+  '#2e145e',
+  '#1e1142',
 ]
 
 /**
- * Redesigned Luminous Hero-Only Cursor with Fluid Multi-Node Trail.
+ * Custom Geometric Pointer Hero Cursor + Long 22-Node Dark Brand Square Trail.
+ * - No outer bounding box — sleek precision pointer matching PulseQuo's palette
+ *   (#070d24 Dark Navy, #155dfc Electric Blue, #7c3aed Purple micro-accent)
+ * - Long sweeping dark square trail behind the pointer tip
  * - Activates exclusively inside the page Hero section (native cursor everywhere else)
- * - Features a precision luminous core, elastic orbital ring, ambient spotlight,
- *   and a silky 10-node chained GPU-composited blue-to-violet cursor trail
  * - Zero React re-renders during pointer movement; auto-sleeps rAF when idle
  */
 export function CursorFollower() {
   const [enabled, setEnabled] = useState(false)
   const rootRef = useRef<HTMLDivElement | null>(null)
   const coreRef = useRef<HTMLDivElement | null>(null)
-  const auraRef = useRef<HTMLDivElement | null>(null)
+  const spotlightRef = useRef<HTMLDivElement | null>(null)
   const trailRefs = useRef<(HTMLSpanElement | null)[]>([])
 
   useEffect(() => {
@@ -78,13 +92,13 @@ export function CursorFollower() {
 
     const root = rootRef.current
     const core = coreRef.current
-    const aura = auraRef.current
-    if (!root || !core || !aura) return
+    const spotlight = spotlightRef.current
+    if (!root || !core || !spotlight) return
 
     let targetX = -200
     let targetY = -200
-    let auraX = -200
-    let auraY = -200
+    let spotX = -200
+    let spotY = -200
     let lastMoveX = -200
     let lastMoveY = -200
     let initialized = false
@@ -94,18 +108,19 @@ export function CursorFollower() {
     let lastTarget: EventTarget | null = null
     let currentMode: CursorMode = 'idle'
 
-    const trailPoints = Array.from({ length: TRAIL_COUNT }, () => ({ x: -200, y: -200 }))
+    const trailX = new Float32Array(TRAIL_COUNT).fill(-200)
+    const trailY = new Float32Array(TRAIL_COUNT).fill(-200)
 
     const snapAllToPointer = (x: number, y: number) => {
-      auraX = x
-      auraY = y
-      aura.style.transform = `translate3d(${x}px, ${y}px, 0)`
+      spotX = x
+      spotY = y
+      spotlight.style.transform = `translate3d(${x}px, ${y}px, 0)`
+      trailX.fill(x)
+      trailY.fill(y)
       for (let i = 0; i < TRAIL_COUNT; i++) {
-        trailPoints[i].x = x
-        trailPoints[i].y = y
-        const dot = trailRefs.current[i]
-        if (dot) {
-          dot.style.transform = `translate3d(${x}px, ${y}px, 0) scale(0.01)`
+        const node = trailRefs.current[i]
+        if (node) {
+          node.style.transform = `translate3d(${x}px, ${y}px, 0) scale(0.01)`
         }
       }
     }
@@ -142,47 +157,45 @@ export function CursorFollower() {
     const tick = () => {
       let needsAnotherFrame = false
 
-      const dx = targetX - auraX
-      const dy = targetY - auraY
+      const dx = targetX - spotX
+      const dy = targetY - spotY
       if (Math.abs(dx) > 0.15 || Math.abs(dy) > 0.15) {
-        auraX += dx * 0.16
-        auraY += dy * 0.16
+        spotX += dx * 0.14
+        spotY += dy * 0.14
         needsAnotherFrame = true
       } else {
-        auraX = targetX
-        auraY = targetY
+        spotX = targetX
+        spotY = targetY
       }
-      aura.style.transform = `translate3d(${auraX}px, ${auraY}px, 0)`
+      spotlight.style.transform = `translate3d(${spotX}px, ${spotY}px, 0)`
 
-      // Chained fluid trail physics
-      let prevX = targetX
-      let prevY = targetY
+      let prevX = targetX + 8
+      let prevY = targetY + 10
       for (let i = 0; i < TRAIL_COUNT; i++) {
-        const pt = trailPoints[i]
-        const tdx = prevX - pt.x
-        const tdy = prevY - pt.y
-        const dist = Math.hypot(tdx, tdy)
+        const tdx = prevX - trailX[i]
+        const tdy = prevY - trailY[i]
+        const distSq = tdx * tdx + tdy * tdy
+        const followRate = i === 0 ? 0.34 : 0.27
 
-        if (dist > 0.15) {
-          pt.x += tdx * 0.38
-          pt.y += tdy * 0.38
+        if (distSq > 0.0144) {
+          trailX[i] += tdx * followRate
+          trailY[i] += tdy * followRate
           needsAnotherFrame = true
         } else {
-          pt.x = prevX
-          pt.y = prevY
+          trailX[i] = prevX
+          trailY[i] = prevY
         }
 
-        const dot = trailRefs.current[i]
-        if (dot) {
+        const node = trailRefs.current[i]
+        if (node) {
           const progress = 1 - i / TRAIL_COUNT
-          // Gently scale trail down when stationary so it tucks neatly behind cursor core
-          const speedBoost = Math.min(1, dist / 2.2)
-          const scale = Math.max(0.18, progress * (0.35 + 0.65 * speedBoost))
-          dot.style.transform = `translate3d(${pt.x}px, ${pt.y}px, 0) scale(${scale.toFixed(3)})`
+          const speedBoost = Math.min(1, Math.sqrt(distSq) / 1.4)
+          const scale = Math.max(0.18, progress * (0.38 + 0.62 * speedBoost))
+          node.style.transform = `translate3d(${trailX[i]}px, ${trailY[i]}px, 0) scale(${scale.toFixed(3)})`
         }
 
-        prevX = pt.x
-        prevY = pt.y
+        prevX = trailX[i]
+        prevY = trailY[i]
       }
 
       if (needsAnotherFrame && inHero) {
@@ -210,8 +223,9 @@ export function CursorFollower() {
     }
 
     const triggerScrollFade = () => {
-      root.dataset.scrolling = 'true'
-      syncHeroUnderPointer()
+      if (root.dataset.scrolling !== 'true') {
+        root.dataset.scrolling = 'true'
+      }
       if (scrollTimeoutId !== null) {
         window.clearTimeout(scrollTimeoutId)
       }
@@ -219,7 +233,7 @@ export function CursorFollower() {
         root.dataset.scrolling = 'false'
         syncHeroUnderPointer()
         scrollTimeoutId = null
-      }, 260)
+      }, 180)
     }
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -326,7 +340,12 @@ export function CursorFollower() {
       data-scrolling="false"
       className="pq-cursor-root"
     >
-      {/* Fluid Multi-Node Blue-to-Violet Luminous Cursor Trail */}
+      {/* Subtle Brand Ambient Glow (No Outer Box) */}
+      <div ref={spotlightRef} className="pq-cursor-tracker">
+        <span className="pq-hero-spotlight" />
+      </div>
+
+      {/* Long 22-Node Dark Brand Square Trail */}
       {TRAIL_COLORS.map((color, idx) => (
         <span
           key={idx}
@@ -336,20 +355,50 @@ export function CursorFollower() {
           className="pq-hero-trail-dot"
           style={{
             backgroundColor: color,
-            opacity: Number((0.62 - idx * 0.055).toFixed(2)),
+            opacity: Number(Math.max(0.14, 0.92 - (idx / (TRAIL_COUNT - 1)) * 0.78).toFixed(2)),
           }}
         />
       ))}
 
-      {/* Elastic Ambient Hero Spotlight + Orbital Luminous Ring */}
-      <div ref={auraRef} className="pq-cursor-tracker">
-        <span className="pq-hero-spotlight" />
-        <span className="pq-hero-ring" />
-      </div>
-
-      {/* Instant Precision Pointer Core */}
+      {/* Precision Brand-Colored Architectural Pointer (No Outer Box) */}
       <div ref={coreRef} className="pq-cursor-tracker">
-        <span className="pq-hero-core" />
+        <svg
+          className="pq-hero-pointer"
+          width="26"
+          height="26"
+          viewBox="0 0 26 26"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="pq-cursor-grad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#070d24" />
+              <stop offset="58%" stopColor="#155dfc" />
+              <stop offset="100%" stopColor="#7c3aed" />
+            </linearGradient>
+            <linearGradient id="pq-cursor-grad-dark" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="62%" stopColor="#60a5fa" />
+              <stop offset="100%" stopColor="#a78bfa" />
+            </linearGradient>
+          </defs>
+          {/* Main Faceted Geometric Pointer */}
+          <path
+            className="pq-hero-pointer-body"
+            d="M3.2 2.6L21.4 11.4L13.1 13.7L10.3 22.1L3.2 2.6Z"
+            fill="url(#pq-cursor-grad)"
+            stroke="#ffffff"
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          />
+          {/* Inner Precision Blue-Violet Accent Core */}
+          <path
+            className="pq-hero-pointer-accent"
+            d="M6.4 6.2L15.8 11.1L11.6 12.3L10.2 16.5L6.4 6.2Z"
+            fill="#60a5fa"
+            fillOpacity="0.45"
+          />
+        </svg>
       </div>
     </div>
   )

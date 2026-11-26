@@ -3,11 +3,13 @@
  * Route: /trai-guidelines
  */
 
-import { Radio, Clock, ShieldCheck, CheckCircle2, XCircle, FileText, PhoneCall } from 'lucide-react'
+import { Clock, ShieldCheck, CheckCircle2, XCircle, FileText, PhoneCall } from 'lucide-react'
+import { Link } from 'react-router'
 import { SEO } from '../../components/common/SEO'
 import { Breadcrumbs } from '../../components/common/Breadcrumbs'
-import { CTASection } from '../../components/common/CTASection'
+import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
 import { ScrollReveal } from '../../components/common/ScrollReveal'
+import { CardSectionHydrator, CardGridSkeleton } from '../../components/common/CardSkeleton'
 
 export function TraiGuidelinesPage() {
   const lastUpdated = 'November 16, 2026'
@@ -137,8 +139,13 @@ export function TraiGuidelinesPage() {
       />
 
       {/* Hero Header */}
-      <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <section
+        data-cursor-zone="hero"
+        className="relative overflow-hidden bg-white pt-10 pb-14 sm:pt-14 sm:pb-18"
+      >
+        <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal direction="down" duration={0.4}>
             <Breadcrumbs
               items={[
@@ -148,12 +155,7 @@ export function TraiGuidelinesPage() {
               className="justify-center mb-6"
             />
 
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
-              <Radio className="size-3.5 text-blue-600" />
-              <span>Telecom Regulatory Authority of India (TRAI)</span>
-            </span>
-
-            <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-[-0.03em] leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
               Official TRAI Guidelines for Commercial Communications
             </h1>
 
@@ -161,7 +163,7 @@ export function TraiGuidelinesPage() {
               Statutory Authority: TRAI TCCCPR Regulations · Last Updated: {lastUpdated}
             </p>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto text-pretty">
               Complete operational handbook for businesses routing commercial SMS, transactional alerts, and automated
               calls across Indian telecommunication carrier networks.
             </p>
@@ -170,7 +172,7 @@ export function TraiGuidelinesPage() {
       </section>
 
       {/* Quick Overview Callout */}
-      <section className="py-12 bg-slate-50 border-b border-slate-200/80">
+      <section className="py-12 section-fade-tint">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up">
             <div className="rounded-2xl border border-blue-200 bg-white p-7 shadow-xs">
@@ -206,7 +208,7 @@ export function TraiGuidelinesPage() {
       </section>
 
       {/* 8 Core Guidelines */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-14 sm:py-20 section-fade-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight">
@@ -217,38 +219,49 @@ export function TraiGuidelinesPage() {
             </p>
           </div>
 
-          <div className="space-y-8">
-            {guidelines.map((g, idx) => (
-              <ScrollReveal key={g.id} direction="up" delay={idx * 0.05}>
-                <article
-                  id={g.id}
-                  className="rounded-xl border border-slate-200 bg-white p-7 shadow-xs hover:border-blue-300 transition-colors"
-                >
-                  <div className="flex items-start gap-4">
-                    <span className="size-10 rounded-lg bg-blue-50 text-blue-700 font-mono text-sm font-bold flex items-center justify-center shrink-0 border border-blue-100">
-                      {g.number}
-                    </span>
-                    <div className="flex-1">
-                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
-                        {g.title}
-                      </h3>
-                      <p className="mt-1 text-xs sm:text-sm font-medium text-blue-700">
-                        {g.summary}
-                      </p>
-                      <ul className="mt-4 space-y-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                        {g.details.map((detail, dIdx) => (
-                          <li key={dIdx} className="flex items-start gap-2">
-                            <span className="size-1.5 rounded-xs bg-blue-600 shrink-0 mt-2" />
-                            <span>{detail}</span>
-                          </li>
-                        ))}
-                      </ul>
+          <CardSectionHydrator
+            ariaLabel="Loading TRAI operational guidelines"
+            skeleton={
+              <CardGridSkeleton
+                count={guidelines.length}
+                variant="guideline"
+                columnsClassName="grid-cols-1 gap-8"
+              />
+            }
+          >
+            <div className="space-y-8">
+              {guidelines.map((g, idx) => (
+                <ScrollReveal key={g.id} direction="up" delay={idx * 0.05}>
+                  <article
+                    id={g.id}
+                    className="rounded-xl border border-slate-200 bg-white p-7 shadow-xs hover:border-blue-300 transition-colors"
+                  >
+                    <div className="flex items-start gap-4">
+                      <span className="size-10 rounded-lg bg-blue-50 text-blue-700 font-mono text-sm font-bold flex items-center justify-center shrink-0 border border-blue-100">
+                        {g.number}
+                      </span>
+                      <div className="flex-1">
+                        <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+                          {g.title}
+                        </h3>
+                        <p className="mt-1 text-xs sm:text-sm font-medium text-blue-700">
+                          {g.summary}
+                        </p>
+                        <ul className="mt-4 space-y-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                          {g.details.map((detail, dIdx) => (
+                            <li key={dIdx} className="flex items-start gap-2">
+                              <span className="size-1.5 rounded-xs bg-blue-600 shrink-0 mt-2" />
+                              <span>{detail}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </ScrollReveal>
-            ))}
-          </div>
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          </CardSectionHydrator>
 
           {/* Do's and Don'ts Matrix */}
           <ScrollReveal direction="up" delay={0.2}>
@@ -257,39 +270,50 @@ export function TraiGuidelinesPage() {
                 Compliance Quick Reference: Do's & Don'ts
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Do's */}
-                <div className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-7">
-                  <div className="flex items-center gap-2 mb-4 text-emerald-800 font-bold text-base">
-                    <CheckCircle2 className="size-5 text-emerald-600" />
-                    <h3>{dosAndDonts[0].category}</h3>
+              <CardSectionHydrator
+                ariaLabel="Loading compliance do's and don'ts"
+                skeleton={
+                  <CardGridSkeleton
+                    count={2}
+                    variant="dos-donts"
+                    columnsClassName="grid-cols-1 md:grid-cols-2 gap-8"
+                  />
+                }
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Do's */}
+                  <div className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-7">
+                    <div className="flex items-center gap-2 mb-4 text-emerald-800 font-bold text-base">
+                      <CheckCircle2 className="size-5 text-emerald-600" />
+                      <h3>{dosAndDonts[0].category}</h3>
+                    </div>
+                    <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                      {dosAndDonts[0].items.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <CheckCircle2 className="size-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
-                    {dosAndDonts[0].items.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <CheckCircle2 className="size-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
 
-                {/* Don'ts */}
-                <div className="rounded-xl border border-rose-200 bg-rose-50/40 p-7">
-                  <div className="flex items-center gap-2 mb-4 text-rose-800 font-bold text-base">
-                    <XCircle className="size-5 text-rose-600" />
-                    <h3>{dosAndDonts[1].category}</h3>
+                  {/* Don'ts */}
+                  <div className="rounded-xl border border-rose-200 bg-rose-50/40 p-7">
+                    <div className="flex items-center gap-2 mb-4 text-rose-800 font-bold text-base">
+                      <XCircle className="size-5 text-rose-600" />
+                      <h3>{dosAndDonts[1].category}</h3>
+                    </div>
+                    <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                      {dosAndDonts[1].items.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <XCircle className="size-4 text-rose-600 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
-                    {dosAndDonts[1].items.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <XCircle className="size-4 text-rose-600 shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
-              </div>
+              </CardSectionHydrator>
             </div>
           </ScrollReveal>
 
@@ -306,19 +330,17 @@ export function TraiGuidelinesPage() {
                 </p>
               </div>
               <div className="flex items-center gap-3 shrink-0">
-                <a
-                  href="/trai-dlt-policy"
-                  className="rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 text-xs font-semibold shadow-xs transition-colors"
+                <Link
+                  to="/trai-dlt-policy"
+                  className="rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 text-xs font-semibold shadow-xs transition-colors whitespace-nowrap"
                 >
                   View TRAI DLT Policy →
-                </a>
+                </Link>
               </div>
             </div>
           </ScrollReveal>
         </div>
       </section>
-
-      <CTASection />
     </div>
   )
 }

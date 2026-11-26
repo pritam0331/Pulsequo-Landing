@@ -25,17 +25,8 @@ export function SectionHeading({
   const isCenter = align === 'center'
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: { staggerChildren: 0.08 },
-        },
-      }}
-      className={`max-w-3xl ${
+    <div
+      className={`max-w-4xl ${
         isCenter ? 'mx-auto text-center' : 'text-left'
       } ${className}`}
     >
@@ -43,31 +34,27 @@ export function SectionHeading({
         as="h2"
         text={title}
         trigger="inView"
-        delay={0.04}
-        stagger={0.035}
-        duration={0.5}
-        className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.12] text-balance ${
-          dark ? 'text-white' : 'text-slate-900'
+        delay={0.03}
+        stagger={0.032}
+        duration={0.48}
+        className={`text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-[-0.02em] leading-[1.18] text-balance ${
+          dark ? 'text-white' : 'text-black'
         }`}
       />
 
       {description && (
         <motion.p
-          variants={{
-            hidden: { opacity: 0, y: 12 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-            },
-          }}
-          className={`mt-4 text-base sm:text-lg leading-relaxed font-normal text-pretty ${
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 'some' }}
+          transition={{ duration: 0.45, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className={`mt-3 max-w-2xl ${isCenter ? 'mx-auto' : ''} text-sm sm:text-base lg:text-[17px] leading-relaxed font-normal text-pretty ${
             dark ? 'text-slate-400' : 'text-slate-600'
           }`}
         >
           {description}
         </motion.p>
       )}
-    </motion.div>
+    </div>
   )
 }

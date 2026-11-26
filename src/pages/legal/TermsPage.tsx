@@ -3,10 +3,10 @@
  * Route: /terms
  */
 
-import { FileText, Shield, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Shield, CheckCircle2, AlertCircle } from 'lucide-react'
 import { SEO } from '../../components/common/SEO'
 import { Breadcrumbs } from '../../components/common/Breadcrumbs'
-import { CTASection } from '../../components/common/CTASection'
+import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
 import { ScrollReveal } from '../../components/common/ScrollReveal'
 
 export function TermsPage() {
@@ -92,8 +92,13 @@ Upon termination, Customer Data may be exported within 30 days via JSON/CSV expo
       />
 
       {/* Hero Header */}
-      <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <section
+        data-cursor-zone="hero"
+        className="relative overflow-hidden bg-white pt-10 pb-14 sm:pt-14 sm:pb-18"
+      >
+        <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal direction="down" duration={0.4}>
             <Breadcrumbs
               items={[
@@ -103,12 +108,7 @@ Upon termination, Customer Data may be exported within 30 days via JSON/CSV expo
               className="justify-center mb-6"
             />
 
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
-              <FileText className="size-3.5 text-blue-600" />
-              <span>Legal & Commercial Agreement</span>
-            </span>
-
-            <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-[-0.03em] leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
               Terms of Service
             </h1>
 
@@ -116,7 +116,7 @@ Upon termination, Customer Data may be exported within 30 days via JSON/CSV expo
               Effective Date: {lastUpdated} · Version 3.4
             </p>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto text-pretty">
               Please review these terms carefully. They outline your legal rights, carrier pass-through obligations,
               service level guarantees, and permitted use of the PulseQuo platform.
             </p>
@@ -125,9 +125,9 @@ Upon termination, Customer Data may be exported within 30 days via JSON/CSV expo
       </section>
 
       {/* Main Legal Content & Quick Index */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-14 sm:py-20 section-fade-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
             {/* Quick Sticky Table of Contents */}
             <aside className="lg:col-span-4 lg:sticky lg:top-28">
               <ScrollReveal direction="left" delay={0.1}>
@@ -166,7 +166,7 @@ Upon termination, Customer Data may be exported within 30 days via JSON/CSV expo
             </aside>
 
             {/* Legal Articles */}
-            <main className="lg:col-span-8 space-y-12">
+            <div className="lg:col-span-8 space-y-12">
               <ScrollReveal direction="up" delay={0.15}>
                 {/* Important Notice Callout */}
                 <div className="rounded-xl border border-blue-200 bg-blue-50/50 p-6 mb-8 text-xs text-blue-900 leading-relaxed flex items-start gap-3">
@@ -199,7 +199,7 @@ Upon termination, Customer Data may be exported within 30 days via JSON/CSV expo
                 </div>
 
                 {/* Legal Contact Card */}
-                <div className="mt-12 rounded-xl border border-slate-200 bg-slate-50 p-6 text-xs text-slate-600">
+                <div className="mt-12 rounded-xl border border-slate-200 bg-white p-6 text-xs text-slate-600">
                   <h4 className="text-sm font-bold text-slate-900 mb-2">Legal & Regulatory Inquiries</h4>
                   <p className="leading-relaxed">
                     For contractual queries, master service agreement amendments, or regulatory correspondence, please contact:
@@ -210,12 +210,10 @@ Upon termination, Customer Data may be exported within 30 days via JSON/CSV expo
                   </p>
                 </div>
               </ScrollReveal>
-            </main>
+            </div>
           </div>
         </div>
       </section>
-
-      <CTASection />
     </div>
   )
 }

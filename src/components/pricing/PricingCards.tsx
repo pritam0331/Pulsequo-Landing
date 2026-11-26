@@ -12,25 +12,39 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { pricingTiers, pricingAdditionalSupport, type PricingPlanTier } from '../../data/pricing'
+import { HorizontalCardCarousel } from '../common/HorizontalCardCarousel'
+import { PricingCardsSkeleton, useCardHydration } from '../common/CardSkeleton'
 
 interface PricingCardsProps {
   className?: string
   defaultAnnual?: boolean
   showAdditionalSupport?: boolean
+  isLoading?: boolean
 }
 
 export function PricingCards({
   className = '',
   defaultAnnual = true,
   showAdditionalSupport = true,
+  isLoading,
 }: PricingCardsProps) {
   const [isAnnual, setIsAnnual] = useState(defaultAnnual)
+  const isHydrated = useCardHydration(200)
+  const showSkeleton = isLoading ?? !isHydrated
+
+  if (showSkeleton) {
+    return (
+      <div aria-busy="true" aria-label="Loading pricing plans">
+        <PricingCardsSkeleton
+          showAdditionalSupport={showAdditionalSupport}
+          className={className}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className={`w-full ${className}`}>
-      {/* ─────────────────────────────────────────────────────────────
-          1. ANNUAL / MONTHLY BILLING TOGGLE (Animated layoutId Segmented Control)
-         ───────────────────────────────────────────────────────────── */}
       <div className="flex flex-col items-center justify-center">
         <div className="inline-flex items-center gap-1 p-1.5 rounded-2xl bg-slate-100 border border-slate-200/90 shadow-inner">
           <button
@@ -85,10 +99,15 @@ export function PricingCards({
         </p>
       </div>
 
-      {/* ─────────────────────────────────────────────────────────────
-          2. BALANCED 3-COLUMN PRICING CARDS GRID (Starter, Growth, Enterprise)
-         ───────────────────────────────────────────────────────────── */}
-      <div className="mt-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+      <div className="mt-7 sm:mt-9 max-w-5xl mx-auto">
+        <HorizontalCardCarousel
+          mode="mobile"
+          itemCount={pricingTiers.length}
+          ariaLabel="Pricing plans"
+          counterLabel="Swipe plans"
+          desktopGridClassName="lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible"
+          disableSkeleton={true}
+        >
         {pricingTiers.map((plan: PricingPlanTier, idx: number) => {
           const isPopular = plan.popular
           const isEnterprise = plan.id === 'enterprise'
@@ -104,132 +123,129 @@ export function PricingCards({
           return (
             <motion.div
               key={plan.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.45, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -5, transition: { type: 'spring', stiffness: 340, damping: 26 } }}
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{ duration: 0.42, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4, transition: { type: 'spring', stiffness: 360, damping: 26 } }}
               data-cursor="glass"
-              className={`group relative rounded-2xl overflow-hidden flex flex-col justify-between transition-shadow duration-300 bg-white ${
+              className={`snap-center shrink-0 w-[84vw] max-w-[332px] sm:w-[340px] lg:w-auto lg:max-w-none group relative rounded-2xl overflow-hidden flex flex-col justify-between transition-shadow duration-300 bg-white ${
                 isPopular
-                  ? 'border-2 border-blue-600 shadow-xl shadow-blue-900/10'
-                  : 'border border-slate-200/90 shadow-sm hover:border-blue-300/90 hover:shadow-lg hover:shadow-slate-900/5'
+                  ? 'border-[1.5px] border-blue-600 shadow-[0_14px_34px_-12px_rgba(21,93,252,0.22)]'
+                  : 'border border-slate-200/90 shadow-xs hover:border-blue-300/90 hover:shadow-lg hover:shadow-slate-900/5'
               }`}
             >
-              {/* Uniform Top Accent Strip across all 3 cards */}
               <div
-                className={`h-1.5 w-full ${
+                className={`h-[4px] w-full ${
                   isPopular
                     ? 'bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500'
                     : isEnterprise
-                      ? 'bg-gradient-to-r from-purple-500/70 via-indigo-500/70 to-blue-500/70'
-                      : 'bg-gradient-to-r from-sky-400/70 via-blue-500/70 to-indigo-400/70'
+                      ? 'bg-gradient-to-r from-indigo-500/80 via-purple-500/80 to-blue-500/80'
+                      : 'bg-gradient-to-r from-sky-400/80 via-blue-500/80 to-indigo-400/80'
                 }`}
               />
 
-              <div className="p-6 sm:p-7 flex flex-col flex-1 min-h-[476px]">
-                {/* Aligned Plan Header Row */}
-                <div className="flex items-center justify-between gap-2 min-h-[40px]">
-                  <div className="flex items-center gap-2.5">
+              <div className="p-5 sm:p-6 flex flex-col flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-3 min-w-0">
                     <div
-                      className={`size-9 rounded-xl border flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200 ${
+                      className={`size-10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200 ${
                         isPopular
-                          ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white border-blue-600 shadow-xs'
+                          ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-600/25'
                           : isEnterprise
-                            ? 'bg-purple-50 text-purple-600 border-purple-200/80'
-                            : 'bg-blue-50 text-blue-600 border-blue-200/80'
+                            ? 'bg-indigo-50 text-indigo-600 border border-indigo-200/80'
+                            : 'bg-blue-50 text-blue-600 border border-blue-200/80'
                       }`}
                     >
-                      {plan.id === 'starter' && <Zap className="size-4" />}
-                      {plan.id === 'growth' && <Sparkles className="size-4" />}
-                      {plan.id === 'enterprise' && <Building2 className="size-4" />}
+                      {plan.id === 'starter' && <Zap className="size-4.5" />}
+                      {plan.id === 'growth' && <Sparkles className="size-4.5" />}
+                      {plan.id === 'enterprise' && <Building2 className="size-4.5" />}
                     </div>
-                    <h3 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+                    <h3 className="text-xl font-extrabold text-slate-900 tracking-tight truncate">
                       {plan.name}
                     </h3>
                   </div>
 
                   {isPopular ? (
-                    <span className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-2.5 py-1 text-[10.5px] font-bold text-white shadow-2xs whitespace-nowrap">
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-blue-600 px-2.5 py-1 text-[11px] font-bold text-white shadow-2xs whitespace-nowrap shrink-0">
                       <Sparkles className="size-3" />
                       <span>{plan.badge || 'Most Popular'}</span>
                     </span>
                   ) : (
                     plan.badge && (
-                      <span className="text-[11px] font-semibold text-slate-500 whitespace-nowrap">
+                      <span className="text-[11px] font-semibold text-slate-500 whitespace-nowrap shrink-0">
                         {plan.badge}
                       </span>
                     )
                   )}
                 </div>
 
-                {/* Target Audience Description (Fixed uniform height) */}
-                <p className="mt-3.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed min-h-[46px]">
+                <p className="mt-3 text-[13.5px] text-slate-500 leading-snug min-h-[38px]">
                   {plan.targetAudience}
                 </p>
 
-                {/* Uniform Price Well (Pixel-aligned across all 3 cards) */}
                 <div
-                  className={`mt-4 rounded-xl px-4 py-4 border min-h-[96px] flex flex-col justify-center ${
+                  className={`mt-4 rounded-xl px-4 py-3.5 border flex flex-col justify-center ${
                     isPopular
-                      ? 'bg-blue-50/70 border-blue-100'
-                      : 'bg-slate-50/85 border-slate-100'
+                      ? 'bg-[#f4f7ff] border-blue-200/75'
+                      : 'bg-slate-50/90 border-slate-200/75'
                   }`}
                 >
                   <div className="flex items-baseline gap-1.5">
                     <AnimatePresence mode="wait">
                       <motion.span
                         key={currentPrice}
-                        initial={{ opacity: 0, y: 6 }}
+                        initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight tabular-nums leading-none"
+                        exit={{ opacity: 0, y: -5 }}
+                        transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                        className="text-[34px] sm:text-[38px] font-black text-slate-950 tracking-[-0.03em] tabular-nums leading-none"
                       >
                         {currentPrice}
                       </motion.span>
                     </AnimatePresence>
-
                     {!isEnterprise && (
-                      <span className="text-xs font-semibold text-slate-500">/ month</span>
+                      <span className="text-[13px] font-medium text-slate-500">/ month</span>
                     )}
-
                     {isAnnual && !isEnterprise && originalMonthlyPrice && (
-                      <span className="text-xs text-slate-400 line-through ml-1 font-medium tabular-nums">
+                      <span className="text-[13px] text-slate-400 line-through ml-1 font-medium tabular-nums">
                         {originalMonthlyPrice}
                       </span>
                     )}
                   </div>
 
-                  <div className="mt-2 text-[11px] text-slate-500 flex items-center gap-1.5">
+                  <div className="mt-1.5 text-xs flex items-center gap-1.5">
                     {isEnterprise ? (
-                      <span className="font-medium text-purple-700">
+                      <span className="font-semibold text-indigo-700">
                         Custom dedicated scale &amp; SLAs
                       </span>
                     ) : isAnnual ? (
-                      <span className="text-emerald-700 font-semibold">
+                      <span className="text-emerald-600 font-semibold">
                         Billed annually · {plan.discountText}
                       </span>
                     ) : (
-                      <span>Billed monthly · Cancel anytime</span>
+                      <span className="text-slate-500 font-medium">Billed monthly · Cancel anytime</span>
                     )}
                   </div>
                 </div>
 
-                {/* Features List (Expands evenly so footer buttons always align) */}
-                <div className="mt-6 flex-1">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                <div className="mt-5 flex-1">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-slate-400">
                     What&apos;s Included
                   </p>
-                  <ul className="mt-3.5 space-y-3">
-                    {plan.features.map((feature: string, fIdx: number) => (
-                      <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700">
+                  <ul className="mt-3 space-y-2.5">
+                    {plan.features.map((feature, fIdx) => (
+                      <li
+                        key={fIdx}
+                        className="flex items-center gap-2.5 text-[13.5px] font-medium text-slate-800"
+                      >
                         <CheckCircle2
-                          className={`size-4 shrink-0 mt-0.5 ${
+                          strokeWidth={1.9}
+                          className={`size-[17px] shrink-0 ${
                             isPopular
                               ? 'text-blue-600'
                               : isEnterprise
-                                ? 'text-purple-600'
+                                ? 'text-indigo-600'
                                 : 'text-emerald-600'
                           }`}
                         />
@@ -239,23 +255,21 @@ export function PricingCards({
                   </ul>
                 </div>
 
-                {/* Call to Action Footer (Pinned to bottom) */}
-                <div className="mt-7 pt-5 border-t border-slate-100">
+                <div className="mt-5 pt-4 border-t border-slate-100">
                   <Link
                     to={plan.ctaHref}
-                    className={`group w-full inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs sm:text-sm font-bold transition-all shadow-xs ${
+                    className={`group w-full inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition-all ${
                       isPopular
-                        ? 'btn-shine bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25'
+                        ? 'btn-shine bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-600/20'
                         : isEnterprise
-                          ? 'bg-slate-900 hover:bg-indigo-700 text-white'
-                          : 'bg-slate-900 hover:bg-blue-600 text-white'
+                          ? 'bg-[#070d24] hover:bg-indigo-700 text-white shadow-xs'
+                          : 'bg-[#070d24] hover:bg-blue-600 text-white shadow-xs'
                     }`}
                   >
                     <span>{plan.ctaText}</span>
-                    <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                    <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
                   </Link>
-
-                  <p className="mt-2.5 text-center text-[11px] text-slate-400">
+                  <p className="mt-2.5 text-center text-[11.5px] text-slate-400">
                     {isEnterprise
                       ? 'No commitment · Speak with enterprise engineers'
                       : 'Instant activation · No credit card required'}
@@ -265,11 +279,9 @@ export function PricingCards({
             </motion.div>
           )
         })}
+        </HorizontalCardCarousel>
       </div>
 
-      {/* ─────────────────────────────────────────────────────────────
-          3. ADDITIONAL SUPPORT / INFO CARD (Compact Concierge Box)
-         ───────────────────────────────────────────────────────────── */}
       {showAdditionalSupport && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}

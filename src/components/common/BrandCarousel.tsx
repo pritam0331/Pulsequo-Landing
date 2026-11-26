@@ -123,11 +123,8 @@ export function BrandCarousel({ className = '' }: { className?: string }) {
   const marqueeItems = [...BRANDS, ...BRANDS]
 
   return (
-    <section className={`relative py-10 sm:py-12 section-fade-tint overflow-hidden select-none ${className}`}>
-      {/* Background ambient gradient glow */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-50/45 via-transparent to-transparent opacity-70" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <section className={`relative py-5 sm:py-6 bg-white overflow-hidden select-none ${className}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -168,7 +165,7 @@ export function BrandCarousel({ className = '' }: { className?: string }) {
             <div
               key={`${brand.name}-${idx}`}
               data-cursor="glass"
-              className="inline-flex items-center gap-3.5 mx-3 px-4 py-2.5 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/80 shadow-2xs hover:-translate-y-0.5 hover:border-blue-400/80 hover:shadow-md hover:shadow-blue-600/5 transition-all duration-200 group cursor-default"
+              className="inline-flex items-center gap-3.5 mx-3 px-4 py-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:-translate-y-0.5 hover:border-blue-400/80 hover:shadow-md hover:shadow-blue-600/5 transition-[transform,border-color,box-shadow] duration-200 group cursor-default"
             >
               <div className="size-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:scale-110 group-hover:-rotate-3 group-hover:bg-blue-50/50 transition-all duration-200">
                 {brand.logo}

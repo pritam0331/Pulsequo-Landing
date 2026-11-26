@@ -59,13 +59,22 @@ export function Navbar() {
     }
   }, [mobileMenuOpen])
 
-  // Track scroll for sticky backdrop blur and shadow
+  // Track scroll for sticky elevation (rAF-throttled, zero redundant renders)
   useEffect(() => {
+    let rafId: number | null = null
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 12)
+      if (rafId !== null) return
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null
+        const next = window.scrollY > 12
+        setIsScrolled((prev) => (prev === next ? prev : next))
+      })
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId !== null) window.cancelAnimationFrame(rafId)
+    }
   }, [])
 
   // Close dropdowns on outside click
@@ -89,10 +98,10 @@ export function Navbar() {
       >
         <div
           data-cursor="glass"
-          className={`max-w-7xl mx-auto rounded-2xl border transition-all duration-300 ${
+          className={`max-w-7xl mx-auto rounded-2xl border transition-[box-shadow,border-color,background-color] duration-200 ${
             isScrolled
-              ? 'bg-white/95 backdrop-blur-xl border-slate-200/95 shadow-lg shadow-slate-900/5 py-1.5 px-3 sm:px-5'
-              : 'bg-white/88 backdrop-blur-md border-slate-200/75 shadow-xs py-1.5 px-3 sm:px-5'
+              ? 'bg-white/98 border-slate-200/95 shadow-lg shadow-slate-900/6 py-1.5 px-3 sm:px-5'
+              : 'bg-white/95 border-slate-200/75 shadow-xs py-1.5 px-3 sm:px-5'
           }`}
         >
           <div className="flex items-center justify-between gap-6 h-9 sm:h-10">

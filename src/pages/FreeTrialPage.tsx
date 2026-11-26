@@ -5,42 +5,44 @@
 
 import { SEO } from '../components/common/SEO'
 import { Breadcrumbs } from '../components/common/Breadcrumbs'
+import { BackgroundAnimation } from '../components/common/BackgroundAnimation'
 import { ScrollReveal } from '../components/common/ScrollReveal'
-import { WhatsAppContactBanner } from '../components/common/WhatsAppContactBanner'
+import { DemoRequestForm } from '../components/forms/DemoRequestForm'
 
 export function FreeTrialPage() {
   return (
     <div className="relative">
       <SEO
-        title="Start Growing on WhatsApp Today | Free Forever Plan"
-        description="Sign up in 2 minutes for the official WhatsApp Business API free. Broadcast offers, automate replies with AI, and sell more on WhatsApp."
+        title="Get Started with PulseQuo | Free Sandbox & Platform Trial"
+        description="Get started with PulseQuo's unified messaging, Sales CRM, Support Helpdesk, and AI automation platform."
         canonicalPath="/free-trial"
       />
 
       {/* Hero Intro */}
-      <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-12 border-b border-slate-100">
-        <ScrollReveal direction="up" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <Breadcrumbs items={[{ label: 'Free Forever Plan' }]} className="justify-center mb-6" />
+      <section
+        data-cursor-zone="hero"
+        className="relative overflow-hidden bg-white pt-10 pb-12 sm:pt-14 sm:pb-16"
+      >
+        <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
 
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-emerald-100/80 border border-emerald-200 px-3 py-1 text-xs font-semibold text-emerald-800 mb-6">
-            <span>Instant Sandbox Activation · No Credit Card Required</span>
-          </span>
+        <ScrollReveal direction="up" className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Breadcrumbs items={[{ label: 'Get Started' }]} className="justify-center mb-6" />
 
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Official WhatsApp Business API Free
+          <h1 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-black text-slate-900 tracking-[-0.03em] leading-[1.16] text-balance">
+            Get Started with PulseQuo
           </h1>
 
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Get started right now. Broadcast campaigns, qualify leads with AI, and integrate your favorite CRM tools.
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto text-pretty">
+            Request your workspace sandbox to explore omnichannel messaging, CRM pipelines, and AI workflows with our team.
           </p>
         </ScrollReveal>
       </section>
 
-      {/* WhatsApp Banner Container */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Onboarding Form */}
+      <section className="py-14 sm:py-16 section-fade-tint">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up" delay={0.1}>
-            <WhatsAppContactBanner />
+            <DemoRequestForm initialProductInterest="Complete PulseQuo Platform" />
           </ScrollReveal>
         </div>
       </section>

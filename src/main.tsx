@@ -1,42 +1,59 @@
-import { StrictMode } from 'react'
+import { StrictMode, Suspense, lazy, type ComponentType } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import './index.css'
 
-// Marketing Website Pages & Layout
 import { MarketingLayout } from '@/components/layout/MarketingLayout'
-import { MarketingHomePage } from '@/pages/HomePage'
-import { CommunicationCloudPage } from '@/pages/products/CommunicationCloudPage'
-import { SalesCRMPage } from '@/pages/products/SalesCRMPage'
-import { SupportCRMPage } from '@/pages/products/SupportCRMPage'
-import { AIAutomationPage } from '@/pages/products/AIAutomationPage'
-import { SolutionsPage } from '@/pages/solutions/SolutionsPage'
-import { SalesTeamsPage } from '@/pages/solutions/SalesTeamsPage'
-import { CustomerSupportPage } from '@/pages/solutions/CustomerSupportPage'
-import { MarketingTeamsPage } from '@/pages/solutions/MarketingTeamsPage'
-import { StartupsPage } from '@/pages/solutions/StartupsPage'
-import { EnterprisesPage } from '@/pages/solutions/EnterprisesPage'
-import { IntegrationsPage } from '@/pages/IntegrationsPage'
-import { PricingPage } from '@/pages/PricingPage'
-import { AboutPage } from '@/pages/AboutPage'
-import { ContactPage } from '@/pages/ContactPage'
-import { CareersPage } from '@/pages/CareersPage'
-import { ResourcesPage } from '@/pages/resources/ResourcesPage'
-import { BlogListingPage } from '@/pages/resources/BlogListingPage'
-import { BlogDetailPage } from '@/pages/resources/BlogDetailPage'
-import { GuidesPage } from '@/pages/resources/GuidesPage'
-import { DevelopersPage } from '@/pages/developers/DevelopersPage'
-import { ApiDocsPage } from '@/pages/developers/ApiDocsPage'
-import { WebhooksDocsPage } from '@/pages/developers/WebhooksDocsPage'
-import { BookDemoPage } from '@/pages/BookDemoPage'
-import { FreeTrialPage } from '@/pages/FreeTrialPage'
-import { NotFoundPage } from '@/pages/NotFoundPage'
 import { RouteErrorBoundary } from '@/components/common/ErrorBoundary'
-import { TermsPage } from '@/pages/legal/TermsPage'
-import { PrivacyPage } from '@/pages/legal/PrivacyPage'
-import { TraiDltPolicyPage } from '@/pages/legal/TraiDltPolicyPage'
-import { TraiGuidelinesPage } from '@/pages/legal/TraiGuidelinesPage'
-import { SecurityGdprPage } from '@/pages/legal/SecurityGdprPage'
+import { MarketingHomePage } from '@/pages/HomePage'
+
+function lazyNamed<T extends Record<string, ComponentType>>(
+  loader: () => Promise<T>,
+  exportName: keyof T
+) {
+  return lazy(() => loader().then((mod) => ({ default: mod[exportName] })))
+}
+
+const CommunicationCloudPage = lazyNamed(() => import('@/pages/products/CommunicationCloudPage'), 'CommunicationCloudPage')
+const SalesCRMPage = lazyNamed(() => import('@/pages/products/SalesCRMPage'), 'SalesCRMPage')
+const SupportCRMPage = lazyNamed(() => import('@/pages/products/SupportCRMPage'), 'SupportCRMPage')
+const AIAutomationPage = lazyNamed(() => import('@/pages/products/AIAutomationPage'), 'AIAutomationPage')
+const SolutionsPage = lazyNamed(() => import('@/pages/solutions/SolutionsPage'), 'SolutionsPage')
+const SalesTeamsPage = lazyNamed(() => import('@/pages/solutions/SalesTeamsPage'), 'SalesTeamsPage')
+const CustomerSupportPage = lazyNamed(() => import('@/pages/solutions/CustomerSupportPage'), 'CustomerSupportPage')
+const MarketingTeamsPage = lazyNamed(() => import('@/pages/solutions/MarketingTeamsPage'), 'MarketingTeamsPage')
+const StartupsPage = lazyNamed(() => import('@/pages/solutions/StartupsPage'), 'StartupsPage')
+const EnterprisesPage = lazyNamed(() => import('@/pages/solutions/EnterprisesPage'), 'EnterprisesPage')
+const IntegrationsPage = lazyNamed(() => import('@/pages/IntegrationsPage'), 'IntegrationsPage')
+const PricingPage = lazyNamed(() => import('@/pages/PricingPage'), 'PricingPage')
+const AboutPage = lazyNamed(() => import('@/pages/AboutPage'), 'AboutPage')
+const ContactPage = lazyNamed(() => import('@/pages/ContactPage'), 'ContactPage')
+const CareersPage = lazyNamed(() => import('@/pages/CareersPage'), 'CareersPage')
+const ResourcesPage = lazyNamed(() => import('@/pages/resources/ResourcesPage'), 'ResourcesPage')
+const BlogListingPage = lazyNamed(() => import('@/pages/resources/BlogListingPage'), 'BlogListingPage')
+const BlogDetailPage = lazyNamed(() => import('@/pages/resources/BlogDetailPage'), 'BlogDetailPage')
+const GuidesPage = lazyNamed(() => import('@/pages/resources/GuidesPage'), 'GuidesPage')
+const DevelopersPage = lazyNamed(() => import('@/pages/developers/DevelopersPage'), 'DevelopersPage')
+const ApiDocsPage = lazyNamed(() => import('@/pages/developers/ApiDocsPage'), 'ApiDocsPage')
+const WebhooksDocsPage = lazyNamed(() => import('@/pages/developers/WebhooksDocsPage'), 'WebhooksDocsPage')
+const BookDemoPage = lazyNamed(() => import('@/pages/BookDemoPage'), 'BookDemoPage')
+const FreeTrialPage = lazyNamed(() => import('@/pages/FreeTrialPage'), 'FreeTrialPage')
+const NotFoundPage = lazyNamed(() => import('@/pages/NotFoundPage'), 'NotFoundPage')
+const TermsPage = lazyNamed(() => import('@/pages/legal/TermsPage'), 'TermsPage')
+const PrivacyPage = lazyNamed(() => import('@/pages/legal/PrivacyPage'), 'PrivacyPage')
+const TraiDltPolicyPage = lazyNamed(() => import('@/pages/legal/TraiDltPolicyPage'), 'TraiDltPolicyPage')
+const TraiGuidelinesPage = lazyNamed(() => import('@/pages/legal/TraiGuidelinesPage'), 'TraiGuidelinesPage')
+const SecurityGdprPage = lazyNamed(() => import('@/pages/legal/SecurityGdprPage'), 'SecurityGdprPage')
+
+function PageFallback() {
+  return <div className="min-h-[60vh] bg-white" aria-busy="true" />
+}
+
+const withSuspense = (Component: ComponentType) => (
+  <Suspense fallback={<PageFallback />}>
+    <Component />
+  </Suspense>
+)
 
 const router = createBrowserRouter([
   {
@@ -44,51 +61,43 @@ const router = createBrowserRouter([
     errorElement: <RouteErrorBoundary />,
     children: [
       { path: '/', element: <MarketingHomePage /> },
-      // Product Detail Pages
-      { path: '/products/communication-cloud', element: <CommunicationCloudPage /> },
-      { path: '/products/sales-crm', element: <SalesCRMPage /> },
-      { path: '/products/support-crm', element: <SupportCRMPage /> },
-      { path: '/products/ai-automation', element: <AIAutomationPage /> },
-      // Solutions Pages
-      { path: '/solutions', element: <SolutionsPage /> },
-      { path: '/solutions/sales-teams', element: <SalesTeamsPage /> },
-      { path: '/solutions/customer-support', element: <CustomerSupportPage /> },
-      { path: '/solutions/marketing-teams', element: <MarketingTeamsPage /> },
-      { path: '/solutions/startups', element: <StartupsPage /> },
-      { path: '/solutions/enterprises', element: <EnterprisesPage /> },
-      // Directory & Commercial Pages
-      { path: '/integrations', element: <IntegrationsPage /> },
-      { path: '/pricing', element: <PricingPage /> },
-      // Company Pages
-      { path: '/about', element: <AboutPage /> },
-      { path: '/contact', element: <ContactPage /> },
-      { path: '/careers', element: <CareersPage /> },
-      // Resources & Developer Pages
-      { path: '/resources', element: <ResourcesPage /> },
-      { path: '/resources/blog', element: <BlogListingPage /> },
-      { path: '/resources/blog/:slug', element: <BlogDetailPage /> },
-      { path: '/resources/guides', element: <GuidesPage /> },
-      { path: '/developers', element: <DevelopersPage /> },
-      { path: '/developers/api-documentation', element: <ApiDocsPage /> },
-      { path: '/developers/webhooks', element: <WebhooksDocsPage /> },
-      // Demo Conversion & Free Forever Offer
-      { path: '/book-demo', element: <BookDemoPage /> },
-      { path: '/free-trial', element: <FreeTrialPage /> },
-      { path: '/signup', element: <FreeTrialPage /> },
-      { path: '/free-forever', element: <FreeTrialPage /> },
-      // Legal & Compliance Pages
-      { path: '/terms', element: <TermsPage /> },
-      { path: '/terms-of-service', element: <TermsPage /> },
-      { path: '/privacy', element: <PrivacyPage /> },
-      { path: '/privacy-policy', element: <PrivacyPage /> },
-      { path: '/trai-dlt-policy', element: <TraiDltPolicyPage /> },
-      { path: '/dlt-policy', element: <TraiDltPolicyPage /> },
-      { path: '/trai-guidelines', element: <TraiGuidelinesPage /> },
-      { path: '/guidelines/trai', element: <TraiGuidelinesPage /> },
-      { path: '/security-gdpr', element: <SecurityGdprPage /> },
-      { path: '/security', element: <SecurityGdprPage /> },
-      // 404 Catch-All
-      { path: '*', element: <NotFoundPage /> },
+      { path: '/products/communication-cloud', element: withSuspense(CommunicationCloudPage) },
+      { path: '/products/sales-crm', element: withSuspense(SalesCRMPage) },
+      { path: '/products/support-crm', element: withSuspense(SupportCRMPage) },
+      { path: '/products/ai-automation', element: withSuspense(AIAutomationPage) },
+      { path: '/solutions', element: withSuspense(SolutionsPage) },
+      { path: '/solutions/sales-teams', element: withSuspense(SalesTeamsPage) },
+      { path: '/solutions/customer-support', element: withSuspense(CustomerSupportPage) },
+      { path: '/solutions/marketing-teams', element: withSuspense(MarketingTeamsPage) },
+      { path: '/solutions/startups', element: withSuspense(StartupsPage) },
+      { path: '/solutions/enterprises', element: withSuspense(EnterprisesPage) },
+      { path: '/integrations', element: withSuspense(IntegrationsPage) },
+      { path: '/pricing', element: withSuspense(PricingPage) },
+      { path: '/about', element: withSuspense(AboutPage) },
+      { path: '/contact', element: withSuspense(ContactPage) },
+      { path: '/careers', element: withSuspense(CareersPage) },
+      { path: '/resources', element: withSuspense(ResourcesPage) },
+      { path: '/resources/blog', element: withSuspense(BlogListingPage) },
+      { path: '/resources/blog/:slug', element: withSuspense(BlogDetailPage) },
+      { path: '/resources/guides', element: withSuspense(GuidesPage) },
+      { path: '/developers', element: withSuspense(DevelopersPage) },
+      { path: '/developers/api-documentation', element: withSuspense(ApiDocsPage) },
+      { path: '/developers/webhooks', element: withSuspense(WebhooksDocsPage) },
+      { path: '/book-demo', element: withSuspense(BookDemoPage) },
+      { path: '/free-trial', element: withSuspense(FreeTrialPage) },
+      { path: '/signup', element: withSuspense(FreeTrialPage) },
+      { path: '/free-forever', element: withSuspense(FreeTrialPage) },
+      { path: '/terms', element: withSuspense(TermsPage) },
+      { path: '/terms-of-service', element: withSuspense(TermsPage) },
+      { path: '/privacy', element: withSuspense(PrivacyPage) },
+      { path: '/privacy-policy', element: withSuspense(PrivacyPage) },
+      { path: '/trai-dlt-policy', element: withSuspense(TraiDltPolicyPage) },
+      { path: '/dlt-policy', element: withSuspense(TraiDltPolicyPage) },
+      { path: '/trai-guidelines', element: withSuspense(TraiGuidelinesPage) },
+      { path: '/guidelines/trai', element: withSuspense(TraiGuidelinesPage) },
+      { path: '/security-gdpr', element: withSuspense(SecurityGdprPage) },
+      { path: '/security', element: withSuspense(SecurityGdprPage) },
+      { path: '*', element: withSuspense(NotFoundPage) },
     ],
   },
 ])
@@ -98,4 +107,3 @@ createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />
   </StrictMode>
 )
-

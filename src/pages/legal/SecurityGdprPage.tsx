@@ -3,11 +3,12 @@
  * Route: /security-gdpr
  */
 
-import { ShieldCheck, Lock, Server, CheckCircle2, Cpu, Key, FileCheck } from 'lucide-react'
+import { Lock, Server, CheckCircle2, Cpu, Key, FileCheck } from 'lucide-react'
 import { SEO } from '../../components/common/SEO'
 import { Breadcrumbs } from '../../components/common/Breadcrumbs'
-import { CTASection } from '../../components/common/CTASection'
+import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
 import { ScrollReveal } from '../../components/common/ScrollReveal'
+import { CardSectionHydrator, CardGridSkeleton } from '../../components/common/CardSkeleton'
 
 export function SecurityGdprPage() {
   const lastUpdated = 'November 16, 2026'
@@ -97,8 +98,13 @@ To countersign our DPA, please download the standard agreement or contact our co
       />
 
       {/* Hero Header */}
-      <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <section
+        data-cursor-zone="hero"
+        className="relative overflow-hidden bg-white pt-10 pb-14 sm:pt-14 sm:pb-18"
+      >
+        <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal direction="down" duration={0.4}>
             <Breadcrumbs
               items={[
@@ -108,20 +114,15 @@ To countersign our DPA, please download the standard agreement or contact our co
               className="justify-center mb-6"
             />
 
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
-              <ShieldCheck className="size-3.5 text-blue-600" />
-              <span>Enterprise Trust & Cryptographic Assurance</span>
-            </span>
-
-            <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-[-0.03em] leading-tight">
-              Security Architecture & GDPR Compliance
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
+              Security Architecture &amp; GDPR Compliance
             </h1>
 
             <p className="mt-4 text-xs font-mono text-slate-500">
-              Audit Standard: SOC 2 & ISO 27001 Aligned · Effective Date: {lastUpdated}
+              Audit Standard: SOC 2 &amp; ISO 27001 Aligned · Effective Date: {lastUpdated}
             </p>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto text-pretty">
               Explore how PulseQuo protects enterprise communications with zero-trust multi-tenancy,
               AES-256 encryption at rest, sandboxed AI tool execution, and full European GDPR compliance.
             </p>
@@ -130,34 +131,45 @@ To countersign our DPA, please download the standard agreement or contact our co
       </section>
 
       {/* Security Architecture Grid */}
-      <section className="py-16 bg-white border-b border-slate-100">
+      <section className="py-14 sm:py-16 section-fade-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {securityBadges.map((badge, idx) => (
-              <ScrollReveal key={badge.title} direction="up" delay={idx * 0.08}>
-                <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-6 h-full flex flex-col justify-between hover:border-blue-300 transition-colors shadow-2xs">
-                  <div>
-                    <div className="size-11 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-5 border border-blue-100">
-                      <badge.icon className="size-5" />
+          <CardSectionHydrator
+            ariaLabel="Loading security architecture cards"
+            skeleton={
+              <CardGridSkeleton
+                count={securityBadges.length}
+                variant="security"
+                columnsClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+              />
+            }
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {securityBadges.map((badge, idx) => (
+                <ScrollReveal key={badge.title} direction="up" delay={idx * 0.08}>
+                  <div className="rounded-xl border border-slate-200 bg-white p-6 h-full flex flex-col justify-between hover:border-blue-300 transition-colors shadow-2xs">
+                    <div>
+                      <div className="size-11 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-5 border border-blue-100">
+                        <badge.icon className="size-5" />
+                      </div>
+                      <h3 className="text-base font-bold text-slate-900">{badge.title}</h3>
+                      <p className="mt-2 text-xs text-slate-600 leading-relaxed font-sans">
+                        {badge.desc}
+                      </p>
                     </div>
-                    <h3 className="text-base font-bold text-slate-900">{badge.title}</h3>
-                    <p className="mt-2 text-xs text-slate-600 leading-relaxed font-sans">
-                      {badge.desc}
-                    </p>
+                    <div className="mt-5 pt-3 border-t border-slate-200/80 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600">
+                      <CheckCircle2 className="size-3.5" />
+                      <span>Verified Enterprise Standard</span>
+                    </div>
                   </div>
-                  <div className="mt-5 pt-3 border-t border-slate-200/80 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600">
-                    <CheckCircle2 className="size-3.5" />
-                    <span>Verified Enterprise Standard</span>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </CardSectionHydrator>
         </div>
       </section>
 
       {/* GDPR & Security Detailed Articles */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-14 sm:py-20 section-fade-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Zero Model Training Callout */}
           <ScrollReveal direction="up">
@@ -214,8 +226,6 @@ To countersign our DPA, please download the standard agreement or contact our co
           </ScrollReveal>
         </div>
       </section>
-
-      <CTASection />
     </div>
   )
 }

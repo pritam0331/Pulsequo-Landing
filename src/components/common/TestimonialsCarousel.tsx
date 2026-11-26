@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import {
-  ChevronLeft,
-  ChevronRight,
   Star,
   Quote,
   CheckCircle2,
@@ -11,6 +9,7 @@ import {
   Clock,
   Sparkles,
 } from 'lucide-react'
+import { TestimonialsCarouselSkeleton, useCardHydration } from './CardSkeleton'
 
 export interface Testimonial {
   id: string
@@ -105,17 +104,25 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ]
 
-export function TestimonialsCarousel({ className = '' }: { className?: string }) {
+export function TestimonialsCarousel({
+  className = '',
+  isLoading,
+}: {
+  className?: string
+  isLoading?: boolean
+}) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState<'left' | 'right'>('right')
   const [isPaused, setIsPaused] = useState(false)
   const timerRef = useRef<number | null>(null)
+  const isHydrated = useCardHydration(200)
+  const showSkeleton = isLoading ?? !isHydrated
 
   const activeTestimonial = TESTIMONIALS[currentIndex]
 
   // Autoplay functionality with 6.5s interval
   useEffect(() => {
-    if (isPaused) return
+    if (showSkeleton || isPaused) return
 
     timerRef.current = window.setInterval(() => {
       setDirection('right')
@@ -125,17 +132,7 @@ export function TestimonialsCarousel({ className = '' }: { className?: string })
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
     }
-  }, [isPaused, currentIndex])
-
-  const handleNext = () => {
-    setDirection('right')
-    setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length)
-  }
-
-  const handlePrev = () => {
-    setDirection('left')
-    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)
-  }
+  }, [showSkeleton, isPaused, currentIndex])
 
   const handleSelect = (idx: number) => {
     setDirection(idx > currentIndex ? 'right' : 'left')
@@ -166,6 +163,14 @@ export function TestimonialsCarousel({ className = '' }: { className?: string })
         ease: [0.22, 1, 0.36, 1] as const,
       },
     }),
+  }
+
+  if (showSkeleton) {
+    return (
+      <div aria-busy="true" aria-label="Loading customer testimonials">
+        <TestimonialsCarouselSkeleton className={className} />
+      </div>
+    )
   }
 
   return (
@@ -211,7 +216,7 @@ export function TestimonialsCarousel({ className = '' }: { className?: string })
       {/* Compact Reviews Card Container */}
       <div
         data-cursor="glass"
-        className="group relative rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-sm hover:-translate-y-0.5 hover:border-blue-300/80 hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-200 overflow-hidden p-5 sm:p-6"
+        className="group relative rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:-translate-y-0.5 hover:border-blue-300/80 hover:shadow-lg hover:shadow-blue-900/5 transition-[transform,border-color,box-shadow] duration-200 overflow-hidden p-5 sm:p-6"
       >
         {/* Animated Autoplay Progress Bar */}
         <div className="absolute top-0 left-0 right-0 h-[3px] bg-slate-100">
@@ -340,56 +345,6 @@ export function TestimonialsCarousel({ className = '' }: { className?: string })
             </div>
           </motion.div>
         </AnimatePresence>
-
-        {/* Compact Navigation Controls Bar */}
-        <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between">
-          {/* Dot Indicators */}
-          <div className="flex items-center gap-1.5">
-            {TESTIMONIALS.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => handleSelect(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
-                className={`transition-all duration-300 cursor-pointer ${
-                  idx === currentIndex
-                    ? 'w-6 h-1.5 bg-blue-600 rounded-full'
-                    : 'w-1.5 h-1.5 bg-slate-300 hover:bg-slate-400 rounded-full'
-                }`}
-              />
-            ))}
-          </div>
-
-          {/* Slide Counter & Buttons */}
-          <div className="flex items-center gap-2.5">
-            <span className="text-[11px] font-mono tabular-nums text-slate-400">
-              0{currentIndex + 1} / 0{TESTIMONIALS.length}
-            </span>
-
-            <div className="flex items-center gap-1.5">
-              <motion.button
-                type="button"
-                whileHover={{ scale: 1.08, x: -1 }}
-                whileTap={{ scale: 0.92 }}
-                onClick={handlePrev}
-                aria-label="Previous testimonial"
-                className="size-7 rounded-lg border border-slate-200 bg-white hover:bg-blue-50 hover:border-blue-300 flex items-center justify-center text-slate-600 hover:text-blue-600 shadow-2xs transition-colors cursor-pointer"
-              >
-                <ChevronLeft className="size-3.5" />
-              </motion.button>
-              <motion.button
-                type="button"
-                whileHover={{ scale: 1.08, x: 1 }}
-                whileTap={{ scale: 0.92 }}
-                onClick={handleNext}
-                aria-label="Next testimonial"
-                className="size-7 rounded-lg border border-slate-200 bg-white hover:bg-blue-50 hover:border-blue-300 flex items-center justify-center text-slate-600 hover:text-blue-600 shadow-2xs transition-colors cursor-pointer"
-              >
-                <ChevronRight className="size-3.5" />
-              </motion.button>
-            </div>
-          </div>
-        </div>
       </div>
     </motion.div>
   )

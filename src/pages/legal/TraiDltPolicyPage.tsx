@@ -3,11 +3,12 @@
  * Route: /trai-dlt-policy
  */
 
-import { Radio, AlertTriangle, FileCode, Check } from 'lucide-react'
+import { AlertTriangle, FileCode, Check } from 'lucide-react'
 import { SEO } from '../../components/common/SEO'
 import { Breadcrumbs } from '../../components/common/Breadcrumbs'
-import { CTASection } from '../../components/common/CTASection'
+import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
 import { ScrollReveal } from '../../components/common/ScrollReveal'
+import { CardSectionHydrator, CardGridSkeleton } from '../../components/common/CardSkeleton'
 
 export function TraiDltPolicyPage() {
   const lastUpdated = 'November 16, 2026'
@@ -107,8 +108,13 @@ PulseQuo actively scans template payloads and reserves the right to suspend rout
       />
 
       {/* Hero Header */}
-      <section className="bg-gradient-to-b from-blue-50/70 via-white to-white pt-10 pb-16 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <section
+        data-cursor-zone="hero"
+        className="relative overflow-hidden bg-white pt-10 pb-14 sm:pt-14 sm:pb-18"
+      >
+        <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal direction="down" duration={0.4}>
             <Breadcrumbs
               items={[
@@ -118,12 +124,7 @@ PulseQuo actively scans template payloads and reserves the right to suspend rout
               className="justify-center mb-6"
             />
 
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-100/80 border border-blue-200 px-3.5 py-1 text-xs font-semibold text-blue-800 mb-6">
-              <Radio className="size-3.5 text-blue-600" />
-              <span>Indian Telecommunications Regulatory Compliance</span>
-            </span>
-
-            <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-[-0.03em] leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-[-0.035em] leading-[1.08] text-balance">
               TRAI DLT Compliance Policy
             </h1>
 
@@ -131,7 +132,7 @@ PulseQuo actively scans template payloads and reserves the right to suspend rout
               Regulatory Framework: TRAI TCCCPR 2018 · Effective Date: {lastUpdated}
             </p>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto text-pretty">
               Comprehensive guidelines for registering Principal Entities, reserving 6-character Alpha sender IDs,
               locking content templates, and ensuring 100% compliant SMS delivery across Indian carrier networks.
             </p>
@@ -140,38 +141,49 @@ PulseQuo actively scans template payloads and reserves the right to suspend rout
       </section>
 
       {/* 4 Core Pillars Overview */}
-      <section className="py-16 bg-slate-50 border-b border-slate-200/80">
+      <section className="py-14 sm:py-16 section-fade-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {compliancePillars.map((p, idx) => (
-              <ScrollReveal key={p.title} direction="up" delay={idx * 0.08}>
-                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs h-full flex flex-col justify-between hover:border-blue-300 transition-colors">
-                  <div>
-                    <div className="size-8 rounded-md bg-blue-50 text-blue-600 font-mono text-xs font-bold flex items-center justify-center mb-4">
-                      0{idx + 1}
+          <CardSectionHydrator
+            ariaLabel="Loading DLT compliance pillars"
+            skeleton={
+              <CardGridSkeleton
+                count={compliancePillars.length}
+                variant="pillar"
+                columnsClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+              />
+            }
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {compliancePillars.map((p, idx) => (
+                <ScrollReveal key={p.title} direction="up" delay={idx * 0.08}>
+                  <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs h-full flex flex-col justify-between hover:border-blue-300 transition-colors">
+                    <div>
+                      <div className="size-8 rounded-md bg-blue-50 text-blue-600 font-mono text-xs font-bold flex items-center justify-center mb-4">
+                        0{idx + 1}
+                      </div>
+                      <h3 className="text-base font-bold text-slate-900">{p.title}</h3>
+                      <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+                        {p.description}
+                      </p>
                     </div>
-                    <h3 className="text-base font-bold text-slate-900">{p.title}</h3>
-                    <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                      {p.description}
-                    </p>
+                    <ul className="mt-4 pt-4 border-t border-slate-100 space-y-2 text-[11px] text-slate-500">
+                      {p.steps.map((step, sIdx) => (
+                        <li key={sIdx} className="flex items-start gap-1.5">
+                          <Check className="size-3 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{step}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="mt-4 pt-4 border-t border-slate-100 space-y-2 text-[11px] text-slate-500">
-                    {p.steps.map((step, sIdx) => (
-                      <li key={sIdx} className="flex items-start gap-1.5">
-                        <Check className="size-3 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{step}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </CardSectionHydrator>
         </div>
       </section>
 
       {/* Main Detailed Policy Articles */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-14 sm:py-20 section-fade-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Important Regulatory Warning Callout */}
           <ScrollReveal direction="up">
@@ -228,8 +240,6 @@ PulseQuo actively scans template payloads and reserves the right to suspend rout
           </ScrollReveal>
         </div>
       </section>
-
-      <CTASection />
     </div>
   )
 }
