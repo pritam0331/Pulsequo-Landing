@@ -1,1 +1,0 @@
-import{t as e}from"./SolutionDetailTemplate-RVopMIVR.js";import{t}from"./solutions-DBPNq3OV.js";import{t as n}from"./vendor-react-YCKD3ahX.js";var r=n();function i(){return(0,r.jsx)(e,{solution:t[`customer-support`]})}export{i as CustomerSupportPage};

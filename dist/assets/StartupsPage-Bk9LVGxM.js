@@ -1,0 +1,1 @@
+import{t as e}from"./SolutionDetailTemplate-D5tGhUOn.js";import{t}from"./solutions-DBPNq3OV.js";import{t as n}from"./vendor-react-YCKD3ahX.js";var r=n();function i(){return(0,r.jsx)(e,{solution:t.startups})}export{i as StartupsPage};
