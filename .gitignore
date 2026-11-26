@@ -10,6 +10,7 @@ skills-lock.json
 
 # Local Environment & Logs
 *.log
+*.tsbuildinfo
 .DS_Store
 Thumbs.db
 
