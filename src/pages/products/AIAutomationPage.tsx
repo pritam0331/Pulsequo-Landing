@@ -6,10 +6,8 @@ import {
   ArrowRight,
   Bot,
   CalendarCheck,
-  Check,
   CheckCircle2,
   Code2,
-  Copy,
   Cpu,
   ExternalLink,
   FileText,
@@ -34,6 +32,7 @@ import { TestimonialsCarousel } from '../../components/common/TestimonialsCarous
 import { FAQAccordion } from '../../components/common/FAQAccordion';
 import { CTASection } from '../../components/common/CTASection';
 import { CardSectionHydrator, CardGridSkeleton } from '../../components/common/CardSkeleton';
+import { CodeShowcaseCard } from '../../components/common/CodeShowcaseCard';
 import type { FAQItem } from '../../data/faqs';
 
 const easeOutCurve = [0.22, 1, 0.36, 1] as const;
@@ -309,16 +308,9 @@ const aiFaqs: FAQItem[] = [
 
 export function AIAutomationPage() {
   const [activeMcpIndex, setActiveMcpIndex] = useState(0);
-  const [copiedMcpSchema, setCopiedMcpSchema] = useState(false);
 
   const activeMcp = mcpServers[activeMcpIndex];
   const activeTool = activeMcp.tools[0];
-
-  const handleCopySchema = () => {
-    navigator.clipboard.writeText(JSON.stringify(activeTool.inputSchema, null, 2));
-    setCopiedMcpSchema(true);
-    setTimeout(() => setCopiedMcpSchema(false), 2000);
-  };
 
   return (
     <div className="relative bg-white text-slate-900">
@@ -735,41 +727,24 @@ export function AIAutomationPage() {
                       MCP Tool Schema: {activeTool.name}
                     </span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={handleCopySchema}
-                    className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-400 hover:text-white px-2 py-1 rounded-sm bg-slate-800/80 border border-slate-700 transition-colors cursor-pointer"
-                  >
-                    {copiedMcpSchema ? (
-                      <>
-                        <Check className="size-3 text-emerald-400" />
-                        <span className="text-emerald-400">Copied</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="size-3 text-slate-400" />
-                        <span>Copy Schema</span>
-                      </>
-                    )}
-                  </button>
+                  <span className="text-[10px] font-mono bg-blue-950/80 text-blue-300 border border-blue-800/80 px-2 py-0.5 rounded-sm font-semibold">
+                    JSON-RPC 2.0
+                  </span>
                 </div>
 
                 <p className="text-xs text-slate-400 leading-relaxed font-sans">
                   {activeTool.description}
                 </p>
 
-                <div className="rounded-xl bg-[#030612] border border-slate-800/80 p-4 font-mono text-[11px] text-slate-300 overflow-x-auto thin-scrollbar">
-                  <pre className="text-blue-300">{'// JSON-RPC 2.0 tools/list definition'}</pre>
-                  <pre className="text-slate-400">
-                    {`{
-  "name": "${activeTool.name}",
-  "server": "${activeMcp.name}",
-  "version": "${activeMcp.version}",
-  "transport": "${activeMcp.transport}",
-  "inputSchema": ${JSON.stringify(activeTool.inputSchema, null, 4).replace(/\n/g, '\n  ')}
-}`}
-                  </pre>
-                </div>
+                <CodeShowcaseCard
+                  variant="dark"
+                  filename={`tools/list · ${activeTool.name}.json`}
+                  language="json"
+                  code={`// JSON-RPC 2.0 tools/list definition\n{\n  "name": "${activeTool.name}",\n  "server": "${activeMcp.name}",\n  "version": "${activeMcp.version}",\n  "transport": "${activeMcp.transport}",\n  "inputSchema": ${JSON.stringify(activeTool.inputSchema, null, 4).replace(/\n/g, '\n  ')}\n}`}
+                  copyValue={JSON.stringify(activeTool.inputSchema, null, 2)}
+                  copyLabel="Copy Schema"
+                  compact
+                />
 
                 <div className="flex items-center gap-4 text-[11px] text-slate-400 font-mono">
                   <span className="flex items-center gap-1">
@@ -801,10 +776,16 @@ export function AIAutomationPage() {
                   customer reply formulation.
                 </p>
 
-                <div className="rounded-xl bg-[#030612] border border-slate-800/80 p-4 font-mono text-[11px] text-emerald-400 overflow-x-auto thin-scrollbar">
-                  <pre className="text-slate-500">{'// JSON-RPC 2.0 tools/call response'}</pre>
-                  <pre>{JSON.stringify(activeTool.sampleOutput, null, 2)}</pre>
-                </div>
+                <CodeShowcaseCard
+                  variant="dark"
+                  filename={`tools/call · result.json`}
+                  language="json"
+                  statusBadge="200 OK"
+                  statusTone="emerald"
+                  code={`// JSON-RPC 2.0 tools/call response\n${JSON.stringify(activeTool.sampleOutput, null, 2)}`}
+                  copyLabel="Copy Result"
+                  compact
+                />
 
                 <div className="pt-2 flex items-center justify-between text-[11px] text-slate-400 font-mono">
                   <span>Execution Latency: 42ms</span>

@@ -92,13 +92,13 @@ export function PricingPage() {
 
       <BrandCarousel />
 
-      <section className="py-12 sm:py-16 section-fade-white">
+      <section className="py-6 sm:py-8 lg:py-10 section-fade-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <PricingCards defaultAnnual={true} />
         </div>
       </section>
 
-      <section className="py-14 sm:py-18 section-fade-tint">
+      <section className="py-6 sm:py-8 lg:py-10 section-fade-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Trusted by High-Growth Companies Worldwide"
@@ -106,18 +106,18 @@ export function PricingPage() {
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.55, ease: easeOutCurve }}
-            className="mt-8 sm:mt-10"
+            viewport={{ once: true, amount: 'some' }}
+            transition={{ duration: 0.5, ease: easeOutCurve }}
+            className="mt-6 sm:mt-8"
           >
             <TestimonialsCarousel />
           </motion.div>
         </div>
       </section>
 
-      <section className="py-14 sm:py-18 section-fade-white">
+      <section className="py-6 sm:py-8 lg:py-10 section-fade-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Compare Plan Features & Limits"
@@ -125,19 +125,20 @@ export function PricingPage() {
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.55, ease: easeOutCurve }}
-            className="mt-10 sm:mt-12 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs"
+            viewport={{ once: true, amount: 'some' }}
+            transition={{ duration: 0.5, ease: easeOutCurve }}
+            className="mt-6 sm:mt-8 overflow-x-auto rounded-2xl border border-blue-950/20 bg-white shadow-md"
           >
+            <div className="h-[3px] w-full pq-code-showcase-beam bg-gradient-to-r from-cyan-400 via-blue-500 via-purple-500 to-cyan-400" />
             <table className="w-full text-left text-sm text-slate-700 min-w-[640px] tabular-nums">
-              <thead className="bg-slate-50/80 text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200">
+              <thead className="bg-[#070d24] text-xs font-bold text-white uppercase tracking-wider border-b border-blue-950">
                 <tr>
-                  <th className="py-4 px-6 w-2/5">Feature</th>
-                  <th className="py-4 px-6 text-center w-1/5">Starter</th>
-                  <th className="py-4 px-6 text-center w-1/5 text-blue-600 bg-blue-50/50">Growth (Most Popular)</th>
-                  <th className="py-4 px-6 text-center w-1/5">Enterprise</th>
+                  <th className="py-4 px-6 w-2/5 text-slate-200">Feature</th>
+                  <th className="py-4 px-6 text-center w-1/5 text-cyan-300">Starter</th>
+                  <th className="py-4 px-6 text-center w-1/5 text-blue-300 bg-blue-600/20">Growth (Most Popular)</th>
+                  <th className="py-4 px-6 text-center w-1/5 text-purple-300">Enterprise</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -196,14 +197,14 @@ export function PricingPage() {
         </div>
       </section>
 
-      <section className="py-14 sm:py-18 section-fade-tint">
+      <section className="py-6 sm:py-8 lg:py-10 section-fade-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Common Pricing & Licensing Inquiries"
             description="Have questions about trial limits, carrier pass-through rates, or team seats? Find clear answers below."
           />
 
-          <div className="mt-10 sm:mt-12 w-full">
+          <div className="mt-6 sm:mt-8 w-full">
             <FAQAccordion items={pricingFaqs} />
           </div>
         </div>

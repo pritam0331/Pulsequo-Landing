@@ -11,11 +11,42 @@ import { ArrowUp } from 'lucide-react'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 import { CursorFollower } from '../common/CursorFollower'
+import { AppPreloaderOverlay } from '../common/PageSkeletonLoader'
 
 export function MarketingLayout() {
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [isPreloading, setIsPreloading] = useState(true)
   const location = useLocation()
   const progressBarRef = useRef<HTMLDivElement | null>(null)
+
+  // Hold full-page skeleton for 1 second while fonts and initial components settle
+  useEffect(() => {
+    let active = true
+    const minPause = new Promise<void>((resolve) => {
+      window.setTimeout(resolve, 1000)
+    })
+    const fontsReady =
+      typeof document !== 'undefined' && 'fonts' in document && document.fonts?.ready
+        ? Promise.race([
+            document.fonts.ready.then(() => undefined),
+            new Promise<void>((resolve) => window.setTimeout(resolve, 1300)),
+          ])
+        : Promise.resolve()
+
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    Promise.all([minPause, fontsReady]).then(() => {
+      if (!active) return
+      document.body.style.overflow = prevOverflow
+      setIsPreloading(false)
+    })
+
+    return () => {
+      active = false
+      document.body.style.overflow = prevOverflow
+    }
+  }, [])
 
   // Smooth native scrolling for in-page anchor links
   useEffect(() => {
@@ -98,6 +129,8 @@ export function MarketingLayout() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen flex flex-col bg-white text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 relative">
+        <AppPreloaderOverlay visible={isPreloading} />
+
         {/* Precision Square Cursor Effect (Scoped Exclusively to Hero Sections) */}
         <CursorFollower />
 

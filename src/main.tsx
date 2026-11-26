@@ -102,7 +102,12 @@ const router = createBrowserRouter([
   },
 ])
 
-createRoot(document.getElementById('root')!).render(
+const rootContainer = document.getElementById('root')!
+const globalWindow = window as typeof window & { __pulsequoRoot?: ReturnType<typeof createRoot> }
+const root = globalWindow.__pulsequoRoot ?? createRoot(rootContainer)
+globalWindow.__pulsequoRoot = root
+
+root.render(
   <StrictMode>
     <RouterProvider router={router} />
   </StrictMode>

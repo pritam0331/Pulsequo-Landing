@@ -203,7 +203,7 @@ function AgentsView({ onSwitchToInbox }: { onSwitchToInbox: (convId?: string) =>
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12 bg-slate-50/40 select-none lg:h-[380px] overflow-hidden">
+    <div className="grid grid-cols-1 md:grid-cols-12 bg-slate-50/40 select-none lg:h-[440px] overflow-hidden">
       <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-slate-100 bg-white p-3.5 flex flex-col justify-between gap-2 overflow-y-auto thin-scrollbar">
         <div>
           <div className="flex items-center justify-between mb-2.5">
@@ -335,7 +335,7 @@ function AnalyticsView() {
   const [timeRange, setTimeRange] = useState<'today' | '7d' | '30d'>('today')
 
   return (
-    <div className="p-3.5 sm:p-4 bg-slate-50/40 select-none lg:h-[380px] overflow-hidden flex flex-col justify-between">
+    <div className="p-4 sm:p-5 bg-slate-50/40 select-none lg:h-[440px] overflow-hidden flex flex-col justify-between">
       <div className="flex flex-col h-full justify-between gap-2.5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-200/80 shrink-0">
           <div className="min-w-0">
@@ -539,7 +539,7 @@ function ContactsView({ onSelectContact }: { onSelectContact: (convId: string) =
   )
 
   return (
-    <div className="flex flex-col bg-white select-none lg:h-[380px] overflow-hidden">
+    <div className="flex flex-col bg-white select-none lg:h-[440px] overflow-hidden">
       <div className="p-3 sm:p-3.5 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-2 shrink-0">
         <div className="relative flex-1 max-w-md">
           <Search className="size-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -717,11 +717,11 @@ export function PlatformComposition({ isLoading }: { isLoading?: boolean } = {})
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 lg:h-[380px]">
-        <aside className="hidden lg:flex lg:col-span-2 p-3 flex-col justify-between bg-white border-r border-slate-100 select-none">
+      <div className="grid grid-cols-1 lg:grid-cols-12 lg:h-[440px]">
+        <aside className="hidden lg:flex lg:col-span-2 p-3.5 flex-col justify-between bg-white border-r border-slate-100 select-none">
           <div>
             <div className="text-sm font-black text-black tracking-tight px-1">PulseQuo</div>
-            <div className="text-[9px] font-bold tracking-widest text-slate-400 uppercase mt-3 mb-2 px-1">
+            <div className="text-[9px] font-bold tracking-widest text-slate-400 uppercase mt-3.5 mb-2 px-1">
               WORKSPACE
             </div>
 
@@ -734,7 +734,7 @@ export function PlatformComposition({ isLoading }: { isLoading?: boolean } = {})
                     key={item.id}
                     type="button"
                     onClick={() => setActiveNav(item.id)}
-                    className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[11.5px] transition-colors cursor-pointer ${
+                    className={`w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs transition-colors cursor-pointer ${
                       isActive
                         ? 'bg-blue-50/90 text-blue-600 font-semibold shadow-2xs'
                         : 'text-slate-600 font-medium hover:text-black hover:bg-slate-50'
@@ -748,15 +748,15 @@ export function PlatformComposition({ isLoading }: { isLoading?: boolean } = {})
             </nav>
           </div>
 
-          <div className="pt-2.5 border-t border-slate-100 px-1">
+          <div className="pt-3 border-t border-slate-100 px-1">
             <span className="text-[10px] text-slate-400 font-medium">Enterprise v20</span>
           </div>
         </aside>
 
-        <div className="lg:col-span-10 min-w-0 lg:h-[380px] overflow-hidden">
+        <div className="lg:col-span-10 min-w-0 lg:h-[440px] overflow-hidden">
           {activeNav === 'workflows' && (
-            <div className="bg-slate-50/50 p-3 flex items-center justify-center lg:h-[380px] overflow-y-auto thin-scrollbar">
-              <WorkflowCanvas showWrapper={true} className="max-w-2xl w-full bg-white shadow-xs" />
+            <div className="bg-slate-50/50 p-3 flex items-center justify-center lg:h-[440px] overflow-hidden">
+              <WorkflowCanvas showWrapper={true} compact className="max-w-2xl w-full bg-white shadow-xs" />
             </div>
           )}
 

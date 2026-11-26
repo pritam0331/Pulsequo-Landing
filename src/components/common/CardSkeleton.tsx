@@ -541,8 +541,8 @@ export function PlatformCompositionSkeleton() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 lg:h-[380px]">
-        <aside className="hidden lg:flex lg:col-span-2 p-3 flex-col justify-between bg-white border-r border-slate-100">
+      <div className="grid grid-cols-1 lg:grid-cols-12 lg:h-[440px]">
+        <aside className="hidden lg:flex lg:col-span-2 p-3.5 flex-col justify-between bg-white border-r border-slate-100">
           <div>
             <SkeletonBlock className="h-4 w-20" />
             <SkeletonBlock className="h-2.5 w-14 mt-3 mb-2" />
@@ -555,7 +555,7 @@ export function PlatformCompositionSkeleton() {
           <SkeletonBlock className="h-3 w-20 mt-2" />
         </aside>
 
-        <div className="lg:col-span-10 grid grid-cols-1 md:grid-cols-12 min-h-[320px] lg:h-[380px]">
+        <div className="lg:col-span-10 grid grid-cols-1 md:grid-cols-12 min-h-[340px] lg:h-[440px]">
           <div className="hidden md:flex md:col-span-4 xl:col-span-3 p-2.5 flex-col border-r border-slate-100 gap-2">
             <div className="flex justify-between">
               <SkeletonBlock className="h-3.5 w-20" />

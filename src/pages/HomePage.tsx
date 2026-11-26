@@ -135,7 +135,7 @@ export function MarketingHomePage() {
       <section
         id="hero"
         data-cursor-zone="hero"
-        className="relative flex flex-col justify-center items-center px-4 sm:px-6 lg:px-10 pt-24 sm:pt-28 pb-8 sm:pb-10 overflow-hidden bg-white"
+        className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-10 pt-24 sm:pt-28 pb-12 overflow-hidden bg-white"
       >
         <div className="absolute inset-0 pointer-events-none">
           <BackgroundAnimation variant="hero" showGrid={true} showBeams={true} />

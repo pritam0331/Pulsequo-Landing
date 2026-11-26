@@ -374,18 +374,36 @@ main section {
   border-bottom-width: 0 !important;
 }
 
-/* Pure black headings across all light non-hero sections */
-main section:not(:first-of-type):not([data-cursor-zone="hero"]):not([data-dark-section="true"]) h2:not(.text-white),
-main section:not(:first-of-type):not([data-cursor-zone="hero"]):not([data-dark-section="true"]) h3:not(.text-white),
-main section:not(:first-of-type):not([data-cursor-zone="hero"]):not([data-dark-section="true"]) h4:not(.text-white) {
+/* Pure black headings across all light non-hero sections (preserving white headings on dark cards/sections) */
+main section:not(:first-of-type):not([data-cursor-zone="hero"]):not([data-dark-section="true"]) h2:not(.text-white):not([data-dark-card="true"] *),
+main section:not(:first-of-type):not([data-cursor-zone="hero"]):not([data-dark-section="true"]) h3:not(.text-white):not([data-dark-card="true"] *),
+main section:not(:first-of-type):not([data-cursor-zone="hero"]):not([data-dark-section="true"]) h4:not(.text-white):not([data-dark-card="true"] *) {
   color: #000000;
 }
 
-/* Seamless continuous canvas between sections so scrolling never feels segmented */
+/* Seamless continuous canvas & uniform vertical rhythm across all pages and sections */
 .section-fade-tint,
 .section-fade-white {
   background: #ffffff;
   position: relative;
+  padding-top: 1.75rem !important;
+  padding-bottom: 1.75rem !important;
+}
+
+@media (min-width: 640px) {
+  .section-fade-tint,
+  .section-fade-white {
+    padding-top: 2.25rem !important;
+    padding-bottom: 2.25rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-fade-tint,
+  .section-fade-white {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
 }
 
 .fade-divider-x {

@@ -2,8 +2,6 @@ import { useState } from 'react'
 import {
   ShieldCheck,
   KeyRound,
-  Check,
-  Copy,
   Zap,
   RefreshCw,
   Server,
@@ -15,7 +13,29 @@ import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { SectionHeading } from '../../components/common/SectionHeading'
 import { CTASection } from '../../components/common/CTASection'
 import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
+import { CodeShowcaseCard } from '../../components/common/CodeShowcaseCard'
 import { indexBy } from '../../lib/dsa'
+
+const HERO_WEBHOOK_JSON = `{
+  "event": "lead.created",
+  "eventId": "evt_98f4a12c",
+  "timestamp": "2026-11-17T09:30:15.000Z",
+  "data": {
+    "leadId": "ld_8f9321",
+    "name": "Vikram Mehta",
+    "phone": "+919811002233",
+    "channel": "whatsapp",
+    "intent": "Enterprise CPaaS & WhatsApp API",
+    "qualificationScore": 94
+  }
+}`
+
+const HMAC_LANG_TABS = [
+  { id: 'node', label: 'Node.js' },
+  { id: 'python', label: 'Python' },
+  { id: 'go', label: 'Go' },
+  { id: 'curl', label: 'cURL' },
+] as const
 
 interface WebhookEventItem {
   id: string
@@ -136,8 +156,6 @@ const WEBHOOK_EVENT_BY_ID = indexBy(webhookEvents, (e) => e.id)
 export function WebhooksDocsPage() {
   const [selectedEventId, setSelectedEventId] = useState<string>('lead-created')
   const [activeCodeLang, setActiveCodeLang] = useState<'node' | 'python' | 'go' | 'curl'>('node')
-  const [copiedPayload, setCopiedPayload] = useState(false)
-  const [copiedCode, setCopiedCode] = useState(false)
 
   const activeEvent = WEBHOOK_EVENT_BY_ID.get(selectedEventId) ?? webhookEvents[0]
 
@@ -234,17 +252,12 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
   }'`,
   }
 
-  const handleCopyPayload = () => {
-    navigator.clipboard.writeText(JSON.stringify(activeEvent.payload, null, 2))
-    setCopiedPayload(true)
-    setTimeout(() => setCopiedPayload(false), 2000)
-  }
-
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText(codeSnippets[activeCodeLang])
-    setCopiedCode(true)
-    setTimeout(() => setCopiedCode(false), 2000)
-  }
+  const codeLanguageMap = {
+    node: 'ts',
+    python: 'python',
+    go: 'go',
+    curl: 'bash',
+  } as const
 
   return (
     <div className="relative overflow-hidden bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
@@ -315,65 +328,38 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
             </div>
 
             <div className="lg:col-span-6">
-              <div className="relative rounded-2xl bg-[#070d24] border border-blue-950/90 shadow-2xl overflow-hidden">
-                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-blue-600 via-purple-500 to-blue-500" />
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-600/10 blur-3xl pointer-events-none" />
-
-                <div className="flex items-center justify-between px-4 py-3 border-b border-blue-950/80 bg-[#070d24]/90 backdrop-blur-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="size-2.5 rounded-full bg-red-500/80" />
-                    <span className="size-2.5 rounded-full bg-yellow-500/80" />
-                    <span className="size-2.5 rounded-full bg-emerald-500/80" />
-                    <span className="ml-2 font-mono text-xs text-slate-400">webhook-dispatcher.ts</span>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-blue-950 text-blue-300 border border-blue-800/60 font-mono text-[11px] font-semibold">
-                    <span className="size-1.5 rounded-xs bg-emerald-400" />
-                    HTTP 200 OK
-                  </span>
-                </div>
-
-                <div className="p-4 sm:p-5 font-mono text-xs text-slate-300 leading-relaxed overflow-x-auto space-y-2">
-                  <p className="text-slate-500">// Inbound HTTP POST callback from PulseQuo Event Engine</p>
-                  <p className="text-purple-400">
-                    POST <span className="text-slate-200">/api/v1/customer-callbacks</span> HTTP/1.1
-                  </p>
-                  <p className="text-slate-400">
-                    Host: <span className="text-slate-200">api.enterprise.com</span>
-                  </p>
-                  <p className="text-slate-400">
-                    Content-Type: <span className="text-slate-200">application/json</span>
-                  </p>
-                  <p className="text-slate-400">
-                    X-PulseQuo-Signature: <span className="text-emerald-400">8f9b4c03847291a0...</span>
-                  </p>
-                  <p className="text-slate-400">
-                    X-PulseQuo-Event: <span className="text-blue-400">lead.created</span>
-                  </p>
-                  <div className="pt-2 border-t border-blue-950/70 text-slate-300">
-                    <pre className="text-[11px] text-blue-100/90 leading-tight">{`{
-  "event": "lead.created",
-  "eventId": "evt_98f4a12c",
-  "timestamp": "2026-11-17T09:30:15.000Z",
-  "data": {
-    "leadId": "ld_8f9321",
-    "name": "Vikram Mehta",
-    "phone": "+919811002233",
-    "channel": "whatsapp",
-    "intent": "Enterprise CPaaS & WhatsApp API",
-    "qualificationScore": 94
-  }
-}`}</pre>
-                  </div>
-                </div>
-
-                <div className="px-4 py-2.5 border-t border-blue-950/80 bg-[#040817] flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <CodeShowcaseCard
+                variant="dark"
+                filename="webhook-dispatcher.ts"
+                language="json"
+                statusBadge="HTTP 200 OK"
+                statusTone="blue"
+                code={HERO_WEBHOOK_JSON}
+                copyLabel="Copy JSON"
+                headerPreamble={
+                  <>
+                    <p className="text-slate-500">// Inbound HTTP POST callback from PulseQuo Event Engine</p>
+                    <p className="text-purple-400">
+                      POST <span className="text-slate-200">/api/v1/customer-callbacks</span> HTTP/1.1
+                    </p>
+                    <p className="text-slate-400">
+                      Host: <span className="text-slate-200">api.enterprise.com</span>
+                    </p>
+                    <p className="text-slate-400">
+                      X-PulseQuo-Signature: <span className="text-emerald-400">8f9b4c03847291a0...</span>
+                    </p>
+                    <p className="text-slate-400">
+                      X-PulseQuo-Event: <span className="text-blue-400">lead.created</span>
+                    </p>
+                  </>
+                }
+                footerLeft={
                   <span className="flex items-center gap-1.5">
                     <span className="size-1.5 rounded-xs bg-emerald-400" /> Verified in 1.4ms
                   </span>
-                  <span className="text-purple-300">HMAC SHA-256 Active</span>
-                </div>
-              </div>
+                }
+                footerRight={<span className="text-purple-300">HMAC SHA-256 Active</span>}
+              />
             </div>
           </div>
         </div>
@@ -477,53 +463,21 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
             </div>
 
             <div className="lg:col-span-7">
-              <div className="rounded-2xl bg-[#070d24] border border-blue-950/90 shadow-2xl overflow-hidden">
-                <div className="h-[2px] bg-gradient-to-r from-blue-600 via-purple-500 to-blue-500" />
-                <div className="flex items-center justify-between px-4 py-2.5 border-b border-blue-950/80 bg-[#070d24]">
-                  <div className="flex items-center gap-1.5">
-                    {(['node', 'python', 'go', 'curl'] as const).map((lang) => (
-                      <button
-                        key={lang}
-                        type="button"
-                        onClick={() => setActiveCodeLang(lang)}
-                        className={`px-3 py-1 rounded-sm text-xs font-mono font-semibold transition-colors cursor-pointer ${
-                          activeCodeLang === lang
-                            ? 'bg-blue-600 text-white shadow-2xs'
-                            : 'bg-blue-950/60 text-slate-400 hover:text-white hover:bg-blue-900/60'
-                        }`}
-                      >
-                        {lang === 'node' ? 'Node.js' : lang === 'python' ? 'Python' : lang === 'go' ? 'Go' : 'cURL'}
-                      </button>
-                    ))}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={handleCopyCode}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-blue-950/80 hover:bg-blue-900/80 text-slate-300 hover:text-white border border-blue-800/60 text-xs font-mono transition-colors cursor-pointer"
-                  >
-                    {copiedCode ? (
-                      <>
-                        <Check className="size-3.5 text-emerald-400" />
-                        <span className="text-emerald-400">Copied</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="size-3.5" />
-                        <span>Copy Code</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                <div className="p-4 sm:p-5 font-mono text-xs text-slate-200 leading-relaxed overflow-x-auto max-h-[380px] thin-scrollbar">
-                  <pre>{codeSnippets[activeCodeLang]}</pre>
-                </div>
-
-                <div className="px-4 py-2.5 border-t border-blue-950/80 bg-[#040817] flex items-center justify-between text-[11px] font-mono text-slate-400">
-                  <span>Cryptographic Standard: RFC 2104</span>
-                  <span className="text-emerald-400">Ready for Production</span>
-                </div>
-              </div>
+              <CodeShowcaseCard
+                variant="dark"
+                filename={`verify-hmac.${activeCodeLang === 'node' ? 'js' : activeCodeLang === 'python' ? 'py' : activeCodeLang === 'go' ? 'go' : 'sh'}`}
+                language={codeLanguageMap[activeCodeLang]}
+                statusBadge="RFC 2104"
+                statusTone="emerald"
+                tabs={HMAC_LANG_TABS}
+                activeTabId={activeCodeLang}
+                onTabChange={(id) => setActiveCodeLang(id as 'node' | 'python' | 'go' | 'curl')}
+                code={codeSnippets[activeCodeLang]}
+                copyLabel="Copy Code"
+                maxHeightClass="max-h-[380px]"
+                footerLeft={<span>Cryptographic Standard: RFC 2104</span>}
+                footerRight={<span className="text-emerald-400">Ready for Production</span>}
+              />
             </div>
           </div>
         </div>
@@ -576,48 +530,23 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
             </div>
 
             <div className="lg:col-span-7 sticky top-24">
-              <div className="rounded-2xl bg-[#070d24] border border-blue-950/90 shadow-2xl overflow-hidden">
-                <div className="h-[2px] bg-gradient-to-r from-blue-600 via-purple-500 to-blue-500" />
-                <div className="flex items-center justify-between px-4 py-3 border-b border-blue-950/80 bg-[#070d24]">
-                  <div className="flex items-center gap-2">
-                    <span className="size-2.5 rounded-full bg-red-500/80" />
-                    <span className="size-2.5 rounded-full bg-yellow-500/80" />
-                    <span className="size-2.5 rounded-full bg-emerald-500/80" />
-                    <span className="ml-2 font-mono text-xs text-slate-300 font-bold">
-                      {activeEvent.event}.json
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={handleCopyPayload}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-blue-950/80 hover:bg-blue-900/80 text-slate-300 hover:text-white border border-blue-800/60 text-xs font-mono transition-colors cursor-pointer"
-                  >
-                    {copiedPayload ? (
-                      <>
-                        <Check className="size-3.5 text-emerald-400" />
-                        <span className="text-emerald-400">Copied</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="size-3.5" />
-                        <span>Copy JSON</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                <div className="p-4 sm:p-5 font-mono text-xs text-blue-100/90 leading-relaxed overflow-x-auto max-h-[460px] thin-scrollbar">
-                  <pre>{JSON.stringify(activeEvent.payload, null, 2)}</pre>
-                </div>
-
-                <div className="px-4 py-3 border-t border-blue-950/80 bg-[#040817] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-slate-400">
+              <CodeShowcaseCard
+                variant="dark"
+                filename={`${activeEvent.event}.json`}
+                language="json"
+                statusBadge={activeEvent.category}
+                statusTone="purple"
+                code={JSON.stringify(activeEvent.payload, null, 2)}
+                copyLabel="Copy JSON"
+                maxHeightClass="max-h-[460px]"
+                footerLeft={
                   <span className="flex items-center gap-1.5 text-slate-300">
-                    <Zap className="size-3.5 text-blue-400" />
+                    <Zap className="size-3.5 text-blue-400 shrink-0" />
                     <span>Trigger: {activeEvent.trigger}</span>
                   </span>
-                  <span className="text-purple-400">OpenAPI 3.1 Spec Verified</span>
-                </div>
-              </div>
+                }
+                footerRight={<span className="text-purple-400">OpenAPI 3.1 Spec Verified</span>}
+              />
             </div>
           </div>
         </div>

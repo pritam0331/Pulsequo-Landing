@@ -217,97 +217,42 @@ export function IntegrationsPage() {
               transition={{ duration: 0.55, delay: 0.08, ease: easeOutCurve }}
               className="lg:col-span-6"
             >
-              <div
-                data-cursor="glass"
-                data-cursor-theme="dark"
-                className="relative rounded-2xl bg-[#070d24] border border-blue-950/90 shadow-2xl overflow-hidden"
-              >
-                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-blue-600 via-purple-500 to-blue-500" />
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-600/10 blur-3xl pointer-events-none" />
-
-                <div className="relative z-10 flex items-center justify-between gap-2 px-4 py-3 border-b border-blue-950/80 bg-[#070d24]">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="size-2.5 rounded-full bg-red-500/80 shrink-0" />
-                    <span className="size-2.5 rounded-full bg-yellow-500/80 shrink-0" />
-                    <span className="size-2.5 rounded-full bg-emerald-500/80 shrink-0" />
-                    <span className="ml-2 font-mono text-xs text-slate-400 truncate">
-                      {activeSnippet.filename}
-                    </span>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-blue-950 text-blue-300 border border-blue-800/60 font-mono text-[11px] font-semibold shrink-0">
-                    <span className="size-1.5 rounded-xs bg-emerald-400" />
-                    {activeSnippet.statusBadge}
-                  </span>
-                </div>
-
-                <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-b border-blue-950/80 bg-[#040817]">
-                  <div className="flex items-center gap-1.5">
-                    {HERO_CODE_SNIPPETS.map((snippet) => {
-                      const isActive = snippet.id === activeSnippet.id
-                      return (
-                        <button
-                          key={snippet.id}
-                          type="button"
-                          onClick={() => {
-                            setActiveSnippetId(snippet.id)
-                            setCopied(false)
-                          }}
-                          className={`px-3 py-1 rounded-sm text-xs font-mono font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                            isActive
-                              ? 'bg-blue-600 text-white shadow-2xs'
-                              : 'bg-blue-950/60 text-slate-400 hover:text-white hover:bg-blue-900/60'
-                          }`}
-                        >
-                          {snippet.label}
-                        </button>
-                      )
-                    })}
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handleCopyCode}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-blue-950/80 hover:bg-blue-900/80 text-slate-300 hover:text-white border border-blue-800/60 text-xs font-mono transition-colors cursor-pointer whitespace-nowrap"
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="size-3.5 text-emerald-400" />
-                        <span className="text-emerald-400">Copied</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="size-3.5" />
-                        <span>Copy Code</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                <div className="relative z-10 p-4 sm:p-5 font-mono text-xs text-slate-300 leading-relaxed overflow-x-auto space-y-2 thin-scrollbar">
-                  <p className="text-slate-500">{activeSnippet.comment}</p>
-                  <p className="text-purple-400">
-                    {activeSnippet.verb}{' '}
-                    <span className="text-slate-200">{activeSnippet.endpoint}</span>{' '}
-                    <span className="text-slate-400">{activeSnippet.protocol}</span>
-                  </p>
-                  {activeSnippet.headers.map((header) => (
-                    <p key={header.key} className="text-slate-400">
-                      {header.key}: <span className={header.tone}>{header.value}</span>
+              <CodeShowcaseCard
+                variant="dark"
+                filename={activeSnippet.filename}
+                language="json"
+                statusBadge={activeSnippet.statusBadge}
+                statusTone="blue"
+                tabs={HERO_CODE_SNIPPETS.map((s) => ({ id: s.id, label: s.label }))}
+                activeTabId={activeSnippet.id}
+                onTabChange={(id) =>
+                  setActiveSnippetId(id as (typeof HERO_CODE_SNIPPETS)[number]['id'])
+                }
+                code={activeSnippet.code}
+                copyValue={activeSnippet.copyText}
+                copyLabel="Copy Code"
+                headerPreamble={
+                  <>
+                    <p className="text-slate-500">{activeSnippet.comment}</p>
+                    <p className="text-purple-400">
+                      {activeSnippet.verb}{' '}
+                      <span className="text-slate-200">{activeSnippet.endpoint}</span>{' '}
+                      <span className="text-slate-400">{activeSnippet.protocol}</span>
                     </p>
-                  ))}
-                  <div className="pt-2 border-t border-blue-950/70 text-slate-300">
-                    <pre className="text-[11px] text-blue-100/90 leading-snug whitespace-pre">
-                      <code>{activeSnippet.code}</code>
-                    </pre>
-                  </div>
-                </div>
-
-                <div className="relative z-10 px-4 py-2.5 border-t border-blue-950/80 bg-[#040817] flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    {activeSnippet.headers.map((header) => (
+                      <p key={header.key} className="text-slate-400">
+                        {header.key}: <span className={header.tone}>{header.value}</span>
+                      </p>
+                    ))}
+                  </>
+                }
+                footerLeft={
                   <span className="flex items-center gap-1.5">
                     <span className="size-1.5 rounded-xs bg-emerald-400" />
                     {activeSnippet.latencyLabel}
                   </span>
+                }
+                footerRight={
                   <Link
                     to="/developers/api-documentation"
                     className="inline-flex items-center gap-1 text-purple-300 hover:text-blue-300 transition-colors"
@@ -315,8 +260,8 @@ export function IntegrationsPage() {
                     <span>Full API Docs</span>
                     <ArrowRight className="size-3" />
                   </Link>
-                </div>
-              </div>
+                }
+              />
             </motion.div>
           </div>
         </div>
@@ -324,7 +269,7 @@ export function IntegrationsPage() {
 
       <BrandCarousel />
 
-      <section className="py-12 sm:py-16 section-fade-white overflow-hidden">
+      <section className="py-6 sm:py-8 lg:py-10 section-fade-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Bi-Directional Ecosystem Stream"
