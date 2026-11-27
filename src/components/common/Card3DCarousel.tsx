@@ -303,10 +303,10 @@ export function Card3DCarousel({
                     pointerEvents: isVisible ? 'auto' : 'none',
                   }}
                   data-cursor="glass"
-                  className={`pq-glow-card group absolute w-[280px] sm:w-[376px] lg:w-[436px] min-h-[322px] sm:min-h-[354px] flex flex-col justify-between rounded-2xl bg-white border overflow-hidden transition-shadow duration-300 ${
+                  className={`group absolute w-[280px] sm:w-[376px] lg:w-[436px] min-h-[322px] sm:min-h-[354px] flex flex-col justify-between rounded-2xl bg-white border overflow-hidden transition-[box-shadow,border-color] duration-300 ${
                     isCenter
-                      ? 'border-blue-400/90 ring-2 ring-blue-600/15 shadow-2xl shadow-blue-900/12 cursor-default'
-                      : 'border-slate-200/90 shadow-lg hover:shadow-xl hover:border-blue-300/80 cursor-pointer'
+                      ? 'border-blue-400/90 ring-2 ring-blue-600/15 shadow-2xl shadow-blue-900/12 hover:border-blue-500 hover:shadow-[0_22px_48px_-12px_rgba(37,99,235,0.32)] cursor-default'
+                      : 'border-slate-200/90 shadow-lg hover:shadow-[0_18px_36px_-10px_rgba(37,99,235,0.24)] hover:border-blue-400/90 cursor-pointer'
                   }`}
                 >
                   {/* Top Gradient Accent Bar */}

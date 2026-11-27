@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router'
 import { motion } from 'motion/react'
 import {
@@ -29,7 +30,6 @@ import { PricingCards } from '../components/pricing/PricingCards'
 import { FAQAccordion } from '../components/common/FAQAccordion'
 import { CTASection } from '../components/common/CTASection'
 import { SplitReveal } from '../components/common/SplitReveal'
-import { FlipRollText } from '../components/common/FlipRollText'
 import { CardGridSkeleton, CardSectionHydrator } from '../components/common/CardSkeleton'
 import { generalFaqs } from '../data/faqs'
 
@@ -124,6 +124,8 @@ const GROWTH_SOLUTIONS = [
 ] as const
 
 export function MarketingHomePage() {
+  const [isHeroHeadingHovered, setIsHeroHeadingHovered] = useState(false)
+
   return (
     <div className="-mt-[3.75rem] sm:-mt-[4.25rem] relative overflow-hidden bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
       <SEO
@@ -142,25 +144,45 @@ export function MarketingHomePage() {
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto text-center flex flex-col items-center justify-center">
-          <h1 className="pq-flip-heading text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-extrabold tracking-[-0.025em] leading-[1.14] max-w-5xl mx-auto text-slate-900 text-balance">
-            <FlipRollText
-              text="One intelligent platform for"
-              hoverText="Every conversation, smarter,"
-              delay={0.04}
-              stagger={0.055}
-              className="block"
-              frontClassName="text-slate-900"
-              flipClassName="text-blue-600"
-            />
-            <FlipRollText
-              text="every customer conversation."
-              hoverText="faster, and seamlessly connected."
-              delay={0.22}
-              stagger={0.06}
-              className="block pb-1"
-              frontClassName="text-gradient-hero"
-              flipClassName="text-gradient-hero"
-            />
+          <h1
+            onMouseEnter={() => setIsHeroHeadingHovered(true)}
+            onMouseLeave={() => setIsHeroHeadingHovered(false)}
+            className="relative grid place-items-center text-[30px] sm:text-4xl md:text-[46px] lg:text-[52px] xl:text-[56px] font-extrabold tracking-[-0.025em] leading-[1.16] max-w-5xl mx-auto text-slate-900 cursor-default select-none [perspective:900px]"
+          >
+            {/* Default resting headline */}
+            <motion.span
+              initial={{ opacity: 0, y: 18 }}
+              animate={{
+                opacity: isHeroHeadingHovered ? 0 : 1,
+                y: isHeroHeadingHovered ? -22 : 0,
+                rotateX: isHeroHeadingHovered ? 42 : 0,
+              }}
+              transition={{ duration: 0.42, ease: easeOutCurve }}
+              className="col-start-1 row-start-1 block w-full will-change-transform"
+              style={{ transformOrigin: 'center center' }}
+            >
+              <span className="block text-slate-900">One intelligent platform for</span>
+              <span className="block text-gradient-hero pb-1">every customer conversation.</span>
+            </motion.span>
+
+            {/* Hover headline */}
+            <motion.span
+              aria-hidden={!isHeroHeadingHovered}
+              initial={{ opacity: 0, y: 24, rotateX: -42 }}
+              animate={{
+                opacity: isHeroHeadingHovered ? 1 : 0,
+                y: isHeroHeadingHovered ? 0 : 24,
+                rotateX: isHeroHeadingHovered ? 0 : -42,
+              }}
+              transition={{ duration: 0.42, ease: easeOutCurve }}
+              className="col-start-1 row-start-1 block w-full pointer-events-none will-change-transform"
+              style={{ transformOrigin: 'center center' }}
+            >
+              <span className="block text-slate-900">Every conversation, smarter,</span>
+              <span className="block text-gradient-hero pb-1">
+                faster, and seamlessly connected.
+              </span>
+            </motion.span>
           </h1>
 
           <motion.p
