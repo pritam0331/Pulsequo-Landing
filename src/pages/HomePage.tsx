@@ -145,6 +145,7 @@ export function MarketingHomePage() {
           <h1 className="pq-flip-heading text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-extrabold tracking-[-0.025em] leading-[1.14] max-w-5xl mx-auto text-slate-900 text-balance">
             <FlipRollText
               text="One intelligent platform for"
+              hoverText="Every conversation, smarter,"
               delay={0.04}
               stagger={0.055}
               className="block"
@@ -153,11 +154,12 @@ export function MarketingHomePage() {
             />
             <FlipRollText
               text="every customer conversation."
+              hoverText="faster, and seamlessly connected."
               delay={0.22}
               stagger={0.06}
               className="block pb-1"
               frontClassName="text-gradient-hero"
-              flipClassName="text-[#070d24]"
+              flipClassName="text-gradient-hero"
             />
           </h1>
 
@@ -280,7 +282,7 @@ export function MarketingHomePage() {
                     transition={{ duration: 0.45, delay: idx * 0.07, ease: easeOutCurve }}
                     whileHover={{ y: -5, transition: { type: 'spring', stiffness: 360, damping: 24 } }}
                     data-cursor="glass"
-                    className="group relative overflow-hidden flex flex-col justify-between p-3.5 sm:p-6 min-h-[116px] sm:min-h-[146px] rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-blue-300/90 hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-200"
+                    className="pq-glow-card group relative overflow-hidden flex flex-col justify-between p-3.5 sm:p-6 min-h-[116px] sm:min-h-[146px] rounded-xl bg-white border border-slate-200/80 shadow-2xs transition-all duration-200"
                   >
                     <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                     <div className="flex items-center justify-between mb-1.5 sm:mb-2">
@@ -342,7 +344,7 @@ export function MarketingHomePage() {
                 transition={{ duration: 0.45, delay: 0.04, ease: easeOutCurve }}
                 whileHover={{ y: -6, transition: { type: 'spring', stiffness: 340, damping: 24 } }}
                 data-cursor="glass"
-                className="snap-start shrink-0 w-[78vw] max-w-[300px] sm:w-[310px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 min-h-[246px] sm:min-h-[282px] shadow-2xs hover:border-blue-400 hover:shadow-xl hover:shadow-blue-900/8 transition-all duration-200 flex flex-col justify-between group"
+                className="pq-glow-card snap-start shrink-0 w-[78vw] max-w-[300px] sm:w-[310px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 min-h-[246px] sm:min-h-[282px] shadow-2xs transition-all duration-200 flex flex-col justify-between group"
               >
                 <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-blue-600 to-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <div>
@@ -389,7 +391,7 @@ export function MarketingHomePage() {
                 transition={{ duration: 0.45, delay: 0.1, ease: easeOutCurve }}
                 whileHover={{ y: -6, transition: { type: 'spring', stiffness: 340, damping: 24 } }}
                 data-cursor="glass"
-                className="snap-start shrink-0 w-[78vw] max-w-[300px] sm:w-[310px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 min-h-[246px] sm:min-h-[282px] shadow-2xs hover:border-indigo-400 hover:shadow-xl hover:shadow-indigo-900/8 transition-all duration-200 flex flex-col justify-between group"
+                className="pq-glow-card snap-start shrink-0 w-[78vw] max-w-[300px] sm:w-[310px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 min-h-[246px] sm:min-h-[282px] shadow-2xs transition-all duration-200 flex flex-col justify-between group"
               >
                 <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-indigo-600 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <div>
@@ -436,7 +438,7 @@ export function MarketingHomePage() {
                 transition={{ duration: 0.45, delay: 0.16, ease: easeOutCurve }}
                 whileHover={{ y: -6, transition: { type: 'spring', stiffness: 340, damping: 24 } }}
                 data-cursor="glass"
-                className="snap-start shrink-0 w-[78vw] max-w-[300px] sm:w-[310px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 min-h-[246px] sm:min-h-[282px] shadow-2xs hover:border-violet-400 hover:shadow-xl hover:shadow-violet-900/8 transition-all duration-200 flex flex-col justify-between group"
+                className="pq-glow-card snap-start shrink-0 w-[78vw] max-w-[300px] sm:w-[310px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 min-h-[246px] sm:min-h-[282px] shadow-2xs transition-all duration-200 flex flex-col justify-between group"
               >
                 <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-violet-600 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <div>
@@ -483,7 +485,7 @@ export function MarketingHomePage() {
                 transition={{ duration: 0.45, delay: 0.22, ease: easeOutCurve }}
                 whileHover={{ y: -6, transition: { type: 'spring', stiffness: 340, damping: 24 } }}
                 data-cursor="glass"
-                className="snap-start shrink-0 w-[78vw] max-w-[300px] sm:w-[310px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 min-h-[246px] sm:min-h-[282px] shadow-2xs hover:border-purple-400 hover:shadow-xl hover:shadow-purple-900/8 transition-all duration-200 flex flex-col justify-between group"
+                className="pq-glow-card snap-start shrink-0 w-[78vw] max-w-[300px] sm:w-[310px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 min-h-[246px] sm:min-h-[282px] shadow-2xs transition-all duration-200 flex flex-col justify-between group"
               >
                 <div className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-purple-600 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <div>
@@ -659,7 +661,7 @@ export function MarketingHomePage() {
                   transition={{ duration: 0.35, delay: Math.min(idx * 0.04, 0.16), ease: easeOutCurve }}
                   whileHover={{ y: -4, transition: { type: 'spring', stiffness: 360, damping: 24 } }}
                   data-cursor="glass"
-                  className="snap-start shrink-0 w-[66vw] max-w-[232px] sm:w-[238px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-xl border border-slate-200/90 bg-white p-4 min-h-[164px] sm:min-h-[172px] hover:border-blue-400 hover:shadow-lg hover:shadow-blue-900/8 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between group"
+                  className="pq-glow-card snap-start shrink-0 w-[66vw] max-w-[232px] sm:w-[238px] lg:w-auto lg:max-w-none relative overflow-hidden rounded-xl border border-slate-200/90 bg-white p-4 min-h-[164px] sm:min-h-[172px] transition-[border-color,box-shadow] duration-200 flex flex-col justify-between group"
                 >
                   <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                   <div>
@@ -735,7 +737,7 @@ export function MarketingHomePage() {
               <motion.div
                 whileHover={{ y: -4, transition: { type: 'spring', stiffness: 360, damping: 24 } }}
                 data-cursor="glass"
-                className="group relative overflow-hidden mt-6 sm:mt-8 p-4 sm:p-6 rounded-xl bg-slate-50/90 border border-slate-200/90 hover:border-blue-300/90 hover:bg-white hover:shadow-lg hover:shadow-blue-900/5 shadow-2xs transition-all duration-200"
+                className="pq-glow-card group relative overflow-hidden mt-6 sm:mt-8 p-4 sm:p-6 rounded-xl bg-slate-50/90 border border-slate-200/90 hover:bg-white shadow-2xs transition-all duration-200"
               >
                 <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <h4 className="text-sm font-bold text-black group-hover:text-blue-700 transition-colors">

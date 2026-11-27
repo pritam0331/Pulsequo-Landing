@@ -129,16 +129,16 @@ export function PricingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 'some' }}
             transition={{ duration: 0.5, ease: easeOutCurve }}
-            className="mt-6 sm:mt-8 overflow-x-auto rounded-2xl border border-blue-950/20 bg-white shadow-md"
+            className="mt-6 sm:mt-8 overflow-x-auto rounded-2xl border border-slate-200/90 bg-white shadow-sm"
           >
-            <div className="h-[3px] w-full pq-code-showcase-beam bg-gradient-to-r from-cyan-400 via-blue-500 via-purple-500 to-cyan-400" />
+            <div className="h-[3px] w-full pq-code-showcase-beam bg-gradient-to-r from-blue-600 via-indigo-500 via-violet-500 to-blue-600" />
             <table className="w-full text-left text-sm text-slate-700 min-w-[640px] tabular-nums">
-              <thead className="bg-[#070d24] text-xs font-bold text-white uppercase tracking-wider border-b border-blue-950">
+              <thead className="bg-slate-50/90 text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200">
                 <tr>
-                  <th className="py-4 px-6 w-2/5 text-slate-200">Feature</th>
-                  <th className="py-4 px-6 text-center w-1/5 text-cyan-300">Starter</th>
-                  <th className="py-4 px-6 text-center w-1/5 text-blue-300 bg-blue-600/20">Growth (Most Popular)</th>
-                  <th className="py-4 px-6 text-center w-1/5 text-purple-300">Enterprise</th>
+                  <th className="py-4 px-6 w-2/5 text-slate-700">Feature</th>
+                  <th className="py-4 px-6 text-center w-1/5 text-slate-800">Starter</th>
+                  <th className="py-4 px-6 text-center w-1/5 text-blue-700 bg-blue-50/80">Growth (Most Popular)</th>
+                  <th className="py-4 px-6 text-center w-1/5 text-indigo-700">Enterprise</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">

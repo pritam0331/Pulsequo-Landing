@@ -1,219 +1,464 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
-import { MessageSquare, Sparkles, ArrowUpRight, Headphones } from 'lucide-react'
+import {
+  CheckCircle2,
+  GitBranch,
+  Headphones,
+  MessageSquare,
+  Play,
+  Sparkles,
+  TrendingUp,
+  Zap,
+} from 'lucide-react'
 
-const easeOutCurve = [0.22, 1, 0.36, 1] as const
-
-interface WorkflowCanvasProps {
+export interface WorkflowCanvasProps {
   className?: string
   showWrapper?: boolean
   compact?: boolean
 }
 
-export function WorkflowCanvas({ className = '', showWrapper = true, compact = false }: WorkflowCanvasProps) {
-  const content = (
-    <div className="w-full">
-      {/* Header bar: Title on left */}
-      <div className={`border-b border-slate-200/80 ${compact ? 'pb-2.5 mb-3' : 'pb-4 mb-6'} flex items-center justify-between`}>
-        <h4 className={`${compact ? 'text-sm sm:text-base' : 'text-base sm:text-lg'} font-bold text-black tracking-tight`}>
-          Lead qualification
-        </h4>
-        <span className="text-xs font-mono text-slate-500">
-          3-step live flow
-        </span>
-      </div>
+type BranchId = 'sales' | 'support'
+type NodeId = 'trigger' | 'classifier' | 'sales' | 'support'
 
-      {/* Visual Flow Tree Container */}
-      <div className={compact ? 'py-0.5' : 'py-2'}>
-        {/* Step 1: TRIGGER */}
-        <motion.div
-          initial={{ opacity: 0, y: -16, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 'some' }}
-          transition={{ duration: 0.5, ease: easeOutCurve }}
-          whileHover={{ y: -4, scale: 1.015, transition: { type: 'spring', stiffness: 360, damping: 22 } }}
-          className={`max-w-md mx-auto bg-white rounded-xl border border-slate-200/90 shadow-xs ${compact ? 'p-2.5 gap-3' : 'p-4 gap-3.5'} flex items-center hover:border-emerald-400 hover:shadow-md hover:shadow-emerald-500/10 transition-colors`}
+interface NodeDetails {
+  id: NodeId
+  step: string
+  label: string
+  latency: string
+  summary: string
+}
+
+const NODE_DETAILS: Record<NodeId, NodeDetails> = {
+  trigger: {
+    id: 'trigger',
+    step: '01 · Trigger',
+    label: 'WhatsApp Inbound Webhook',
+    latency: '14ms',
+    summary: 'Captured inbound message via Meta Cloud v20 and matched workspace routing rules.',
+  },
+  classifier: {
+    id: 'classifier',
+    step: '02 · AI Agent',
+    label: 'Autonomous Intent Classifier',
+    latency: '186ms',
+    summary: 'RAG-grounded extraction verified 40 seats, enterprise tier, and 98.4% buyer confidence.',
+  },
+  sales: {
+    id: 'sales',
+    step: '03A · Sales Route',
+    label: 'Sync CRM & Book Demo',
+    latency: '42ms',
+    summary: 'Created qualified deal in Kanban pipeline, dispatched MCP calendar link, and alerted AE.',
+  },
+  support: {
+    id: 'support',
+    step: '03B · Support Route',
+    label: 'Priority Helpdesk Queue',
+    latency: '31ms',
+    summary: 'Opened SLA-tracked ticket (<45s target) with full AI summary and customer order history.',
+  },
+}
+
+const easeOutCurve = [0.22, 1, 0.36, 1] as const
+
+export function WorkflowCanvas({
+  className = '',
+  showWrapper = true,
+  compact = false,
+}: WorkflowCanvasProps) {
+  const [activeBranch, setActiveBranch] = useState<BranchId>('sales')
+  const [selectedNode, setSelectedNode] = useState<NodeId>('classifier')
+  const [simStep, setSimStep] = useState<number>(3)
+  const [isSimulating, setIsSimulating] = useState(false)
+
+  useEffect(() => {
+    if (!isSimulating) return
+
+    const t1 = window.setTimeout(() => {
+      setSimStep(1)
+      setSelectedNode('trigger')
+    }, 80)
+
+    const t2 = window.setTimeout(() => {
+      setSimStep(2)
+      setSelectedNode('classifier')
+    }, 680)
+
+    const t3 = window.setTimeout(() => {
+      setSimStep(3)
+      setSelectedNode(activeBranch)
+      setIsSimulating(false)
+    }, 1350)
+
+    return () => {
+      window.clearTimeout(t1)
+      window.clearTimeout(t2)
+      window.clearTimeout(t3)
+    }
+  }, [isSimulating, activeBranch])
+
+  const handleRunSimulation = () => {
+    setSimStep(0)
+    setIsSimulating(true)
+  }
+
+  const handleSelectBranch = (branch: BranchId) => {
+    setActiveBranch(branch)
+    setSelectedNode(branch)
+    setSimStep(3)
+  }
+
+  const activeDetails = NODE_DETAILS[selectedNode]
+  const triggerActive = simStep >= 1
+  const classifierActive = simStep >= 2
+  const branchActive = simStep >= 3
+
+  const canvasBody = (
+    <div
+      className={`relative bg-slate-50/70 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] ${
+        compact ? 'p-3' : 'p-4 sm:p-6'
+      }`}
+    >
+      <div className={`mx-auto ${compact ? 'max-w-xl' : 'max-w-lg'}`}>
+        {/* Step 01: Trigger Node */}
+        <motion.button
+          type="button"
+          onClick={() => setSelectedNode('trigger')}
+          whileHover={{ y: -1 }}
+          transition={{ duration: 0.18, ease: easeOutCurve }}
+          className={`w-full text-left rounded-xl bg-white border transition-all cursor-pointer ${
+            compact ? 'p-2.5' : 'p-3.5 sm:p-4'
+          } ${
+            selectedNode === 'trigger'
+              ? 'border-blue-500 ring-2 ring-blue-500/15 shadow-sm'
+              : triggerActive
+                ? 'border-slate-200/95 hover:border-blue-300 shadow-2xs'
+                : 'border-slate-200/70 opacity-75'
+          }`}
         >
-          <div className={`${compact ? 'size-9' : 'size-11'} rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100`}>
-            <MessageSquare className={compact ? 'size-4' : 'size-5'} />
-          </div>
-          <div className="min-w-0">
-            <span className="text-[11px] font-semibold text-emerald-700 block leading-tight">
-              Trigger · WhatsApp
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div
+                className={`${
+                  compact ? 'size-7' : 'size-8 sm:size-9'
+                } rounded-lg bg-blue-50 text-blue-600 border border-blue-200/80 flex items-center justify-center shrink-0`}
+              >
+                <Zap className={compact ? 'size-3.5' : 'size-4'} />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600">
+                    01 · Trigger
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">· Meta Cloud v20</span>
+                </div>
+                <p
+                  className={`${
+                    compact ? 'text-xs' : 'text-xs sm:text-sm'
+                  } font-bold text-slate-900 truncate`}
+                >
+                  WhatsApp Incoming Chat &amp; Webhook
+                </p>
+              </div>
+            </div>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-emerald-50 border border-emerald-200/80 text-[10px] font-mono font-semibold text-emerald-700 shrink-0">
+              <MessageSquare className="size-2.5" />
+              <span>14ms</span>
             </span>
-            <span className={`${compact ? 'text-xs sm:text-sm' : 'text-sm'} font-bold text-black block mt-0.5`}>
-              New WhatsApp message
-            </span>
           </div>
-        </motion.div>
+          {!compact && (
+            <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between gap-2 text-[11px] text-slate-500">
+              <span className="truncate font-mono text-slate-600">
+                &ldquo;Need WhatsApp API + CRM for 40 seats&rdquo;
+              </span>
+              <span className="text-[10px] font-mono text-slate-400 shrink-0">Event matched</span>
+            </div>
+          )}
+        </motion.button>
 
-        {/* Connector 1: Vertical down line with animated traveling pulse packet */}
-        <div className={`relative w-0.5 ${compact ? 'h-5' : 'h-8'} mx-auto overflow-hidden bg-slate-200 my-0.5`}>
-          <motion.div
-            initial={{ scaleY: 0, opacity: 0 }}
-            whileInView={{ scaleY: 1, opacity: 1 }}
-            viewport={{ once: true, amount: 'some' }}
-            transition={{ duration: 0.35, delay: 0.2, ease: easeOutCurve }}
-            className="w-full h-full bg-blue-400/70 origin-top"
+        {/* Connector 01 -> 02 */}
+        <div className={`relative flex justify-center ${compact ? 'h-4' : 'h-6'}`}>
+          <div
+            className={`w-0.5 h-full transition-colors duration-300 ${
+              classifierActive ? 'bg-blue-500' : 'bg-slate-300'
+            }`}
           />
-          <motion.div
-            animate={{ y: [-12, 36] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-            className="absolute top-0 left-0 w-full h-4 bg-gradient-to-b from-transparent via-blue-600 to-cyan-300"
+          {classifierActive && (
+            <motion.span
+              aria-hidden="true"
+              initial={{ top: 0, opacity: 0.4 }}
+              animate={{ top: '80%', opacity: 1 }}
+              transition={{ duration: 1.1, repeat: Infinity, ease: 'linear' }}
+              className="absolute left-1/2 -translate-x-1/2 size-1.5 rounded-xs bg-blue-600 shadow-xs"
+            />
+          )}
+        </div>
+
+        {/* Step 02: AI Intent Qualification Node */}
+        <motion.button
+          type="button"
+          onClick={() => setSelectedNode('classifier')}
+          whileHover={{ y: -1 }}
+          transition={{ duration: 0.18, ease: easeOutCurve }}
+          className={`w-full text-left rounded-xl bg-white border transition-all cursor-pointer ${
+            compact ? 'p-2.5' : 'p-3.5 sm:p-4'
+          } ${
+            selectedNode === 'classifier'
+              ? 'border-purple-500 ring-2 ring-purple-500/15 shadow-sm'
+              : classifierActive
+                ? 'border-purple-200 hover:border-purple-400 shadow-2xs'
+                : 'border-slate-200/70 opacity-70'
+          }`}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div
+                className={`${
+                  compact ? 'size-7' : 'size-8 sm:size-9'
+                } rounded-lg bg-purple-50 text-purple-600 border border-purple-200/80 flex items-center justify-center shrink-0`}
+              >
+                <Sparkles className={compact ? 'size-3.5' : 'size-4'} />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-600">
+                    02 · AI Qualification
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">· RAG Grounded</span>
+                </div>
+                <p
+                  className={`${
+                    compact ? 'text-xs' : 'text-xs sm:text-sm'
+                  } font-bold text-slate-900 truncate`}
+                >
+                  Extract Intent, Team Size &amp; Urgency
+                </p>
+              </div>
+            </div>
+            <span className="px-2 py-0.5 rounded-sm bg-purple-50 border border-purple-200/80 text-[10px] font-mono font-semibold text-purple-700 shrink-0">
+              98.4% Conf.
+            </span>
+          </div>
+
+          <div
+            className={`${
+              compact ? 'mt-2 pt-1.5' : 'mt-2.5 pt-2'
+            } border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[10.5px] font-mono`}
+          >
+            <span className="text-slate-600">
+              Seats: <strong className="text-slate-900">40</strong> · Score:{' '}
+              <strong className="text-emerald-600">94/100</strong>
+            </span>
+            <span className="text-purple-700 font-semibold">Zero-Hallucination Active</span>
+          </div>
+        </motion.button>
+
+        {/* Branching Connector 02 -> 03A / 03B */}
+        <div className={`relative ${compact ? 'h-5' : 'h-7'}`}>
+          <div
+            className={`absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-1/2 transition-colors duration-300 ${
+              branchActive ? 'bg-purple-500' : 'bg-slate-300'
+            }`}
+          />
+          {/* Left half horizontal bar */}
+          <div
+            className={`absolute top-1/2 left-[25%] right-1/2 h-0.5 transition-colors duration-300 ${
+              branchActive && activeBranch === 'sales' ? 'bg-emerald-500' : 'bg-slate-300'
+            }`}
+          />
+          {/* Right half horizontal bar */}
+          <div
+            className={`absolute top-1/2 left-1/2 right-[25%] h-0.5 transition-colors duration-300 ${
+              branchActive && activeBranch === 'support' ? 'bg-blue-500' : 'bg-slate-300'
+            }`}
+          />
+          {/* Left vertical drop */}
+          <div
+            className={`absolute top-1/2 left-[25%] -translate-x-1/2 w-0.5 h-1/2 transition-colors duration-300 ${
+              branchActive && activeBranch === 'sales' ? 'bg-emerald-500' : 'bg-slate-300'
+            }`}
+          />
+          {/* Right vertical drop */}
+          <div
+            className={`absolute top-1/2 right-[25%] translate-x-1/2 w-0.5 h-1/2 transition-colors duration-300 ${
+              branchActive && activeBranch === 'support' ? 'bg-blue-500' : 'bg-slate-300'
+            }`}
           />
         </div>
 
-        {/* Step 2: AI AGENT */}
-        <motion.div
-          initial={{ opacity: 0, y: -12, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 'some' }}
-          transition={{ duration: 0.5, delay: 0.32, ease: easeOutCurve }}
-          whileHover={{ y: -4, scale: 1.015, transition: { type: 'spring', stiffness: 360, damping: 22 } }}
-          className={`relative max-w-md mx-auto bg-white rounded-xl border-2 border-blue-500/85 shadow-md shadow-blue-500/10 ${compact ? 'p-2.5 gap-3' : 'p-4 gap-3.5'} flex items-center hover:border-blue-600 transition-colors`}
-        >
-          <motion.div
-            animate={{ opacity: [0.35, 0.75, 0.35], scale: [1, 1.06, 1] }}
-            transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-            className={`${compact ? 'size-9' : 'size-11'} rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100`}
+        {/* Step 03: Multi-Branch Action Nodes */}
+        <div className={`grid grid-cols-2 ${compact ? 'gap-2.5' : 'gap-3 sm:gap-3.5'}`}>
+          {/* Branch A: Sales CRM */}
+          <motion.button
+            type="button"
+            onClick={() => handleSelectBranch('sales')}
+            whileHover={{ y: -1 }}
+            transition={{ duration: 0.18, ease: easeOutCurve }}
+            className={`text-left rounded-xl bg-white border transition-all cursor-pointer ${
+              compact ? 'p-2.5' : 'p-3 sm:p-3.5'
+            } ${
+              activeBranch === 'sales' && branchActive
+                ? 'border-emerald-400 ring-2 ring-emerald-500/15 shadow-sm'
+                : 'border-slate-200/90 hover:border-emerald-300 opacity-80'
+            }`}
           >
-            <Sparkles className={compact ? 'size-4' : 'size-5'} />
-          </motion.div>
-          <div className="min-w-0">
-            <span className="text-[11px] font-semibold text-blue-600 block leading-tight">
-              AI Agent · Gemini Engine
-            </span>
-            <span className={`${compact ? 'text-xs sm:text-sm' : 'text-sm'} font-bold text-black block mt-0.5`}>
-              Understand & qualify
-            </span>
-            <span className="text-[11px] sm:text-xs text-slate-500 block mt-0.5">
-              Intent · Team size · Customer need
-            </span>
-          </div>
-        </motion.div>
-
-        {/* Connector 2: Branching T-Junction with animated packets into both legs */}
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0.85 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true, amount: 'some' }}
-          transition={{ duration: 0.4, delay: 0.48, ease: easeOutCurve }}
-          className={`relative max-w-lg mx-auto ${compact ? 'h-9' : 'h-12'} my-0.5`}
-        >
-          {/* Vertical drop from AI agent */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-5 bg-blue-300 overflow-hidden">
-            <motion.div
-              animate={{ y: [-10, 22] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'linear', delay: 0.4 }}
-              className="w-full h-3 bg-gradient-to-b from-transparent via-blue-600 to-cyan-300"
-            />
-          </div>
-
-          {/* Horizontal crossbar connecting the two branches */}
-          <div className="absolute top-5 left-[25%] right-[25%] h-0.5 bg-blue-300 overflow-hidden">
-            <motion.div
-              animate={{ x: ['50%', '-100%'] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', delay: 0.7 }}
-              className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-l from-transparent via-blue-600 to-cyan-300"
-            />
-            <motion.div
-              animate={{ x: ['50%', '200%'] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', delay: 0.7 }}
-              className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-transparent via-blue-600 to-cyan-300"
-            />
-          </div>
-
-          {/* Left vertical drop to Sales */}
-          <div className="absolute top-5 left-[25%] -translate-x-1/2 w-0.5 h-7 bg-blue-300 overflow-hidden">
-            <motion.div
-              animate={{ y: [-12, 30] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', delay: 1.1 }}
-              className="w-full h-3.5 bg-gradient-to-b from-transparent via-blue-600 to-cyan-300"
-            />
-          </div>
-
-          {/* Right vertical drop to Support */}
-          <div className="absolute top-5 right-[25%] translate-x-1/2 w-0.5 h-7 bg-blue-300 overflow-hidden">
-            <motion.div
-              animate={{ y: [-12, 30] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', delay: 1.35 }}
-              className="w-full h-3.5 bg-gradient-to-b from-transparent via-purple-600 to-blue-400"
-            />
-          </div>
-
-          {/* Left Branch Label */}
-          <span className="absolute top-0.5 left-[8%] sm:left-[12%] text-[11px] font-medium text-slate-500 select-none">
-            Sales enquiry
-          </span>
-
-          {/* Right Branch Label */}
-          <span className="absolute top-0.5 right-[8%] sm:right-[12%] text-[11px] font-medium text-slate-500 select-none">
-            Needs help
-          </span>
-        </motion.div>
-
-        {/* Step 3: Branch Actions (Route to Sales & Route to Support) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-          {/* Action A: Route to sales */}
-          <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 'some' }}
-            transition={{ duration: 0.5, delay: 0.6, ease: easeOutCurve }}
-            whileHover={{ y: -4, scale: 1.02, transition: { type: 'spring', stiffness: 360, damping: 22 } }}
-            className={`bg-white rounded-xl border border-slate-200/90 ${compact ? 'p-3' : 'p-4'} shadow-xs hover:border-blue-400 hover:shadow-md hover:shadow-blue-500/10 transition-colors`}
-          >
-            <div className="flex items-center gap-2 text-blue-600">
-              <ArrowUpRight className={compact ? 'size-4 shrink-0' : 'size-5 shrink-0'} />
-              <span className={`${compact ? 'text-xs sm:text-sm' : 'text-sm'} font-bold text-black`}>Route to sales</span>
+            <div className="flex items-center justify-between gap-1.5">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <div className="size-6 rounded-md bg-emerald-50 text-emerald-600 border border-emerald-200/80 flex items-center justify-center shrink-0">
+                  <TrendingUp className="size-3.5" />
+                </div>
+                <span className="text-[10px] font-mono font-bold uppercase text-emerald-700 truncate">
+                  High Intent
+                </span>
+              </div>
+              {activeBranch === 'sales' && branchActive && (
+                <CheckCircle2 className="size-3.5 text-emerald-600 shrink-0" />
+              )}
             </div>
-            <p className={`text-[11px] sm:text-xs text-slate-500 mt-1 ${compact ? 'pl-6' : 'pl-7'}`}>
-              Create a lead + notify your team
+            <p className="mt-1.5 text-xs font-bold text-slate-900 leading-snug">
+              Route to Sales CRM
             </p>
-          </motion.div>
+            <p className="mt-0.5 text-[10.5px] text-slate-500 leading-snug line-clamp-2">
+              Create Kanban deal &amp; book demo via MCP calendar
+            </p>
+          </motion.button>
 
-          {/* Action B: Route to support */}
-          <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 'some' }}
-            transition={{ duration: 0.5, delay: 0.7, ease: easeOutCurve }}
-            whileHover={{ y: -4, scale: 1.02, transition: { type: 'spring', stiffness: 360, damping: 22 } }}
-            className={`bg-white rounded-xl border border-slate-200/90 ${compact ? 'p-3' : 'p-4'} shadow-xs hover:border-purple-400 hover:shadow-md hover:shadow-purple-500/10 transition-colors`}
+          {/* Branch B: Support Queue */}
+          <motion.button
+            type="button"
+            onClick={() => handleSelectBranch('support')}
+            whileHover={{ y: -1 }}
+            transition={{ duration: 0.18, ease: easeOutCurve }}
+            className={`text-left rounded-xl bg-white border transition-all cursor-pointer ${
+              compact ? 'p-2.5' : 'p-3 sm:p-3.5'
+            } ${
+              activeBranch === 'support' && branchActive
+                ? 'border-blue-400 ring-2 ring-blue-500/15 shadow-sm'
+                : 'border-slate-200/90 hover:border-blue-300 opacity-80'
+            }`}
           >
-            <div className="flex items-center gap-2 text-purple-600">
-              <Headphones className={compact ? 'size-4 shrink-0' : 'size-5 shrink-0'} />
-              <span className={`${compact ? 'text-xs sm:text-sm' : 'text-sm'} font-bold text-black`}>Route to support</span>
+            <div className="flex items-center justify-between gap-1.5">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <div className="size-6 rounded-md bg-blue-50 text-blue-600 border border-blue-200/80 flex items-center justify-center shrink-0">
+                  <Headphones className="size-3.5" />
+                </div>
+                <span className="text-[10px] font-mono font-bold uppercase text-blue-700 truncate">
+                  Support Need
+                </span>
+              </div>
+              {activeBranch === 'support' && branchActive && (
+                <CheckCircle2 className="size-3.5 text-blue-600 shrink-0" />
+              )}
             </div>
-            <p className={`text-[11px] sm:text-xs text-slate-500 mt-1 ${compact ? 'pl-6' : 'pl-7'}`}>
-              Assign the right specialist
+            <p className="mt-1.5 text-xs font-bold text-slate-900 leading-snug">
+              Assign Support Queue
             </p>
-          </motion.div>
+            <p className="mt-0.5 text-[10.5px] text-slate-500 leading-snug line-clamp-2">
+              Open SLA ticket (&lt;45s) &amp; hand off full transcript
+            </p>
+          </motion.button>
         </div>
-      </div>
 
-      {/* Footer Caption */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.5, delay: 0.85 }}
-        className={`text-xs sm:text-sm font-medium text-slate-500 text-center ${compact ? 'mt-3' : 'mt-6'}`}
-      >
-        Your logic. Your customer journey.
-      </motion.p>
+        {/* Selected Node Trace Bar (Full mode only) */}
+        {!compact && (
+          <div className="mt-4 rounded-lg bg-white/95 border border-slate-200/90 px-3 py-2.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 text-[10.5px] font-mono">
+                <span className="font-bold text-blue-600 uppercase">{activeDetails.step}</span>
+                <span className="text-slate-300">·</span>
+                <span className="font-semibold text-slate-800 truncate">{activeDetails.label}</span>
+              </div>
+              <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
+                {activeDetails.summary}
+              </p>
+            </div>
+            <span className="px-2 py-1 rounded-sm bg-slate-100 text-slate-700 font-mono text-[10px] font-semibold shrink-0 self-start sm:self-center">
+              {activeDetails.latency}
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   )
 
   if (!showWrapper) {
-    return <div className={className}>{content}</div>
+    return <div className={`overflow-hidden ${className}`}>{canvasBody}</div>
   }
 
   return (
     <div
-      className={`rounded-2xl sm:rounded-3xl bg-slate-50/80 border border-slate-200/80 ${compact ? 'p-4 sm:p-5' : 'p-6 sm:p-8'} shadow-sm ${className}`}
+      className={`rounded-2xl border border-slate-200/90 bg-white overflow-hidden text-left select-none ${className}`}
     >
-      {content}
+      {/* Top Canvas Header */}
+      <div
+        className={`flex items-center justify-between gap-2 border-b border-slate-200/80 bg-white ${
+          compact ? 'px-3 py-2' : 'px-4 py-3'
+        }`}
+      >
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="size-2 rounded-xs bg-emerald-500 animate-pulse shrink-0" />
+          <GitBranch className="size-3.5 text-blue-600 shrink-0" />
+          <span className="text-[11px] font-mono font-bold text-slate-800 tracking-tight truncate">
+            FLOW: OMNI_LEAD_ROUTER_V4
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <div className="hidden sm:flex items-center bg-slate-100 p-0.5 rounded-md text-[10px] font-mono font-semibold">
+            <button
+              type="button"
+              onClick={() => handleSelectBranch('sales')}
+              className={`px-2 py-0.5 rounded-xs transition-colors cursor-pointer ${
+                activeBranch === 'sales'
+                  ? 'bg-white text-emerald-700 shadow-2xs'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              Sales
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSelectBranch('support')}
+              className={`px-2 py-0.5 rounded-xs transition-colors cursor-pointer ${
+                activeBranch === 'support'
+                  ? 'bg-white text-blue-700 shadow-2xs'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              Support
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleRunSimulation}
+            disabled={isSimulating}
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white text-[10.5px] font-semibold transition-colors cursor-pointer shadow-2xs"
+          >
+            <Play className="size-2.5 fill-current" />
+            <span>{isSimulating ? 'Running…' : 'Simulate'}</span>
+          </button>
+        </div>
+      </div>
+
+      {canvasBody}
+
+      {/* Bottom Status Bar */}
+      <div
+        className={`flex items-center justify-between gap-2 border-t border-slate-200/80 bg-white text-[10.5px] font-mono text-slate-500 ${
+          compact ? 'px-3 py-1.5' : 'px-4 py-2.5'
+        }`}
+      >
+        <div className="flex items-center gap-1.5 min-w-0">
+          <CheckCircle2 className="size-3 text-emerald-600 shrink-0" />
+          <span className="truncate">
+            {activeBranch === 'sales'
+              ? 'Active path: Trigger → AI Qualifier → Sales CRM'
+              : 'Active path: Trigger → AI Qualifier → Support Queue'}
+          </span>
+        </div>
+        <span className="text-slate-400 shrink-0">Deterministic JSON</span>
+      </div>
     </div>
   )
 }
-

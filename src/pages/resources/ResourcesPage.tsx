@@ -6,7 +6,6 @@
 import { Link } from 'react-router'
 import {
   BookOpen,
-  Layers,
   Code2,
   Webhook,
   ArrowRight,
@@ -24,8 +23,8 @@ export function ResourcesPage() {
   return (
     <div className="relative">
       <SEO
-        title="Resources Hub · Guides, Articles & Developer References | PulseQuo"
-        description="Comprehensive guides on WhatsApp Business API scaling, Indian DLT compliance, Model Context Protocol integration, and API documentation."
+        title="Resources Hub · Articles & Developer References | PulseQuo"
+        description="Engineering articles on WhatsApp Business API scaling, Indian DLT compliance, Model Context Protocol integration, and API documentation."
         canonicalPath="/resources"
       />
 
@@ -59,13 +58,13 @@ export function ResourcesPage() {
             ariaLabel="Loading resource categories"
             skeleton={
               <CardGridSkeleton
-                count={4}
+                count={3}
                 variant="resource"
-                columnsClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+                columnsClassName="grid-cols-1 md:grid-cols-3 gap-8"
               />
             }
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <StaggerItem index={0} hoverElevation>
                 <div className="rounded-xl border border-slate-200/80 bg-white p-7 flex flex-col justify-between hover:border-blue-300 hover:shadow-lg transition-all h-full">
                   <div>
@@ -86,25 +85,6 @@ export function ResourcesPage() {
               </StaggerItem>
 
               <StaggerItem index={1} hoverElevation>
-                <div className="rounded-xl border border-slate-200/80 bg-white p-7 flex flex-col justify-between hover:border-indigo-300 hover:shadow-lg transition-all h-full">
-                  <div>
-                    <div className="flex size-12 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 mb-6">
-                      <Layers className="size-6" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900">Guides & Playbooks</h3>
-                    <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      Step-by-step implementation walkthroughs for chat widgets, WhatsApp onboarding, and flow builders.
-                    </p>
-                  </div>
-                  <div className="mt-8 pt-4 border-t border-slate-100">
-                    <Link to="/resources/guides" className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:underline">
-                      <span>View Guides</span> <ArrowRight className="size-4" />
-                    </Link>
-                  </div>
-                </div>
-              </StaggerItem>
-
-              <StaggerItem index={2} hoverElevation>
                 <div className="rounded-xl border border-slate-200/80 bg-white p-7 flex flex-col justify-between hover:border-purple-300 hover:shadow-lg transition-all h-full">
                   <div>
                     <div className="flex size-12 items-center justify-center rounded-lg bg-purple-50 text-purple-600 mb-6">
@@ -123,7 +103,7 @@ export function ResourcesPage() {
                 </div>
               </StaggerItem>
 
-              <StaggerItem index={3} hoverElevation>
+              <StaggerItem index={2} hoverElevation>
                 <div className="rounded-xl border border-slate-200/80 bg-white p-7 flex flex-col justify-between hover:border-emerald-300 hover:shadow-lg transition-all h-full">
                   <div>
                     <div className="flex size-12 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 mb-6">

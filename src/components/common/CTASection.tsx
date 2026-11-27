@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { motion } from 'motion/react'
 import { ArrowRight, Code2, Check } from 'lucide-react'
 import { SplitReveal } from './SplitReveal'
-import { CodeShowcaseCard } from './CodeShowcaseCard'
+import { TypewriterCodeCard } from './TypewriterCodeCard'
 
 const RUNTIME_SNIPPET = `const pulse = new PulseQuo({
   apiKey: "pq_live_9f82c",
@@ -136,30 +136,31 @@ export function CTASection({
               <div className="relative group">
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute -inset-2 rounded-3xl opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+                  className="pointer-events-none absolute -inset-2.5 rounded-3xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
                     background:
-                      'radial-gradient(circle at 18% 20%, rgba(21,93,252,0.16), transparent 55%), radial-gradient(circle at 84% 80%, rgba(124,58,237,0.16), transparent 55%), radial-gradient(circle at 75% 15%, rgba(16,185,129,0.12), transparent 50%)',
+                      'radial-gradient(circle at 18% 20%, rgba(37,99,235,0.28), transparent 55%), radial-gradient(circle at 84% 80%, rgba(99,102,241,0.24), transparent 55%), radial-gradient(circle at 75% 15%, rgba(6,182,212,0.18), transparent 50%)',
                   }}
                 />
-                <CodeShowcaseCard
-                  variant="light"
+                <TypewriterCodeCard
                   filename="dispatch-runtime.ts"
-                  language="ts"
+                  statusBadge="RUNTIME v20"
                   code={RUNTIME_SNIPPET}
-                  copyLabel="Copy"
+                  charSpeedMs={24}
+                  linePauseMs={160}
+                  loop={true}
                   footerLeft={
-                    <span className="inline-flex items-center gap-2 text-emerald-700 font-bold tabular-nums">
-                      <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="inline-flex items-center gap-2 text-emerald-300 font-bold tabular-nums">
+                      <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
                       <span>200 OK · 24ms</span>
                     </span>
                   }
                   footerRight={
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded-sm bg-blue-50 text-blue-700 border border-blue-200/80 font-semibold">
+                      <span className="px-2 py-0.5 rounded-sm bg-blue-950/90 text-sky-300 border border-blue-800/80 font-semibold">
                         Meta v20
                       </span>
-                      <span className="px-2 py-0.5 rounded-sm bg-purple-50 text-purple-700 border border-purple-200/80 font-semibold">
+                      <span className="px-2 py-0.5 rounded-sm bg-indigo-950/90 text-purple-300 border border-indigo-800/80 font-semibold">
                         TRAI DLT
                       </span>
                     </div>

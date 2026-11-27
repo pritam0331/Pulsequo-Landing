@@ -32,7 +32,6 @@ const CareersPage = lazyNamed(() => import('@/pages/CareersPage'), 'CareersPage'
 const ResourcesPage = lazyNamed(() => import('@/pages/resources/ResourcesPage'), 'ResourcesPage')
 const BlogListingPage = lazyNamed(() => import('@/pages/resources/BlogListingPage'), 'BlogListingPage')
 const BlogDetailPage = lazyNamed(() => import('@/pages/resources/BlogDetailPage'), 'BlogDetailPage')
-const GuidesPage = lazyNamed(() => import('@/pages/resources/GuidesPage'), 'GuidesPage')
 const DevelopersPage = lazyNamed(() => import('@/pages/developers/DevelopersPage'), 'DevelopersPage')
 const ApiDocsPage = lazyNamed(() => import('@/pages/developers/ApiDocsPage'), 'ApiDocsPage')
 const WebhooksDocsPage = lazyNamed(() => import('@/pages/developers/WebhooksDocsPage'), 'WebhooksDocsPage')
@@ -79,7 +78,6 @@ const router = createBrowserRouter([
       { path: '/resources', element: withSuspense(ResourcesPage) },
       { path: '/resources/blog', element: withSuspense(BlogListingPage) },
       { path: '/resources/blog/:slug', element: withSuspense(BlogDetailPage) },
-      { path: '/resources/guides', element: withSuspense(GuidesPage) },
       { path: '/developers', element: withSuspense(DevelopersPage) },
       { path: '/developers/api-documentation', element: withSuspense(ApiDocsPage) },
       { path: '/developers/webhooks', element: withSuspense(WebhooksDocsPage) },

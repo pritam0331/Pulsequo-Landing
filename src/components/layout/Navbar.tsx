@@ -17,7 +17,6 @@ import {
   Users,
   Building2,
   Sparkles,
-  Layers,
   ArrowRight,
   BookOpen,
   Code2,
@@ -411,17 +410,6 @@ export function Navbar() {
                         <div>
                           <div className="font-semibold text-slate-900 text-xs">Blog & Insights</div>
                           <div className="text-[10.5px] text-slate-500">Playbooks, CPaaS tips, trends</div>
-                        </div>
-                      </Link>
-
-                      <Link
-                        to="/resources/guides"
-                        className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
-                      >
-                        <Layers className="size-3.5 text-blue-600 shrink-0" />
-                        <div>
-                          <div className="font-semibold text-slate-900 text-xs">Implementation Guides</div>
-                          <div className="text-[10.5px] text-slate-500">Step-by-step onboarding walkthroughs</div>
                         </div>
                       </Link>
 

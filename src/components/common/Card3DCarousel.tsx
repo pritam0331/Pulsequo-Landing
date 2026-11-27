@@ -132,11 +132,13 @@ export function Card3DCarousel({
   isLoading,
 }: Card3DCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
+  const [isHoverPaused, setIsHoverPaused] = useState(false)
   const [stepX, setStepX] = useState(265)
   const isHydrated = useCardHydration(200)
   const showSkeleton = isLoading ?? !isHydrated
   const total = cards.length
+  const autoScrollIntervalMs = 3200
+  const isActivelyScrolling = !showSkeleton && !isHoverPaused
 
   useEffect(() => {
     const computeStep = () => {
@@ -159,10 +161,10 @@ export function Card3DCarousel({
   }, [total])
 
   useEffect(() => {
-    if (showSkeleton || isPaused) return
-    const timer = setInterval(goNext, 5000)
-    return () => clearInterval(timer)
-  }, [showSkeleton, isPaused, goNext])
+    if (!isActivelyScrolling) return
+    const timer = window.setInterval(goNext, autoScrollIntervalMs)
+    return () => window.clearInterval(timer)
+  }, [isActivelyScrolling, goNext, activeIndex])
 
   const getRelativeOffset = (index: number) => {
     let diff = index - activeIndex
@@ -186,8 +188,6 @@ export function Card3DCarousel({
   return (
     <div
       className={`relative w-full mx-auto ${className}`}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       onKeyDown={(e) => {
         if (e.key === 'ArrowLeft') goPrev()
         if (e.key === 'ArrowRight') goNext()
@@ -214,7 +214,11 @@ export function Card3DCarousel({
       </div>
 
       {/* 3D Perspective Stage with Left & Right Carets */}
-      <div className="relative flex items-center justify-center">
+      <div
+        className="relative flex items-center justify-center"
+        onMouseEnter={() => setIsHoverPaused(true)}
+        onMouseLeave={() => setIsHoverPaused(false)}
+      >
         {/* Left Caret Button */}
         <motion.button
           type="button"
@@ -299,7 +303,7 @@ export function Card3DCarousel({
                     pointerEvents: isVisible ? 'auto' : 'none',
                   }}
                   data-cursor="glass"
-                  className={`group absolute w-[280px] sm:w-[376px] lg:w-[436px] min-h-[322px] sm:min-h-[354px] flex flex-col justify-between rounded-2xl bg-white border overflow-hidden transition-shadow duration-300 ${
+                  className={`pq-glow-card group absolute w-[280px] sm:w-[376px] lg:w-[436px] min-h-[322px] sm:min-h-[354px] flex flex-col justify-between rounded-2xl bg-white border overflow-hidden transition-shadow duration-300 ${
                     isCenter
                       ? 'border-blue-400/90 ring-2 ring-blue-600/15 shadow-2xl shadow-blue-900/12 cursor-default'
                       : 'border-slate-200/90 shadow-lg hover:shadow-xl hover:border-blue-300/80 cursor-pointer'
@@ -384,21 +388,44 @@ export function Card3DCarousel({
         </motion.button>
       </div>
 
-      {/* Minimal Indicator Controls */}
-      <div className="mt-4 flex items-center justify-center gap-2">
-        {cards.map((card, idx) => (
-          <button
-            key={card.id}
-            type="button"
-            onClick={() => setActiveIndex(idx)}
-            aria-label={`View ${card.title}`}
-            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-              idx === activeIndex
-                ? 'w-8 bg-blue-600'
-                : 'w-2 bg-slate-300 hover:bg-slate-400'
-            }`}
-          />
-        ))}
+      {/* Auto-Scroll Progress Indicators */}
+      <div className="mt-4 flex items-center justify-center gap-3">
+        <div className="flex items-center gap-2">
+          {cards.map((card, idx) => {
+            const isCurrent = idx === activeIndex
+            return (
+              <button
+                key={card.id}
+                type="button"
+                onClick={() => setActiveIndex(idx)}
+                aria-label={`View ${card.title}`}
+                className={`relative h-1.5 rounded-sm overflow-hidden transition-all duration-300 cursor-pointer ${
+                  isCurrent
+                    ? 'w-10 bg-blue-100'
+                    : 'w-2.5 bg-slate-200 hover:bg-slate-400'
+                }`}
+              >
+                {isCurrent && (
+                  <motion.span
+                    key={`${activeIndex}-${isActivelyScrolling ? 'play' : 'pause'}`}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: isActivelyScrolling ? 1 : 0.45 }}
+                    transition={
+                      isActivelyScrolling
+                        ? { duration: autoScrollIntervalMs / 1000, ease: 'linear' }
+                        : { duration: 0.2 }
+                    }
+                    className="absolute inset-0 bg-blue-600 origin-left block"
+                  />
+                )}
+              </button>
+            )
+          })}
+        </div>
+
+        <span className="text-[11px] font-mono tabular-nums text-slate-400">
+          {activeIndex + 1} / {total}
+        </span>
       </div>
     </div>
   )

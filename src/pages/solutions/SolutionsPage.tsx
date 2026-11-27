@@ -128,7 +128,7 @@ export function SolutionsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-40px' }}
                     transition={{ duration: 0.45, delay: Math.min(idx * 0.06, 0.2), ease: easeOutCurve }}
-                    className="snap-start shrink-0 w-[84vw] max-w-[330px] sm:w-[360px] lg:w-[380px] rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 flex flex-col justify-between hover:border-blue-400 hover:shadow-md transition-all duration-300 group"
+                    className="pq-glow-card snap-start shrink-0 w-[84vw] max-w-[330px] sm:w-[360px] lg:w-[380px] rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 group"
                   >
                     <div>
                       <div className="flex size-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 mb-4 border border-blue-100 group-hover:scale-105 transition-transform">

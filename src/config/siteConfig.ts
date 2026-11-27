@@ -99,7 +99,6 @@ export const siteConfig = {
     ],
     resources: [
       { name: 'Blog & Articles', href: '/resources/blog', description: 'Insights on CPaaS, CRM best practices, and AI automation.' },
-      { name: 'Guides & Playbooks', href: '/resources/guides', description: 'In-depth implementation guides and communication strategies.' },
       { name: 'API Reference', href: '/developers/api-documentation', description: 'REST APIs for messaging, webhooks, and data synchronization.' },
       { name: 'Webhooks & Events', href: '/developers/webhooks', description: 'Real-time event subscriptions and callback delivery.' },
     ],

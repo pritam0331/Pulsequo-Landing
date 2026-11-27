@@ -260,7 +260,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
   } as const
 
   return (
-    <div className="relative overflow-hidden bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+    <div className="relative overflow-x-clip bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
       <SEO
         title="Event Webhooks & Subscriptions Reference | PulseQuo Developers"
         description="Comprehensive enterprise documentation on PulseQuo event webhooks: lead.created, message.sent, message.delivered, conversation.handoff, and HMAC SHA-256 cryptographic verification."
@@ -491,8 +491,8 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
             description="Select an event below to inspect its trigger conditions, JSON payload structure, and downstream payload schemas."
           />
 
-          <div className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            <div className="lg:col-span-5 space-y-2.5">
+          <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div className="lg:col-span-5 space-y-2">
               {webhookEvents.map((item) => {
                 const isSelected = selectedEventId === item.id
                 return (
@@ -500,28 +500,28 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                     key={item.id}
                     type="button"
                     onClick={() => setSelectedEventId(item.id)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
+                    className={`w-full text-left p-3.5 rounded-xl border transition-all duration-200 cursor-pointer ${
                       isSelected
                         ? 'bg-white border-blue-600 shadow-sm ring-1 ring-blue-600/20'
-                        : 'bg-white/80 border-slate-200 hover:border-slate-300 hover:bg-white'
+                        : 'bg-white/85 border-slate-200 hover:border-slate-300 hover:bg-white'
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-sm font-bold text-slate-900 flex items-center gap-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-mono text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
                         <span className={`size-2 rounded-xs ${isSelected ? 'bg-blue-600' : 'bg-slate-300'}`} />
                         {item.event}
                       </span>
-                      <span className="px-2 py-0.5 rounded-sm bg-slate-100 text-slate-600 text-[10px] font-mono font-semibold uppercase">
+                      <span className="px-2 py-0.5 rounded-sm bg-slate-100 text-slate-600 text-[10px] font-mono font-semibold uppercase shrink-0">
                         {item.category}
                       </span>
                     </div>
-                    <p className="mt-1.5 text-xs text-slate-600 leading-relaxed font-normal">
+                    <p className="mt-1 text-xs text-slate-600 leading-relaxed font-normal line-clamp-2">
                       {item.description}
                     </p>
-                    <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-                      <span>Trigger: {item.trigger.slice(0, 36)}...</span>
-                      <span className="text-blue-600 font-semibold">
-                        {isSelected ? 'Active Schema →' : 'View →'}
+                    <div className="mt-2 pt-1.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                      <span className="truncate pr-2">Trigger: {item.trigger}</span>
+                      <span className="text-blue-600 font-semibold shrink-0">
+                        {isSelected ? 'Active →' : 'View →'}
                       </span>
                     </div>
                   </button>
@@ -529,7 +529,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
               })}
             </div>
 
-            <div className="lg:col-span-7 sticky top-24">
+            <div className="lg:col-span-7 lg:sticky lg:top-28 space-y-4">
               <CodeShowcaseCard
                 variant="dark"
                 filename={`${activeEvent.event}.json`}
@@ -538,7 +538,7 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                 statusTone="purple"
                 code={JSON.stringify(activeEvent.payload, null, 2)}
                 copyLabel="Copy JSON"
-                maxHeightClass="max-h-[460px]"
+                maxHeightClass="max-h-[420px]"
                 footerLeft={
                   <span className="flex items-center gap-1.5 text-slate-300">
                     <Zap className="size-3.5 text-blue-400 shrink-0" />
@@ -547,6 +547,33 @@ curl -X POST https://your-server.com/api/pulsequo-webhook \\
                 }
                 footerRight={<span className="text-purple-400">OpenAPI 3.1 Spec Verified</span>}
               />
+
+              <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-100">
+                  <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <ShieldCheck className="size-4 text-blue-600" />
+                    <span>Delivery Headers &amp; Retry Contract</span>
+                  </span>
+                  <span className="text-[10.5px] font-mono font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-sm">
+                    POST · TLS 1.3
+                  </span>
+                </div>
+
+                <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-mono">
+                  <div className="rounded-lg bg-slate-50 border border-slate-200/70 px-3 py-2">
+                    <span className="text-[10px] text-slate-400 block">X-PulseQuo-Event</span>
+                    <span className="text-blue-600 font-bold truncate block mt-0.5">{activeEvent.event}</span>
+                  </div>
+                  <div className="rounded-lg bg-slate-50 border border-slate-200/70 px-3 py-2">
+                    <span className="text-[10px] text-slate-400 block">Signature Algorithm</span>
+                    <span className="text-slate-900 font-bold block mt-0.5">HMAC-SHA256</span>
+                  </div>
+                  <div className="rounded-lg bg-slate-50 border border-slate-200/70 px-3 py-2">
+                    <span className="text-[10px] text-slate-400 block">Timeout &amp; Retries</span>
+                    <span className="text-slate-900 font-bold block mt-0.5">10s · 5x Backoff</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

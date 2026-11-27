@@ -16,9 +16,11 @@ import { SEO } from '../../components/common/SEO'
 import { Breadcrumbs } from '../../components/common/Breadcrumbs'
 import { BackgroundAnimation } from '../../components/common/BackgroundAnimation'
 import { BrandCarousel } from '../../components/common/BrandCarousel'
+import { CardFanout, type FanoutCard } from '../../components/common/CardFanout'
 import { SectionHeading } from '../../components/common/SectionHeading'
 import { HorizontalCardCarousel } from '../../components/common/HorizontalCardCarousel'
 import { TestimonialsCarousel } from '../../components/common/TestimonialsCarousel'
+import { FAQAccordion } from '../../components/common/FAQAccordion'
 import { CTASection } from '../../components/common/CTASection'
 import {
   ActionSpotlightSkeleton,
@@ -26,6 +28,7 @@ import {
   CardSectionHydrator,
 } from '../../components/common/CardSkeleton'
 import type { SolutionDetail } from '../../data/solutions'
+import type { FAQItem } from '../../data/faqs'
 
 const easeOutCurve = [0.22, 1, 0.36, 1] as const
 
@@ -253,8 +256,153 @@ function buildSpotlightItems(solution: SolutionDetail) {
   ]
 }
 
+function buildHeroFanoutCards(solution: SolutionDetail): FanoutCard[] {
+  const accentStyles = [
+    {
+      badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+      icon: TrendingUp,
+      iconColor: 'text-blue-600',
+      iconBg: 'bg-blue-50 border-blue-200',
+      channelIconColor: 'text-blue-500',
+      accentBorder: 'hover:border-blue-500',
+      gradientHeader: 'from-blue-600 to-indigo-600',
+      metric: '99.98%',
+      metricLabel: 'Delivery SLA',
+      badge: 'Live Sync',
+      timestamp: 'Just now',
+    },
+    {
+      badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
+      icon: Bot,
+      iconColor: 'text-purple-600',
+      iconBg: 'bg-purple-50 border-purple-200',
+      channelIconColor: 'text-purple-500',
+      accentBorder: 'hover:border-purple-500',
+      gradientHeader: 'from-purple-600 to-indigo-600',
+      metric: '< 1.4s',
+      metricLabel: 'AI Response Time',
+      badge: 'Autonomous AI',
+      timestamp: '2m ago',
+    },
+    {
+      badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      icon: Radio,
+      iconColor: 'text-emerald-600',
+      iconBg: 'bg-emerald-50 border-emerald-200',
+      channelIconColor: 'text-emerald-500',
+      accentBorder: 'hover:border-emerald-500',
+      gradientHeader: 'from-emerald-600 to-teal-600',
+      metric: '+48%',
+      metricLabel: 'Team Efficiency',
+      badge: 'Verified Flow',
+      timestamp: '5m ago',
+    },
+    {
+      badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+      icon: Headphones,
+      iconColor: 'text-indigo-600',
+      iconBg: 'bg-indigo-50 border-indigo-200',
+      channelIconColor: 'text-indigo-500',
+      accentBorder: 'hover:border-indigo-500',
+      gradientHeader: 'from-indigo-600 to-blue-600',
+      metric: '24 / 7',
+      metricLabel: 'Active Coverage',
+      badge: 'Enterprise SLA',
+      timestamp: '9m ago',
+    },
+  ]
+
+  const solveCards: FanoutCard[] = solution.howPulseQuoSolves.map((item, idx) => {
+    const style = accentStyles[idx % accentStyles.length]
+    return {
+      id: `${solution.id}-hero-${idx}`,
+      category: item.module,
+      title: item.title,
+      subtitle: solution.title,
+      badge: style.badge,
+      badgeColor: style.badgeColor,
+      icon: style.icon,
+      iconColor: style.iconColor,
+      iconBg: style.iconBg,
+      description: item.description,
+      metric: style.metric,
+      metricLabel: style.metricLabel,
+      channel: item.module,
+      channelIconColor: style.channelIconColor,
+      timestamp: style.timestamp,
+      accentBorder: style.accentBorder,
+      gradientHeader: style.gradientHeader,
+    }
+  })
+
+  const outcomeStyle = accentStyles[3]
+  const outcomeCard: FanoutCard = {
+    id: `${solution.id}-hero-outcome`,
+    category: 'Verified Outcomes',
+    title: solution.workflowSteps[solution.workflowSteps.length - 1]?.title || `Built for ${solution.title}`,
+    subtitle: solution.targetAudience,
+    badge: outcomeStyle.badge,
+    badgeColor: outcomeStyle.badgeColor,
+    icon: outcomeStyle.icon,
+    iconColor: outcomeStyle.iconColor,
+    iconBg: outcomeStyle.iconBg,
+    description: solution.keyBenefits.slice(0, 2).join('. ') + '.',
+    metric: outcomeStyle.metric,
+    metricLabel: outcomeStyle.metricLabel,
+    channel: 'PulseQuo Unified Stack',
+    channelIconColor: outcomeStyle.channelIconColor,
+    timestamp: outcomeStyle.timestamp,
+    accentBorder: outcomeStyle.accentBorder,
+    gradientHeader: outcomeStyle.gradientHeader,
+  }
+
+  return [...solveCards, outcomeCard]
+}
+
+function buildSolutionFaqs(solution: SolutionDetail): FAQItem[] {
+  const categoryMap: Record<string, FAQItem['category']> = {
+    'sales-teams': 'CRM',
+    'customer-support': 'CRM',
+    'marketing-teams': 'Communication',
+    startups: 'Platform',
+    enterprises: 'Security & Deployment',
+  }
+  const category = categoryMap[solution.id] || 'Platform'
+
+  return [
+    {
+      id: `${solution.id}-faq-1`,
+      category,
+      question: `How quickly can ${solution.title.replace(/^Solutions for\s+/i, '')} onboard onto PulseQuo?`,
+      answer: `Most teams connect their official WhatsApp Business API, SMS routes, and workspace workflows within 24–48 hours. ${solution.workflowSteps[0]?.description ?? 'Our solutions engineers assist end-to-end with setup and data migration.'}`,
+    },
+    {
+      id: `${solution.id}-faq-2`,
+      category,
+      question: `How does PulseQuo solve "${solution.challenges[0]?.problem || 'fragmented workflows'}"?`,
+      answer: `${solution.howPulseQuoSolves[0]?.description || solution.heroDescription} Every customer touchpoint stays synchronized automatically across communication channels and CRM timelines.`,
+    },
+    {
+      id: `${solution.id}-faq-3`,
+      category: 'AI & Automation',
+      question: 'Can we combine autonomous AI agents with live human handoffs?',
+      answer:
+        'Yes. PulseQuo AI agents handle qualification, knowledge-grounded replies, and MCP tool calls 24/7, and instantly escalate high-priority or complex conversations to your team with full summarized context.',
+    },
+    {
+      id: `${solution.id}-faq-4`,
+      category: 'Security & Deployment',
+      question: 'Does PulseQuo integrate with our existing CRM, ERP, or webhooks?',
+      answer:
+        'Yes. PulseQuo supports bi-directional CRM sync, HMAC SHA-256 signed event webhooks, REST APIs, and Model Context Protocol (MCP) connectors so your existing tools remain tightly synchronized.',
+    },
+  ]
+}
+
 export function SolutionDetailTemplate({ solution }: { solution: SolutionDetail }) {
   const spotlightItems = buildSpotlightItems(solution)
+  const heroFanoutCards = buildHeroFanoutCards(solution)
+  const solutionFaqs = buildSolutionFaqs(solution)
   const [activeIdx, setActiveIdx] = useState(0)
   const activeItem = spotlightItems[activeIdx] || spotlightItems[0]
   const ActiveIcon = activeItem.icon
@@ -281,37 +429,52 @@ export function SolutionDetailTemplate({ solution }: { solution: SolutionDetail 
             className="mb-8"
           />
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: easeOutCurve }}
-            className="max-w-3xl"
-          >
-            <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-black text-slate-900 tracking-[-0.03em] leading-[1.16] text-balance">
-              {solution.heroHeadline}
-            </h1>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: easeOutCurve }}
+              className="lg:col-span-6 text-left"
+            >
+              <h1 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[50px] font-black text-slate-900 tracking-[-0.03em] leading-[1.16] text-balance">
+                {solution.heroHeadline}
+              </h1>
 
-            <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed font-normal text-pretty">
-              {solution.heroDescription}
-            </p>
+              <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-xl text-pretty">
+                {solution.heroDescription}
+              </p>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-              <Link
-                to="/book-demo"
-                className="btn-shine w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all shadow-md shadow-blue-500/20 whitespace-nowrap"
-              >
-                <CalendarCheck className="size-4 shrink-0" />
-                <span>Book a Personalized Demo</span>
-              </Link>
-              <Link
-                to="/pricing"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl transition-all shadow-2xs whitespace-nowrap"
-              >
-                <span>View Plans &amp; Pricing</span>
-                <ArrowRight className="size-4 shrink-0" />
-              </Link>
-            </div>
-          </motion.div>
+              <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+                <Link
+                  to="/book-demo"
+                  className="btn-shine w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all shadow-md shadow-blue-500/20 whitespace-nowrap"
+                >
+                  <CalendarCheck className="size-4 shrink-0" />
+                  <span>Book a Personalized Demo</span>
+                </Link>
+                <Link
+                  to="/pricing"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl transition-all shadow-2xs whitespace-nowrap"
+                >
+                  <span>View Plans &amp; Pricing</span>
+                  <ArrowRight className="size-4 shrink-0" />
+                </Link>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: easeOutCurve }}
+              className="lg:col-span-6 w-full"
+            >
+              <CardFanout
+                cards={heroFanoutCards}
+                hideHeader={true}
+                compact={true}
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -637,6 +800,19 @@ export function SolutionDetailTemplate({ solution }: { solution: SolutionDetail 
               ))}
             </div>
           </CardSectionHydrator>
+        </div>
+      </section>
+
+      <section className="py-12 sm:py-16 section-fade-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title={`Frequently Asked Questions`}
+            description={`Common onboarding, integration, and workflow questions for ${solution.title.replace(/^Solutions for\s+/i, '')}.`}
+          />
+
+          <div className="mt-8 sm:mt-10 max-w-4xl mx-auto">
+            <FAQAccordion items={solutionFaqs} />
+          </div>
         </div>
       </section>
 

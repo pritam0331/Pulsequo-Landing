@@ -206,9 +206,6 @@ export function Footer() {
                 <FooterLink to="/resources/blog">Blog & Articles</FooterLink>
               </li>
               <li>
-                <FooterLink to="/resources/guides">Implementation Guides</FooterLink>
-              </li>
-              <li>
                 <FooterLink to="/trai-guidelines">TRAI Compliance Guidelines</FooterLink>
               </li>
               <li>
